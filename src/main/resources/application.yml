@@ -10,3 +10,7 @@ spring:
     properties:
       hibernate:
         format_sql: true
+  flyway:
+    enabled: true
+    check-location: true
+    locations: classpath:/db/migration
