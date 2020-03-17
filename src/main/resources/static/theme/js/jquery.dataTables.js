@@ -14778,6 +14778,6 @@
 	 */
 
 	return $.fn.dataTable;
-})
+});
 )
-;
+
