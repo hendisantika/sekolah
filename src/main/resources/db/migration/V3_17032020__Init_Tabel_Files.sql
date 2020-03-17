@@ -5,7 +5,7 @@ CREATE TABLE IF NOT EXISTS tbl_files
     file_deskripsi text,
     file_tanggal   timestamp NULL DEFAULT CURRENT_TIMESTAMP,
     file_oleh      varchar(60)    DEFAULT NULL,
-    file_download  NUMERIC(11)    DEFAULT '0',
+    file_download  INT            DEFAULT '0',
     file_data      varchar(120)   DEFAULT NULL,
     PRIMARY KEY (file_id)
 );
