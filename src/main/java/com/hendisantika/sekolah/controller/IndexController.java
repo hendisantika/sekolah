@@ -1,9 +1,16 @@
 package com.hendisantika.sekolah.controller;
 
+import com.hendisantika.sekolah.entity.Tulisan;
+import com.hendisantika.sekolah.repository.TulisanRepository;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+
+import java.util.List;
+
 
 /**
  * Created by IntelliJ IDEA.
@@ -14,11 +21,18 @@ import org.springframework.web.bind.annotation.RequestMapping;
  * Date: 17/03/20
  * Time: 21.05
  */
+@Slf4j
 @Controller
 @RequestMapping("/")
 public class IndexController {
+    @Autowired
+    private TulisanRepository tulisanRepository;
+
     @GetMapping
     public String index(Model model) {
+        log.info("Menampilkan tulisanList.");
+        List<Tulisan> tulisanList = tulisanRepository.findTop4();
+        model.addAttribute("tulisanList", tulisanList);
         return "index";
     }
 
