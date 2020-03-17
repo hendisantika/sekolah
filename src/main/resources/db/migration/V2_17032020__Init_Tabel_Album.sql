@@ -2,12 +2,11 @@ CREATE TABLE IF NOT EXISTS tbl_album (
   album_id UUID DEFAULT uuid_generate_v4 () NOT NULL,
   album_nama varchar(50) DEFAULT NULL,
   album_tanggal timestamp NULL DEFAULT CURRENT_TIMESTAMP,
-  album_pengguna_id int(11) DEFAULT NULL,
+  album_pengguna_id NUMERIC (11) DEFAULT NULL,
   album_author varchar(60) DEFAULT NULL,
-  album_count int(11) DEFAULT '0',
+  album_count NUMERIC (11) DEFAULT '0',
   album_cover varchar(40) DEFAULT NULL,
   PRIMARY KEY (album_id)
---   KEY album_pengguna_id (album_pengguna_id)
 );
 
 --
