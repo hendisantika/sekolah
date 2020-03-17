@@ -189,21 +189,20 @@
                 <h2>Artikel Terbaru</h2>
             </div>
         </div>
-        <div class="row">
-            <?php foreach ($berita->result() as $row) :?>
+        <div class="row" th:each="t : ${tulisanList}">
+
             <div class="col-xs-12 col-sm-6 col-md-6 col-lg-3">
                 <div class="courses_box mb-4">
                     <div class="course-img-wrap">
                         <img alt="courses-img" class="img-fluid"
-                             src="/assets/images/'.$row->tulisan_gambar;?>">
+                             th:src="@{/assets/images/} + ${t.Gambar}">
                     </div>
                     <!-- // end .course-img-wrap -->
-                    <a class="course-box-content" href="/artikel/'.$row->tulisan_slug);?>">
-                        <h3 style="text-align:center;"><?php echo $row->tulisan_judul;?></h3>
+                    <a class="course-box-content" th:href="@{/artikel/} + ${t.slug}">
+                        <h3 style="text-align:center;" th:text="${t.judul}">Judul</h3>
                     </a>
                 </div>
             </div>
-            <?php endforeach;?>
         </div>
         <br>
         <div class="row">
