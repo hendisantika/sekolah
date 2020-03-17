@@ -3,12 +3,12 @@
 ## Cara Membuat Database
 1. Create user untuk connect ke database
 ```
-createuser -P registrasiuser
+createuser -P adminSekolah
 ```
 
 2. Create database untuk user tersebut
 ```
-createdb -Oregistrasiuser registrasidb
+createdb -OadminSekolah sekolah
 ```
 
 3. Konfigurasi database
