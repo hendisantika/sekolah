@@ -10,14 +10,14 @@ createuser -P adminSekolah
 ```
 createdb -OadminSekolah sekolah
 ```
+Cara install uuid-ossp module, anda harus CREATE EXTENSION statement seperti berikut ini:
+```
+CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
+```
 
 3. Konfigurasi database
 ```
 spring.datasource.url=jdbc:postgresql://localhost:5432/sekolah
 spring.datasource.username=adminSekolah
 spring.datasource.password=passwordSekolah
-```
-## Cara install uuid-ossp module, anda harus CREATE EXTENSION statement seperti berikut ini:
-```
-   CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
 ```
