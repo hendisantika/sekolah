@@ -189,9 +189,8 @@
                 <h2>Artikel Terbaru</h2>
             </div>
         </div>
-        <div class="row" th:each="t : ${tulisanList}">
-
-            <div class="col-xs-12 col-sm-6 col-md-6 col-lg-3">
+        <div class="row">
+            <div class="col-xs-12 col-sm-6 col-md-6 col-lg-3" th:each="t : ${tulisanList}">
                 <div class="courses_box mb-4">
                     <div class="course-img-wrap">
                         <img alt="courses-img" class="img-fluid"
@@ -219,7 +218,6 @@
         <div class="row">
             <div class="col-lg-6">
                 <div class="event-img2">
-                    <?php foreach ($pengumuman->result() as $row) :?>
                     <div class="row">
                         <div class="col-sm-3"><img alt="event-img" class="img-fluid"
                                                    src="/theme/images/announcement-icon.png">
