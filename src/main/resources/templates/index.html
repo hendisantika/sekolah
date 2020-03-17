@@ -1,32 +1,25 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta content="width=device-width, initial-scale=1, shrink-to-fit=no" name="viewport">
     <title>M School - Selamat Datang di M School</title>
-    <link href="<?php echo base_url().'theme/images/icon.png'?>" rel="shorcut icon">
+    <link rel="shorcut icon" th:href="@{/theme/images/icon.png'}">
     <!-- Bootstrap CSS -->
-    <link href="<?php echo base_url().'theme/css/bootstrap.min.css'?>" rel="stylesheet">
+    <link rel="stylesheet" th:href="@{theme/css/bootstrap.min.css'}">
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css?family=Lora:400,700" rel="stylesheet">
     <!-- Font Awesome -->
-    <link href="<?php echo base_url().'theme/css/font-awesome.min.css'?>" rel="stylesheet">
+    <link rel="stylesheet" th:href="@{'theme/css/font-awesome.min.css'}">
     <!-- Simple Line Font -->
-    <link href="<?php echo base_url().'theme/css/simple-line-icons.css'?>" rel="stylesheet">
+    <link rel="stylesheet" th:href="@{'theme/css/simple-line-icons.css'}">
     <!-- Slider / Carousel -->
-    <link href="<?php echo base_url().'theme/css/slick.css'?>" rel="stylesheet">
-    <link href="<?php echo base_url().'theme/css/slick-theme.css'?>" rel="stylesheet">
-    <link href="<?php echo base_url().'theme/css/owl.carousel.min.css'?>" rel="stylesheet">
+    <link rel="stylesheet" th:href="@{'theme/css/slick.css'}">
+    <link rel="stylesheet" th:href="@{'theme/css/slick-theme.css'}">
+    <link rel="stylesheet" th:href="@{'theme/css/owl.carousel.min.css'}">
     <!-- Main CSS -->
-    <link href="<?php echo base_url().'theme/css/style.css'?>" rel="stylesheet">
-    <?php
-        function limit_words($string, $word_limit){
-            $words = explode(" ",$string);
-            return implode(" ",array_splice($words,0,$word_limit));
-        }
-    ?>
+    <link rel="stylesheet" th:href="@{'theme/css/style.css'}">
 </head>
 
 <body>
@@ -43,7 +36,7 @@
                         <span class="icon-envelope-open"></span>info@mschool.com
                     </div>
                     <div class="header-top_list">
-                        <span class="icon-location-pin"></span>Padang, Sumatera Barat, INA. 11001
+                        <span class="icon-location-pin"></span>Bandung, Jawa Barat, INA. 40287
                     </div>
                 </div>
                 <div class="header-top_login2">
@@ -355,9 +348,9 @@
             <div class="col-md-3">
                 <div class="address">
                     <h3>Hubungi Kami</h3>
-                    <p><span>Alamat: </span> Padang, Sumatera Barat, INA. 11001</p>
+                    <p><span>Alamat: </span> Bandung, Jawa Barat, INA. 40287</p>
                     <p>Email : info@mschool.com
-                        <br> Phone : +91 555 668 986</p>
+                        <br> Phone : +6281321411881</p>
                     <ul class="footer-social-icons">
                         <li><a href="#"><i aria-hidden="true" class="fa fa-facebook fa-fb"></i></a></li>
                         <li><a href="#"><i aria-hidden="true" class="fa fa-linkedin fa-in"></i></a></li>
