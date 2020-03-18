@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en" layout:decorate="~{layout/layout}" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/header :: head"/>
+<div th:replace="fragments/header :: header"/>
+<body>
+<div th:replace="fragments/header :: menu"/>
+
+<div layout:fragment="content">
+    <section class="404">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-7">
+                    <h1>Something went wrong! </h1>
+                    <h2>404</h2>
+                    <h2>Page Not Found</h2>
+                </div>
+                <div class="col-md-5">
+                    <img alt="#" class="img-fluid" th:src="@{/theme/images/welcome-img.jpg}">
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+
+<div th:replace="fragments/footer :: footer"/>
+<div th:replace="fragments/footer :: scripts"/>
+</body>
+</html>
