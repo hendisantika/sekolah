@@ -50,4 +50,10 @@ public class IndexController {
         return "index";
     }
 
+    @GetMapping("about")
+    public String about(Model model) {
+        log.info("Menampilkan data untuk about.");
+        return "about2";
+    }
+
 }
