@@ -11,6 +11,7 @@ import javax.persistence.Entity;
 import javax.persistence.EntityListeners;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import java.time.LocalDateTime;
 import java.util.UUID;
 
 /**
@@ -20,31 +21,29 @@ import java.util.UUID;
  * Email: hendisantika@gmail.com
  * Telegram : @hendisantika34
  * Date: 18/03/20
- * Time: 18.49
+ * Time: 18.52
  */
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Entity(name = "tbl_siswa")
+@Entity(name = "tbl_testimoni")
 @EntityListeners(AuditingEntityListener.class)
-public class Siswa {
+public class Testimoni {
     @Id
     @GeneratedValue(generator = "uuid2")
     @GenericGenerator(name = "uuid2", strategy = "uuid2")
     private UUID id;
 
-    @Column(name = "siswa_nis")
-    private String nis;
-
-    @Column(name = "siswa_nama")
+    @Column(name = "  testimoni_nama ")
     private String nama;
 
-    @Column(name = "siswa_jenkel ")
-    private String jenkel;
+    @Column(name = "testimoni_isi ")
+    private String isi;
 
-    @Column(name = "siswa_kelas_id")
-    private int kelas_id;
+    @Column(name = "testimoni_email")
+    private String email;
 
-    @Column(name = "siswa_photo ")
-    private String photo;
+    @Column(name = "testimoni_tanggal")
+    private LocalDateTime tanggal;
+
 }
