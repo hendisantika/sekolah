@@ -2,7 +2,9 @@ package com.hendisantika.sekolah.repository;
 
 import com.hendisantika.sekolah.entity.Agenda;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 
+import java.util.List;
 import java.util.UUID;
 
 /**
@@ -15,4 +17,6 @@ import java.util.UUID;
  * Time: 07.07
  */
 public interface AgendaRepository extends JpaRepository<Agenda, UUID> {
+    @Query(value = "SELECT a.* FROM tbl_agenda a ORDER BY a.agenda_tanggal DESC limit 4;", nativeQuery = true)
+    List<Agenda> findTop4();
 }
