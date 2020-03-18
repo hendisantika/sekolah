@@ -174,7 +174,9 @@
                          th:src="@{/theme/images/chart-icon_1.png}">
                 </div>
                 <div class="chart-text">
-                    <p><span class="counter"><?php echo $tot_guru;?></span> Guru
+                    <p><span class="counter"
+                             th:text="${#numbers.formatDecimal(totGuru, 1, 'DEFAULT', 2, 'DEFAULT')}"><?php echo $tot_guru;?></span>
+                        Guru
                     </p>
                 </div>
             </div>
@@ -184,7 +186,9 @@
                          th:src="@{/theme/images/chart-icon_2.png}">
                 </div>
                 <div class="chart-text">
-                    <p><span class="counter"><?php echo $tot_siswa;?></span> Siswa
+                    <p><span class="counter"
+                             th:text="${#numbers.formatDecimal(totSiswa, 1, 'DEFAULT', 2, 'DEFAULT')}"><?php echo $tot_guru;?></span>
+                        Guru
                     </p>
                 </div>
             </div>
@@ -194,7 +198,9 @@
                          th:src="@{/theme/images/chart-icon_3.png}">
                 </div>
                 <div class="chart-text">
-                    <p><span class="counter"><?php echo $tot_files;?></span> Download
+                    <p><span class="counter"
+                             th:text="${#numbers.formatDecimal(totFiles, 1, 'DEFAULT', 2, 'DEFAULT')}"><?php echo $tot_guru;?></span>
+                        Guru
                     </p>
                 </div>
             </div>
@@ -204,7 +210,9 @@
                          th:src="@{/theme/images/chart-icon_4.png}">
                 </div>
                 <div class="chart-text">
-                    <p><span class="counter"><?php echo $tot_agenda;?></span> Agenda</p>
+                    <p><span class="counter"
+                             th:text="${#numbers.formatDecimal(totAgenda, 1, 'DEFAULT', 2, 'DEFAULT')}"><?php echo $tot_guru;?></span>
+                        Guru
                 </div>
             </div>
         </div>
