@@ -24,24 +24,24 @@ public class Komentar {
     private UUID id;
 
     @Column(name = "komentar_nama")
-    private String komentar_nama;
+    private String nama;
 
     @Column(name = "komentar_email")
-    private String komentar_email;
+    private String email;
 
     @Column(name = "komentar_isi")
-    private String komentar_isi;
+    private String isi;
 
     @Column(name = "komentar_tanggal")
-    private LocalDateTime komentar_tanggal;
+    private LocalDateTime tanggal;
 
     @Column(name = "komentar_status")
-    private String komentar_status;
+    private String status;
 
     @Column(name = "komentar_tulisan_id")
-    private int komentar_tulisan_id;
+    private int tulisanId;
 
     @Column(name = "komentar_parent")
-    private int komentar_parent;
+    private int parent;
 
 }

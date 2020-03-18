@@ -24,6 +24,6 @@ public class Kelas {
     private UUID id;
 
     @Column(name = "kelas_nama")
-    private String kelas_nama;
+    private String nama;
 
 }

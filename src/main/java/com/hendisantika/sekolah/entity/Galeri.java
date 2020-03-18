@@ -33,10 +33,10 @@ public class Galeri {
     private String gambar;
 
     @Column(name = "galeri_album_id")
-    private int album_id;
+    private int albumId;
 
     @Column(name = "galeri_pengguna_id")
-    private int pengguna_id;
+    private int penggunaId;
 
     @Column(name = "galeri_author")
     private String author;
