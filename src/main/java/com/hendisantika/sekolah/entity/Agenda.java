@@ -13,7 +13,6 @@ import javax.persistence.Entity;
 import javax.persistence.EntityListeners;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.Lob;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.UUID;
@@ -37,35 +36,34 @@ public class Agenda {
     @GeneratedValue(generator = "uuid2")
     @GenericGenerator(name = "uuid2", strategy = "uuid2")
     @Column(name = "agenda_id")
-    private UUID agendaId;
+    private UUID id;
 
     @Column(name = "agenda_nama")
-    private String agendaNama;
+    private String nama;
 
     @Column(name = "agenda_tanggal")
-    private LocalDateTime agendaTanggal;
+    private LocalDateTime tanggal;
 
     @Column(name = "agenda_deskripsi")
-    @Lob
-    private String agendaDeskripsi;
+    private String deskripsi;
 
     @Column(name = "agenda_mulai")
-    private LocalDate agendaMulai;
+    private LocalDate mulai;
 
     @Column(name = "agenda_selesai")
-    private LocalDate agendaSelesai;
+    private LocalDate selesai;
 
     @Column(name = "agenda_tempat")
-    private String agendaTempat;
+    private String tempat;
 
     @Column(name = "agenda_waktu")
-    private String agendaWaktu;
+    private String waktu;
 
     @Column(name = "agenda_keterangan")
-    private String agendaKeterangan;
+    private String keterangan;
 
     @Column(name = "agenda_author")
-    private String agendaAuthor;
+    private String author;
 
     @Column(name = "agenda_created_on")
     @CreatedDate
@@ -73,6 +71,6 @@ public class Agenda {
 
     @Column(name = "agenda_modified_on")
     @LastModifiedDate
-    private LocalDateTime modified_on;
+    private LocalDateTime modifiedOn;
 
 }
