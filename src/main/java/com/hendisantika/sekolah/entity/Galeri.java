@@ -13,9 +13,8 @@ import java.util.UUID;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Entity(name = "tbl_agenda")
+@Entity(name = "tbl_galeri")
 @EntityListeners(AuditingEntityListener.class)
-
 public class Galeri {
     @Id
     @GeneratedValue(generator = "uuid2")
