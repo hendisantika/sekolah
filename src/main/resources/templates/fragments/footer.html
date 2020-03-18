@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<body>
+<!--============================= FOOTER =============================-->
+<footer th:fragment="footer">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-3">
+                <div class="foot-logo">
+                    <a href="/">
+                        <img alt="footer_logo" class="img-fluid"
+                             th:src="@{~/theme/images/logo-white.png}">
+                    </a>
+                    <p th:text="${#dates.year(#dates.createNow())}"></p>
+                    <p> © copyright by <a href="https://www.facebook.com/hendisantika" target="_blank">Hendi Santika</a>.
+                        <br>All rights reserved.</p>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="sitemap">
+                    <h3>Menu Utama</h3>
+                    <ul>
+                        <li><a href="/">Home</a></li>
+                        <li><a href="/about">About</a></li>
+                        <li><a href="/artikel">Blog </a></li>
+                        <li><a href="/galeri">Gallery</a></li>
+                        <li><a href="/contact">Contact</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="sitemap">
+                    <h3>Akademik</h3>
+                    <ul>
+                        <li><a href="/guru">Guru</a></li>
+                        <li><a href="/siswa">Siswa </a></li>
+                        <li><a href="/pengumuman">Pengumuman</a></li>
+                        <li><a href="/agenda">Agenda</a></li>
+                        <li><a href="/download">Download</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="address">
+                    <h3>Hubungi Kami</h3>
+                    <p><span>Alamat: </span> Bandung, Jawa Barat, INA. 40287</p>
+                    <p>Email : info@mschool.com
+                        <br> Phone : +6281321411881</p>
+                    <ul class="footer-social-icons">
+                        <li><a href="#"><i aria-hidden="true" class="fa fa-facebook fa-fb"></i></a></li>
+                        <li><a href="#"><i aria-hidden="true" class="fa fa-linkedin fa-in"></i></a></li>
+                        <li><a href="#"><i aria-hidden="true" class="fa fa-twitter fa-tw"></i></a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
+<!--//END FOOTER -->
+<th:block th:fragment="scripts">
+
+    <!-- jQuery, Bootstrap JS. -->
+    <script th:src="@{~/theme/js/jquery.min.js}"></script>
+    <script th:src="@{~/theme/js/tether.min.js}"></script>
+    <script th:src="@{~/theme/js/bootstrap.min.js}"></script>
+    <!-- Plugins -->
+    <script th:src="@{~/theme/js/slick.min.js}"></script>
+    <script th:src="@{~/theme/js/waypoints.min.js}"></script>
+    <script th:src="@{~/theme/js/counterup.min.js}"></script>
+    <script th:src="@{~/theme/js/owl.carousel.min.js}"></script>
+    <script th:src="@{~/theme/js/validate.js}"></script>
+    <script th:src="@{~/theme/js/tweetie.min.js}"></script>
+    <!-- Subscribe -->
+    <script th:src="@{~/theme/js/subscribe.js}"></script>
+    <!-- Script JS -->
+    <script th:src="@{~/theme/js/script.js}"></script>
+</th:block>
+</body>
+
+</html>
