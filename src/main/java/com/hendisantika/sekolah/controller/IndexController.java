@@ -3,6 +3,7 @@ package com.hendisantika.sekolah.controller;
 import com.hendisantika.sekolah.entity.Agenda;
 import com.hendisantika.sekolah.entity.Guru;
 import com.hendisantika.sekolah.entity.Pengumuman;
+import com.hendisantika.sekolah.entity.Siswa;
 import com.hendisantika.sekolah.entity.Tulisan;
 import com.hendisantika.sekolah.repository.AgendaRepository;
 import com.hendisantika.sekolah.repository.FilesRepository;
@@ -89,6 +90,13 @@ public class IndexController {
         List<Guru> guruList = guruRepository.findAll();
         model.addAttribute("guruList", guruList);
         return "guru";
+    }
+
+    @GetMapping("siswa")
+    public String showSiswa(Model model) {
+        List<Siswa> siswaList = siswaRepository.findAll();
+        model.addAttribute("siswaList", siswaList);
+        return "siswa";
     }
 
 }
