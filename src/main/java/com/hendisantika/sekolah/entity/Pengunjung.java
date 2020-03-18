@@ -14,33 +14,32 @@ import javax.persistence.Id;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
+/**
+ * Created by IntelliJ IDEA.
+ * Project : sekolah
+ * User: hendisantika
+ * Email: hendisantika@gmail.com
+ * Telegram : @hendisantika34
+ * Date: 18/03/20
+ * Time: 18.44
+ */
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Entity(name = "tbl_galeri")
+@Entity(name = "tbl_pengunjung")
 @EntityListeners(AuditingEntityListener.class)
-public class Galeri {
+public class Pengunjung {
     @Id
     @GeneratedValue(generator = "uuid2")
     @GenericGenerator(name = "uuid2", strategy = "uuid2")
     private UUID id;
 
-    @Column(name = "galeri_judul")
-    private String judul;
-
-    @Column(name = "galeri_tanggal")
+    @Column(name = "pengunjung_tanggal")
     private LocalDateTime tanggal;
 
-    @Column(name = "galeri_gambar")
-    private String gambar;
+    @Column(name = "pengunjung_ip")
+    private String ip;
 
-    @Column(name = "galeri_album_id")
-    private int albumId;
-
-    @Column(name = "galeri_pengguna_id")
-    private int penggunaId;
-
-    @Column(name = "galeri_author")
-    private String author;
-
+    @Column(name = "pengunjung_perangkat ")
+    private String perangkat;
 }
