@@ -97,7 +97,7 @@ mvn clean package
 ```
 java -jar sekolah.jar
 ```
-
+Aplikasi bisa dilihat di Heroku: https://sekolah1.herokuapp.com/
 
 ## Contributing
 Please see [CONTRIBUTING](CONTRIBUTING.md) for details.
