@@ -1,6 +1,8 @@
 package com.hendisantika.sekolah.controller;
 
+import com.hendisantika.sekolah.entity.Pengumuman;
 import com.hendisantika.sekolah.entity.Tulisan;
+import com.hendisantika.sekolah.repository.PengumumanRepository;
 import com.hendisantika.sekolah.repository.TulisanRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,11 +30,16 @@ public class IndexController {
     @Autowired
     private TulisanRepository tulisanRepository;
 
+    @Autowired
+    private PengumumanRepository pengumumanRepository;
+
     @GetMapping
     public String index(Model model) {
-        log.info("Menampilkan tulisanList.");
+        log.info("Menampilkan data untuk home.");
         List<Tulisan> tulisanList = tulisanRepository.findTop4();
+        List<Pengumuman> pengumuman = pengumumanRepository.findAll();
         model.addAttribute("tulisanList", tulisanList);
+        model.addAttribute("pengumuman", pengumuman);
         return "index";
     }
 

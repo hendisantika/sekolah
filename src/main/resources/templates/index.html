@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <!-- Required meta tags -->
     <meta charset="utf-8">
@@ -218,18 +218,16 @@
         <div class="row">
             <div class="col-lg-6">
                 <div class="event-img2">
-                    <div class="row">
+                    <div class="row" th:each="p : ${pengumuman}">
                         <div class="col-sm-3"><img alt="event-img" class="img-fluid"
                                                    src="/theme/images/announcement-icon.png">
                         </div><!-- // end .col-sm-3 -->
-                        <div class="col-sm-9"><h3><a href="/pengumuman"><?php echo $row->
-                            pengumuman_judul;?></a></h3>
-                            <span><?php echo $row->tanggal;?></span>
-                            <p><?php echo limit_words($row->pengumuman_deskripsi,10).'...';?></p>
+                        <div class="col-sm-9"><h3><a href="/pengumuman" th:text="${p.judul}">Belum Ada Judul</a></h3>
+                            <span th:text="${#temporals.format(p.tanggal, 'dd-MMM-yyyy')}">tanggal</span>
+                            <p th:text="${#strings.substring(p.deskripsi,0,100)}">pengumuman_deskripsi,10</p>
 
                         </div><!-- // end .col-sm-7 -->
                     </div><!-- // end .row -->
-                    <?php endforeach;?>
                 </div>
             </div>
             <div class="col-lg-6">

@@ -27,13 +27,13 @@ import java.util.UUID;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Entity(name = "tbl_agenda")
+@Entity(name = "tbl_pengumuman")
 @EntityListeners(AuditingEntityListener.class)
 public class Pengumuman {
     @Id
     @GeneratedValue(generator = "uuid2")
     @GenericGenerator(name = "uuid2", strategy = "uuid2")
-    @Column(name = "agenda_id")
+    @Column(name = "pengumuman_id")
     private UUID id;
 
     @Column(name = "pengumuman_judul")
