@@ -1,7 +1,9 @@
 package com.hendisantika.sekolah.controller;
 
+import com.hendisantika.sekolah.entity.Agenda;
 import com.hendisantika.sekolah.entity.Pengumuman;
 import com.hendisantika.sekolah.entity.Tulisan;
+import com.hendisantika.sekolah.repository.AgendaRepository;
 import com.hendisantika.sekolah.repository.PengumumanRepository;
 import com.hendisantika.sekolah.repository.TulisanRepository;
 import lombok.extern.slf4j.Slf4j;
@@ -33,13 +35,18 @@ public class IndexController {
     @Autowired
     private PengumumanRepository pengumumanRepository;
 
+    @Autowired
+    private AgendaRepository agendaRepository;
+
     @GetMapping
     public String index(Model model) {
         log.info("Menampilkan data untuk home.");
         List<Tulisan> tulisanList = tulisanRepository.findTop4();
-        List<Pengumuman> pengumuman = pengumumanRepository.findAll();
+        List<Pengumuman> pengumuman = pengumumanRepository.findTop4();
+        List<Agenda> agenda = agendaRepository.findTop4();
         model.addAttribute("tulisanList", tulisanList);
         model.addAttribute("pengumuman", pengumuman);
+        model.addAttribute("agenda", agenda);
         return "index";
     }
 
