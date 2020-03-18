@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en" layout:decorate="~{layout/layout}" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/header :: head"/>
+<div th:replace="fragments/header :: header"/>
+<body>
+<div th:replace="fragments/header :: menu"/>
+
+<div layout:fragment="content">
+    <section class="our-teachers">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <h2 class="mb-5">Siswa Kami</h2>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-12 col-sm-6 col-md-3" th:each="s : ${siswaList}">
+                    <div class="admission_insruction">
+                        <img alt="#" class="img-fluid" th:src="@{/assets/images/}  + ${s.photo ?: 'blank.png'}">
+                        <p class="text-center mt-3"><span th:text="${s.nama}">nama</span>
+                            <br>
+                            <span th:text="${s.kelas_id}">Kelas</p>
+                    </div>
+                </div>
+            </div>
+            <!-- End row -->
+            <nav><?php echo $page;?></nav>
+        </div>
+    </section>
+</div>
+
+<div th:replace="fragments/footer :: footer"/>
+<div th:replace="fragments/footer :: scripts"/>
+</body>
+</html>
