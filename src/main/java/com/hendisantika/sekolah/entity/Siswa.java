@@ -29,6 +29,7 @@ import java.util.UUID;
 @EntityListeners(AuditingEntityListener.class)
 public class Siswa {
     @Id
+    @Column(name = "siswa_id")
     @GeneratedValue(generator = "uuid2")
     @GenericGenerator(name = "uuid2", strategy = "uuid2")
     private UUID id;

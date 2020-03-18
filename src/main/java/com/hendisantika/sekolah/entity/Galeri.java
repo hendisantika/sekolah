@@ -23,6 +23,7 @@ public class Galeri {
     @Id
     @GeneratedValue(generator = "uuid2")
     @GenericGenerator(name = "uuid2", strategy = "uuid2")
+    @Column(name = "galeri_id")
     private UUID id;
 
     @Column(name = "galeri_judul")

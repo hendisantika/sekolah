@@ -1,12 +1,14 @@
 package com.hendisantika.sekolah.controller;
 
 import com.hendisantika.sekolah.entity.Agenda;
+import com.hendisantika.sekolah.entity.Guru;
 import com.hendisantika.sekolah.entity.Pengumuman;
 import com.hendisantika.sekolah.entity.Tulisan;
 import com.hendisantika.sekolah.repository.AgendaRepository;
 import com.hendisantika.sekolah.repository.FilesRepository;
 import com.hendisantika.sekolah.repository.GuruRepository;
 import com.hendisantika.sekolah.repository.PengumumanRepository;
+import com.hendisantika.sekolah.repository.SiswaRepository;
 import com.hendisantika.sekolah.repository.TulisanRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -51,6 +53,9 @@ public class IndexController {
     @Autowired
     private FilesRepository filesRepository;
 
+    @Autowired
+    private SiswaRepository siswaRepository;
+
     @GetMapping
     public String index(Model model) {
         log.info("Menampilkan data untuk home.");
@@ -61,6 +66,7 @@ public class IndexController {
         TOT_GURU = guruRepository.count();
         TOT_AGENDA = agendaRepository.count();
         TOT_FILES = filesRepository.count();
+        TOT_SISWA = siswaRepository.count();
 
         model.addAttribute("tulisanList", tulisanList);
         model.addAttribute("pengumuman", pengumuman);
@@ -68,6 +74,7 @@ public class IndexController {
         model.addAttribute("totGuru", TOT_GURU);
         model.addAttribute("totAgenda", TOT_AGENDA);
         model.addAttribute("totFiles", TOT_FILES);
+        model.addAttribute("totSiswa", TOT_SISWA);
         return "index";
     }
 
@@ -75,6 +82,13 @@ public class IndexController {
     public String about(Model model) {
         log.info("Menampilkan data untuk about.");
         return "about";
+    }
+
+    @GetMapping("guru")
+    public String showGuru(Model model) {
+        List<Guru> guruList = guruRepository.findAll();
+        model.addAttribute("guruList", guruList);
+        return "guru";
     }
 
 }

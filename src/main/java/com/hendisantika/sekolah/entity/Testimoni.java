@@ -30,6 +30,7 @@ import java.util.UUID;
 @EntityListeners(AuditingEntityListener.class)
 public class Testimoni {
     @Id
+    @Column(name = "testimoni_id")
     @GeneratedValue(generator = "uuid2")
     @GenericGenerator(name = "uuid2", strategy = "uuid2")
     private UUID id;
