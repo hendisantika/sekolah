@@ -32,8 +32,8 @@ public class Siswa {
     @Column(name = "siswa_jenkel")
     private String jenkel;
 
-    @Column(name = "siswa_kelas")
-    private int kelas;
+    @Column(name = "siswa_kelas_id")
+    private int kelasId;
 
     @Column(name = "siswa_photo")
     private String photo;
