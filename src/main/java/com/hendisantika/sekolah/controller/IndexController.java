@@ -4,6 +4,7 @@ import com.hendisantika.sekolah.entity.Agenda;
 import com.hendisantika.sekolah.entity.Pengumuman;
 import com.hendisantika.sekolah.entity.Tulisan;
 import com.hendisantika.sekolah.repository.AgendaRepository;
+import com.hendisantika.sekolah.repository.FilesRepository;
 import com.hendisantika.sekolah.repository.GuruRepository;
 import com.hendisantika.sekolah.repository.PengumumanRepository;
 import com.hendisantika.sekolah.repository.TulisanRepository;
@@ -47,6 +48,9 @@ public class IndexController {
     @Autowired
     private GuruRepository guruRepository;
 
+    @Autowired
+    private FilesRepository filesRepository;
+
     @GetMapping
     public String index(Model model) {
         log.info("Menampilkan data untuk home.");
@@ -56,12 +60,14 @@ public class IndexController {
 
         TOT_GURU = guruRepository.count();
         TOT_AGENDA = agendaRepository.count();
+        TOT_FILES = filesRepository.count();
 
         model.addAttribute("tulisanList", tulisanList);
         model.addAttribute("pengumuman", pengumuman);
         model.addAttribute("agenda", agenda);
         model.addAttribute("totGuru", TOT_GURU);
         model.addAttribute("totAgenda", TOT_AGENDA);
+        model.addAttribute("totFiles", TOT_FILES);
         return "index";
     }
 
