@@ -4,6 +4,7 @@ import com.hendisantika.sekolah.entity.Agenda;
 import com.hendisantika.sekolah.entity.Pengumuman;
 import com.hendisantika.sekolah.entity.Tulisan;
 import com.hendisantika.sekolah.repository.AgendaRepository;
+import com.hendisantika.sekolah.repository.GuruRepository;
 import com.hendisantika.sekolah.repository.PengumumanRepository;
 import com.hendisantika.sekolah.repository.TulisanRepository;
 import lombok.extern.slf4j.Slf4j;
@@ -29,6 +30,11 @@ import java.util.List;
 @Controller
 @RequestMapping("/")
 public class IndexController {
+    private static long TOT_GURU = 0;
+    private static long TOT_SISWA = 0;
+    private static long TOT_FILES = 0;
+    private static long TOT_AGENDA = 0;
+
     @Autowired
     private TulisanRepository tulisanRepository;
 
@@ -38,15 +44,24 @@ public class IndexController {
     @Autowired
     private AgendaRepository agendaRepository;
 
+    @Autowired
+    private GuruRepository guruRepository;
+
     @GetMapping
     public String index(Model model) {
         log.info("Menampilkan data untuk home.");
         List<Tulisan> tulisanList = tulisanRepository.findTop4();
         List<Pengumuman> pengumuman = pengumumanRepository.findTop4();
         List<Agenda> agenda = agendaRepository.findTop4();
+
+        TOT_GURU = guruRepository.count();
+        TOT_AGENDA = agendaRepository.count();
+
         model.addAttribute("tulisanList", tulisanList);
         model.addAttribute("pengumuman", pengumuman);
         model.addAttribute("agenda", agenda);
+        model.addAttribute("totGuru", TOT_GURU);
+        model.addAttribute("totAgenda", TOT_AGENDA);
         return "index";
     }
 
