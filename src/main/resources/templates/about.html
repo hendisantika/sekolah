@@ -1,291 +1,77 @@
 <!DOCTYPE html>
-<html lang="en" layout:decorate="~{layout}" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+<html lang="en" layout:decorate="~{layout/layout}" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       xmlns:th="http://www.thymeleaf.org">
-<head th:fragment="head">
-    <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta content="width=device-width, initial-scale=1, shrink-to-fit=no" name="viewport">
-    <title>M School - Selamat Datang di M School</title>
-    <link rel="shorcut icon" th:href="@{/theme/images/icon.png}">
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet" th:href="@{theme/css/bootstrap.min.css}">
-    <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css?family=Lora:400,700" rel="stylesheet">
-    <!-- Font Awesome -->
-    <link rel="stylesheet" th:href="@{theme/css/font-awesome.min.css}">
-    <!-- Simple Line Font -->
-    <link rel="stylesheet" th:href="@{theme/css/simple-line-icons.css}">
-    <!-- Slider / Carousel -->
-    <link rel="stylesheet" th:href="@{theme/css/slick.css}">
-    <link rel="stylesheet" th:href="@{theme/css/slick-theme.css}">
-    <link rel="stylesheet" th:href="@{theme/css/owl.carousel.min.css}">
-    <!-- Main CSS -->
-    <link rel="stylesheet" th:href="@{theme/css/style.css}">
-</head>
-
+<head th:replace="fragments/header :: head"/>
+<div th:replace="fragments/header :: header"/>
 <body>
-<!--============================= HEADER =============================-->
-<div class="header-topbar" th:fragment="header">
-    <div class="container">
-        <div class="row">
-            <div class="col-xs-6 col-sm-8 col-md-9">
-                <div class="header-top_address">
-                    <div class="header-top_list">
-                        <span class="icon-phone"></span>00 55 22 66
-                    </div>
-                    <div class="header-top_list">
-                        <span class="icon-envelope-open"></span>info@mschool.com
-                    </div>
-                    <div class="header-top_list">
-                        <span class="icon-location-pin"></span>Bandung, Jawa Barat, INA. 40287
-                    </div>
-                </div>
-                <div class="header-top_login2">
-                    <a href="/contact">Hubungi Kami</a>
-                </div>
-            </div>
-            <div class="col-xs-6 col-sm-4 col-md-3">
-                <div class="header-top_login mr-sm-3">
-                    <a href="/contact">Hubungi Kami</a>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-<div data-toggle="affix" th:fragment="menu">
-    <div class="container nav-menu2">
-        <div class="row">
-            <div class="col-md-12">
-                <nav class="navbar navbar2 navbar-toggleable-md navbar-light bg-faded">
-                    <button class="navbar-toggler navbar-toggler2 navbar-toggler-right" data-target="#navbarNavDropdown"
-                            data-toggle="collapse" type="button">
-                        <span class="icon-menu"></span>
-                    </button>
-                    <a class="navbar-brand nav-brand2" href="/"><img class="img img-responsive"
-                                                                     src="../theme/images/logo-dark.png"
-                                                                     width="200px;"></a>
-                    <div class="collapse navbar-collapse justify-content-end" id="navbarNavDropdown">
-                        <ul class="navbar-nav">
-                            <li class="nav-item">
-                                <a class="nav-link" href="/">Home</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="/about">About</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="/guru">Guru</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="/siswa">Siswa</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="/blog">Blog</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="/pengumuman">Pengumuman</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="/agenda">Agenda</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="/download">Download</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="/galeri">Gallery</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="/contact">Contact</a>
-                            </li>
-                        </ul>
-                    </div>
-                </nav>
-            </div>
-        </div>
-    </div>
-</div>
-<!--//END HEADER -->
+<div th:replace="fragments/header :: menu"/>
 
-<!--============================= ABOUT =============================-->
-<section class="welcome_about" layout:fragment="content">
-    <div class="container">
-        <div class="row">
-            <div class="col-md-7">
-                <h2>Kata Sambutan</h2>
-                <p>Puji syukur kami panjatkan ke hadirat Tuhan Yang Maha Esa atas karunia dan hidayah-Nya,
-                    sehingga kita semua dapat membaktikan segala hal yang kita miliki untuk kemajuan dunia pendidikan.
-                    Apapun bentuk dan sumbangsih yang kita berikan, jika dilandasi niat yang tulus tanpa memandang
-                    imbalan
-                    apapun akan menghasilkan mahakarya yang agung untuk bekal kita dan generasi setelah kita.
-                    Pendidikan adalah harga mati untuk menjadi pondasi bangsa dan negara dalam menghadapi perkembangan
-                    zaman.
-                </p>
-                <p>Hal ini seiring dengan penguasaan teknologi untuk dimanfaatkan sebaik mungkin,
-                    sehingga menciptakan iklim kondusif dalam ranah keilmuan. Dengan konsep yang kontekstual dan
-                    efektif,
-                    kami mengejewantahkan nilai-nilai pendidikan yang tertuang dalam visi misi M-School,
-                    sebagai panduan hukum dalam menjabarkan tujuan hakiki pendidikan.
-                </p>
-            </div>
-            <div class="col-md-5">
-                <img alt="#" class="img-fluid" th:src="@{/theme/images/welcome-img.jpg}">
+<div layout:fragment="content">
+    <section class="welcome_about">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-7">
+                    <h2>Kata Sambutan</h2>
+                    <p>Puji syukur kami panjatkan ke hadirat Tuhan Yang Maha Esa atas karunia dan hidayah-Nya,
+                        sehingga kita semua dapat membaktikan segala hal yang kita miliki untuk kemajuan dunia
+                        pendidikan.
+                        Apapun bentuk dan sumbangsih yang kita berikan, jika dilandasi niat yang tulus tanpa memandang
+                        imbalan
+                        apapun akan menghasilkan mahakarya yang agung untuk bekal kita dan generasi setelah kita.
+                        Pendidikan adalah harga mati untuk menjadi pondasi bangsa dan negara dalam menghadapi
+                        perkembangan zaman.
+                    </p>
+                    <p>Hal ini seiring dengan penguasaan teknologi untuk dimanfaatkan sebaik mungkin,
+                        sehingga menciptakan iklim kondusif dalam ranah keilmuan. Dengan konsep yang kontekstual dan
+                        efektif,
+                        kami mengejewantahkan nilai-nilai pendidikan yang tertuang dalam visi misi M-School,
+                        sebagai panduan hukum dalam menjabarkan tujuan hakiki pendidikan.
+                    </p>
+                </div>
+                <div class="col-md-5">
+                    <img alt="#" class="img-fluid" th:src="@{/theme/images/welcome-img.jpg}">
+                </div>
             </div>
         </div>
-    </div>
-</section>
-<!--//END WELCOME TITLE -->
-<!--============================= TESTIMONIAL =============================-->
-<section class="testimonial">
-    <div class="container">
-        <div class="row">
-            <div class="col-md-12">
-                <h2>Testimonial</h2>
-            </div>
-            <div class="col-md-12">
-                <div class="single-item">
-                    <div class="quote">
-                        <i aria-hidden="true" class="fa fa-quote-left"></i>
-                        <p class="quote_text">MSCHOOL benar-benar mengagumkan. Saya sangat senang bisa bergabung dengan
-                            MSCHOOL dan menjadi siswa terbaik tahun 2018.</p>
-                        <div class="testi-img_block">
-                            <img alt="#" class="img-fluid" th:src="@{/theme/images/student-1.png}">
-                            <p><span>Hernandez Alvaro</span>Siswa Terbaik 2018</p>
+    </section>
+    <!--//END WELCOME TITLE -->
+    <!--============================= TESTIMONIAL =============================-->
+    <section class="testimonial">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <h2>Testimonial</h2>
+                </div>
+                <div class="col-md-12">
+                    <div class="single-item">
+                        <div class="quote">
+                            <i aria-hidden="true" class="fa fa-quote-left"></i>
+                            <p class="quote_text">MSCHOOL benar-benar mengagumkan. Saya sangat senang bisa bergabung
+                                dengan MSCHOOL dan menjadi siswa terbaik tahun 2018.</p>
+                            <div class="testi-img_block">
+                                <img alt="#" class="img-fluid" th:src="@{/theme/images/student-1.png}">
+                                <p><span>Hernandez Alvaro</span>Siswa Terbaik 2018</p>
+                            </div>
                         </div>
-                    </div>
-                    <div class="quote">
-                        <i aria-hidden="true" class="fa fa-quote-left"></i>
-                        <p class="quote_text">MSCHOOL benar-benar mengagumkan. Saya sangat senang bisa bergabung dengan
-                            MSCHOOL dan menjadi siswa terbaik tahun 2017. </p>
-                        <div class="testi-img_block">
-                            <img alt="#" class="img-fluid" th:src="@{/theme/images/student-2.png}">
-                            <p><span>Elanoar Rigby</span>Siswa Terbaik 2017</p>
+                        <div class="quote">
+                            <i aria-hidden="true" class="fa fa-quote-left"></i>
+                            <p class="quote_text">MSCHOOL benar-benar mengagumkan. Saya sangat senang bisa bergabung
+                                dengan MSCHOOL dan menjadi siswa terbaik tahun 2017. </p>
+                            <div class="testi-img_block">
+                                <img alt="#" class="img-fluid" th:src="@{/theme/images/student-2.png}">
+                                <p><span>Elanoar Rigby</span>Siswa Terbaik 2017</p>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
-</section>
-<!--//END TESTIMONIAL -->
-
-<!--//END ABOUT -->
-<!--============================= DETAILED CHART =============================-->
-<div class="detailed_chart">
-    <div class="container">
-        <div class="row">
-            <div class="col-xs-12 col-sm-6 col-md-3 chart_bottom">
-                <div class="chart-img">
-                    <img alt="chart_icon" class="img-fluid"
-                         src="/theme/images/chart-icon_1.png">
-                </div>
-                <div class="chart-text">
-                    <p><span class="counter"><?php echo $tot_guru;?></span> Guru
-                    </p>
-                </div>
-            </div>
-            <div class="col-xs-12 col-sm-6 col-md-3 chart_bottom chart_top">
-                <div class="chart-img">
-                    <img alt="chart_icon" class="img-fluid"
-                         src="/theme/images/chart-icon_2.png">
-                </div>
-                <div class="chart-text">
-                    <p><span class="counter"><?php echo $tot_siswa;?></span> Siswa
-                    </p>
-                </div>
-            </div>
-            <div class="col-xs-12 col-sm-6 col-md-3 chart_top">
-                <div class="chart-img">
-                    <img alt="chart_icon" class="img-fluid"
-                         src="/theme/images/chart-icon_3.png">
-                </div>
-                <div class="chart-text">
-                    <p><span class="counter"><?php echo $tot_files;?></span> Download
-                    </p>
-                </div>
-            </div>
-            <div class="col-xs-12 col-sm-6 col-md-3">
-                <div class="chart-img">
-                    <img alt="chart_icon" class="img-fluid"
-                         src="/theme/images/chart-icon_4.png">
-                </div>
-                <div class="chart-text">
-                    <p><span class="counter"><?php echo $tot_agenda;?></span> Agenda</p>
-                </div>
-            </div>
-        </div>
-    </div>
+    </section>
+    <!--//END TESTIMONIAL -->
+    <div class="detailed_chart" th:replace="fragments/header :: chart"/>
 </div>
-<!--//END DETAILED CHART -->
-<!--============================= FOOTER =============================-->
-<footer>
-    <div class="container">
-        <div class="row">
-            <div class="col-md-3">
-                <div class="foot-logo">
-                    <a href="/">
-                        <img alt="footer_logo" class="img-fluid"
-                             src="/theme/images/logo-white.png">
-                    </a>
-                    <p th:text="${#dates.year(#dates.createNow())}"></p>
-                    <p> © copyright by <a href="https://www.facebook.com/hendisantika" target="_blank">Hendi Santika</a>.
-                        <br>All rights reserved.</p>
-                </div>
-            </div>
-            <div class="col-md-3">
-                <div class="sitemap">
-                    <h3>Menu Utama</h3>
-                    <ul>
-                        <li><a href="/">Home</a></li>
-                        <li><a href="/about">About</a></li>
-                        <li><a href="/artikel">Blog </a></li>
-                        <li><a href="/galeri">Gallery</a></li>
-                        <li><a href="/contact">Contact</a></li>
-                    </ul>
-                </div>
-            </div>
-            <div class="col-md-3">
-                <div class="sitemap">
-                    <h3>Akademik</h3>
-                    <ul>
-                        <li><a href="/guru">Guru</a></li>
-                        <li><a href="/siswa">Siswa </a></li>
-                        <li><a href="/pengumuman">Pengumuman</a></li>
-                        <li><a href="/agenda">Agenda</a></li>
-                        <li><a href="/download">Download</a></li>
-                    </ul>
-                </div>
-            </div>
-            <div class="col-md-3">
-                <div class="address">
-                    <h3>Hubungi Kami</h3>
-                    <p><span>Alamat: </span> Bandung, Jawa Barat, INA. 40287</p>
-                    <p>Email : info@mschool.com
-                        <br> Phone : +6281321411881</p>
-                    <ul class="footer-social-icons">
-                        <li><a href="#"><i aria-hidden="true" class="fa fa-facebook fa-fb"></i></a></li>
-                        <li><a href="#"><i aria-hidden="true" class="fa fa-linkedin fa-in"></i></a></li>
-                        <li><a href="#"><i aria-hidden="true" class="fa fa-twitter fa-tw"></i></a></li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </div>
-</footer>
-<!--//END FOOTER -->
-<!-- jQuery, Bootstrap JS. -->
-<script src="/theme/js/jquery.min.js"></script>
-<script src="/theme/js/tether.min.js"></script>
-<script src="/theme/js/bootstrap.min.js"></script>
-<!-- Plugins -->
-<script src="/theme/js/slick.min.js"></script>
-<script src="/theme/js/waypoints.min.js"></script>
-<script src="/theme/js/counterup.min.js"></script>
-<script src="/theme/js/owl.carousel.min.js"></script>
-<script src="/theme/js/validate.js"></script>
-<script src="/theme/js/tweetie.min.js"></script>
-<!-- Subscribe -->
-<script src="/theme/js/subscribe.js"></script>
-<!-- Script JS -->
-<script src="/theme/js/script.js"></script>
+
+<div th:replace="fragments/footer :: footer"/>
+<div th:replace="fragments/footer :: scripts"/>
 </body>
-
 </html>
