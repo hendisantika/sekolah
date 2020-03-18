@@ -1,4 +1,63 @@
 # sekolah
+MYSCHOOL adalah source code opensource yang dibangun mengunakan Spring Boot 2.2.5.RELEASE version yang terinspirasi dari 
+MSCHOOL yang dibangun menggunakan Codeigniter 3.1.9 dan Bootstrap 4.0.
+
+MYSCHOOL merupakan pengembangan dari project M-Sekolah. Dengan kata lain, MSCHOOL adalah versi 2.0 dari M-Sekolah dengan Java Spring Boot.
+
+MYSCHOOL merupakan project open source untuk website profile sekolah SD, MI, SMP MTs, MA ataupun SMA dan sederajat untuk menunjang transparasi informasi dan promosi sekolah.
+
+Backend dari Source Code ini dibangun menggunakan template AdminLTE, yaitu template yang sangat umum bagi developer web saat ini.
+
+Selain itu, source code ini juga menggunakan Toast Message untuk menampilkan pesan pada bagian Backend.
+
+Hal itulah yang membuat souce code ini menjadi sangat menarik.
+
+Source Code ini berjalan dengan baik di PaaS (Platform as as Service) seperti Heroku ataupun d VPS (Virtual Private Server) seperti Digital Ocean(DO).
+Tinggal upload dan sedikit konfigurasi, semuanya bejalan dengan baik.
+
+Bagaimana mengonlinekannya?
+
+- Order Domain dan Hosting
+
+- Upload Source Code myschool ke hosting
+
+- Buat database di hosting (di sini saya menggunakan PostgreSQL
+
+
+Jika Anda mengalami kesulitan saat mengonlinekannya, Anda dapat meminta bantuan pihak hosting untuk membantu Anda mengonlinekannya.
+
+ 
+Modul dan Fitur:
+
+1. Dashboard (Unique Visitors Counter)
+
+2. Manajemen artikel
+
+3. Manajemen data siswa/santri
+
+4. Manajemen data guru/asatidz
+
+5. Manajemen data user
+
+6. Manajemen agenda kegiatan
+
+7. Manajemen pengumuman
+
+8. Manajemen file materi pembelajaran
+
+9. Manajemen data guru
+
+10. Manajemen gallery photo
+
+11. Manajemen pesan masuk (inbox)
+
+12. Manajemen komentar
+
+13. Sosial media share artikel
+
+14. Nested Comments
+
+15. SEO URL Friendly
 
 ## Cara Membuat Database
 1. Create user untuk connect ke database
