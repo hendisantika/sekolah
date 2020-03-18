@@ -6,21 +6,21 @@
     <meta charset="utf-8">
     <meta content="width=device-width, initial-scale=1, shrink-to-fit=no" name="viewport">
     <title>M School - Selamat Datang di M School</title>
-    <link rel="shorcut icon" th:href="@{/theme/images/icon.png}">
+    <link rel="shorcut icon" th:href="@{/static/theme/images/icon.png}">
     <!-- Bootstrap CSS -->
-    <link rel="stylesheet" th:href="@{theme/css/bootstrap.min.css}">
+    <link rel="stylesheet" th:href="@{../../static/theme/css/bootstrap.min.css}">
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css?family=Lora:400,700" rel="stylesheet">
     <!-- Font Awesome -->
-    <link rel="stylesheet" th:href="@{theme/css/font-awesome.min.css}">
+    <link rel="stylesheet" th:href="@{../../static/theme/css/font-awesome.min.css}">
     <!-- Simple Line Font -->
-    <link rel="stylesheet" th:href="@{theme/css/simple-line-icons.css}">
+    <link rel="stylesheet" th:href="@{../../static/theme/css/simple-line-icons.css}">
     <!-- Slider / Carousel -->
-    <link rel="stylesheet" th:href="@{theme/css/slick.css}">
-    <link rel="stylesheet" th:href="@{theme/css/slick-theme.css}">
-    <link rel="stylesheet" th:href="@{theme/css/owl.carousel.min.css}">
+    <link rel="stylesheet" th:href="@{../../static/theme/css/slick.css}">
+    <link rel="stylesheet" th:href="@{../../static/theme/css/slick-theme.css}">
+    <link rel="stylesheet" th:href="@{../../static/theme/css/owl.carousel.min.css}">
     <!-- Main CSS -->
-    <link rel="stylesheet" th:href="@{theme/css/style.css}">
+    <link rel="stylesheet" th:href="@{../../static/theme/css/style.css}">
 </head>
 
 <body>
@@ -67,7 +67,7 @@
                     <div class="collapse navbar-collapse justify-content-end" id="navbarNavDropdown">
                         <ul class="navbar-nav">
                             <li class="nav-item">
-                                <a class="nav-link" href="/">Home</a>
+                                <a class="nav-link" href="/static">Home</a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" href="/about">About</a>
@@ -127,7 +127,7 @@
                 </p>
             </div>
             <div class="col-md-5">
-                <img alt="#" class="img-fluid" th:src="@{/theme/images/welcome-img.jpg}">
+                <img alt="#" class="img-fluid" th:src="@{/static/theme/images/welcome-img.jpg}">
             </div>
         </div>
     </div>
@@ -147,7 +147,7 @@
                         <p class="quote_text">MSCHOOL benar-benar mengagumkan. Saya sangat senang bisa bergabung dengan
                             MSCHOOL dan menjadi siswa terbaik tahun 2018.</p>
                         <div class="testi-img_block">
-                            <img alt="#" class="img-fluid" th:src="@{/theme/images/student-1.png}">
+                            <img alt="#" class="img-fluid" th:src="@{/static/theme/images/student-1.png}">
                             <p><span>Hernandez Alvaro</span>Siswa Terbaik 2018</p>
                         </div>
                     </div>
@@ -156,7 +156,7 @@
                         <p class="quote_text">MSCHOOL benar-benar mengagumkan. Saya sangat senang bisa bergabung dengan
                             MSCHOOL dan menjadi siswa terbaik tahun 2017. </p>
                         <div class="testi-img_block">
-                            <img alt="#" class="img-fluid" th:src="@{/theme/images/student-2.png}">
+                            <img alt="#" class="img-fluid" th:src="@{/static/theme/images/student-2.png}">
                             <p><span>Elanoar Rigby</span>Siswa Terbaik 2017</p>
                         </div>
                     </div>
@@ -175,7 +175,7 @@
             <div class="col-xs-12 col-sm-6 col-md-3 chart_bottom">
                 <div class="chart-img">
                     <img alt="chart_icon" class="img-fluid"
-                         src="/theme/images/chart-icon_1.png">
+                         src="/static/theme/images/chart-icon_1.png">
                 </div>
                 <div class="chart-text">
                     <p><span class="counter"><?php echo $tot_guru;?></span> Guru
@@ -185,7 +185,7 @@
             <div class="col-xs-12 col-sm-6 col-md-3 chart_bottom chart_top">
                 <div class="chart-img">
                     <img alt="chart_icon" class="img-fluid"
-                         src="/theme/images/chart-icon_2.png">
+                         src="/static/theme/images/chart-icon_2.png">
                 </div>
                 <div class="chart-text">
                     <p><span class="counter"><?php echo $tot_siswa;?></span> Siswa
@@ -195,7 +195,7 @@
             <div class="col-xs-12 col-sm-6 col-md-3 chart_top">
                 <div class="chart-img">
                     <img alt="chart_icon" class="img-fluid"
-                         src="/theme/images/chart-icon_3.png">
+                         src="/static/theme/images/chart-icon_3.png">
                 </div>
                 <div class="chart-text">
                     <p><span class="counter"><?php echo $tot_files;?></span> Download
@@ -205,7 +205,7 @@
             <div class="col-xs-12 col-sm-6 col-md-3">
                 <div class="chart-img">
                     <img alt="chart_icon" class="img-fluid"
-                         src="/theme/images/chart-icon_4.png">
+                         src="/static/theme/images/chart-icon_4.png">
                 </div>
                 <div class="chart-text">
                     <p><span class="counter"><?php echo $tot_agenda;?></span> Agenda</p>
@@ -221,9 +221,9 @@
         <div class="row">
             <div class="col-md-3">
                 <div class="foot-logo">
-                    <a href="/">
+                    <a href="/static">
                         <img alt="footer_logo" class="img-fluid"
-                             src="/theme/images/logo-white.png">
+                             src="/static/theme/images/logo-white.png">
                     </a>
                     <p th:text="${#dates.year(#dates.createNow())}"></p>
                     <p> © copyright by <a href="https://www.facebook.com/hendisantika" target="_blank">Hendi Santika</a>.
@@ -272,20 +272,20 @@
 </footer>
 <!--//END FOOTER -->
 <!-- jQuery, Bootstrap JS. -->
-<script src="/theme/js/jquery.min.js"></script>
-<script src="/theme/js/tether.min.js"></script>
-<script src="/theme/js/bootstrap.min.js"></script>
+<script src="/static/theme/js/jquery.min.js"></script>
+<script src="/static/theme/js/tether.min.js"></script>
+<script src="/static/theme/js/bootstrap.min.js"></script>
 <!-- Plugins -->
-<script src="/theme/js/slick.min.js"></script>
-<script src="/theme/js/waypoints.min.js"></script>
-<script src="/theme/js/counterup.min.js"></script>
-<script src="/theme/js/owl.carousel.min.js"></script>
-<script src="/theme/js/validate.js"></script>
-<script src="/theme/js/tweetie.min.js"></script>
+<script src="/static/theme/js/slick.min.js"></script>
+<script src="/static/theme/js/waypoints.min.js"></script>
+<script src="/static/theme/js/counterup.min.js"></script>
+<script src="/static/theme/js/owl.carousel.min.js"></script>
+<script src="/static/theme/js/validate.js"></script>
+<script src="/static/theme/js/tweetie.min.js"></script>
 <!-- Subscribe -->
-<script src="/theme/js/subscribe.js"></script>
+<script src="/static/theme/js/subscribe.js"></script>
 <!-- Script JS -->
-<script src="/theme/js/script.js"></script>
+<script src="/static/theme/js/script.js"></script>
 </body>
 
 </html>

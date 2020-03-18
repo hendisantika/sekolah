@@ -23,7 +23,7 @@
 
                 </div>
                 <div class="col-md-4">
-                    <img alt="#" class="img-fluid about-img" src="/theme/images/welcome.png">
+                    <img alt="#" class="img-fluid about-img" src="/static/theme/images/welcome.png">
                 </div>
             </div>
         </div>
@@ -42,7 +42,7 @@
                     <div class="courses_box mb-4">
                         <div class="course-img-wrap">
                             <img alt="courses-img" class="img-fluid"
-                                 th:src="@{/assets/images/} + ${t.Gambar}">
+                                 th:src="@{/static/assets/images} + ${t.Gambar}">
                         </div>
                         <!-- // end .course-img-wrap -->
                         <a class="course-box-content" th:href="@{/artikel/} + ${t.slug}">
@@ -68,7 +68,7 @@
                     <div class="event-img2">
                         <div class="row" th:each="p : ${pengumuman}">
                             <div class="col-sm-3"><img alt="event-img" class="img-fluid"
-                                                       src="/theme/images/announcement-icon.png">
+                                                       src="/static/theme/images/announcement-icon.png">
                             </div><!-- // end .col-sm-3 -->
                             <div class="col-sm-9"><h3><a href="/pengumuman" th:text="${p.judul}">Belum Ada Judul</a>
                             </h3>
