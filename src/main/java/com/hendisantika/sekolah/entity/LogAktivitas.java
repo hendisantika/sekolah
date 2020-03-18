@@ -25,21 +25,21 @@ public class LogAktivitas {
     private UUID id;
 
     @Column(name = "log_nama")
-    private String log_nama;
+    private String nama;
 
     @Column(name = "log_tanggal")
-    private LocalDateTime log_tanggal;
+    private LocalDateTime tanggal;
 
     @Column(name = "log_ip")
-    private String log_ip;
+    private String ip;
 
     @Column(name = "log_pengguna_id")
-    private int log_pengguna_id;
+    private int penggunaId;
 
     @Column(name = "log_icon")
-    private byte[] log_icon;
+    private byte[] icon;
 
     @Column(name = "log_jenis_icon")
-    private String log_jenis_icon;
+    private String jenisIcon;
 
 }

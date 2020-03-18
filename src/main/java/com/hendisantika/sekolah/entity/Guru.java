@@ -24,26 +24,26 @@ public class Guru {
     private UUID id;
 
     @Column(name = "guru_nip")
-    private String guru_nip;
+    private String nip;
 
     @Column(name = "guru_nama")
-    private String guru_nama;
+    private String nama;
 
     @Column(name = "guru_jenkel")
-    private String guru_jenkel;
+    private String jenkel;
 
     @Column(name = "guru_tmp_lahir")
-    private String guru_tmp_lahir;
+    private String tmpLahir;
 
     @Column(name = "guru_tgl_lahir")
-    private String guru_tgl_lahir;
+    private String tglLahir;
 
     @Column(name = "guru_mapel")
-    private String guru_mapel;
+    private String mapel;
 
     @Column(name = "guru_photo")
-    private String guru_photo;
+    private String photo;
 
     @Column(name = "guru_tgl_input")
-    private LocalDateTime guru_tgl_input;
+    private LocalDateTime tglInput;
 }

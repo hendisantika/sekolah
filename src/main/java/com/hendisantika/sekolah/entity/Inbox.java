@@ -23,21 +23,21 @@ public class Inbox {
     private UUID id;
 
     @Column(name = "inbox_nama")
-    private String inbox_nama;
+    private String nama;
 
     @Column(name = "inbox_email")
-    private String inbox_email;
+    private String email;
 
     @Column(name = "inbox_kontak")
-    private String inbox_kontak;
+    private String kontak;
 
     @Column(name = "inbox_pesan")
-    private String inbox_pesan;
+    private String pesan;
 
     @Column(name = "inbox_tanggal")
-    private LocalDateTime inbox_tanggal;
+    private LocalDateTime tanggal;
 
     @Column(name = "inbox_status")
-    private int inbox_status;
+    private int status;
 
 }
