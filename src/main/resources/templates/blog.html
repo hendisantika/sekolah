@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en" layout:decorate="~{layout/layout}" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/header :: head"/>
+<div th:replace="fragments/header :: header"/>
+<body>
+<div th:replace="fragments/header :: menu"/>
+
+<div layout:fragment="content">
+    <!--============================= BLOG =============================-->
+    <section class="blog-wrap">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-8">
+                    <div class="blog-single-item" th:each="t : ${tulisanList}">
+                        <div class="blog-img_block">
+                            <img alt="blog-img" class="img-fluid" th:src="@{/assets/images/} + ${t.gambar}">
+                            <div class="blog-date">
+                                <span th:text="${#temporals.format(t.tanggal, 'dd-MMM-yyyy')}">tanggal</span>
+                            </div>
+                        </div>
+                        <div class="blog-tiltle_block">
+                            <h4><a th:href="@{/artikel/} + ${t.slug}" th:text="${t.judul}">tulisan_judul</a></h4>
+                            <h6><a href="#"><i aria-hidden="true" class="fa fa-user"></i><span th:text="${t.author}">
+                                tulisan_author</span> </a> | <a href="#"><i aria-hidden="true"
+                                                                            class="fa fa-tags"></i><span
+                                    th:text="${t.kategoriNama}">
+                                tulisan_kategori_nama</span></a></h6>
+                            <span + th:text="${#strings.abbreviate(t.isi,10)}" '...'>Isi</span>
+                            <div class="blog-icons">
+                                <div class="blog-share_block">
+                                    <a th:href="@{/artikel} + ${t.slug}">Read More</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    </nav>
+                </div>
+                <div class="col-md-4">
+                    <form method="get" th:action="@{/blog/search}">
+                        <input class="blog-search" name="keyword" placeholder="Search" required type="text">
+                        <button class="btn btn-warning btn-blogsearch" type="submit">SEARCH</button>
+                    </form>
+                    <div class="blog-category_block">
+                        <h3>Kategori</h3>
+                        <ul>
+                            <li th:each="t :${tulisanList}">
+                                <a th:href="@{/blog/kategori/} + ${#strings.replace(t.kategoriNama,',','-')}">kategori_nama
+                                    <i aria-hidden="true" class="fa fa-caret-right"></i></a></li>
+                        </ul>
+                    </div>
+                    <div class="blog-featured_post">
+                        <h3>Populer</h3>
+                        <div class="blog-featured-img_block" th:each="t : ${tulisanList}">
+                            <img alt="blog-featured-img" class="img-fluid" th:src="@{/assets/images/} + ${t.gambar}"
+                                 width="35%">
+                            <h5><a th:href="@{/artikel} + ${t.slug}"
+                                   th:text="${#strings.abbreviate(t.judul,3)} + '...'">tulisan_judul</a>
+                            </h5>
+                            <p th:text="${#strings.substring(t.isi,0,5)}">tulisan_isi,5).'...'}</p>
+                        </div>
+                        <hr>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!--//END BLOG -->
+</div>
+
+<div th:replace="fragments/footer :: footer"/>
+<div th:replace="fragments/footer :: scripts"/>
+</body>
+</html>
