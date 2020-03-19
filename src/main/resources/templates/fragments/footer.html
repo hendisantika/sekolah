@@ -79,8 +79,8 @@
     <script th:src="@{~/theme/js/jssocials.js}"></script>
     <script th:src="@{~/theme/js/contact.js}"></script>
 
-    <script src="<?php echo base_url().'theme/js/jquery.dataTables.min.js'?>"></script>
-    <script src="<?php echo base_url().'theme/js/dataTables.bootstrap4.min.js'?>"></script>
+    <script th:src="@{/theme/js/jquery.dataTables.min.js"></script>
+    <script th:src="@{/theme/js/dataTables.bootstrap4.min.js"></script>
 
     <script th:fragment="jssocial">
         $(document).ready(function () {
