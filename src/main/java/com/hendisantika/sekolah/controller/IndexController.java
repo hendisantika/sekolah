@@ -148,4 +148,12 @@ public class IndexController {
         return "pengumuman";
     }
 
+    @GetMapping("agenda")
+    public String showAgenda(Model model) {
+        log.info("Menampilkan data untuk Agenda Blog.");
+        List<Agenda> agendaList = agendaRepository.findAll();
+        model.addAttribute("agendaList", agendaList);
+        return "agenda";
+    }
+
 }
