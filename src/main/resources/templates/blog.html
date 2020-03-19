@@ -26,7 +26,7 @@
                                                                             class="fa fa-tags"></i><span
                                     th:text="${t.kategoriNama}">
                                 tulisan_kategori_nama</span></a></h6>
-                            <span + th:text="${#strings.abbreviate(t.isi,10)}" '...'>Isi</span>
+                            <span + th:text="${#strings.substring(t.isi,0, 100)}" '...'>Isi</span>
                             <div class="blog-icons">
                                 <div class="blog-share_block">
                                     <a th:href="@{/artikel} + ${t.slug}">Read More</a>
@@ -44,8 +44,9 @@
                     <div class="blog-category_block">
                         <h3>Kategori</h3>
                         <ul>
-                            <li th:each="t :${tulisanList}">
-                                <a th:href="@{/blog/kategori/} + ${#strings.replace(t.kategoriNama,',','-')}">kategori_nama
+                            <li th:each="k :${kategoriList}">
+                                <a th:href="@{/blog/kategori/} + ${#strings.replace(k.nama,',','-')}"
+                                   th:text="${k.nama}">kategori_nama
                                     <i aria-hidden="true" class="fa fa-caret-right"></i></a></li>
                         </ul>
                     </div>
@@ -55,9 +56,9 @@
                             <img alt="blog-featured-img" class="img-fluid" th:src="@{/assets/images/} + ${t.gambar}"
                                  width="35%">
                             <h5><a th:href="@{/artikel} + ${t.slug}"
-                                   th:text="${#strings.abbreviate(t.judul,3)} + '...'">tulisan_judul</a>
+                                   th:text="${#strings.substring(t.judul,0, 25)} + '...'">tulisan_judul</a>
                             </h5>
-                            <p th:text="${#strings.substring(t.isi,0,5)}">tulisan_isi,5).'...'}</p>
+                            <p th:text="${#strings.substring(t.isi,0,25)}">tulisan_isi,5).'...'}</p>
                         </div>
                         <hr>
                     </div>

@@ -2,12 +2,14 @@ package com.hendisantika.sekolah.controller;
 
 import com.hendisantika.sekolah.entity.Agenda;
 import com.hendisantika.sekolah.entity.Guru;
+import com.hendisantika.sekolah.entity.Kategori;
 import com.hendisantika.sekolah.entity.Pengumuman;
 import com.hendisantika.sekolah.entity.Siswa;
 import com.hendisantika.sekolah.entity.Tulisan;
 import com.hendisantika.sekolah.repository.AgendaRepository;
 import com.hendisantika.sekolah.repository.FilesRepository;
 import com.hendisantika.sekolah.repository.GuruRepository;
+import com.hendisantika.sekolah.repository.KategoriRepository;
 import com.hendisantika.sekolah.repository.PengumumanRepository;
 import com.hendisantika.sekolah.repository.SiswaRepository;
 import com.hendisantika.sekolah.repository.TulisanRepository;
@@ -57,9 +59,12 @@ public class IndexController {
     @Autowired
     private SiswaRepository siswaRepository;
 
+    @Autowired
+    private KategoriRepository kategoriRepository;
+
     @GetMapping
     public String index(Model model) {
-        log.info("Menampilkan data untuk home.");
+        log.info("Menampilkan data untuk Halaman home.");
         List<Tulisan> tulisanList = tulisanRepository.findTop4();
         List<Pengumuman> pengumuman = pengumumanRepository.findTop4();
         List<Agenda> agenda = agendaRepository.findTop4();
@@ -81,12 +86,13 @@ public class IndexController {
 
     @GetMapping("about")
     public String about(Model model) {
-        log.info("Menampilkan data untuk about.");
+        log.info("Menampilkan data untuk Halaman about.");
         return "about";
     }
 
     @GetMapping("guru")
     public String showGuru(Model model) {
+        log.info("Menampilkan data untuk Halaman Guru.");
         List<Guru> guruList = guruRepository.findAll();
         model.addAttribute("guruList", guruList);
         return "guru";
@@ -94,6 +100,7 @@ public class IndexController {
 
     @GetMapping("siswa")
     public String showSiswa(Model model) {
+        log.info("Menampilkan data untuk Halaman Siswa.");
         List<Siswa> siswaList = siswaRepository.findAll();
         model.addAttribute("siswaList", siswaList);
         return "siswa";
@@ -101,8 +108,11 @@ public class IndexController {
 
     @GetMapping("blog")
     public String showBlog(Model model) {
+        log.info("Menampilkan data untuk Halaman Blog.");
         List<Tulisan> tulisanList = tulisanRepository.findAll();
+        List<Kategori> kategoriList = kategoriRepository.findAll();
         model.addAttribute("tulisanList", tulisanList);
+        model.addAttribute("kategoriList", kategoriList);
         return "blog";
     }
 
