@@ -62,20 +62,6 @@
                             <!-- Tab panes -->
                             <div class="tab-content">
                                 <div class="tab-pane active" id="comments" role="tabpanel">
-                                    <?php
-                                  $colors = array(
-                                      '#ff9e67',
-                                      '#10bdff',
-                                      '#14b5c7',
-                                      '#f98182',
-                                      '#8f9ce2',
-                                      '#ee2b33',
-                                      '#d4ec15',
-                                      '#613021',
-                                  );
-                                  foreach ($show_komentar->result() as $row) :
-                                    shuffle($colors);
-                                    ?>
                                     <div class="row">
                                         <div class="col-md-12">
                                             <div class="row">
@@ -128,8 +114,6 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <?php endforeach;?>
-                                    <?php endforeach;?>
                                 </div>
                                 <div class="tab-pane" id="write-comment" role="tabpanel">
                                     <form action="<?php echo site_url('blog/komentar');?>" method="post">
