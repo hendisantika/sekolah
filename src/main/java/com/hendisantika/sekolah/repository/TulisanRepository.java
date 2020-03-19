@@ -19,4 +19,8 @@ import java.util.UUID;
 public interface TulisanRepository extends JpaRepository<Tulisan, UUID> {
     @Query(value = "SELECT t.* FROM tbl_tulisan t ORDER BY t.tulisan_tanggal DESC limit 4;", nativeQuery = true)
     List<Tulisan> findTop4();
+
+    Tulisan findBySlug(String slug);
+
+    List<Tulisan> findByOrderByViewsDesc();
 }

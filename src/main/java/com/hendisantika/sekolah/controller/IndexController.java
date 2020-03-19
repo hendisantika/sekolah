@@ -18,6 +18,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.util.List;
@@ -114,6 +115,18 @@ public class IndexController {
         model.addAttribute("tulisanList", tulisanList);
         model.addAttribute("kategoriList", kategoriList);
         return "blog";
+    }
+
+    @GetMapping("artikel/{slug}")
+    public String showBlogDetails(Model model, @PathVariable(value = "slug") String slug) {
+        log.info("Menampilkan data untuk Halaman Details Blog.");
+        Tulisan tulisan = tulisanRepository.findBySlug(slug);
+        List<Tulisan> populer = tulisanRepository.findByOrderByViewsDesc();
+        List<Kategori> kategoriList = kategoriRepository.findAll();
+        model.addAttribute("tulisan", tulisan);
+        model.addAttribute("populer", populer);
+        model.addAttribute("kategoriList", kategoriList);
+        return "artikel";
     }
 
 }
