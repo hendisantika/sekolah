@@ -1,6 +1,7 @@
 package com.hendisantika.sekolah.controller;
 
 import com.hendisantika.sekolah.entity.Agenda;
+import com.hendisantika.sekolah.entity.Files;
 import com.hendisantika.sekolah.entity.Guru;
 import com.hendisantika.sekolah.entity.Kategori;
 import com.hendisantika.sekolah.entity.Komentar;
@@ -154,6 +155,14 @@ public class IndexController {
         List<Agenda> agendaList = agendaRepository.findAll();
         model.addAttribute("agendaList", agendaList);
         return "agenda";
+    }
+
+    @GetMapping("download")
+    public String showDownload(Model model) {
+        log.info("Menampilkan data untuk Download Blog.");
+        List<Files> filesList = filesRepository.findAll();
+        model.addAttribute("filesList", filesList);
+        return "download";
     }
 
 }
