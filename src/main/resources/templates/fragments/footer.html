@@ -74,6 +74,26 @@
     <script th:src="@{~/theme/js/subscribe.js}"></script>
     <!-- Script JS -->
     <script th:src="@{~/theme/js/script.js}"></script>
+
+    <!-- Subscribe -->
+    <script th:src="@{~/theme/js/jssocials.js}"></script>
+
+    <script th:fragment="jssocial">
+        $(document).ready(function () {
+            $(".sharePopup").jsSocials({
+                showCount: true,
+                showLabel: true,
+                shareIn: "popup",
+                shares: [
+                    {share: "twitter", label: "Twitter"},
+                    {share: "facebook", label: "Facebook"},
+                    {share: "linkedin", label: "LinkedIn"},
+                    {share: "whatsapp", label: "WhatsApp"}
+                ]
+            });
+        });
+    </script>
+
 </th:block>
 </body>
 
