@@ -20,7 +20,7 @@
                         <img alt="#" class="img-fluid" th:src="@{/assets/images/}  + ${s.photo ?: 'blank.png'}">
                         <p class="text-center mt-3"><span th:text="${s.nama}">nama</span>
                             <br>
-                            <span th:text="${s.kelas_id}">Kelas</p>
+                            <span th:text="${s.kelas.nama}">Kelas</p>
                     </div>
                 </div>
             </div>
