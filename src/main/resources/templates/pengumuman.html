@@ -30,27 +30,26 @@
                 <!-- Tab panes -->
                 <div class="tab-content">
                     <div class="tab-pane active" id="upcoming-events" role="tabpanel">
-                        <div class="col-md-12">
+                        <div class="col-md-12" th:each="p : ${pengumumanList}">
                             <div class="row">
                                 <div class="col-md-2">
                                     <div class="event-date">
-                                        <h4><?php echo date("d", strtotime($row->pengumuman_tanggal));?></h4>
-                                        <span><?php echo date("M Y", strtotime($row->pengumuman_tanggal));?></span>
+                                        <h4 th:text="${#temporals.format(p.tanggal, 'd')}">pengumuman_tanggal));?></h4>
+                                        <span th:text="${#temporals.format(p.tanggal, 'MMM YYYY')}">pengumuman_tanggal</span>
                                     </div>
-                                    <span class="event-time"><?php echo date("H:i", strtotime($row->
-                                        pengumuman_tanggal)).' WIB';?></span>
+                                    <span class="event-time"
+                                          th:text="${#temporals.format(p.tanggal, 'HH:mm')} + ' WIB'">
+                                        pengumuman_tanggal.' WIB';?></span>
                                 </div>
                                 <div class="col-md-10">
                                     <div class="event-heading">
-                                        <h3><?php echo $row->pengumuman_judul;?></h3>
-                                        <p><?php echo $row->pengumuman_deskripsi;?></p>
+                                        <h3 th:text="${p.judul}">pengumuman_judul</h3>
+                                        <p th:text="${p.deskripsi}">pengumuman_deskripsi</p>
                                     </div>
                                 </div>
                             </div>
                             <hr class="event-underline">
                         </div>
-                        <?php endforeach;?>
-
                         <div class="col-md-12 text-center">
                             <?php echo $page;?>
                         </div>
