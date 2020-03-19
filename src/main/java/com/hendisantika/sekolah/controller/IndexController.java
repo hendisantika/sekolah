@@ -2,6 +2,7 @@ package com.hendisantika.sekolah.controller;
 
 import com.hendisantika.sekolah.entity.Agenda;
 import com.hendisantika.sekolah.entity.Files;
+import com.hendisantika.sekolah.entity.Galeri;
 import com.hendisantika.sekolah.entity.Guru;
 import com.hendisantika.sekolah.entity.Kategori;
 import com.hendisantika.sekolah.entity.Komentar;
@@ -10,6 +11,7 @@ import com.hendisantika.sekolah.entity.Siswa;
 import com.hendisantika.sekolah.entity.Tulisan;
 import com.hendisantika.sekolah.repository.AgendaRepository;
 import com.hendisantika.sekolah.repository.FilesRepository;
+import com.hendisantika.sekolah.repository.GaleriRepository;
 import com.hendisantika.sekolah.repository.GuruRepository;
 import com.hendisantika.sekolah.repository.KategoriRepository;
 import com.hendisantika.sekolah.repository.KomentarRepository;
@@ -69,9 +71,12 @@ public class IndexController {
     @Autowired
     private KomentarRepository komentarRepository;
 
+    @Autowired
+    private GaleriRepository galeriRepository;
+
     @GetMapping
     public String index(Model model) {
-        log.info("Menampilkan data untuk Halaman home.");
+        log.info("Menampilkan data untuk Halaman Home.");
         List<Tulisan> tulisanList = tulisanRepository.findTop4();
         List<Pengumuman> pengumuman = pengumumanRepository.findTop4();
         List<Agenda> agenda = agendaRepository.findTop4();
@@ -143,7 +148,7 @@ public class IndexController {
 
     @GetMapping("pengumuman")
     public String showPengumuman(Model model) {
-        log.info("Menampilkan data untuk Pengumuman Blog.");
+        log.info("Menampilkan data untuk Halaman Pengumuman.");
         List<Pengumuman> pengumumanList = pengumumanRepository.findByOrderByTanggalDesc();
         model.addAttribute("pengumumanList", pengumumanList);
         return "pengumuman";
@@ -151,7 +156,7 @@ public class IndexController {
 
     @GetMapping("agenda")
     public String showAgenda(Model model) {
-        log.info("Menampilkan data untuk Agenda Blog.");
+        log.info("Menampilkan data untuk Halaman Agenda.");
         List<Agenda> agendaList = agendaRepository.findAll();
         model.addAttribute("agendaList", agendaList);
         return "agenda";
@@ -159,10 +164,18 @@ public class IndexController {
 
     @GetMapping("download")
     public String showDownload(Model model) {
-        log.info("Menampilkan data untuk Download Blog.");
+        log.info("Menampilkan data untuk Halaman Download.");
         List<Files> filesList = filesRepository.findAll();
         model.addAttribute("filesList", filesList);
         return "download";
+    }
+
+    @GetMapping("galeri")
+    public String showGaleri(Model model) {
+        log.info("Menampilkan data untuk Halaman Galeri.");
+        List<Galeri> galeriList = galeriRepository.findAll();
+        model.addAttribute("galeriList", galeriList);
+        return "galeri";
     }
 
 }
