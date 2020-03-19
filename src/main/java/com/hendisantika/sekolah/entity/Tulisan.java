@@ -48,7 +48,7 @@ public class Tulisan {
     private int kategoriId;
 
     @Column(name = "tulisan_kategori_nama")
-    private String kategorNama;
+    private String kategoriNama;
 
     @Column(name = "tulisan_views")
     private int views;

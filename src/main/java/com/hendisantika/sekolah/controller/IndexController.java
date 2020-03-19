@@ -99,4 +99,11 @@ public class IndexController {
         return "siswa";
     }
 
+    @GetMapping("blog")
+    public String showBlog(Model model) {
+        List<Tulisan> tulisanList = tulisanRepository.findAll();
+        model.addAttribute("tulisanList", tulisanList);
+        return "blog";
+    }
+
 }
