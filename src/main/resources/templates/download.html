@@ -7,68 +7,49 @@
 <div th:replace="fragments/header :: menu"/>
 
 <div layout:fragment="content">
-    <section class="welcome_about">
+    <section class="contact" style="margin-bottom:50px;">
         <div class="container">
             <div class="row">
-                <div class="col-md-7">
-                    <h2>Kata Sambutan</h2>
-                    <p>Puji syukur kami panjatkan ke hadirat Tuhan Yang Maha Esa atas karunia dan hidayah-Nya,
-                        sehingga kita semua dapat membaktikan segala hal yang kita miliki untuk kemajuan dunia
-                        pendidikan.
-                        Apapun bentuk dan sumbangsih yang kita berikan, jika dilandasi niat yang tulus tanpa memandang
-                        imbalan
-                        apapun akan menghasilkan mahakarya yang agung untuk bekal kita dan generasi setelah kita.
-                        Pendidikan adalah harga mati untuk menjadi pondasi bangsa dan negara dalam menghadapi
-                        perkembangan zaman.
-                    </p>
-                    <p>Hal ini seiring dengan penguasaan teknologi untuk dimanfaatkan sebaik mungkin,
-                        sehingga menciptakan iklim kondusif dalam ranah keilmuan. Dengan konsep yang kontekstual dan
-                        efektif,
-                        kami mengejewantahkan nilai-nilai pendidikan yang tertuang dalam visi misi M-School,
-                        sebagai panduan hukum dalam menjabarkan tujuan hakiki pendidikan.
-                    </p>
-                </div>
-                <div class="col-md-5">
-                    <img alt="#" class="img-fluid" th:src="@{/theme/images/welcome-img.jpg}">
+                <div class="col-md-12">
+                    <div class="contact-title">
+                        <h2>Download</h2>
+                    </div>
                 </div>
             </div>
-        </div>
-    </section>
-    <!--//END WELCOME TITLE -->
-    <!--============================= TESTIMONIAL =============================-->
-    <section class="testimonial">
-        <div class="container">
             <div class="row">
                 <div class="col-md-12">
-                    <h2>Testimonial</h2>
-                </div>
-                <div class="col-md-12">
-                    <div class="single-item">
-                        <div class="quote">
-                            <i aria-hidden="true" class="fa fa-quote-left"></i>
-                            <p class="quote_text">MSCHOOL benar-benar mengagumkan. Saya sangat senang bisa bergabung
-                                dengan MSCHOOL dan menjadi siswa terbaik tahun 2018.</p>
-                            <div class="testi-img_block">
-                                <img alt="#" class="img-fluid" th:src="@{/theme/images/student-1.png}">
-                                <p><span>Hernandez Alvaro</span>Siswa Terbaik 2018</p>
-                            </div>
-                        </div>
-                        <div class="quote">
-                            <i aria-hidden="true" class="fa fa-quote-left"></i>
-                            <p class="quote_text">MSCHOOL benar-benar mengagumkan. Saya sangat senang bisa bergabung
-                                dengan MSCHOOL dan menjadi siswa terbaik tahun 2017. </p>
-                            <div class="testi-img_block">
-                                <img alt="#" class="img-fluid" th:src="@{/theme/images/student-2.png}">
-                                <p><span>Elanoar Rigby</span>Siswa Terbaik 2017</p>
-                            </div>
-                        </div>
+                    <div class="table-responsive">
+                        <table class="table table-striped" id="display">
+                            <thead>
+                            <tr>
+                                <th>No</th>
+                                <th>Files</th>
+                                <th>Tanggal</th>
+                                <th>Oleh</th>
+                                <th style="text-align:right;">Aksi</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <?php
+                      $no=1;
+                      foreach ($data->result() as $row):
+                            ?>
+                            <tr th:each="f : ${filesList}">
+                                <td><?php echo $no++;?></td>
+                                <td th:text="${f.judul}">file_judul</td>
+                                <td th:text="${#temporals.format(f.createdOn, 'dd/MM/YYYY')}">tanggal</td>
+                                <td th:text="${f.createdBy}">file_oleh</td>
+                                <td style="text-align:right;"><a class="btn btn-info"
+                                                                 th:href="@{/download/get_file/} + ${f.id}">Download</a>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
                     </div>
                 </div>
             </div>
         </div>
     </section>
-    <!--//END TESTIMONIAL -->
-    <div class="detailed_chart" th:replace="fragments/header :: chart"/>
 </div>
 
 <div th:replace="fragments/footer :: footer"/>
