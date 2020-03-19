@@ -140,4 +140,12 @@ public class IndexController {
         return "artikel";
     }
 
+    @GetMapping("pengumuman")
+    public String showPengumuman(Model model) {
+        log.info("Menampilkan data untuk Pengumuman Blog.");
+        List<Pengumuman> pengumumanList = pengumumanRepository.findAll();
+        model.addAttribute("tulisanList", pengumumanList);
+        return "pengumuman";
+    }
+
 }
