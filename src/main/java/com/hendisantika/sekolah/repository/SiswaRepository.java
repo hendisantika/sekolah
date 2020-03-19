@@ -1,8 +1,11 @@
 package com.hendisantika.sekolah.repository;
 
+import com.hendisantika.sekolah.dto.SiswaDto;
 import com.hendisantika.sekolah.entity.Siswa;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 
+import java.util.List;
 import java.util.UUID;
 
 /**
@@ -15,4 +18,7 @@ import java.util.UUID;
  * Time: 18.52
  */
 public interface SiswaRepository extends JpaRepository<Siswa, UUID> {
+    @Query(value = "SELECT tbl_siswa.*,kelas_nama FROM tbl_siswa JOIN tbl_kelas ON siswa_kelas_id=kelas_id;",
+            nativeQuery = true)
+    List<SiswaDto> findSiswa();
 }
