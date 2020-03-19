@@ -3,6 +3,7 @@ package com.hendisantika.sekolah.controller;
 import com.hendisantika.sekolah.entity.Agenda;
 import com.hendisantika.sekolah.entity.Guru;
 import com.hendisantika.sekolah.entity.Kategori;
+import com.hendisantika.sekolah.entity.Komentar;
 import com.hendisantika.sekolah.entity.Pengumuman;
 import com.hendisantika.sekolah.entity.Siswa;
 import com.hendisantika.sekolah.entity.Tulisan;
@@ -10,6 +11,7 @@ import com.hendisantika.sekolah.repository.AgendaRepository;
 import com.hendisantika.sekolah.repository.FilesRepository;
 import com.hendisantika.sekolah.repository.GuruRepository;
 import com.hendisantika.sekolah.repository.KategoriRepository;
+import com.hendisantika.sekolah.repository.KomentarRepository;
 import com.hendisantika.sekolah.repository.PengumumanRepository;
 import com.hendisantika.sekolah.repository.SiswaRepository;
 import com.hendisantika.sekolah.repository.TulisanRepository;
@@ -62,6 +64,9 @@ public class IndexController {
 
     @Autowired
     private KategoriRepository kategoriRepository;
+
+    @Autowired
+    private KomentarRepository komentarRepository;
 
     @GetMapping
     public String index(Model model) {
@@ -119,13 +124,19 @@ public class IndexController {
 
     @GetMapping("artikel/{slug}")
     public String showBlogDetails(Model model, @PathVariable(value = "slug") String slug) {
+        String[] colors = {"#ff9e67", "#10bdff", "#14b5c7", "#f98182", "#8f9ce2", "#ee2b33", "#d4ec15", "#613021"};
         log.info("Menampilkan data untuk Halaman Details Blog.");
         Tulisan tulisan = tulisanRepository.findBySlug(slug);
         List<Tulisan> populer = tulisanRepository.findByOrderByViewsDesc();
         List<Kategori> kategoriList = kategoriRepository.findAll();
+        List<Komentar> komentarList = komentarRepository.findByTulisanIdAndStatusAndParent(tulisan.getId(), "1", 0);
+        List<Komentar> parentKomentarList = komentarRepository.findByStatusAndParentOrderByTanggalAsc("1", 0);
         model.addAttribute("tulisan", tulisan);
         model.addAttribute("populer", populer);
         model.addAttribute("kategoriList", kategoriList);
+        model.addAttribute("komentarList", komentarList);
+        model.addAttribute("parentKomentarList", parentKomentarList);
+        model.addAttribute("colors", colors);
         return "artikel";
     }
 
