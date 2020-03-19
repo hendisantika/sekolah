@@ -178,4 +178,10 @@ public class IndexController {
         return "galeri";
     }
 
+    @GetMapping("contact")
+    public String showContact(Model model) {
+        log.info("Menampilkan data untuk Halaman Contact Us.");
+        return "contact";
+    }
+
 }
