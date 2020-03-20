@@ -18,11 +18,13 @@ import com.hendisantika.sekolah.repository.KomentarRepository;
 import com.hendisantika.sekolah.repository.PengumumanRepository;
 import com.hendisantika.sekolah.repository.SiswaRepository;
 import com.hendisantika.sekolah.repository.TulisanRepository;
+import com.hendisantika.sekolah.util.WordUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -74,6 +76,11 @@ public class IndexController {
     @Autowired
     private GaleriRepository galeriRepository;
 
+    @ModelAttribute("WordUtil")
+    public WordUtil addWordUtil() {
+        return new WordUtil();
+    }
+
     @GetMapping
     public String index(Model model) {
         log.info("Menampilkan data untuk Halaman Home.");
@@ -85,6 +92,8 @@ public class IndexController {
         TOT_AGENDA = agendaRepository.count();
         TOT_FILES = filesRepository.count();
         TOT_SISWA = siswaRepository.count();
+
+        model.addAttribute("WordUtil", new WordUtil());
 
         model.addAttribute("tulisanList", tulisanList);
         model.addAttribute("pengumuman", pengumuman);

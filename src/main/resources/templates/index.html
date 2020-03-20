@@ -70,7 +70,8 @@
                         </div><!-- // end .col-sm-3 -->
                         <div class="col-sm-9"><h3><a href="/pengumuman" th:text="${p.judul}">Belum Ada Judul</a></h3>
                             <span th:text="${#temporals.format(p.tanggal, 'dd-MMM-yyyy')}">tanggal</span>
-                            <p th:text="${#strings.substring(p.deskripsi,0,100)} + '....'">pengumuman_deskripsi,10</p>
+                            <p th:text="${WordUtil.wordLimit(p.deskripsi, 10)} + '...'">
+                                pengumuman_deskripsi</p>
 
                         </div><!-- // end .col-sm-7 -->
                     </div><!-- // end .row -->
@@ -87,7 +88,7 @@
                         </div>
                         <div class="date-description">
                             <h3><a th:href="@{/agenda}" th:text="${a.nama}">agenda_nama</a></h3>
-                            <p th:text="${#strings.substring(a.deskripsi,0,75)} + '....'">agenda_deskripsi</p>
+                            <p th:text="${WordUtil.wordLimit(a.deskripsi,10)} + '...'">agenda_deskripsi</p>
                             <hr class="event_line">
                         </div>
                     </div>
