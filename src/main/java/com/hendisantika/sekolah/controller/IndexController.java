@@ -6,6 +6,7 @@ import com.hendisantika.sekolah.entity.Galeri;
 import com.hendisantika.sekolah.entity.Guru;
 import com.hendisantika.sekolah.entity.Kategori;
 import com.hendisantika.sekolah.entity.Komentar;
+import com.hendisantika.sekolah.entity.Pengguna;
 import com.hendisantika.sekolah.entity.Pengumuman;
 import com.hendisantika.sekolah.entity.Siswa;
 import com.hendisantika.sekolah.entity.Tulisan;
@@ -191,6 +192,13 @@ public class IndexController {
     public String showContact(Model model) {
         log.info("Menampilkan data untuk Halaman Contact Us.");
         return "contact";
+    }
+
+    @GetMapping("login")
+    public String showLoginForm(Model model) {
+        log.info("Menampilkan data untuk Halaman Login.");
+        model.addAttribute("user", new Pengguna());
+        return "admin/login";
     }
 
 }

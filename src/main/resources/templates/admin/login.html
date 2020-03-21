@@ -1,81 +1,59 @@
 <!DOCTYPE html>
-<html lang="en" layout:decorate="~{layout/layout}" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      xmlns:th="http://www.thymeleaf.org">
-<html>
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="utf-8">
-    <meta content="IE=edge" http-equiv="X-UA-Compatible">
-    <title>MSCHOOL | Log in</title>
-    <!-- Tell the browser to be responsive to screen width -->
-    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
-    <link rel="shorcut icon" th:href="@{/static/assets/images/favicon.png}" type="text/css">
-    <!-- Bootstrap 3.3.6 -->
-    <link rel="stylesheet" th:href="@{/static/assets/bootstrap/css/bootstrap.min.css}">
-    <!-- Font Awesome -->
-    <link rel="stylesheet" th:href="@{/static/assets/font-awesome/css/font-awesome.min.css}">
-    <!-- Theme style -->
-    <link rel="stylesheet" th:href="@{/static/assets/dist/css/AdminLTE.min.css}">
-    <!-- iCheck -->
-    <link rel="stylesheet" th:href="@{/assets/plugins/iCheck/square/blue.css}">
-
-
+    <meta charset="UTF-8"/>
+    <title>Login Page</title>
+    <link rel="stylesheet"
+          th:href="@{https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css}"/>
 </head>
-<body class="hold-transition login-page">
-<div class="login-box">
-    <!-- /.login-logo -->
-    <div class="login-box-body">
-        <p class="login-box-msg"><img th:src="@{/static/assets/images/mylogo.png}" width="320px;"></p>
-        <hr/>
+<body>
+<div class="container">
+    <div class="col-sm-4 col-sm-offset-4" style="margin-top: 25px;">
 
-        <form method="post" th:action="@{admin/login/auth}">
-            <div class="form-group has-feedback">
-                <input class="form-control" name="username" placeholder="Username" required type="text">
-                <span class="glyphicon glyphicon-user form-control-feedback"></span>
-            </div>
-            <div class="form-group has-feedback">
-                <input class="form-control" name="password" placeholder="Password" required type="password">
-                <span class="glyphicon glyphicon-lock form-control-feedback"></span>
-            </div>
-            <div class="row">
-                <div class="col-xs-8">
-                    <div class="checkbox icheck">
-                        <label>
-                            <input type="checkbox"> Remember Me
-                        </label>
+        <div class="panel panel-info">
+            <div class="panel-heading">
+                <div class="panel-title">
+                    <div>
+                        <span>Sign In</span>
                     </div>
                 </div>
-                <!-- /.col -->
-                <div class="col-xs-4">
-                    <button class="btn btn-primary btn-block btn-flat" type="submit">Sign In</button>
-                </div>
-                <!-- /.col -->
             </div>
-        </form>
 
+            <div class="panel-body" id="login-panel-body">
+                <form method="POST" th:action="@{/signin}">
+                    <div class="alert alert-danger col-sm-12" th:if="${param.error}">
+                        <span>Invalid Email or Password</span>
+                    </div>
 
-        <!-- /.social-auth-links -->
-        <hr/>
-        <p> © copyright by <a href="https://www.facebook.com/hendisantika" target="_blank">Hendi Santika</a>.
-            <br>All rights reserved.</p>
+                    <div class="alert alert-success col-sm-12" th:if="${param.logout}">
+                        <span>You've successfully logged out</span>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="username">Username:</label>
+                        <input class="form-control" id="username" name="username" placeholder="username" required="true"
+                               type="text"/>
+                    </div>
+                    <div class="form-group">
+                        <label for="password">Password:</label>
+                        <input class="form-control" id="password" name="password" placeholder="password"
+                               required="true" type="password"/>
+                    </div>
+                    <div class="form-group">
+                        <button class="btn btn-success form-control" type="submit">Login</button>
+                    </div>
+                </form>
+
+            </div>
+            <div class="panel-footer">
+                <a th:href="@{/}">Home Page</a>
+            </div>
+        </div>
     </div>
-    <!-- /.login-box-body -->
 </div>
-<!-- /.login-box -->
-
-<!-- jQuery 2.2.3 -->
-<script th:src="@{/static/assets/plugins/jQuery/jquery-2.2.3.min.js}"></script>
-<!-- Bootstrap 3.3.6 -->
-<script th:src="@{/static/assets/bootstrap/js/bootstrap.min.js}"></script>
-<!-- iCheck -->
-<script th:src="@{/assets/plugins/iCheck/icheck.min.js}"></script>
-<script>
-    $(function () {
-        $('input').iCheck({
-            checkboxClass: 'icheckbox_square-blue',
-            radioClass: 'iradio_square-blue',
-            increaseArea: '20%' // optional
-        });
-    });
-</script>
+<script th:src="@{https://code.jquery.com/jquery-3.2.1.min.js}"></script>
+<script th:src="@{https://code.jquery.com/ui/1.12.1/jquery-ui.min.js}"></script>
+<script
+        th:src="@{https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js}"></script>
 </body>
 </html>
