@@ -5,6 +5,8 @@ import com.hendisantika.sekolah.repository.PenggunaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 /**
  * Created by IntelliJ IDEA.
  * Project : sekolah
@@ -22,4 +24,17 @@ public class PenggunaService {
     public Pengguna saveUser(Pengguna user) {
         return penggunaRepository.save(user);
     }
+
+    public List<Pengguna> getUsers() {
+        List<Pengguna> userDetails = penggunaRepository.findAll();
+        return userDetails;
+    }
+
+//    public UserDetails loadUserByUsername(String username) {
+//        Pengguna user = penggunaRepository.findByUsername(username);
+//        if (user == null) {
+//            throw new UsernameNotFoundException(username);
+//        }
+//        return new MyUserPrincipal(user);
+//    }
 }

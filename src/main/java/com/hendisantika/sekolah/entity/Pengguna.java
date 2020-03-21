@@ -3,12 +3,21 @@ package com.hendisantika.sekolah.entity;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.hibernate.annotations.GenericGenerator;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
-import javax.persistence.*;
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.EntityListeners;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import java.time.LocalDateTime;
-import java.util.UUID;
+import java.util.List;
 
 @Data
 @AllArgsConstructor
@@ -17,11 +26,9 @@ import java.util.UUID;
 @EntityListeners(AuditingEntityListener.class)
 public class Pengguna {
     @Id
-    @GeneratedValue(generator = "uuid2")
-    @GenericGenerator(name = "uuid2", strategy = "uuid2")
-
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "pengguna_id")
-    private UUID id;
+    private Long id;
 
     @Column(name = "pengguna_nama")
     private String nama;
@@ -53,8 +60,8 @@ public class Pengguna {
     @Column(name = "pengguna_twitter")
     private String witter;
 
-    @Column(name = "pengguna_linkdin")
-    private String linkdin;
+    @Column(name = "pengguna_linkedin")
+    private String linkedin;
 
     @Column(name = "pengguna_google_plus")
     private String googlePlus;
@@ -71,4 +78,10 @@ public class Pengguna {
     @Column(name = "pengguna_photo")
     private String photo;
 
+    @Column(name = "pengguna_active")
+    private boolean active;
+
+    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @JoinTable(joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
+    private List<Role> roles;
 }
