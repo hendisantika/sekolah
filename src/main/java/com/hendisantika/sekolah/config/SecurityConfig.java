@@ -29,8 +29,17 @@ import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
+    private static final String[] PUBLIC_LINK = new String[]{
+            "/", "/about", "/guru", "/siswa", "/blog", "/pengumuman", "/agenda", "/download",
+            "/galeri", "/contact", "/login", "/logout",
+            "/test", "/test2", "/test3"
+    };
+
     @Autowired
     private PenggunaRepository userRepository;
+    private static final String[] PRIVATE_LINK = new String[]{
+            "/admin/**"
+    };
 
     @Bean
     public BCryptPasswordEncoder passwordEncoder() {
@@ -64,20 +73,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 //inside the login form
                 .csrf().disable()
                 .authorizeRequests()
-                .antMatchers("/").permitAll()
-                .antMatchers("/about").permitAll()
-                .antMatchers("/guru").permitAll()
-                .antMatchers("/siswa").permitAll()
-                .antMatchers("/blog").permitAll()
-                .antMatchers("/pengumuman").permitAll()
-                .antMatchers("/agenda").permitAll()
-                .antMatchers("/download").permitAll()
-                .antMatchers("/galeri").permitAll()
-                .antMatchers("/contact").permitAll()
-                .antMatchers("/login").permitAll()
-                .antMatchers("/logout").permitAll()
-                .antMatchers("/admin/**").hasAuthority("ADMIN")
-                .antMatchers("/user/**").hasAuthority("USER")
+                .antMatchers(PUBLIC_LINK).permitAll()
+                .antMatchers(PRIVATE_LINK).hasAnyAuthority("ADMIN", "USER")
                 .anyRequest().authenticated()
                 .and()
                 .formLogin()

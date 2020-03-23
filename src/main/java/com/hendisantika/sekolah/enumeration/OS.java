@@ -1,4 +1,4 @@
-package com.hendisantika.sekolah;
+package com.hendisantika.sekolah.enumeration;
 
 import javax.servlet.http.HttpServletRequest;
 
