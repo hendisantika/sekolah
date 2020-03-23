@@ -118,4 +118,12 @@ public class AdminController {
         return "admin/dashboard";
     }
 
+    @PreAuthorize("hasAuthority('ADMIN')")
+    @GetMapping("/inbox")
+    public String inbox(Model model) {
+        log.info("Menampilkan data untuk Halaman List Inbox.");
+        model.addAttribute("waktu", LocalDateTime.now());
+        return "admin/dashboard";
+    }
+
 }
