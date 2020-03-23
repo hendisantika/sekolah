@@ -33,7 +33,7 @@ spring:
       content-type: text/html
   devtools:
     livereload:
-      enabled: false
+      enabled: true
   resources:
     static-locations: file:src/main/resources/static/
     #    static-locations: ${project.basedir}/src/main/resources/static/
