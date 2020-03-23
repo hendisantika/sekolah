@@ -29,4 +29,36 @@ public class AdminController {
         model.addAttribute("waktu", LocalDateTime.now());
         return "admin/dashboard";
     }
+
+    @PreAuthorize("hasAuthority('ADMIN')")
+    @GetMapping("/tulisan")
+    public String tulisan(Model model) {
+        log.info("Menampilkan data untuk Halaman List Berita.");
+        model.addAttribute("waktu", LocalDateTime.now());
+        return "admin/dashboard";
+    }
+
+    @PreAuthorize("hasAuthority('ADMIN')")
+    @GetMapping("/tulisan/add")
+    public String tambahTulisan(Model model) {
+        log.info("Menampilkan data untuk Halaman Tambah Berita.");
+        model.addAttribute("waktu", LocalDateTime.now());
+        return "admin/dashboard";
+    }
+
+    @PreAuthorize("hasAuthority('ADMIN')")
+    @GetMapping("/kategori")
+    public String kategori(Model model) {
+        log.info("Menampilkan data untuk Halaman Kategori Berita.");
+        model.addAttribute("waktu", LocalDateTime.now());
+        return "admin/dashboard";
+    }
+
+    @PreAuthorize("hasAuthority('ADMIN')")
+    @GetMapping("/pengguna")
+    public String pengguna(Model model) {
+        log.info("Menampilkan data untuk Halaman List Pengguna.");
+        model.addAttribute("waktu", LocalDateTime.now());
+        return "admin/dashboard";
+    }
 }
