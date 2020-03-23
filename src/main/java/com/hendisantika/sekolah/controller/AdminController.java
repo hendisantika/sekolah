@@ -126,4 +126,12 @@ public class AdminController {
         return "admin/dashboard";
     }
 
+    @PreAuthorize("hasAuthority('ADMIN')")
+    @GetMapping("/komentar")
+    public String komentar(Model model) {
+        log.info("Menampilkan data untuk Halaman List Komentar.");
+        model.addAttribute("waktu", LocalDateTime.now());
+        return "admin/dashboard";
+    }
+
 }
