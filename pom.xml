@@ -149,6 +149,7 @@
                         <always>false</always>
                         <dirty>-dirty</dirty>
                     </gitDescribe>
+                    <skip>${maven.gitcommitid.skip}</skip>
                 </configuration>
             </plugin>
         </plugins>

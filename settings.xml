@@ -4,18 +4,13 @@
           xsi:schemaLocation="http://maven.apache.org/SETTINGS/1.0.0 http://maven.apache.org/xsd/settings-1.0.0.xsd">
     <profiles>
         <profile>
-            <id>jboss-public</id>
-            <repositories>
-                <repository>
-                    <id>jboss-public-repository</id>
-                    <name>JBoss Public Maven Repository Group</name>
-                    <url>http://repository.jboss.org/nexus/content/groups/public/</url>
-                </repository>
-            </repositories>
+            <id>heroku</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+            <properties>
+                <maven.gitcommitid.skip>true</maven.gitcommitid.skip>
+            </properties>
         </profile>
     </profiles>
-
-    <activeProfiles>
-        <activeProfile>jboss-public</activeProfile>
-    </activeProfiles>
 </settings>
