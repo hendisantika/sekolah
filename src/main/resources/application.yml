@@ -34,6 +34,7 @@ spring:
   devtools:
     livereload:
       enabled: true
+    add-properties: true
   resources:
     static-locations: file:src/main/resources/static/
     #    static-locations: ${project.basedir}/src/main/resources/static/
