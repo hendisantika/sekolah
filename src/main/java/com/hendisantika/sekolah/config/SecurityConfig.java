@@ -65,6 +65,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .csrf().disable()
                 .authorizeRequests()
                 .antMatchers("/").permitAll()
+                .antMatchers("/about").permitAll()
                 .antMatchers("/login").permitAll()
                 .antMatchers("/logout").permitAll()
                 .antMatchers("/admin/**").hasAuthority("ADMIN")
@@ -95,6 +96,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/img/**")
                 .antMatchers("/css/**")
                 .antMatchers("/assets/**")
+                .antMatchers("/plugins/**")
                 .antMatchers("/templates/**");
     }
 

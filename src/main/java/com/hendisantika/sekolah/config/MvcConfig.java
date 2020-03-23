@@ -21,4 +21,14 @@ public class MvcConfig implements WebMvcConfigurer {
         registry.addViewController("/admin/dashboard").setViewName("admin/dashboard");
         registry.addViewController("/login").setViewName("admin/login");
     }
+
+//    @Override
+//    public void addResourceHandlers(ResourceHandlerRegistry registry) {
+//        registry.addResourceHandler("/css/**").addResourceLocations("/static/css/**");
+//        registry.addResourceHandler("/img/**").addResourceLocations("/static/img/**");
+//        registry.addResourceHandler("/js/**").addResourceLocations("/static/js/**");
+//        registry.addResourceHandler("/themes/**").addResourceLocations("/static/themes/**");
+//        registry.addResourceHandler("/assets/**").addResourceLocations("/static/assets/**");
+//        registry.addResourceHandler("/plugins/**").addResourceLocations("/static/plugins/**");
+//    }
 }
