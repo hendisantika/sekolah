@@ -24,6 +24,7 @@ spring:
     mode: HTML
     #    prefix: classpath:/templates/
     prefix: file:src/main/resources/templates/
+#    prefix: ${project.basedir}/src/main/resources/templates/
     suffix: .html
     # excluded-view-names:
     # template-resolver-order:
@@ -35,5 +36,9 @@ spring:
       enabled: false
   resources:
     static-locations: file:src/main/resources/static/
+    #    static-locations: ${project.basedir}/src/main/resources/static/
     cache:
       period: 0
+
+#hendisantika/password
+#admin/password

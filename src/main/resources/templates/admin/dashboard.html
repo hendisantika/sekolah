@@ -5,11 +5,11 @@
     <title>Admin</title>
 </head>
 <body>
-This is admin page<br>
-
-Waktu saat ini : <span th:text="${#temporals.format(waktu, 'dd-MMM-yyyy HH:mm')}">10.30 AM</span>
+<p>This is admin page</p><br>
+Waktu saat ini : <p th:text="${#temporals.format(waktu, 'dd-MMM-yyyy HH:mm')}">10.30 AM
+<p/>
 <br>
 
-<a href="/">Back To Home Page</a>
+<a th:href="@{/}">Back To Home Page</a>
 </body>
 </html>

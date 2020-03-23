@@ -1,6 +1,7 @@
 package com.hendisantika.sekolah.controller;
 
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -21,7 +22,7 @@ import java.time.LocalDateTime;
 @Controller
 @RequestMapping("admin")
 public class AdminController {
-    //    @PreAuthorize("hasAuthority('ADMIN')")
+    @PreAuthorize("hasAuthority('ADMIN')")
     @GetMapping("/dashboard")
     public String dashboard(Model model) {
         log.info("Menampilkan data untuk Halaman Dashboard.");

@@ -48,11 +48,11 @@ INSERT INTO tbl_pengguna (pengguna_id, pengguna_nama, pengguna_moto, pengguna_je
                           pengguna_tentang, pengguna_email, pengguna_nohp, pengguna_facebook, pengguna_twitter,
                           pengguna_linkedin, pengguna_google_plus, pengguna_status, pengguna_level, pengguna_register,
                           pengguna_photo, pengguna_active)
-VALUES (1, 'Hendi Santika', 'Just do it', 'L', 'admin', '$2a$10$blb/ULjyVvMP6kZkZDmuOu9WWRyE7SX7.JZ5sBieAHFNCSecZfjJq',
+VALUES (1, 'Hendi Santika', 'Just do it', 'L', 'admin', '$2a$06$KdPmlUQcRaOM1177wRdgCuqMsaUE0pff7nmTV.exVLIyIKL7GcBmO',
         'I am a mountainner. to me mountainerring is a life', 'hendisantika@yahoo.co.id', '081277159401',
         'https://www.facebook.com/hendisantika/', 'twitter.com/hendisantika34', '', '', 1, '1', '2016-09-03 06:07:55',
         'db5dec647062751f2fb236b9bc3f1c54.png', TRUE),
-       (2, 'Uzumaki Naruto', 'Just do it', 'L', 'admin', '$2a$10$WGh.gsG1av.Srlrb1IkvAOQSRAIBd8H/ZU2AATAtVX4cXlW7MhPw.',
+       (2, 'Uzumaki Naruto', 'Just do it', 'L', 'user', '$2a$06$KdPmlUQcRaOM1177wRdgCuqMsaUE0pff7nmTV.exVLIyIKL7GcBmO',
         'I am a mountainner. to me mountainerring is a life', 'uzumaki_naruto@konohgakure.co.jp', '081277159401',
         'https://www.facebook.com/narutoofficialsns', 'twitter.com/naruto', '', '', 1, '1', '2016-09-03 06:07:55',
         'db5dec647062751f2fb236b9bc3f1c54.png', TRUE);
