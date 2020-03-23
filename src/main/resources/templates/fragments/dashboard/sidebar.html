@@ -15,7 +15,7 @@
                 <img alt="User Image" class="img-circle elevation-2" th:src="@{/img/user2-160x160.jpg}">
             </div>
             <div class="info">
-                <a class="d-block" href="#">Alexander Pierce</a>
+                <a class="d-block" href="#">Hendi Santika</a>
             </div>
         </div>
 
@@ -23,15 +23,16 @@
         <nav class="mt-2">
             <ul class="nav nav-pills nav-sidebar flex-column" data-accordion="false" data-widget="treeview"
                 role="menu">
+                <a class="nav-link">Menu Utama</a>
                 <!-- Add icons to the links using the .nav-icon class
                      with font-awesome or any other icon font library -->
                 <a class="nav-link active" href="#">
-                    <i class="nav-icon fas fa-tachometer-alt"></i>
+                    <i class="nav-icon fas fa-home"></i>
                     <p>Dashboard</p>
                 </a>
                 <li class="nav-item has-treeview">
                     <a class="nav-link" href="#">
-                        <i class="nav-icon fas fa-chart-pie"></i>
+                        <i class="nav-icon fas fa-newspaper"></i>
                         <p>
                             Berita
                             <i class="right fas fa-angle-left"></i>
@@ -40,51 +41,51 @@
                     <ul class="nav nav-treeview">
                         <li class="nav-item">
                             <a class="nav-link" th:href="@{/pages/charts/chartjs.html}">
-                                <i class="far fa-circle nav-icon"></i>
-                                <p>ChartJS</p>
+                                <i class="fas fa-table nav-icon"></i>
+                                <p>List Berita</p>
                             </a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" th:href="@{/pages/charts/flot.html}">
-                                <i class="far fa-circle nav-icon"></i>
-                                <p>Flot</p>
+                                <i class="fas fa-thumbtack nav-icon"></i>
+                                <p>Post Berita</p>
                             </a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" th:href="@{/pages/charts/inline.html}">
-                                <i class="far fa-circle nav-icon"></i>
-                                <p>Inline</p>
+                                <i class="fas fa-wrench nav-icon"></i>
+                                <p>Kategori</p>
                             </a>
                         </li>
                     </ul>
                 </li>
                 <li class="nav-item has-treeview">
                     <a class="nav-link" href="#">
-                        <i class="nav-icon fas fa-tree"></i>
+                        <i class="nav-icon fas fa-users"></i>
                         <p>Pengguna</p>
                     </a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" th:href="@{pages/widgets.html}">
-                        <i class="nav-icon fas fa-th"></i>
+                        <i class="nav-icon fas fa-calendar"></i>
                         <p>Agenda</p>
                     </a>
                 </li>
                 <li class="nav-item has-treeview">
                     <a class="nav-link" href="#">
-                        <i class="nav-icon fas fa-table"></i>
+                        <i class="nav-icon fas fa-volume-up"></i>
                         <p>Pengumuman</p>
                     </a>
                 </li>
                 <li class="nav-item has-treeview">
                     <a class="nav-link" href="#">
-                        <i class="nav-icon fas fa-table"></i>
+                        <i class="nav-icon fas fa-download"></i>
                         <p>Download</p>
                     </a>
                 </li>
                 <li class="nav-item has-treeview">
                     <a class="nav-link" href="#">
-                        <i class="nav-icon fas fa-tachometer-alt"></i>
+                        <i class="nav-icon fas fa-camera"></i>
                         <p>
                             Gallery
                             <i class="right fas fa-angle-left"></i>
@@ -93,13 +94,13 @@
                     <ul class="nav nav-treeview">
                         <li class="nav-item">
                             <a class="nav-link" href="./index.html">
-                                <i class="far fa-circle nav-icon"></i>
+                                <i class="far fa-clone nav-icon"></i>
                                 <p>Album</p>
                             </a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link active" href="./index2.html">
-                                <i class="far fa-circle nav-icon"></i>
+                                <i class="fas fa-camera-retro nav-icon"></i>
                                 <p>Photos</p>
                             </a>
                         </li>
@@ -107,36 +108,13 @@
                 </li>
                 <li class="nav-item has-treeview">
                     <a class="nav-link" href="#">
-                        <i class="nav-icon fas fa-chart-pie"></i>
-                        <p>
-                            Gallery
-                            <i class="right fas fa-angle-left"></i>
-                        </p>
-                    </a>
-                    <ul class="nav nav-treeview">
-                        <li class="nav-item">
-                            <a class="nav-link" href="pages/charts/chartjs.html">
-                                <i class="far fa-circle nav-icon"></i>
-                                <p>Album</p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="pages/charts/flot.html">
-                                <i class="far fa-circle nav-icon"></i>
-                                <p>Photos</p>
-                            </a>
-                        </li>
-                    </ul>
-                </li>
-                <li class="nav-item has-treeview">
-                    <a class="nav-link" href="#">
-                        <i class="nav-icon fas fa-table"></i>
+                        <i class="nav-icon fas fa-graduation-cap"></i>
                         <p>Data Guru</p>
                     </a>
                 </li>
                 <li class="nav-item has-treeview">
                     <a class="nav-link" href="#">
-                        <i class="nav-icon fas fa-tachometer-alt"></i>
+                        <i class="nav-icon fas fa-user"></i>
                         <p>
                             Kesiswaan
                             <i class="right fas fa-angle-left"></i>
@@ -145,13 +123,13 @@
                     <ul class="nav nav-treeview">
                         <li class="nav-item">
                             <a class="nav-link" href="./index.html">
-                                <i class="far fa-circle nav-icon"></i>
+                                <i class="fas fa-users nav-icon"></i>
                                 <p>Data Siswa</p>
                             </a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link active" href="./index2.html">
-                                <i class="far fa-circle nav-icon"></i>
+                                <i class="far fa-star nav-icon"></i>
                                 <p>Prestasi Siswa</p>
                             </a>
                         </li>
@@ -159,7 +137,7 @@
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="pages/calendar.html">
-                        <i class="nav-icon fas fa-calendar-alt"></i>
+                        <i class="nav-icon fas fa-inbox"></i>
                         <p>
                             Inbox
                             <span class="badge badge-info right">2</span>
@@ -168,7 +146,7 @@
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="pages/calendar.html">
-                        <i class="nav-icon fas fa-calendar-alt"></i>
+                        <i class="nav-icon fas fa-comment"></i>
                         <p>
                             Komentar
                             <span class="badge badge-info right">5</span>
@@ -176,7 +154,7 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="pages/calendar.html">
+                    <a class="nav-link" href="/logout">
                         <i class="nav-icon fas fa-calendar-alt"></i>
                         <p>Sign Out</p>
                     </a>

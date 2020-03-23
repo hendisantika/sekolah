@@ -1,6 +1,9 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" xmlns:th="http://www.thymeleaf.org">
 <head th:replace="fragments/dashboard/header :: header"/>
+
+<body class="hold-transition sidebar-mini layout-fixed layout-navbar-fixed layout-footer-fixed">
+
 <head th:replace="fragments/dashboard/navbar :: navbar"/>
 <head th:replace="fragments/dashboard/sidebar :: sidebar"/>
 
@@ -885,12 +888,6 @@
     </section>
     <!-- /.content -->
 </div>
-
-<!-- Control Sidebar -->
-<aside class="control-sidebar control-sidebar-dark">
-    <!-- Control sidebar content goes here -->
-</aside>
-<!-- /.control-sidebar -->
 
 <footer th:replace="fragments/dashboard/footer :: footer"/>
 <th:block th:replace="fragments/dashboard/scripts :: scripts"/>
