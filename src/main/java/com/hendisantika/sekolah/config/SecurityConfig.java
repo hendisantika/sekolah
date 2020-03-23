@@ -91,12 +91,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     public void configure(WebSecurity web) {
         web
                 .ignoring()
-                .antMatchers("/js**")
-                .antMatchers("/images/**")
-                .antMatchers("/img/**")
-                .antMatchers("/css/**")
                 .antMatchers("/assets/**")
+                .antMatchers("/css/**")
+                .antMatchers("/img/**")
+                .antMatchers("/js**")
                 .antMatchers("/plugins/**")
+                .antMatchers("/theme/**")
                 .antMatchers("/templates/**");
     }
 
