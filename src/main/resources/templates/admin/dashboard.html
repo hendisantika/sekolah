@@ -7,6 +7,9 @@
 <body>
 This is admin page<br>
 
+Waktu saat ini : <span th:text="${#temporals.format(waktu, 'dd-MMM-yyyy HH:mm')}">10.30 AM</span>
+<br>
+
 <a href="/">Back To Home Page</a>
 </body>
 </html>
