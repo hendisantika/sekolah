@@ -94,4 +94,12 @@ public class AdminController {
         return "admin/dashboard";
     }
 
+    @PreAuthorize("hasAuthority('ADMIN')")
+    @GetMapping("/galeri")
+    public String galeri(Model model) {
+        log.info("Menampilkan data untuk Halaman List Galeri.");
+        model.addAttribute("waktu", LocalDateTime.now());
+        return "admin/dashboard";
+    }
+
 }
