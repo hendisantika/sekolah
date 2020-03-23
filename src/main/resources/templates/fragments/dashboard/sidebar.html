@@ -25,103 +25,15 @@
                 role="menu">
                 <!-- Add icons to the links using the .nav-icon class
                      with font-awesome or any other icon font library -->
-                <li class="nav-item has-treeview menu-open">
-                    <a class="nav-link active" href="#">
-                        <i class="nav-icon fas fa-tachometer-alt"></i>
-                        <p>
-                            Dashboard
-                            <i class="right fas fa-angle-left"></i>
-                        </p>
-                    </a>
-                    <ul class="nav nav-treeview">
-                        <li class="nav-item">
-                            <a class="nav-link active" th:href="@{/index.html}">
-                                <i class="far fa-circle nav-icon"></i>
-                                <p>Dashboard v1</p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" th:href="@{/index2.html}">
-                                <i class="far fa-circle nav-icon"></i>
-                                <p>Dashboard v2</p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" th:href="@{/index3.html}">
-                                <i class="far fa-circle nav-icon"></i>
-                                <p>Dashboard v3</p>
-                            </a>
-                        </li>
-                    </ul>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" th:href="@{pages/widgets.html}">
-                        <i class="nav-icon fas fa-th"></i>
-                        <p>
-                            Widgets
-                            <span class="right badge badge-danger">New</span>
-                        </p>
-                    </a>
-                </li>
-                <li class="nav-item has-treeview">
-                    <a class="nav-link" href="#">
-                        <i class="nav-icon fas fa-copy"></i>
-                        <p>
-                            Layout Options
-                            <i class="fas fa-angle-left right"></i>
-                            <span class="badge badge-info right">6</span>
-                        </p>
-                    </a>
-                    <ul class="nav nav-treeview">
-                        <li class="nav-item">
-                            <a class="nav-link" th:href="@{/pages/layout/top-nav.html}">
-                                <i class="far fa-circle nav-icon"></i>
-                                <p>Top Navigation</p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" th:href="@{/pages/layout/top-nav-sidebar.html}">
-                                <i class="far fa-circle nav-icon"></i>
-                                <p>Top Navigation + Sidebar</p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" th:href="@{/pages/layout/boxed.html}">
-                                <i class="far fa-circle nav-icon"></i>
-                                <p>Boxed</p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" th:href="@{/pages/layout/fixed-sidebar.html}">
-                                <i class="far fa-circle nav-icon"></i>
-                                <p>Fixed Sidebar</p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" th:href="@{/pages/layout/fixed-topnav.html}">
-                                <i class="far fa-circle nav-icon"></i>
-                                <p>Fixed Navbar</p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" th:href="@{/pages/layout/fixed-footer.html}">
-                                <i class="far fa-circle nav-icon"></i>
-                                <p>Fixed Footer</p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" th:href="@{/pages/layout/collapsed-sidebar.html}">
-                                <i class="far fa-circle nav-icon"></i>
-                                <p>Collapsed Sidebar</p>
-                            </a>
-                        </li>
-                    </ul>
-                </li>
+                <a class="nav-link active" href="#">
+                    <i class="nav-icon fas fa-tachometer-alt"></i>
+                    <p>Dashboard</p>
+                </a>
                 <li class="nav-item has-treeview">
                     <a class="nav-link" href="#">
                         <i class="nav-icon fas fa-chart-pie"></i>
                         <p>
-                            Charts
+                            Berita
                             <i class="right fas fa-angle-left"></i>
                         </p>
                     </a>
@@ -149,93 +61,69 @@
                 <li class="nav-item has-treeview">
                     <a class="nav-link" href="#">
                         <i class="nav-icon fas fa-tree"></i>
+                        <p>Pengguna</p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" th:href="@{pages/widgets.html}">
+                        <i class="nav-icon fas fa-th"></i>
+                        <p>Agenda</p>
+                    </a>
+                </li>
+                <li class="nav-item has-treeview">
+                    <a class="nav-link" href="#">
+                        <i class="nav-icon fas fa-table"></i>
+                        <p>Pengumuman</p>
+                    </a>
+                </li>
+                <li class="nav-item has-treeview">
+                    <a class="nav-link" href="#">
+                        <i class="nav-icon fas fa-table"></i>
+                        <p>Download</p>
+                    </a>
+                </li>
+                <li class="nav-item has-treeview">
+                    <a class="nav-link" href="#">
+                        <i class="nav-icon fas fa-tachometer-alt"></i>
                         <p>
-                            UI Elements
-                            <i class="fas fa-angle-left right"></i>
+                            Gallery
+                            <i class="right fas fa-angle-left"></i>
                         </p>
                     </a>
                     <ul class="nav nav-treeview">
                         <li class="nav-item">
-                            <a class="nav-link" th:href="@{pages/UI/general.html}">
+                            <a class="nav-link" href="./index.html">
                                 <i class="far fa-circle nav-icon"></i>
-                                <p>General</p>
+                                <p>Album</p>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" th:href="@{pages/UI/icons.html}">
+                            <a class="nav-link active" href="./index2.html">
                                 <i class="far fa-circle nav-icon"></i>
-                                <p>Icons</p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" th:href="@{/pages/UI/buttons.html}">
-                                <i class="far fa-circle nav-icon"></i>
-                                <p>Buttons</p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" th:href="@{/pages/UI/sliders.html}">
-                                <i class="far fa-circle nav-icon"></i>
-                                <p>Sliders</p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" th:href="@{/pages/UI/modals.html}">
-                                <i class="far fa-circle nav-icon"></i>
-                                <p>Modals & Alerts</p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" th:href="@{/pages/UI/navbar.html}">
-                                <i class="far fa-circle nav-icon"></i>
-                                <p>Navbar & Tabs</p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" th:href="@{/pages/UI/timeline.html}">
-                                <i class="far fa-circle nav-icon"></i>
-                                <p>Timeline</p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" th:href="@{/pages/UI/ribbons.html}">
-                                <i class="far fa-circle nav-icon"></i>
-                                <p>Ribbons</p>
+                                <p>Photos</p>
                             </a>
                         </li>
                     </ul>
                 </li>
                 <li class="nav-item has-treeview">
                     <a class="nav-link" href="#">
-                        <i class="nav-icon fas fa-edit"></i>
+                        <i class="nav-icon fas fa-chart-pie"></i>
                         <p>
-                            Forms
-                            <i class="fas fa-angle-left right"></i>
+                            Gallery
+                            <i class="right fas fa-angle-left"></i>
                         </p>
                     </a>
                     <ul class="nav nav-treeview">
                         <li class="nav-item">
-                            <a class="nav-link" th:href="@{/pages/forms/general.html}">
+                            <a class="nav-link" href="pages/charts/chartjs.html">
                                 <i class="far fa-circle nav-icon"></i>
-                                <p>General Elements</p>
+                                <p>Album</p>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" th:href="@{/pages/forms/advanced.html}">
+                            <a class="nav-link" href="pages/charts/flot.html">
                                 <i class="far fa-circle nav-icon"></i>
-                                <p>Advanced Elements</p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" th:href="@{/pages/forms/editors.html}">
-                                <i class="far fa-circle nav-icon"></i>
-                                <p>Editors</p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" th:href="@{/pages/forms/validation.html}">
-                                <i class="far fa-circle nav-icon"></i>
-                                <p>Validation</p>
+                                <p>Photos</p>
                             </a>
                         </li>
                     </ul>
@@ -243,310 +131,54 @@
                 <li class="nav-item has-treeview">
                     <a class="nav-link" href="#">
                         <i class="nav-icon fas fa-table"></i>
-                        <p>
-                            Tables
-                            <i class="fas fa-angle-left right"></i>
-                        </p>
-                    </a>
-                    <ul class="nav nav-treeview">
-                        <li class="nav-item">
-                            <a class="nav-link" th:href="@{/pages/tables/simple.html}">
-                                <i class="far fa-circle nav-icon"></i>
-                                <p>Simple Tables</p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" th:href="@{/pages/tables/data.html}">
-                                <i class="far fa-circle nav-icon"></i>
-                                <p>DataTables</p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" th:href="@{/pages/tables/jsgrid.html}">
-                                <i class="far fa-circle nav-icon"></i>
-                                <p>jsGrid</p>
-                            </a>
-                        </li>
-                    </ul>
-                </li>
-                <li class="nav-header">EXAMPLES</li>
-                <li class="nav-item">
-                    <a class="nav-link" th:href="@{/pages/calendar.html}">
-                        <i class="nav-icon far fa-calendar-alt"></i>
-                        <p>
-                            Calendar
-                            <span class="badge badge-info right">2</span>
-                        </p>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" th:href="@{/pages/gallery.html}">
-                        <i class="nav-icon far fa-image"></i>
-                        <p>
-                            Gallery
-                        </p>
+                        <p>Data Guru</p>
                     </a>
                 </li>
                 <li class="nav-item has-treeview">
                     <a class="nav-link" href="#">
-                        <i class="nav-icon far fa-envelope"></i>
+                        <i class="nav-icon fas fa-tachometer-alt"></i>
                         <p>
-                            Mailbox
-                            <i class="fas fa-angle-left right"></i>
-                        </p>
-                    </a>
-                    <ul class="nav nav-treeview">
-                        <li class="nav-item">
-                            <a class="nav-link" th:href="@{/pages/mailbox/mailbox.html}">
-                                <i class="far fa-circle nav-icon"></i>
-                                <p>Inbox</p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" th:href="@{/pages/mailbox/compose.html}">
-                                <i class="far fa-circle nav-icon"></i>
-                                <p>Compose</p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" th:href="@{/pages/mailbox/read-mail.html}">
-                                <i class="far fa-circle nav-icon"></i>
-                                <p>Read</p>
-                            </a>
-                        </li>
-                    </ul>
-                </li>
-                <li class="nav-item has-treeview">
-                    <a class="nav-link" href="#">
-                        <i class="nav-icon fas fa-book"></i>
-                        <p>
-                            Pages
-                            <i class="fas fa-angle-left right"></i>
-                        </p>
-                    </a>
-                    <ul class="nav nav-treeview">
-                        <li class="nav-item">
-                            <a class="nav-link" th:href=@{/}"pages/examples/invoice.html}">
-                                <i class="far fa-circle nav-icon"></i>
-                                <p>Invoice</p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" th:href=@{/}"pages/examples/profile.html}">
-                                <i class="far fa-circle nav-icon"></i>
-                                <p>Profile</p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" th:href="@{/pages/examples/e_commerce.html}">
-                                <i class="far fa-circle nav-icon"></i>
-                                <p>E-commerce</p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" th:href="@{/pages/examples/projects.html}">
-                                <i class="far fa-circle nav-icon"></i>
-                                <p>Projects</p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" th:href="@{/pages/examples/project_add.html}">
-                                <i class="far fa-circle nav-icon"></i>
-                                <p>Project Add</p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" th:href="@{/pages/examples/project_edit.html}">
-                                <i class="far fa-circle nav-icon"></i>
-                                <p>Project Edit</p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" th:href="@{/pages/examples/project_detail.html}">
-                                <i class="far fa-circle nav-icon"></i>
-                                <p>Project Detail</p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" th:href="@{/pages/examples/contacts.html}">
-                                <i class="far fa-circle nav-icon"></i>
-                                <p>Contacts</p>
-                            </a>
-                        </li>
-                    </ul>
-                </li>
-                <li class="nav-item has-treeview">
-                    <a class="nav-link" href="#">
-                        <i class="nav-icon far fa-plus-square"></i>
-                        <p>
-                            Extras
-                            <i class="fas fa-angle-left right"></i>
-                        </p>
-                    </a>
-                    <ul class="nav nav-treeview">
-                        <li class="nav-item">
-                            <a class="nav-link" th:href="@{/pages/examples/login.html}">
-                                <i class="far fa-circle nav-icon"></i>
-                                <p>Login</p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" th:href="@{/pages/examples/register.html}">
-                                <i class="far fa-circle nav-icon"></i>
-                                <p>Register</p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" th:href="@{/pages/examples/forgot-password.html}">
-                                <i class="far fa-circle nav-icon"></i>
-                                <p>Forgot Password</p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" th:href="@{/pages/examples/recover-password.html}">
-                                <i class="far fa-circle nav-icon"></i>
-                                <p>Recover Password</p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" th:href="@{/pages/examples/lockscreen.html}">
-                                <i class="far fa-circle nav-icon"></i>
-                                <p>Lockscreen</p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" th:href="@{/pages/examples/legacy-user-menu.html}">
-                                <i class="far fa-circle nav-icon"></i>
-                                <p>Legacy User Menu</p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" th:href="@{/pages/examples/language-menu.html}">
-                                <i class="far fa-circle nav-icon"></i>
-                                <p>Language Menu</p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" th:href="@{/pages/examples/404.html}">
-                                <i class="far fa-circle nav-icon"></i>
-                                <p>Error 404</p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" th:href="@{/pages/examples/500.html}">
-                                <i class="far fa-circle nav-icon"></i>
-                                <p>Error 500</p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" th:href="@{/pages/examples/pace.html}">
-                                <i class="far fa-circle nav-icon"></i>
-                                <p>Pace</p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" th:href="@{/pages/examples/blank.html}">
-                                <i class="far fa-circle nav-icon"></i>
-                                <p>Blank Page</p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" th:href="@{/starter.html}">
-                                <i class="far fa-circle nav-icon"></i>
-                                <p>Starter Page</p>
-                            </a>
-                        </li>
-                    </ul>
-                </li>
-                <li class="nav-header">MISCELLANEOUS</li>
-                <li class="nav-item">
-                    <a class="nav-link" th:href="@{/https://adminlte.io/docs/3.0}">
-                        <i class="nav-icon fas fa-file"></i>
-                        <p>Documentation</p>
-                    </a>
-                </li>
-                <li class="nav-header">MULTI LEVEL EXAMPLE</li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">
-                        <i class="fas fa-circle nav-icon"></i>
-                        <p>Level 1</p>
-                    </a>
-                </li>
-                <li class="nav-item has-treeview">
-                    <a class="nav-link" href="#">
-                        <i class="nav-icon fas fa-circle"></i>
-                        <p>
-                            Level 1
+                            Kesiswaan
                             <i class="right fas fa-angle-left"></i>
                         </p>
                     </a>
                     <ul class="nav nav-treeview">
                         <li class="nav-item">
-                            <a class="nav-link" href="#">
+                            <a class="nav-link" href="./index.html">
                                 <i class="far fa-circle nav-icon"></i>
-                                <p>Level 2</p>
+                                <p>Data Siswa</p>
                             </a>
-                        </li>
-                        <li class="nav-item has-treeview">
-                            <a class="nav-link" href="#">
-                                <i class="far fa-circle nav-icon"></i>
-                                <p>
-                                    Level 2
-                                    <i class="right fas fa-angle-left"></i>
-                                </p>
-                            </a>
-                            <ul class="nav nav-treeview">
-                                <li class="nav-item">
-                                    <a class="nav-link" href="#">
-                                        <i class="far fa-dot-circle nav-icon"></i>
-                                        <p>Level 3</p>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" href="#">
-                                        <i class="far fa-dot-circle nav-icon"></i>
-                                        <p>Level 3</p>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" href="#">
-                                        <i class="far fa-dot-circle nav-icon"></i>
-                                        <p>Level 3</p>
-                                    </a>
-                                </li>
-                            </ul>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#">
+                            <a class="nav-link active" href="./index2.html">
                                 <i class="far fa-circle nav-icon"></i>
-                                <p>Level 2</p>
+                                <p>Prestasi Siswa</p>
                             </a>
                         </li>
                     </ul>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">
-                        <i class="fas fa-circle nav-icon"></i>
-                        <p>Level 1</p>
-                    </a>
-                </li>
-                <li class="nav-header">LABELS</li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">
-                        <i class="nav-icon far fa-circle text-danger"></i>
-                        <p class="text">Important</p>
+                    <a class="nav-link" href="pages/calendar.html">
+                        <i class="nav-icon fas fa-calendar-alt"></i>
+                        <p>
+                            Inbox
+                            <span class="badge badge-info right">2</span>
+                        </p>
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">
-                        <i class="nav-icon far fa-circle text-warning"></i>
-                        <p>Warning</p>
+                    <a class="nav-link" href="pages/calendar.html">
+                        <i class="nav-icon fas fa-calendar-alt"></i>
+                        <p>
+                            Komentar
+                            <span class="badge badge-info right">5</span>
+                        </p>
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">
-                        <i class="nav-icon far fa-circle text-info"></i>
-                        <p>Informational</p>
+                    <a class="nav-link" href="pages/calendar.html">
+                        <i class="nav-icon fas fa-calendar-alt"></i>
+                        <p>Sign Out</p>
                     </a>
                 </li>
             </ul>
