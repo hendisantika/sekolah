@@ -90,6 +90,13 @@
             <groupId>org.flywaydb</groupId>
             <artifactId>flyway-core</artifactId>
         </dependency>
+        <!-- https://mvnrepository.com/artifact/jboss.web/servlet-api -->
+        <dependency>
+            <groupId>jboss.web</groupId>
+            <artifactId>servlet-api</artifactId>
+            <version>3.0.0-beta-2</version>
+            <scope>provided</scope>
+        </dependency>
 
         <dependency>
             <groupId>org.springframework.boot</groupId>
