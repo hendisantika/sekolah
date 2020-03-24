@@ -41,5 +41,16 @@ spring:
     cache:
       period: 0
 
+#We can use the httpOnly and secure flags to secure our session cookie:
+#
+#httpOnly: if true then browser script won't be able to access the cookie
+#secure: if true then the cookie will be sent only over HTTPS connection
+server:
+  servlet:
+    session:
+      cookie:
+        http-only: true
+#        secure: true
+
 #hendisantika/password
 #admin/password
