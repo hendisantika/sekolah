@@ -1,6 +1,7 @@
 package com.hendisantika.sekolah.controller;
 
 import com.hendisantika.sekolah.entity.Kategori;
+import com.hendisantika.sekolah.exception.KategoriNotFoundException;
 import com.hendisantika.sekolah.repository.KategoriRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,9 +32,11 @@ public class KategoriApiController {
     }
 
     @GetMapping("categories/{kategoriId}")
-    public Kategori findKategoriById(@PathVariable(value = "kategoriId") UUID kategoriId) {
+    public Kategori findKategoriById(@PathVariable(value = "kategoriId") UUID kategoriId) throws KategoriNotFoundException {
         log.info("filter kategori by id {}", kategoriId);
-        Kategori kategori = kategoriRepository.findById(kategoriId).orElse(null);
-        return kategori;
+        return kategoriRepository.findById(kategoriId).orElseThrow(() -> {
+            log.warn("Kategori Not Found not found.");
+            return new KategoriNotFoundException("Kategori Not Found");
+        });
     }
 }

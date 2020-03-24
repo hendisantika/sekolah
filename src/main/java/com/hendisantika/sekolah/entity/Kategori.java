@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.GenericGenerator;
+import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.Column;
@@ -39,5 +40,6 @@ public class Kategori {
     private String nama;
 
     @Column(name = "kategori_tanggal")
+    @CreatedDate
     private LocalDateTime tanggal;
 }
