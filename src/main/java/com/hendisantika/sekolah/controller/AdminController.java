@@ -35,7 +35,7 @@ public class AdminController {
     public String tulisan(Model model) {
         log.info("Menampilkan data untuk Halaman List Berita.");
         model.addAttribute("waktu", LocalDateTime.now());
-        return "admin/dashboard";
+        return "admin/tulisan";
     }
 
     @PreAuthorize("hasAuthority('ADMIN')")
