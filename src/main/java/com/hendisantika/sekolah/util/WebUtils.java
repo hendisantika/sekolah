@@ -112,7 +112,6 @@ public class WebUtils {
     }
 
     public static UserAgentInfo showUserAgentInfo(ReadableUserAgent agent) {
-        log.info("- - - - - - - - - - - - - - - - -");
         // type
         log.info("Browser type: " + agent.getType().getName());
         log.info("Browser name: " + agent.getName());

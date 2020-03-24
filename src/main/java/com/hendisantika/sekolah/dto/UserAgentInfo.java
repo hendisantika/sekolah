@@ -26,4 +26,6 @@ public class UserAgentInfo {
     private String browserType;
     private String browserVersion;
     private String deviceType;
+    private String hostAddress;
+    private String hostName;
 }

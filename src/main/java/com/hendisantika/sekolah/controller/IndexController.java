@@ -58,6 +58,30 @@ public class IndexController {
     private static long TOT_FILES = 0;
     private static long TOT_AGENDA = 0;
 
+    private static final String[] IP_HEADER_CANDIDATES = {
+            "X-Forwarded-For",
+            "Proxy-Client-IP",
+            "WL-Proxy-Client-IP",
+            "HTTP_X_FORWARDED_FOR",
+            "HTTP_X_FORWARDED",
+            "HTTP_X_CLUSTER_CLIENT_IP",
+            "HTTP_CLIENT_IP",
+            "HTTP_FORWARDED_FOR",
+            "HTTP_FORWARDED",
+            "HTTP_VIA",
+            "REMOTE_ADDR"};
+
+    public static String getClientIpAddress(HttpServletRequest request) {
+        for (String header : IP_HEADER_CANDIDATES) {
+            String ip = request.getHeader(header);
+            String hostName = request.getRemoteHost();
+            if (ip != null && ip.length() != 0 && !"unknown" .equalsIgnoreCase(ip)) {
+                return ip;
+            }
+        }
+        return request.getRemoteAddr();
+    }
+
     @Autowired
     private TulisanRepository tulisanRepository;
 
@@ -213,9 +237,29 @@ public class IndexController {
 
     @GetMapping("test")
     public String getUserAgent2(Model model, HttpServletRequest request) {
+        String remoteIpAddr = "";
+        String remoteHostAddr = "";
+        if (request != null) {
+            remoteIpAddr = request.getHeader("X-FORWARDED-FOR");
+            if (remoteIpAddr == null || "" .equals(remoteIpAddr)) {
+                remoteIpAddr = request.getRemoteAddr();
+                remoteHostAddr = request.getRemoteHost();
+            }
+        }
+
+        // Get client's IP address
+        String clientIP = getClientIpAddress(request);
+
+        // Get client's host name
+        String clientHost = request.getRemoteHost();
+
         UserAgentInfo userAgentInfo = getUserAgent(request);
         UserAgentInfo userAgentInfo2 = showUserAgentInfo(parser.parse(userAgentInfo.getUserAgent()));
+        userAgentInfo2.setHostAddress(remoteIpAddr);
+        userAgentInfo2.setHostName(remoteHostAddr);
 
+        log.info("clientIP: ", clientIP);
+        log.info("clientHost: ", clientHost);
         model.addAttribute("userAgentInfo", userAgentInfo2);
         model.addAttribute("waktu", LocalDateTime.now());
         return "samples/userAgent";
