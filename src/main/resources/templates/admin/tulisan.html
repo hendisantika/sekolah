@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" xmlns:th="http://www.thymeleaf.org">
 <head th:replace="fragments/dashboard/header :: header"/>
-
 <body class="hold-transition sidebar-mini layout-fixed layout-navbar-fixed layout-footer-fixed">
 
 <head th:replace="fragments/dashboard/navbar :: navbar"/>
@@ -31,8 +30,10 @@
     <section class="content">
         <div class="card">
             <div class="card-header">
-                <h3 class="card-title">jsGrid</h3>
+                <a class="btn btn-success btn-flat" th:href="@{/admin/tulisan/add}"><span class="fa fa-plus"></span>
+                    Post Tulisan</a>
             </div>
+
             <!-- /.card-header -->
             <div class="card-body">
                 <div id="jsGrid1"></div>
@@ -45,6 +46,38 @@
 </div>
 
 <footer th:replace="fragments/dashboard/footer :: footer"/>
-<th:block th:replace="fragments/dashboard/scripts :: scripts"/>
+<!-- jQuery -->
+<script th:src="@{/plugins/jquery/jquery.min.js}"></script>
+<!-- Bootstrap 4 -->
+<script th:src="@{/plugins/bootstrap/js/bootstrap.bundle.min.js}"></script>
+<!-- jsGrid -->
+<script th:src="@{/plugins/jsgrid/demos/db.js}"></script>
+<script th:src="@{/plugins/jsgrid/jsgrid.min.js}"></script>
+<!-- AdminLTE App -->
+<script th:src="@{/js/adminlte.min.js}"></script>
+<!-- AdminLTE for demo purposes -->
+<script th:src="@{/js/demo.js}"></script>
+<!-- page script -->
+<script>
+    $(function () {
+        $("#jsGrid1").jsGrid({
+            height: "100%",
+            width: "100%",
+
+            sorting: true,
+            paging: true,
+
+            data: db.clients,
+
+            fields: [
+                {name: "Name", type: "text", width: 150},
+                {name: "Age", type: "number", width: 50},
+                {name: "Address", type: "text", width: 200},
+                {name: "Country", type: "select", items: db.countries, valueField: "Id", textField: "Name"},
+                {name: "Married", type: "checkbox", title: "Is Married"}
+            ]
+        });
+    });
+</script>
 </body>
 </html>
