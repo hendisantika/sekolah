@@ -31,7 +31,7 @@ import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
     private static final String[] PUBLIC_LINK = new String[]{
             "/", "/about", "/guru", "/siswa", "/blog", "/pengumuman", "/agenda", "/download",
-            "/galeri", "/contact", "/login", "/logout",
+            "/galeri", "/contact", "/login", "/logout", "/v1/api/**",
             "/test", "/test2", "/test3"
     };
 
