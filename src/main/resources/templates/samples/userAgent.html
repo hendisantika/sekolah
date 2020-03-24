@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8"/>
+    <title>get User Agent</title>
+</head>
+<body>
+<p>This is admin page</p><br>
+
+<h3 th:text="'User Agent: ' + ${userAgentInfo.userAgent}">User Agent</h3>
+<h3 th:text="'browserType: ' + ${userAgentInfo.browserType}">Test</h3>
+<h3 th:text="'browserMajorVersion: ' + ${userAgentInfo.browserVersion}">Test</h3>
+<h3 th:text="'osVersion: ' + ${userAgentInfo.osVersion}">Test</h3>
+<h3 th:text="'osVersion: ' + ${userAgentInfo.osType}">Test</h3>
+<h3 th:text="'deviceType: ' + ${userAgentInfo.deviceType}">Test</h3>
+Waktu saat ini :
+<h3 th:text="${#temporals.format(waktu, 'dd-MMM-yyyy HH:mm')}">10.30 AM<h3/>
+    <br>
+
+    <a th:href="@{/}">Back To Home Page</a>
+</body>
+</html>

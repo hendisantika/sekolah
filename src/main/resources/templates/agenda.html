@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en" layout:decorate="~{fragments/layout}" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/header :: head"/>
+<div th:replace="fragments/header :: header"/>
+<body>
+<div th:replace="fragments/header :: menu"/>
+
+<div layout:fragment="content">
+    <!--============================= EVENTS =============================-->
+    <section class="events">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4">
+                    <h2 class="event-title">Agenda</h2>
+                </div>
+                <div class="col-md-8">
+                    <!-- Nav tabs -->
+                    <ul class="nav nav-tabs" role="tablist">
+                        <li class="nav-item nav-tab1">
+                            <a class="nav-link tab-list active" data-toggle="tab" href="#upcoming-events" role="tab">Agenda
+                                Terbaru </a>
+                        </li>
+
+                    </ul>
+                </div>
+            </div>
+            <br>
+            <div class="row">
+                <!-- Tab panes -->
+                <div class="tab-content">
+                    <div class="tab-pane active" id="upcoming-events" role="tabpanel">
+                        <div class="col-md-12" th:each="a : ${agendaList}">
+                            <div class="row">
+                                <div class="col-md-2">
+                                    <div class="event-date">
+                                        <h4 th:text="${#temporals.format(a.tanggal, 'd')}">pengumuman_tanggal));?></h4>
+                                        <span th:text="${#temporals.format(a.tanggal, 'MMM YYYY')}">pengumuman_tanggal</span>
+                                    </div>
+                                    <span class="event-time" th:text="${a.waktu}">agenda_waktu</span>
+                                </div>
+                                <div class="col-md-10">
+                                    <div class="event-heading">
+                                        <h3 th:text="${a.nama}">agenda_nama</h3>
+                                        <p th:text="${a.deskripsi}">agenda_deskripsi</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <hr class="event-underline">
+                        </div>
+                        <div class="col-md-12 text-center">
+                            <?php echo $page;?>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--//END EVENTS -->
+</div>
+
+<div th:replace="fragments/footer :: footer"/>
+<div th:replace="fragments/footer :: scripts"/>
+</body>
+</html>

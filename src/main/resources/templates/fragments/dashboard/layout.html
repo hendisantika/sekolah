@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/dashboard/header :: header">
+</head>
+
+<body class="nav-md">
+<div class="container body">
+    <div class="main_container">
+        <div class="col-md-3 left_col">
+            <div class="left_col scroll-view">
+                <div class="navbar nav_title" style="border: 0;">
+                    <a class="site_title" href="index.html"><i class="fa fa-paw"></i> <span>Gentellela!</span></a>
+                </div>
+
+                <div class="clearfix"></div>
+
+                <!-- menu profile quick info -->
+                <div data-th-replace="fragments/menu-profile-quick-info :: menu-profile-quick-info"></div>
+                <!-- /menu profile quick info -->
+
+                <br/>
+
+                <!-- sidebar menu -->
+                <div data-th-replace="fragments/sidebar-menu :: sidebar-menu"></div>
+                <!-- /sidebar menu -->
+
+                <!-- /menu footer buttons -->
+                <!--<div data-th-replace="fragments/menu-footer-buttons :: menu-footer-buttons"></div>-->
+                <!-- /menu footer buttons -->
+
+            </div>
+        </div>
+
+        <!-- top navigation -->
+        <div data-th-replace="fragments/top-navigation :: top-navigation"></div>
+        <!-- /top navigation -->
+
+        <!-- page content -->
+        <div data-layout-fragment="content"></div>
+        <!-- /page content -->
+
+        <!-- footer content -->
+        <div data-th-replace="fragments/footer-content :: footer-content"></div>
+        <!-- /footer content -->
+    </div>
+</div>
+
+<!-- jQuery -->
+<script src="/webjars/jquery/3.4.1/jquery.min.js"></script>
+<!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>-->
+
+<!-- Bootstrap -->
+<script src="/webjars/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+<!-- FastClick -->
+<script src="/webjars/fastclick/1.0.6/fastclick.js"></script>
+<!-- NProgress -->
+<script src="/webjars/nprogress/0.2.0/nprogress.js"></script>
+
+<!-- Custom Theme Scripts -->
+<script th:src="@{/js/custom.min.js}"></script>
+</body>
+</html>

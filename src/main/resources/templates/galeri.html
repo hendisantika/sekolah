@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en" layout:decorate="~{fragments/layout}" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/header :: head"/>
+<div th:replace="fragments/header :: header"/>
+<body>
+<div th:replace="fragments/header :: menu"/>
+
+<div class="gallery-wrap" layout:fragment="content">
+    <div class="container">
+        <!-- Style 2 -->
+        <div class="row">
+                <div class="col-md-12">
+                    <h3 class="gallery-style">Gallery Photo</h3>
+                </div>
+            </div>
+            <br>
+            <div class="row">
+                <div class="col-md-12">
+                    <div id="gallery">
+                        <div id="gallery-content">
+                            <div id="gallery-content-center" th:each="g : ${galeriList}">
+                                <a class="image-link2"
+                                   th:href="@{/assets/images/} + ${g.gambar}">
+                                    <img alt="#"
+                                         class="all img-fluid"
+                                         th:src="@{/assets/images/} + ${g.gambar}"/>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--//End Style 2 -->
+        </div>
+    </div>
+
+<div th:replace="fragments/footer :: footer"/>
+<div th:replace="fragments/footer :: scripts"/>
+</body>
+</html>

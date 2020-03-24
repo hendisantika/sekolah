@@ -6,7 +6,11 @@ import lombok.NoArgsConstructor;
 import org.hibernate.annotations.GenericGenerator;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.EntityListeners;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
@@ -39,7 +43,7 @@ public class Komentar {
     private String status;
 
     @Column(name = "komentar_tulisan_id")
-    private int tulisanId;
+    private UUID tulisanId;
 
     @Column(name = "komentar_parent")
     private int parent;

@@ -13,7 +13,6 @@ import javax.persistence.Entity;
 import javax.persistence.EntityListeners;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.Lob;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
@@ -38,11 +37,10 @@ public class Files {
     @Column(name = "file_id")
     private UUID id;
 
-    @Column(name = "file_judul ")
+    @Column(name = "file_judul")
     private String judul;
 
     @Column(name = "file_deskripsi")
-    @Lob
     private String deskripsi;
 
     @Column(name = "file_oleh")
@@ -51,7 +49,7 @@ public class Files {
 
     @Column(name = "file_tanggal")
     @CreatedDate
-    private LocalDateTime createdDate;
+    private LocalDateTime createdOn;
 
     @Column(name = "file_download")
     private int download;

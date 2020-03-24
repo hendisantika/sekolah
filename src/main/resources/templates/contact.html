@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en" layout:decorate="~{fragments/layout}" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/header :: head"/>
+<div th:replace="fragments/header :: header"/>
+<body>
+<div th:replace="fragments/header :: menu"/>
+
+<div layout:fragment="content">
+    <section class="contact">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="contact-title">
+                        <h2>Hubungi Kami</h2>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="contact-form">
+                        <div class="row">
+                            <div class="col-xs-12 col-sm-12 col-md-6 contact-option">
+                                <div class="contact-option_rsp">
+                                    <h3>Tinggalkan Pesan</h3>
+                                    <form method="post" th:action="@{/contact/kirim_pesan}">
+                                        <div class="form-group">
+                                            <input class="form-control" name="nama" placeholder="Name" required
+                                                   type="text">
+                                        </div>
+                                        <!-- // end .form-group -->
+                                    <div class="form-group">
+                                        <input class="form-control" name="email" placeholder="Email" required
+                                               type="email">
+                                    </div>
+                                    <!-- // end .form-group -->
+                                    <div class="form-group">
+                                        <input class="form-control" name="phone" placeholder="Phone" required
+                                               type="text">
+                                    </div>
+                                    <!-- // end .form-group -->
+                                    <div class="form-group">
+                                        <textarea class="form-control" name="message" placeholder="Message" required
+                                                  rows="5"></textarea>
+                                    </div>
+                                    <!-- // end .form-group -->
+                                    <button class="btn btn-default btn-submit" type="submit">SUBMIT</button>
+                                </form>
+                            </div>
+                        </div>
+                        <div class="col-xs-12 col-sm-12 col-md-6">
+                            <div class="contact-address">
+                                <h3>Lokasi</h3>
+                                <div class="contact-details">
+                                    <i aria-hidden="true" class="fa fa-user"></i>
+                                    <h6>Alamat</h6>
+                                    <p> G-LAND CIGANITRI
+                                        <br> Lengkong, Bojongsoang, Kabupaten Bandung
+                                        <br> INDONESIA 40287</p>
+                                </div>
+                                <br>
+                                <div class="contact-details">
+                                    <i aria-hidden="true" class="fa fa-envelope-o"></i>
+                                    <h6>Email</h6>
+                                    <p>hendisantika@yahoo.co.id
+                                        <br> hendisantika@gmail.com
+                                    </p>
+                                </div>
+                                <br>
+                                <div class="contact-details">
+                                    <i aria-hidden="true" class="fa fa-phone"></i>
+                                    <h6>Phone</h6>
+                                    <p>+6281-321-411-881</p>
+                                </div>
+                            </div>
+                        </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <p class="contact-center">OR</p>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+
+<div th:replace="fragments/footer :: footer"/>
+<div th:replace="fragments/footer :: scripts"/>
+</body>
+</html>

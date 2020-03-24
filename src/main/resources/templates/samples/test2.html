@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8"/>
+    <title>Admin</title>
+</head>
+<body>
+<p>This is admin page</p><br>
+Waktu saat ini : <b th:text="${#temporals.format(waktu, 'dd-MMM-yyyy HH:mm')}">10.30 AM<b/>
+    <br>
+
+    <a th:href="@{/}">Back To Home Page</a>
+</body>
+</html>

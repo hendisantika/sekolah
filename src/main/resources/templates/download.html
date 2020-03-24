@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en" layout:decorate="~{fragments/layout}" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/header :: head"/>
+<div th:replace="fragments/header :: header"/>
+<body>
+<div th:replace="fragments/header :: menu"/>
+
+<div layout:fragment="content">
+    <section class="contact" style="margin-bottom:50px;">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="contact-title">
+                        <h2>Download</h2>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="table-responsive">
+                        <table class="table table-striped" id="display">
+                            <thead>
+                            <tr>
+                                <th>No</th>
+                                <th>Files</th>
+                                <th>Tanggal</th>
+                                <th>Oleh</th>
+                                <th style="text-align:right;">Aksi</th>
+                            </tr>
+                            </thead>
+                            <tr th:class="${itrStat.even}? 'even_css_class':'odd_css_class'"
+                                th:each="f, itrStat : ${filesList}">
+                                <td th:text="${itrStat.index + 1}">nomor urut</td>
+                                <td th:text="${f.judul}">file_judul</td>
+                                <td th:text="${#temporals.format(f.createdOn, 'dd/MM/YYYY')}">tanggal</td>
+                                <td th:text="${f.createdBy}">file_oleh</td>
+                                <td style="text-align:right;"><a class="btn btn-info"
+                                                                 th:href="@{/download/getFile/} + ${f.id}">Download</a>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+
+<div th:replace="fragments/footer :: footer"/>
+<div th:replace="fragments/footer :: scripts"/>
+</body>
+</html>

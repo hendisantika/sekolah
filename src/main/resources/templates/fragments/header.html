@@ -115,7 +115,7 @@
                     <img alt="First slide" class="d-block" th:src="@{/theme/images/slider.jpg}">
                     <div class="carousel-caption d-md-block">
                         <div class="slider_title">
-                            <h1>Bepikir Kreaftif &amp; Inovatif</h1>
+                            <h1>Berpikir Kreatif &amp; Inovatif</h1>
                             <h4>Bagi kami kreativitas merupakan gerbang masa depan.<br> kreativitas akan mendorong
                                 inovasi. <br> Itulah yang kami lakukan.</h4>
                             <div class="slider-btn">
@@ -128,7 +128,7 @@
                     <img alt="Second slide" class="d-block" th:src="@{/theme/images/slider-2.jpg}">
                     <div class="carousel-caption d-md-block">
                         <div class="slider_title">
-                            <h1>Guru Bekualitas Tinggi</h1>
+                            <h1>Guru Berkualitas Tinggi</h1>
                             <h4>Guru merupakan faktor penting dalam proses belajar-mengajar.<br> Itulah kenapa kami
                                 mendatangkan guru-guru <br>terbaik dari berbagai penjuru.</h4>
                             <div class="slider-btn">
@@ -141,8 +141,8 @@
                     <img alt="Third slide" class="d-block" th:src="@{/theme/images/slider-3.jpg}">
                     <div class="carousel-caption d-md-block">
                         <div class="slider_title">
-                            <h1>Proses Belajar Interatif</h1>
-                            <h4>Kami membuat proses belajar mengajar menjadi lebih interatif.<br> dengan demikian siswa
+                            <h1>Proses Belajar Interaktif</h1>
+                            <h4>Kami membuat proses belajar mengajar menjadi lebih interaktif.<br> dengan demikian siswa
                                 lebih menyukai <br>proses belajar.</h4>
                             <div class="slider-btn">
                                 <a class="btn btn-default" href="/galeri">Learn more</a>
@@ -174,7 +174,9 @@
                          th:src="@{/theme/images/chart-icon_1.png}">
                 </div>
                 <div class="chart-text">
-                    <p><span class="counter"><?php echo $tot_guru;?></span> Guru
+                    <p><span class="counter"
+                             th:text="${#numbers.formatDecimal(totGuru, 1, 'DEFAULT', 0, 'DEFAULT')}">Guru</span>
+                        Guru
                     </p>
                 </div>
             </div>
@@ -184,7 +186,9 @@
                          th:src="@{/theme/images/chart-icon_2.png}">
                 </div>
                 <div class="chart-text">
-                    <p><span class="counter"><?php echo $tot_siswa;?></span> Siswa
+                    <p><span class="counter"
+                             th:text="${#numbers.formatDecimal(totSiswa, 1, 'DEFAULT', 0, 'DEFAULT')}">Siswa</span>
+                        Siswa
                     </p>
                 </div>
             </div>
@@ -194,7 +198,9 @@
                          th:src="@{/theme/images/chart-icon_3.png}">
                 </div>
                 <div class="chart-text">
-                    <p><span class="counter"><?php echo $tot_files;?></span> Download
+                    <p><span class="counter"
+                             th:text="${#numbers.formatDecimal(totFiles, 1, 'DEFAULT', 0, 'DEFAULT')}">Download</span>
+                        Download
                     </p>
                 </div>
             </div>
@@ -204,7 +210,9 @@
                          th:src="@{/theme/images/chart-icon_4.png}">
                 </div>
                 <div class="chart-text">
-                    <p><span class="counter"><?php echo $tot_agenda;?></span> Agenda</p>
+                    <p><span class="counter"
+                             th:text="${#numbers.formatDecimal(totAgenda, 1, 'DEFAULT', 0, 'DEFAULT')}">Agenda</span>
+                        Agenda
                 </div>
             </div>
         </div>
