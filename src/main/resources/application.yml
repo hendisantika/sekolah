@@ -52,5 +52,9 @@ server:
         http-only: true
 #        secure: true
 
+# 1 days = 1 * 24 * 60 * 60
+cookie:
+  maxAge: 86400
+
 #hendisantika/password
 #admin/password
