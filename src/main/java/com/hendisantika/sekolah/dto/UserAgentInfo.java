@@ -22,6 +22,7 @@ public class UserAgentInfo {
     private String userAgent;
     private String osType;
     private String osVersion;
+    private String browserName;
     private String browserType;
     private String browserVersion;
     private String deviceType;

@@ -2,6 +2,10 @@ package com.hendisantika.sekolah.util;
 
 import com.hendisantika.sekolah.dto.UserAgentInfo;
 import lombok.extern.slf4j.Slf4j;
+import net.sf.uadetector.OperatingSystem;
+import net.sf.uadetector.ReadableDeviceCategory;
+import net.sf.uadetector.ReadableUserAgent;
+import net.sf.uadetector.VersionNumber;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -54,7 +58,7 @@ public class WebUtils {
                 osType = "Unix";
                 osVersion = "Unknown";
 
-            } else if (userAgent.indexOf("android") >= 0) {
+            } else if (userAgent.indexOf("android") >= 0 || userAgent.contains("Android")) {
                 osType = "Android";
                 osVersion = "Unknown";
             }
@@ -104,6 +108,44 @@ public class WebUtils {
                         + "\n browserVersion: " + browserVersion
                         + "\n deviceType: " + deviceType
         );
+        return agentInfo;
+    }
+
+    public static UserAgentInfo showUserAgentInfo(ReadableUserAgent agent) {
+        log.info("- - - - - - - - - - - - - - - - -");
+        // type
+        log.info("Browser type: " + agent.getType().getName());
+        log.info("Browser name: " + agent.getName());
+        VersionNumber browserVersion = agent.getVersionNumber();
+        log.info("Browser version: " + browserVersion.toVersionString());
+        log.info("Browser version major: " + browserVersion.getMajor());
+        log.info("Browser version minor: " + browserVersion.getMinor());
+        log.info("Browser version bug fix: " + browserVersion.getBugfix());
+        log.info("Browser version extension: " + browserVersion.getExtension());
+        log.info("Browser producer: " + agent.getProducer());
+
+        // operating system
+        OperatingSystem os = agent.getOperatingSystem();
+        log.info("OS Name: " + os.getName());
+        log.info("OS Producer: " + os.getProducer());
+        VersionNumber osVersion = os.getVersionNumber();
+        log.info("OS version: " + osVersion.toVersionString());
+        log.info("OS version major: " + osVersion.getMajor());
+        log.info("OS version minor: " + osVersion.getMinor());
+        log.info("OS version bug fix: " + osVersion.getBugfix());
+        log.info("OS version extension: " + osVersion.getExtension());
+
+        // device category
+        ReadableDeviceCategory device = agent.getDeviceCategory();
+        log.info("Device: " + device.getName());
+        UserAgentInfo agentInfo = UserAgentInfo.builder()
+                .browserName(agent.getName())
+                .browserType(agent.getType().getName())
+                .browserVersion(browserVersion.toVersionString())
+                .deviceType(device.getName())
+                .osType(os.getName())
+                .osVersion(osVersion.toVersionString())
+                .build();
         return agentInfo;
     }
 }

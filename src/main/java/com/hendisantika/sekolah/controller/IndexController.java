@@ -1,5 +1,6 @@
 package com.hendisantika.sekolah.controller;
 
+import com.hendisantika.sekolah.dto.UserAgentInfo;
 import com.hendisantika.sekolah.entity.Agenda;
 import com.hendisantika.sekolah.entity.Files;
 import com.hendisantika.sekolah.entity.Galeri;
@@ -21,6 +22,8 @@ import com.hendisantika.sekolah.repository.SiswaRepository;
 import com.hendisantika.sekolah.repository.TulisanRepository;
 import com.hendisantika.sekolah.util.WordUtil;
 import lombok.extern.slf4j.Slf4j;
+import net.sf.uadetector.UserAgentStringParser;
+import net.sf.uadetector.service.UADetectorServiceFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -29,7 +32,12 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import javax.servlet.http.HttpServletRequest;
+import java.time.LocalDateTime;
 import java.util.List;
+
+import static com.hendisantika.sekolah.util.WebUtils.getUserAgent;
+import static com.hendisantika.sekolah.util.WebUtils.showUserAgentInfo;
 
 
 /**
@@ -81,6 +89,8 @@ public class IndexController {
     public WordUtil addWordUtil() {
         return new WordUtil();
     }
+
+    public static UserAgentStringParser parser = UADetectorServiceFactory.getResourceModuleParser();
 
     @GetMapping
     public String index(Model model) {
@@ -199,6 +209,16 @@ public class IndexController {
         log.info("Menampilkan data untuk Halaman Login.");
         model.addAttribute("user", new Pengguna());
         return "admin/login";
+    }
+
+    @GetMapping("test")
+    public String getUserAgent2(Model model, HttpServletRequest request) {
+        UserAgentInfo userAgentInfo = getUserAgent(request);
+        UserAgentInfo userAgentInfo2 = showUserAgentInfo(parser.parse(userAgentInfo.getUserAgent()));
+
+        model.addAttribute("userAgentInfo", userAgentInfo2);
+        model.addAttribute("waktu", LocalDateTime.now());
+        return "samples/userAgent";
     }
 
 }
