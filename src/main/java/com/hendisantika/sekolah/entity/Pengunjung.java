@@ -1,6 +1,7 @@
 package com.hendisantika.sekolah.entity;
 
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.GenericGenerator;
@@ -25,6 +26,7 @@ import java.util.UUID;
  * Time: 18.44
  */
 @Data
+@Builder
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity(name = "tbl_pengunjung")
@@ -36,9 +38,14 @@ public class Pengunjung {
     @GenericGenerator(name = "uuid2", strategy = "uuid2")
     private UUID id;
 
-    @Column(name = "pengunjung_tanggal")
-    @CreatedDate
-    private LocalDateTime createdOn;
+    @Column(name = "session_id")
+    private String sessionId;
+
+    @Column(name = "cookie_name")
+    private String cookieName;
+
+    @Column(name = "url")
+    private String url;
 
     @Column(name = "pengunjung_ip")
     private String ipAddress;
@@ -66,4 +73,8 @@ public class Pengunjung {
 
     @Column(name = "pengunjung_host_name")
     private String hostName;
+
+    @Column(name = "pengunjung_tanggal")
+    @CreatedDate
+    private LocalDateTime createdOn;
 }
