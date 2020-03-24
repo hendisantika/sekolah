@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.GenericGenerator;
+import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.Column;
@@ -36,11 +37,33 @@ public class Pengunjung {
     private UUID id;
 
     @Column(name = "pengunjung_tanggal")
-    private LocalDateTime tanggal;
+    @CreatedDate
+    private LocalDateTime createdOn;
 
     @Column(name = "pengunjung_ip")
-    private String ip;
+    private String ipAddress;
 
-    @Column(name = "pengunjung_perangkat ")
-    private String perangkat;
+    @Column(name = "pengunjung_os_type")
+    private String osType;
+
+    @Column(name = "pengunjung_os_version")
+    private String osVersion;
+
+    @Column(name = "pengunjung_browser_name")
+    private String browserName;
+
+    @Column(name = "pengunjung_browser_type")
+    private String browserType;
+
+    @Column(name = "pengunjung_browser_version")
+    private String browserVersion;
+
+    @Column(name = "pengunjung_device_type")
+    private String deviceType;
+
+    @Column(name = "pengunjung_host_address")
+    private String hostAddress;
+
+    @Column(name = "pengunjung_host_name")
+    private String hostName;
 }
