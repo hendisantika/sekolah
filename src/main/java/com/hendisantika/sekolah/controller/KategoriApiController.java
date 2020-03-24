@@ -4,26 +4,33 @@ import com.hendisantika.sekolah.entity.Kategori;
 import com.hendisantika.sekolah.repository.KategoriRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
 import java.util.UUID;
 
 @Slf4j
 @RestController
-public class ApiController {
+@RequestMapping("/v1/api/news")
+public class KategoriApiController {
 
     @Autowired
     private KategoriRepository kategoriRepository;
 
-    @PostMapping("/v1/api/news/categories")
+    @PostMapping("categories")
     @ResponseBody
     public Kategori addNewKategori(@RequestBody @Valid Kategori kategori) {
         log.info("menambahkan kategori berita");
         return kategoriRepository.save(kategori);
     }
 
-    @GetMapping("/v1/api/news/categories/{kategoriId}")
+    @GetMapping("categories/{kategoriId}")
     public Kategori findKategoriById(@PathVariable(value = "kategoriId") UUID kategoriId) {
         log.info("filter kategori by id {}", kategoriId);
         Kategori kategori = kategoriRepository.findById(kategoriId).orElse(null);
