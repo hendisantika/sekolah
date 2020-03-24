@@ -1,8 +1,10 @@
 package com.hendisantika.sekolah.entity;
 
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.CascadeType;
@@ -20,6 +22,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 @Data
+@Builder
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity(name = "tbl_pengguna")
@@ -72,14 +75,15 @@ public class Pengguna {
     @Column(name = "pengguna_level")
     private String level;
 
-    @Column(name = "pengguna_register")
-    private LocalDateTime register;
-
     @Column(name = "pengguna_photo")
     private String photo;
 
     @Column(name = "pengguna_active")
     private boolean active;
+
+    @CreatedDate
+    @Column(name = "pengguna_register")
+    private LocalDateTime register;
 
     @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinTable(joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))

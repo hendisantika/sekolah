@@ -52,7 +52,11 @@ VALUES (1, 'Hendi Santika', 'Just do it', 'L', 'admin', '$2a$06$KdPmlUQcRaOM1177
         'I am a mountainner. to me mountainerring is a life', 'hendisantika@yahoo.co.id', '081277159401',
         'https://www.facebook.com/hendisantika/', 'twitter.com/hendisantika34', '', '', 1, '1', '2016-09-03 06:07:55',
         'db5dec647062751f2fb236b9bc3f1c54.png', TRUE),
-       (2, 'Uzumaki Naruto', 'Just do it', 'L', 'user', '$2a$06$KdPmlUQcRaOM1177wRdgCuqMsaUE0pff7nmTV.exVLIyIKL7GcBmO',
+       (2, 'Ismail Fajar', 'Just do it', 'L', 'admin', '$2a$06$KdPmlUQcRaOM1177wRdgCuqMsaUE0pff7nmTV.exVLIyIKL7GcBmO',
+        'I am a mountainner. to me mountainerring is a life', 'hendisantika@yahoo.co.id', '081277159401',
+        'https://www.facebook.com/hendisantika/', 'twitter.com/hendisantika34', '', '', 1, '1', '2016-09-03 06:07:55',
+        'db5dec647062751f2fb236b9bc3f1c54.png', TRUE),
+       (3, 'Uzumaki Naruto', 'Just do it', 'L', 'user', '$2a$06$KdPmlUQcRaOM1177wRdgCuqMsaUE0pff7nmTV.exVLIyIKL7GcBmO',
         'I am a mountainner. to me mountainerring is a life', 'uzumaki_naruto@konohgakure.co.jp', '081277159401',
         'https://www.facebook.com/narutoofficialsns', 'twitter.com/naruto', '', '', 1, '1', '2016-09-03 06:07:55',
         'db5dec647062751f2fb236b9bc3f1c54.png', TRUE);
@@ -70,6 +74,7 @@ VALUES (1, 'ADMIN'),
 --
 INSERT INTO tbl_pengguna_roles (user_id, role_id)
 VALUES (1, 1),
-       (2, 2);
+       (2, 1),
+       (3, 2);
 
 -- --------------------------------------------------------
