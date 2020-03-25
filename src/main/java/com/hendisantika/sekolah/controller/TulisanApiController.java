@@ -12,7 +12,6 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.support.SessionStatus;
 
@@ -56,16 +55,16 @@ public class TulisanApiController {
     }
 
     @PostMapping
-    public String tambahTulisan(@RequestBody @Valid Tulisan tulisan, BindingResult errors,
+    public String tambahTulisan(@Valid Tulisan tulisan, /*@RequestParam("file") MultipartFile file,
+    */ BindingResult errors,
                                 SessionStatus status) {
         log.info("Menambahkan Tulisan yang baru");
         if (errors.hasErrors()) {
-            return "form";
+            return "admin/tulisan/add";
         }
-
         tulisanRepository.save(tulisan);
-        status.setComplete();
-
+//        status.setComplete();
+        log.info("Tulisan yang baru {}", tulisan);
         return "admin/tulisan";
     }
 }
