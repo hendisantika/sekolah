@@ -239,7 +239,7 @@ public class IndexController {
         List<Tulisan> populer = tulisanRepository.findByOrderByViewsDesc();
         List<Kategori> kategoriList = kategoriRepository.findAll();
         List<Komentar> komentarList = komentarRepository.findByTulisanIdAndStatusAndParent(tulisan.getId(), "1", 0);
-        List<Komentar> parentKomentarList = komentarRepository.findByStatusAndParentOrderByTanggalAsc("1", 0);
+        List<Komentar> parentKomentarList = komentarRepository.findByStatusAndParentOrderByCreatedOnAsc("1", 0);
         model.addAttribute("tulisan", tulisan);
         model.addAttribute("populer", populer);
         model.addAttribute("kategoriList", kategoriList);
@@ -253,7 +253,7 @@ public class IndexController {
     public String showPengumuman(Model model, HttpServletRequest request, HttpServletResponse response) {
         createCookieAndSave(request, response, "PENGUMUMAN");
         log.info("Menampilkan data untuk Halaman Pengumuman.");
-        List<Pengumuman> pengumumanList = pengumumanRepository.findByOrderByTanggalDesc();
+        List<Pengumuman> pengumumanList = pengumumanRepository.findByOrderByCreatedOnDesc();
         model.addAttribute("pengumumanList", pengumumanList);
         return "pengumuman";
     }

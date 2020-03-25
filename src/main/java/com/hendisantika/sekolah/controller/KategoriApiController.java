@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
-import java.util.UUID;
 
 @Slf4j
 @RestController
@@ -32,7 +31,7 @@ public class KategoriApiController {
     }
 
     @GetMapping("categories/{kategoriId}")
-    public Kategori findKategoriById(@PathVariable(value = "kategoriId") UUID kategoriId) throws KategoriNotFoundException {
+    public Kategori findKategoriById(@PathVariable(value = "kategoriId") Long kategoriId) throws KategoriNotFoundException {
         log.info("filter kategori by id {}", kategoriId);
         return kategoriRepository.findById(kategoriId).orElseThrow(() -> {
             log.warn("Kategori Not Found not found.");

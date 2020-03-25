@@ -17,8 +17,8 @@ import java.util.UUID;
  * Time: 06.43
  */
 public interface PengumumanRepository extends JpaRepository<Pengumuman, UUID> {
-    @Query(value = "SELECT p.* FROM tbl_pengumuman p ORDER BY p.pengumuman_tanggal DESC limit 4;", nativeQuery = true)
+    @Query(value = "SELECT p.* FROM tbl_pengumuman p ORDER BY p.created_on DESC LIMIT 4;", nativeQuery = true)
     List<Pengumuman> findTop4();
 
-    List<Pengumuman> findByOrderByTanggalDesc();
+    List<Pengumuman> findByOrderByCreatedOnDesc();
 }
