@@ -56,3 +56,4 @@ public class KategoriApiController {
 
         return new ResponseEntity<>(kategoriRepository.save(currentKategori), HttpStatus.OK);
     }
+}
