@@ -1,6 +1,9 @@
 package com.hendisantika.sekolah.controller;
 
+import com.hendisantika.sekolah.repository.TulisanRepository;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -22,6 +25,9 @@ import java.time.LocalDateTime;
 @Controller
 @RequestMapping("admin")
 public class AdminController {
+    @Autowired
+    private TulisanRepository tulisanRepository;
+
     @PreAuthorize("hasAuthority('ADMIN')")
     @GetMapping("/dashboard")
     public String dashboard(Model model) {
@@ -32,10 +38,20 @@ public class AdminController {
 
     @PreAuthorize("hasAuthority('ADMIN')")
     @GetMapping("/tulisan")
-    public String tulisan(Model model) {
+    public String tulisan(Model model, Pageable pageable) {
+        log.info("Menampilkan data untuk Halaman List Berita.");
+        model.addAttribute("tulisanList", tulisanRepository.findAll(pageable));
+        model.addAttribute("waktu", LocalDateTime.now());
+        return "admin/tulisan";
+    }
+
+
+    @PreAuthorize("hasAuthority('ADMIN')")
+    @GetMapping("/tulisan2")
+    public String tulisan2(Model model) {
         log.info("Menampilkan data untuk Halaman List Berita.");
         model.addAttribute("waktu", LocalDateTime.now());
-        return "admin/dashboard";
+        return "admin/tulisan2";
     }
 
     @PreAuthorize("hasAuthority('ADMIN')")
