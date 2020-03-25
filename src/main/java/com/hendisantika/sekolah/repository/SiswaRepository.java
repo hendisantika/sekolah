@@ -18,7 +18,7 @@ import java.util.UUID;
  * Time: 18.52
  */
 public interface SiswaRepository extends JpaRepository<Siswa, UUID> {
-    @Query(value = "SELECT tbl_siswa.*,kelas_nama FROM tbl_siswa JOIN tbl_kelas ON siswa_kelas_id=kelas_id;",
+    @Query(value = "SELECT tbl_siswa.*,nama FROM tbl_siswa JOIN tbl_kelas ON id=d;",
             nativeQuery = true)
     List<SiswaDto> findSiswa();
 }

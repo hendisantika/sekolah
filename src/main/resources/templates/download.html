@@ -33,7 +33,7 @@
                                 th:each="f, itrStat : ${filesList}">
                                 <td th:text="${itrStat.index + 1}">nomor urut</td>
                                 <td th:text="${f.judul}">file_judul</td>
-                                <td th:text="${#temporals.format(f.createdOn, 'dd/MM/YYYY')}">tanggal</td>
+                                <td th:text="${#temporals.format(f.createdOn, 'dd/MM/YYYY')}">createdOn</td>
                                 <td th:text="${f.createdBy}">file_oleh</td>
                                 <td style="text-align:right;"><a class="btn btn-info"
                                                                  th:href="@{/download/getFile/} + ${f.id}">Download</a>
