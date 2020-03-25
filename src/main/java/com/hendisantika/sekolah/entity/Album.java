@@ -4,6 +4,10 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.GenericGenerator;
+import org.springframework.data.annotation.CreatedBy;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedBy;
+import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.Column;
@@ -32,24 +36,35 @@ public class Album {
     @Id
     @GeneratedValue(generator = "uuid2")
     @GenericGenerator(name = "uuid2", strategy = "uuid2")
-    @Column(name = "album_id")
+    @Column(name = "id")
     private UUID id;
 
-    @Column(name = "album_nama")
+    @Column(name = "nama")
     private String nama;
 
-    @Column(name = "album_tanggal")
-    private LocalDateTime tanggal;
-
-    @Column(name = "album_pengguna_id")
+    @Column(name = "pengguna_id")
     private int penggunaId;
 
-    @Column(name = "album_author")
-    private String author;
-
-    @Column(name = "album_count")
+    @Column(name = "count")
     private int count;
 
-    @Column(name = "album_cover")
+    @Column(name = "cover")
     private String cover;
+
+    @Column(name = "created_by")
+    @CreatedBy
+    private String createdBy;
+
+    @Column(name = "created_on")
+    @CreatedDate
+    private LocalDateTime createdOn;
+
+    @Column(name = "modified_by")
+    @LastModifiedBy
+    private String modifiedBy;
+
+    @Column(name = "modified_on")
+    @LastModifiedDate
+    private LocalDateTime modifiedOn;
+
 }

@@ -34,12 +34,13 @@
                             <div class="row">
                                 <div class="col-md-2">
                                     <div class="event-date">
-                                        <h4 th:text="${#temporals.format(p.tanggal, 'd')}">pengumuman_tanggal));?></h4>
-                                        <span th:text="${#temporals.format(p.tanggal, 'MMM YYYY')}">pengumuman_tanggal</span>
+                                        <h4 th:text="${#temporals.format(p.createdOn, 'd')}">
+                                            pengumuman_createdOn));?></h4>
+                                        <span th:text="${#temporals.format(p.createdOn, 'MMM YYYY')}">pengumuman_createdOn</span>
                                     </div>
                                     <span class="event-time"
-                                          th:text="${#temporals.format(p.tanggal, 'HH:mm')} + ' WIB'">
-                                        pengumuman_tanggal.' WIB';?></span>
+                                          th:text="${#temporals.format(p.createdOn, 'HH:mm')} + ' WIB'">
+                                        pengumuman_createdOn.' WIB';?></span>
                                 </div>
                                 <div class="col-md-10">
                                     <div class="event-heading">

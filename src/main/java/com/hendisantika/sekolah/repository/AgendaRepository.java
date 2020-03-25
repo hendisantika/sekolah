@@ -17,6 +17,6 @@ import java.util.UUID;
  * Time: 07.07
  */
 public interface AgendaRepository extends JpaRepository<Agenda, UUID> {
-    @Query(value = "SELECT a.* FROM tbl_agenda a ORDER BY a.agenda_tanggal DESC limit 4;", nativeQuery = true)
+    @Query(value = "SELECT a.* FROM tbl_agenda a ORDER BY a.created_on DESC LIMIT 4;", nativeQuery = true)
     List<Agenda> findTop4();
 }

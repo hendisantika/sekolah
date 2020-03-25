@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/dashboard/header :: header"/>
+<!-- summernote -->
+<link rel="stylesheet" th:href="@{/plugins/summernote/summernote-bs4.css}">
+<body class="hold-transition sidebar-mini layout-fixed layout-navbar-fixed layout-footer-fixed">
+
+<head th:replace="fragments/dashboard/navbar :: navbar"/>
+<head th:replace="fragments/dashboard/sidebar :: sidebar"/>
+
+<!-- Content Wrapper. Contains page content -->
+<div class="content-wrapper" layout:fragment="content">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h1>Berita</h1>
+                </div>
+                <div class="col-sm-6">
+                    <ol class="breadcrumb float-sm-right">
+                        <li class="breadcrumb-item"><a href="/admin/dashboard">Home</a></li>
+                        <li class="breadcrumb-item"><a href="/admin/tulisan">Berita</a></li>
+                        <li class="breadcrumb-item active">Add Berita</li>
+                    </ol>
+                </div>
+            </div>
+        </div><!-- /.container-fluid -->
+    </section>
+
+    <!-- Main content -->
+    <section class="content">
+        <form enctype="multipart/form-data" method="post" th:action="@{/admin/tulisan/}" th:object="${tulisan}">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="card-header">
+                        <h3 class="card-title">
+                            Tambah Berita Baru
+                            <small>Simple and fast</small>
+                        </h3>
+                    </div>
+                    <!-- /.card-header -->
+                    <!-- /.box-header -->
+                    <div class="card-body pad">
+                        <div class="row">
+                            <div class="col-md-10">
+                                <input class="form-control" name="judul" placeholder="Judul berita atau artikel"
+                                       required
+                                       th:field="*{judul}" type="text"/>
+                            </div>
+
+                            <!-- /.col -->
+                            <div class="col-md-2">
+                                <div class="form-group">
+                                    <button class="btn btn-success btn-lg pull-right" type="submit"><i
+                                            class="fas fa-pencil"></i> Publish
+                                    </button>
+                                    <!--                                        <a class="btn btn-success btn-lg pull-right"><i class="fas fa-edit"></i> Publish</a>-->
+                                    <!-- /.form-group -->
+                                </div>
+                                <!-- /.col -->
+                            </div>
+                            <!-- /.row -->
+                        </div>
+                        <!-- /.box-body -->
+
+                    </div>
+                </div>
+                <div class="card card-outline card-info">
+                </div>
+                <!-- /.col-->
+            </div>
+            <!-- ./row -->
+            <div class="row">
+                <!-- Summernote Start -->
+                <div class="col-md-8">
+                    <div class="card card-outline card-danger">
+                        <div class="card-header">
+                            <h3 class="card-title">
+                                Tambah Berita Baru
+                                <small>Simple and fast</small>
+                            </h3>
+                        </div>
+                        <!-- /.card-header -->
+                        <!-- /.box-header -->
+                        <div class="card-body pad">
+                            <div class="mb-3">
+                <textarea class="textarea" placeholder="Place some text here" required th:field="*{isi}"
+                          style="width: 100%; height: 200px; font-size: 14px; line-height: 18px; border: 1px solid #dddddd; padding: 10px;"></textarea>
+                            </div>
+                            <p class="text-sm mb-0">
+                                Editor <a href="https://github.com/bootstrap-wysiwyg/bootstrap3-wysiwyg">Documentation
+                                and
+                                license
+                                information.</a>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <!-- Summernote End -->
+
+                <!-- Kategori & Image Start -->
+                <div class="col-md-4">
+                    <div class="card card-outline card-blue">
+                        <div class="card-header">
+                            <h3 class="card-title">
+                                Tambah Kategori
+                                <small>Simple and fast</small>
+                            </h3>
+                        </div>
+                        <!-- /.card-header -->
+                        <!-- /.box-header -->
+                        <div class="card-body pad">
+                            <label>Kategori</label>
+                            <select class="form-control" id="id" th:field="*{kategori.id}">
+                                <option th:each="k : ${kategoriList}"
+                                        th:selected="${k.id}" th:text="${k.id}+' : '+${k.nama}"
+                                        th:value="${k.id}"></option>
+                            </select>
+                            <div class="mb-3">
+                                <label>Gambar</label>
+                                <input name="gambar" required style="width: 100%;" th:field="*{gambar}" type="file">
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Kategori & Image End -->
+                </div>
+        </form>
+            <!-- ./row -->
+    </section>
+    <!-- /.content -->
+</div>
+<!-- ./wrapper -->
+
+<footer th:replace="fragments/dashboard/footer :: footer"/>
+
+<!-- jQuery -->
+<script th:src="@{/plugins/jquery/jquery.min.js}"></script>
+<!-- Bootstrap 4 -->
+<script th:src="@{/plugins/bootstrap/js/bootstrap.bundle.min.js}"></script>
+<!-- AdminLTE App -->
+<script th:src="@{/js/adminlte.min.js}"></script>
+<!-- AdminLTE for demo purposes -->
+<script th:src="@{/js/demo.js}"></script>
+<!-- Summernote -->
+<script th:src="@{/plugins/summernote/summernote-bs4.min.js}"></script>
+<script>
+    $(function () {
+        // Summernote
+        $('.textarea').summernote({
+            height: 300,
+            focus: true
+        })
+    })
+</script>
+</body>
+</html>

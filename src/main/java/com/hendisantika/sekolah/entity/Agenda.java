@@ -4,7 +4,9 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.GenericGenerator;
+import org.springframework.data.annotation.CreatedBy;
 import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedBy;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
@@ -35,41 +37,43 @@ public class Agenda {
     @Id
     @GeneratedValue(generator = "uuid2")
     @GenericGenerator(name = "uuid2", strategy = "uuid2")
-    @Column(name = "agenda_id")
+    @Column(name = "id")
     private UUID id;
 
-    @Column(name = "agenda_nama")
+    @Column(name = "nama")
     private String nama;
 
-    @Column(name = "agenda_tanggal")
-    private LocalDateTime tanggal;
-
-    @Column(name = "agenda_deskripsi")
+    @Column(name = "deskripsi")
     private String deskripsi;
 
-    @Column(name = "agenda_mulai")
+    @Column(name = "mulai")
     private LocalDate mulai;
 
-    @Column(name = "agenda_selesai")
+    @Column(name = "selesai")
     private LocalDate selesai;
 
-    @Column(name = "agenda_tempat")
+    @Column(name = "tempat")
     private String tempat;
 
-    @Column(name = "agenda_waktu")
+    @Column(name = "waktu")
     private String waktu;
 
-    @Column(name = "agenda_keterangan")
+    @Column(name = "keterangan")
     private String keterangan;
 
-    @Column(name = "agenda_author")
-    private String author;
+    @Column(name = "created_by")
+    @CreatedBy
+    private String created_by;
 
-    @Column(name = "agenda_created_on")
+    @Column(name = "created_on")
     @CreatedDate
     private LocalDateTime createdOn;
 
-    @Column(name = "agenda_modified_on")
+    @Column(name = "modified_by")
+    @LastModifiedBy
+    private String modifiedBy;
+
+    @Column(name = "modified_on")
     @LastModifiedDate
     private LocalDateTime modifiedOn;
 

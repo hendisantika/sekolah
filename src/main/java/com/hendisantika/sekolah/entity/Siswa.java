@@ -6,6 +6,10 @@ import lombok.NoArgsConstructor;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
+import org.springframework.data.annotation.CreatedBy;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedBy;
+import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.Column;
@@ -16,6 +20,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import java.time.LocalDateTime;
 import java.util.UUID;
 
 /**
@@ -34,25 +39,41 @@ import java.util.UUID;
 @EntityListeners(AuditingEntityListener.class)
 public class Siswa {
     @Id
-    @Column(name = "siswa_id")
+    @Column(name = "id")
     @GeneratedValue(generator = "uuid2")
     @GenericGenerator(name = "uuid2", strategy = "uuid2")
     private UUID id;
 
-    @Column(name = "siswa_nis")
+    @Column(name = "nis")
     private String nis;
 
-    @Column(name = "siswa_nama")
+    @Column(name = "nama")
     private String nama;
 
-    @Column(name = "siswa_jenkel ")
+    @Column(name = "jenkel ")
     private String jenkel;
 
-    @Column(name = "siswa_photo ")
+    @Column(name = "photo ")
     private String photo;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "kelas_id", nullable = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
     private Kelas kelas;
+
+    @Column(name = "created_by")
+    @CreatedBy
+    private String createdBy;
+
+    @Column(name = "created_on")
+    @CreatedDate
+    private LocalDateTime createdOn;
+
+    @Column(name = "modified_by")
+    @LastModifiedBy
+    private String modifiedBy;
+
+    @Column(name = "modified_on")
+    @LastModifiedDate
+    private LocalDateTime modifiedOn;
 }

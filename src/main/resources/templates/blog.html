@@ -16,7 +16,7 @@
                         <div class="blog-img_block">
                             <img alt="blog-img" class="img-fluid" th:src="@{/assets/images/} + ${t.gambar}">
                             <div class="blog-date">
-                                <span th:text="${#temporals.format(t.tanggal, 'dd-MMM-yyyy')}">tanggal</span>
+                                <span th:text="${#temporals.format(t.createdOn, 'dd-MMM-yyyy')}">createdOn</span>
                             </div>
                         </div>
                         <div class="blog-tiltle_block">
@@ -24,7 +24,7 @@
                             <h6><a href="#"><i aria-hidden="true" class="fa fa-user"></i><span th:text="${t.author}">
                                 tulisan_author</span> </a> | <a href="#"><i aria-hidden="true"
                                                                             class="fa fa-tags"></i><span
-                                    th:text="${t.kategoriNama}">
+                                    th:text="${t.kategori.nama}">
                                 tulisan_kategori_nama</span></a></h6>
                             <span + th:text="${#strings.substring(t.isi,0, 100)}" '...'>Isi</span>
                             <div class="blog-icons">

@@ -4,9 +4,17 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.GenericGenerator;
+import org.springframework.data.annotation.CreatedBy;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedBy;
+import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.EntityListeners;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
@@ -20,30 +28,43 @@ public class Guru {
     @Id
     @GeneratedValue(generator = "uuid2")
     @GenericGenerator(name = "uuid2", strategy = "uuid2")
-    @Column(name = "guru_id")
+    @Column(name = "id")
     private UUID id;
 
-    @Column(name = "guru_nip")
+    @Column(name = "nip")
     private String nip;
 
-    @Column(name = "guru_nama")
+    @Column(name = "nama")
     private String nama;
 
-    @Column(name = "guru_jenkel")
+    @Column(name = "jenkel")
     private String jenkel;
 
-    @Column(name = "guru_tmp_lahir")
+    @Column(name = "tmp_lahir")
     private String tmpLahir;
 
-    @Column(name = "guru_tgl_lahir")
+    @Column(name = "tgl_lahir")
     private String tglLahir;
 
-    @Column(name = "guru_mapel")
+    @Column(name = "mapel")
     private String mapel;
 
-    @Column(name = "guru_photo")
+    @Column(name = "photo")
     private String photo;
 
-    @Column(name = "guru_tgl_input")
-    private LocalDateTime tglInput;
+    @Column(name = "created_by")
+    @CreatedBy
+    private String createdBy;
+
+    @Column(name = "created_on")
+    @CreatedDate
+    private LocalDateTime createdOn;
+
+    @Column(name = "modified_by")
+    @LastModifiedBy
+    private String modifiedBy;
+
+    @Column(name = "modified_on")
+    @LastModifiedDate
+    private LocalDateTime modifiedOn;
 }

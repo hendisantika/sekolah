@@ -9,5 +9,5 @@ import java.util.UUID;
 public interface KomentarRepository extends JpaRepository<Komentar, UUID> {
     List<Komentar> findByTulisanIdAndStatusAndParent(UUID slug, String status, int parent);
 
-    List<Komentar> findByStatusAndParentOrderByTanggalAsc(String status, int parent);
+    List<Komentar> findByStatusAndParentOrderByCreatedOnAsc(String status, int parent);
 }

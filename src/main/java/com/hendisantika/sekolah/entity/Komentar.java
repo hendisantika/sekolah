@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.GenericGenerator;
+import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.Column;
@@ -24,28 +25,28 @@ public class Komentar {
     @GeneratedValue(generator = "uuid2")
     @GenericGenerator(name = "uuid2", strategy = "uuid2")
 
-    @Column(name = "komentar_id")
+    @Column(name = "id")
     private UUID id;
 
-    @Column(name = "komentar_nama")
+    @Column(name = "nama")
     private String nama;
 
-    @Column(name = "komentar_email")
+    @Column(name = "email")
     private String email;
 
-    @Column(name = "komentar_isi")
+    @Column(name = "isi")
     private String isi;
 
-    @Column(name = "komentar_tanggal")
-    private LocalDateTime tanggal;
-
-    @Column(name = "komentar_status")
+    @Column(name = "status")
     private String status;
 
-    @Column(name = "komentar_tulisan_id")
+    @Column(name = "tulisan_id")
     private UUID tulisanId;
 
-    @Column(name = "komentar_parent")
+    @Column(name = "parent")
     private int parent;
 
+    @Column(name = "created_on")
+    @CreatedDate
+    private LocalDateTime createdOn;
 }

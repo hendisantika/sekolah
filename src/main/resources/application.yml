@@ -40,6 +40,12 @@ spring:
     #    static-locations: ${project.basedir}/src/main/resources/static/
     cache:
       period: 0
+  servlet:
+    multipart:
+      max-file-size: 5MB
+      max-request-size: 5MB
+      enabled: true
+      location: ${java.io.tmpdir}
 
 #We can use the httpOnly and secure flags to secure our session cookie:
 #

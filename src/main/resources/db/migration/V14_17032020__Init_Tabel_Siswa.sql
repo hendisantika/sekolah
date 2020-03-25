@@ -1,23 +1,16 @@
--- CREATE TABLE IF NOT EXISTS tbl_siswa
--- (
---     siswa_id       varchar(50) NOT NULL,
---     siswa_nis      varchar(20) DEFAULT NULL,
---     siswa_nama     varchar(70) DEFAULT NULL,
---     siswa_jenkel   varchar(2)  DEFAULT NULL,
---     siswa_kelas_id int         DEFAULT NULL,
---     siswa_photo    varchar(40) DEFAULT NULL,
---     PRIMARY KEY (siswa_id)
--- );
-
 CREATE TABLE IF NOT EXISTS tbl_siswa
 (
-    siswa_id     UUID DEFAULT uuid_generate_v4() NOT NULL,
-    siswa_nama   varchar(75),
-    siswa_jenkel varchar(2),
-    siswa_nis    varchar(20),
-    siswa_photo  varchar(40),
-    kelas_id     int4                            NOT NULL,
-    PRIMARY KEY (siswa_id)
+    id          UUID           DEFAULT uuid_generate_v4() NOT NULL,
+    nama        varchar(75),
+    jenkel      varchar(2),
+    nis         varchar(20),
+    photo       varchar(40),
+    kelas_id    int4      NOT NULL,
+    created_by  varchar(50),
+    created_on  timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+    modified_by varchar(50),
+    modified_on timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+    PRIMARY KEY (id)
 );
 
 ALTER TABLE IF EXISTS tbl_siswa
@@ -29,7 +22,7 @@ ALTER TABLE IF EXISTS tbl_siswa
 -- Dumping data untuk tabel tbl_siswa
 --
 
-INSERT INTO tbl_siswa (siswa_nis, siswa_nama, siswa_jenkel, kelas_id, siswa_photo)
+INSERT INTO tbl_siswa (nis, nama, jenkel, kelas_id, photo)
 VALUES ('9287482', 'Alvaro Sanchez', 'L', 8,
         '083d547659a2d4bb15c0322d15955da5.png'),
        ('9287483', 'Ririn Cantika', 'P', 8,
