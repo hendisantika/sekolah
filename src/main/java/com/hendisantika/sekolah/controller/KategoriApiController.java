@@ -37,23 +37,4 @@ public class KategoriApiController {
             return new KategoriNotFoundException("Kategori Not Found");
         });
     }
-
-    @DeleteMapping("/categories/{kategoriId}")
-    public List<Kategori> deleteKategori(@PathVariable("kategoriId") UUID kategoriId) {
-        log.info("menghapus kategori berita");
-        kategoriRepository.deleteById(kategoriId);
-        return kategoriRepository.findAll();
-    }
-
-    @PutMapping("/categories/{kategoriId}")
-    @ResponseBody
-    public ResponseEntity<Kategori> updateKategoriFromDB(@PathVariable("kategoriId") UUID kategoriId, @RequestBody @Valid Kategori kategori) {
-        log.info("memperbaharui kategori berita");
-        Optional<Kategori> currentKategoriOpt = kategoriRepository.findById(kategoriId);
-        Kategori currentKategori = currentKategoriOpt.get();
-        currentKategori.setId(kategori.getId());
-        currentKategori.setNama(kategori.getNama());
-
-        return new ResponseEntity<>(kategoriRepository.save(currentKategori), HttpStatus.OK);
-    }
 }
