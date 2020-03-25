@@ -33,7 +33,7 @@ import java.util.UUID;
 @EntityListeners(AuditingEntityListener.class)
 public class Pengunjung {
     @Id
-    @Column(name = "pengunjung_id")
+    @Column(name = "id")
     @GeneratedValue(generator = "uuid2")
     @GenericGenerator(name = "uuid2", strategy = "uuid2")
     private UUID id;
@@ -47,34 +47,34 @@ public class Pengunjung {
     @Column(name = "url")
     private String url;
 
-    @Column(name = "pengunjung_ip")
+    @Column(name = "ip")
     private String ipAddress;
 
-    @Column(name = "pengunjung_os_type")
+    @Column(name = "os_type")
     private String osType;
 
-    @Column(name = "pengunjung_os_version")
+    @Column(name = "os_version")
     private String osVersion;
 
-    @Column(name = "pengunjung_browser_name")
+    @Column(name = "browser_name")
     private String browserName;
 
-    @Column(name = "pengunjung_browser_type")
+    @Column(name = "browser_type")
     private String browserType;
 
-    @Column(name = "pengunjung_browser_version")
+    @Column(name = "browser_version")
     private String browserVersion;
 
-    @Column(name = "pengunjung_device_type")
+    @Column(name = "device_type")
     private String deviceType;
 
-    @Column(name = "pengunjung_host_address")
+    @Column(name = "host_address")
     private String hostAddress;
 
-    @Column(name = "pengunjung_host_name")
+    @Column(name = "host_name")
     private String hostName;
 
-    @Column(name = "pengunjung_tanggal")
+    @Column(name = "created_on")
     @CreatedDate
     private LocalDateTime createdOn;
 }

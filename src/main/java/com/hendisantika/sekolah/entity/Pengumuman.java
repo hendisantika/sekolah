@@ -5,6 +5,9 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.GenericGenerator;
 import org.springframework.data.annotation.CreatedBy;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedBy;
+import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.Column;
@@ -33,19 +36,29 @@ public class Pengumuman {
     @Id
     @GeneratedValue(generator = "uuid2")
     @GenericGenerator(name = "uuid2", strategy = "uuid2")
-    @Column(name = "pengumuman_id")
+    @Column(name = "id")
     private UUID id;
 
-    @Column(name = "pengumuman_judul")
+    @Column(name = "judul")
     private String judul;
 
-    @Column(name = "pengumuman_deskripsi")
+    @Column(name = "deskripsi")
     private String deskripsi;
 
-    @Column(name = "pengumuman_tanggal")
-    private LocalDateTime tanggal;
-
-    @Column(name = "pengumuman_author")
+    @Column(name = "created_by")
     @CreatedBy
-    private String author;
+    private String createdBy;
+
+    @Column(name = "created_on")
+    @CreatedDate
+    private LocalDateTime createdOn;
+
+    @Column(name = "modified_by")
+    @LastModifiedBy
+    private String modifiedBy;
+
+    @Column(name = "modified_on")
+    @LastModifiedDate
+    private LocalDateTime modifiedOn;
+
 }

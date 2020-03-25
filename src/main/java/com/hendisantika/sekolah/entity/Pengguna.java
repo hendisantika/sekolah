@@ -4,7 +4,10 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.data.annotation.CreatedBy;
 import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedBy;
+import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.CascadeType;
@@ -18,6 +21,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.validation.constraints.Email;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -30,62 +34,76 @@ import java.util.List;
 public class Pengguna {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "pengguna_id")
+    @Column(name = "id")
     private Long id;
 
-    @Column(name = "pengguna_nama")
+    @Column(name = "nama")
     private String nama;
 
-    @Column(name = "pengguna_moto")
+    @Column(name = "moto")
     private String moto;
 
-    @Column(name = "pengguna_jenkel")
+    @Column(name = "jenkel")
     private String jenkel;
 
-    @Column(name = "pengguna_username")
+    @Column(name = "username")
     private String username;
 
-    @Column(name = "pengguna_password")
+    @Column(name = "password")
     private String password;
 
-    @Column(name = "pengguna_tentang")
+    @Column(name = "tentang")
     private String tentang;
 
-    @Column(name = "pengguna_email")
+    @Column(name = "email", unique = true)
+    @Email
     private String email;
 
-    @Column(name = "pengguna_nohp")
+    @Column(name = "nohp")
     private String nohp;
 
-    @Column(name = "pengguna_facebook")
+    @Column(name = "facebook")
     private String facebook;
 
-    @Column(name = "pengguna_twitter")
+    @Column(name = "twitter")
     private String witter;
 
-    @Column(name = "pengguna_linkedin")
+    @Column(name = "linkedin")
     private String linkedin;
 
-    @Column(name = "pengguna_google_plus")
-    private String googlePlus;
-
-    @Column(name = "pengguna_status")
+    @Column(name = "status")
     private int status;
 
-    @Column(name = "pengguna_level")
+    @Column(name = "level")
     private String level;
 
-    @Column(name = "pengguna_photo")
+    @Column(name = "photo")
     private String photo;
 
-    @Column(name = "pengguna_active")
+    @Column(name = "active")
     private boolean active;
 
     @CreatedDate
-    @Column(name = "pengguna_register")
+    @Column(name = "register")
     private LocalDateTime register;
 
     @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinTable(joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
     private List<Role> roles;
+
+    @Column(name = "created_by")
+    @CreatedBy
+    private String createdBy;
+
+    @Column(name = "created_on")
+    @CreatedDate
+    private LocalDateTime createdOn;
+
+    @Column(name = "modified_by")
+    @LastModifiedBy
+    private String modifiedBy;
+
+    @Column(name = "modified_on")
+    @LastModifiedDate
+    private LocalDateTime modifiedOn;
 }
