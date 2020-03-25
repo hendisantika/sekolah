@@ -112,25 +112,10 @@
                     <!-- /.box-header -->
                     <div class="card-body pad">
                         <label>Kategori</label>
-                        <select class="form-control" id="id" th:field="*{tulisan.id}">
-                            <option th:each="b : ${listKategori}" th:selected="${b.id}"
-                                    th:text="${b.kdBidang}+' : '+${b.namaBidang}" th:value="${b.id}"></option>
+                        <select class="form-control" id="id" <!--th:field="*{kategori.id}"-->>
+                        <option th:each="k : ${kategoriList}" th:selected="${k.id}"
+                                th:text="${k.id}+' : '+${k.nama}" th:value="${k.id}"></option>
                         </select>
-
-                        <select class="form-control select2" name="xkategori" required style="width: 100%;">
-                            <option value="">-Pilih-</option>
-                            <?php
-					$no=0;
-					foreach ($kat->result_array() as $i) :
-                            $no++;
-                            $kategori_id=$i['kategori_id'];
-                            $kategori_nama=$i['kategori_nama'];
-
-                            ?>
-                            <option value="<?php echo $kategori_id;?>"><?php echo $kategori_nama;?></option>
-                            <?php endforeach;?>
-                        </select>
-
                         <div class="mb-3">
                             <label>Gambar</label>
                             <input name="filefoto" required style="width: 100%;" type="file">

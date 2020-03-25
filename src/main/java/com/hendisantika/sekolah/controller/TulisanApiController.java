@@ -1,6 +1,7 @@
 package com.hendisantika.sekolah.controller;
 
 import com.hendisantika.sekolah.entity.Tulisan;
+import com.hendisantika.sekolah.repository.KategoriRepository;
 import com.hendisantika.sekolah.repository.TulisanRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,6 +36,9 @@ public class TulisanApiController {
     @Autowired
     private TulisanRepository tulisanRepository;
 
+    @Autowired
+    private KategoriRepository kategoriRepository;
+
     @GetMapping
     public String tulisan(Model model, Pageable pageable) {
         log.info("Menampilkan data untuk Halaman List Berita.");
@@ -44,9 +48,10 @@ public class TulisanApiController {
     }
 
     @GetMapping("/add")
-    public String tampilkanFormTulisan(Model model, Tulisan tulisan) {
+    public String tampilkanFormTulisan(Model model) {
         log.info("Menampilkan Form Tulisan");
-        model.addAttribute("tulisan", tulisan);
+        model.addAttribute("kategoriList", kategoriRepository.findAll());
+        model.addAttribute("tulisan", new Tulisan());
         return "admin/tulisan-form";
     }
 

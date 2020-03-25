@@ -41,7 +41,7 @@
                 <tr>
                     <!--                    <th><a class="sorted" sd:pagination-sort="judul" >Judul</a></th>-->
                     <!--                    <th><a class="sorted" sd:pagination-sort="isi" >Isi</a></th>-->
-                    <!--                    <th><a class="sorted" sd:pagination-sort="tanggal" >Tanggal</a></th>-->
+                    <!--                    <th><a class="sorted" sd:pagination-sort="createdOn" >createdOn</a></th>-->
                     <!--                    <th><a class="sorted" sd:pagination-sort="author" >author</a></th>-->
                     <!--                    <th><a class="sorted" sd:pagination-sort="baca" >baca</a></th>-->
                     <!--                    <th><a class="sorted" sd:pagination-sort="kategori" >kategori</a></th>-->
@@ -59,10 +59,10 @@
                 <tr th:each="t, itrStat : ${tulisanList}">
                     <td th:text="${itrStat.index + 1}">nomor urut</td>
                     <th scope="row" th:text="${t.judul}">Judul</th>
-                    <td th:text="${t.tanggal}">Tanggal</td>
+                    <td th:text="${t.createdOn}">createdOn</td>
                     <td th:text="${t.author}">Author</td>
                     <td th:text="${t.views}">baca</td>
-                    <td th:text="${t.kategoriNama}">kategori</td>
+                    <td th:text="${t.kategori.nama}">kategori</td>
                     <td><a href="#">edit</a> | <a href="#">hapus</a></td>
                 </tr>
                 </tbody>
