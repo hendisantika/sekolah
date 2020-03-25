@@ -56,4 +56,11 @@ public class KategoriApiController {
 
         return new ResponseEntity<>(kategoriRepository.save(currentKategori), HttpStatus.OK);
     }
+
+    @GetMapping("/categories")
+    public List<Kategori> list() {
+        log.info("List Down Data Kategori");
+        return kategoriRepository.findAll();
+
+    }
 }
