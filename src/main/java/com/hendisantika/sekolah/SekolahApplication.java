@@ -5,6 +5,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
+import org.thymeleaf.dialect.springdata.SpringDataDialect;
 
 @SpringBootApplication
 @EnableJpaAuditing
@@ -17,6 +18,11 @@ public class SekolahApplication {
     @Bean
     public LayoutDialect layoutDialect() {
         return new LayoutDialect();
+    }
+
+    @Bean
+    public SpringDataDialect springDataDialect() {
+        return new SpringDataDialect();
     }
 
 }
