@@ -14778,6 +14778,7 @@
 	 */
 
 	return $.fn.dataTable;
-});
+})
 )
+;
 

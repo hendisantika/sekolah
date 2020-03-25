@@ -38,6 +38,15 @@ public class AdminController {
         return "admin/tulisan";
     }
 
+
+    @PreAuthorize("hasAuthority('ADMIN')")
+    @GetMapping("/tulisan2")
+    public String tulisan2(Model model) {
+        log.info("Menampilkan data untuk Halaman List Berita.");
+        model.addAttribute("waktu", LocalDateTime.now());
+        return "admin/tulisan2";
+    }
+
     @PreAuthorize("hasAuthority('ADMIN')")
     @GetMapping("/tulisan/add")
     public String tambahTulisan(Model model) {
