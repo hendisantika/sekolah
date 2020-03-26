@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/dashboard/header :: header"/>
+<!-- summernote -->
+<link rel="stylesheet" th:href="@{/plugins/summernote/summernote-bs4.css}">
+<body class="hold-transition sidebar-mini layout-fixed layout-navbar-fixed layout-footer-fixed">
+
+<head th:replace="fragments/dashboard/navbar :: navbar"/>
+<head th:replace="fragments/dashboard/sidebar :: sidebar"/>
+
+<!-- Content Wrapper. Contains page content -->
+<div class="content-wrapper" layout:fragment="content">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h1>Berita</h1>
+                </div>
+                <div class="col-sm-6">
+                    <ol class="breadcrumb float-sm-right">
+                        <li class="breadcrumb-item"><a href="/admin/dashboard">Home</a></li>
+                        <li class="breadcrumb-item"><a href="/admin/tulisan">Berita</a></li>
+                        <li class="breadcrumb-item active">Add Kategori Berita</li>
+                    </ol>
+                </div>
+            </div>
+        </div><!-- /.container-fluid -->
+    </section>
+
+    <!-- Main content -->
+    <section class="content">
+        <form method="post" th:action="@{/admin/kategori/}" th:object="${kategori}">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="card-header">
+                        <h3 class="card-title">
+                            Tambah Kategori Berita Baru
+                            <small>Simple and fast</small>
+                        </h3>
+                    </div>
+                    <!-- /.card-header -->
+                    <!-- /.box-header -->
+                    <div class="card-body pad">
+                        <div class="row">
+                            <div class="col-md-10">
+                                <input class="form-control" name="judul"
+                                       placeholder="Masukkan Kategori berita atau artikel"
+                                       required
+                                       th:field="*{nama}" type="text"/>
+                            </div>
+
+                            <!-- /.col -->
+                            <div class="col-md-2">
+                                <div class="form-group">
+                                    <button class="btn btn-success btn-lg pull-right" type="submit"><i
+                                            class="fas fa-pencil"></i> Publish
+                                    </button>
+                                    <!--                                        <a class="btn btn-success btn-lg pull-right"><i class="fas fa-edit"></i> Publish</a>-->
+                                    <!-- /.form-group -->
+                                </div>
+                                <!-- /.col -->
+                            </div>
+                            <!-- /.row -->
+                        </div>
+                        <!-- /.box-body -->
+
+                    </div>
+                </div>
+                <!-- /.col-->
+            </div>
+            <!-- ./row -->
+        </form>
+        <!-- ./row -->
+    </section>
+    <!-- /.content -->
+</div>
+<!-- ./wrapper -->
+
+<footer th:replace="fragments/dashboard/footer :: footer"/>
+
+<!-- jQuery -->
+<script th:src="@{/plugins/jquery/jquery.min.js}"></script>
+<!-- Bootstrap 4 -->
+<script th:src="@{/plugins/bootstrap/js/bootstrap.bundle.min.js}"></script>
+<!-- AdminLTE App -->
+<script th:src="@{/js/adminlte.min.js}"></script>
+<!-- AdminLTE for demo purposes -->
+<script th:src="@{/js/demo.js}"></script>
+</body>
+</html>

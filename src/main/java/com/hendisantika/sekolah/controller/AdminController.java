@@ -44,14 +44,6 @@ public class AdminController {
     }
 
     @PreAuthorize("hasAuthority('ADMIN')")
-    @GetMapping("/kategori")
-    public String kategori(Model model) {
-        log.info("Menampilkan data untuk Halaman Kategori Berita.");
-        model.addAttribute("waktu", LocalDateTime.now());
-        return "admin/dashboard";
-    }
-
-    @PreAuthorize("hasAuthority('ADMIN')")
     @GetMapping("/pengguna")
     public String pengguna(Model model) {
         log.info("Menampilkan data untuk Halaman List Pengguna.");
