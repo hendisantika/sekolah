@@ -1,5 +1,8 @@
 package com.hendisantika.sekolah.util;
 
+import org.jsoup.Jsoup;
+import org.jsoup.safety.Whitelist;
+
 /**
  * Created by IntelliJ IDEA.
  * Project : sekolah
@@ -26,5 +29,9 @@ public class WordUtil {
         }
 
         return result;
+    }
+
+    public static String stripTags(String unsafeString) {
+        return Jsoup.clean(unsafeString, Whitelist.basic());
     }
 }
