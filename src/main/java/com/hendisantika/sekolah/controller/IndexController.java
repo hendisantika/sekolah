@@ -22,7 +22,7 @@ import com.hendisantika.sekolah.repository.PengumumanRepository;
 import com.hendisantika.sekolah.repository.PengunjungRepository;
 import com.hendisantika.sekolah.repository.SiswaRepository;
 import com.hendisantika.sekolah.repository.TulisanRepository;
-import com.hendisantika.sekolah.util.WordUtil;
+import com.hendisantika.sekolah.util.WordUtils;
 import lombok.extern.slf4j.Slf4j;
 import net.sf.uadetector.UserAgentStringParser;
 import net.sf.uadetector.service.UADetectorServiceFactory;
@@ -122,8 +122,8 @@ public class IndexController {
     private PengunjungRepository pengunjungRepository;
 
     @ModelAttribute("WordUtil")
-    public WordUtil addWordUtil() {
-        return new WordUtil();
+    public WordUtils addWordUtil() {
+        return new WordUtils();
     }
 
     public static UserAgentStringParser parser = UADetectorServiceFactory.getResourceModuleParser();
@@ -142,7 +142,7 @@ public class IndexController {
         TOT_FILES = filesRepository.count();
         TOT_SISWA = siswaRepository.count();
 
-        model.addAttribute("WordUtil", new WordUtil());
+        model.addAttribute("WordUtil", new WordUtils());
 
         model.addAttribute("tulisanList", tulisanList);
         model.addAttribute("pengumuman", pengumuman);

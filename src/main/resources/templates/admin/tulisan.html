@@ -59,7 +59,7 @@
                 <tr th:each="t, itrStat : ${tulisanList}">
                     <td th:text="${itrStat.index + 1}">nomor urut</td>
                     <th scope="row" th:text="${t.judul}">Judul</th>
-                    <td th:text="${t.createdOn}">createdOn</td>
+                    <td th:text="${#temporals.format(t.createdOn, 'dd-MM-yyyy HH:mm')}">createdOn</td>
                     <td th:text="${t.author}">Author</td>
                     <td th:text="${t.views}">baca</td>
                     <td th:text="${t.kategori.nama}">kategori</td>

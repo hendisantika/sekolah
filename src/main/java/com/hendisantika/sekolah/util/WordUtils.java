@@ -12,7 +12,7 @@ import org.jsoup.safety.Whitelist;
  * Date: 20/03/20
  * Time: 14.04
  */
-public class WordUtil {
+public class WordUtils {
     public static int countWords(String input) {
         if (input == null || input.isEmpty()) {
             return 0;
@@ -33,5 +33,10 @@ public class WordUtil {
 
     public static String stripTags(String unsafeString) {
         return Jsoup.clean(unsafeString, Whitelist.basic());
+    }
+
+    public static String pregReplace(String pregReplace) {
+        String result = pregReplace;
+        return result.replaceAll("/[^a-zA-Z0-9 \\&%|{.}=,?!*()\"-_+$@;<>']/", "");
     }
 }

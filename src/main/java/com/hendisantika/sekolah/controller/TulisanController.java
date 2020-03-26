@@ -25,6 +25,10 @@ import java.security.Principal;
 import java.time.LocalDateTime;
 import java.util.Base64;
 
+import static com.hendisantika.sekolah.util.WordUtils.pregReplace;
+import static com.hendisantika.sekolah.util.WordUtils.stripTags;
+import static org.apache.commons.lang3.StringUtils.lowerCase;
+
 /**
  * Created by IntelliJ IDEA.
  * Project : sekolah
@@ -85,6 +89,8 @@ public class TulisanController {
                 return new UsernameNotFoundException("Username Not Found");
             });
 
+            tulisan.setJudul(stripTags(tulisan.getJudul()));
+            tulisan.setSlug(lowerCase((pregReplace(tulisan.getJudul()))).replaceAll(" ", "-"));
             tulisan.setPengguna(pengguna);
             tulisan.setCreatedBy(username);
             tulisan.setGambar(encoded);
