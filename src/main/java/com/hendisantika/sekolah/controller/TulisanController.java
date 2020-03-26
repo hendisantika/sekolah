@@ -21,9 +21,6 @@ import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.security.Principal;
 import java.time.LocalDateTime;
 import java.util.Base64;
@@ -82,9 +79,6 @@ public class TulisanController {
             // Get the file and save it somewhere
             byte[] bytes = file.getBytes();
             String encoded = Base64.getEncoder().encodeToString(bytes);
-            byte[] decoded = Base64.getDecoder().decode(encoded);
-            Path path = Paths.get(UPLOADED_FOLDER + file.getOriginalFilename());
-            Files.write(path, bytes);
             String username = principal.getName();
             Pengguna pengguna = penggunaRepository.findByUsername(username).orElseThrow(() -> {
                 log.warn("Username Not Found {}", username);
