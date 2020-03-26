@@ -16,10 +16,34 @@ import java.nio.charset.StandardCharsets;
  * Time: 21.45
  */
 public class FileUtils {
-    private static String encodeFileToBase64Binary(File file) throws Exception {
+    private FileUtils() {
+        throw new IllegalStateException("Utility class");
+    }
+
+    public static String encodeFileToBase64Binary(File file) throws Exception {
         FileInputStream fileInputStreamReader = new FileInputStream(file);
         byte[] bytes = new byte[(int) file.length()];
         fileInputStreamReader.read(bytes);
         return new String(Base64.encodeBase64(bytes), StandardCharsets.UTF_8);
+    }
+
+    /**
+     * Encodes the byte array into base64 string
+     *
+     * @param imageByteArray - byte array
+     * @return String a {@link java.lang.String}
+     */
+    public static String encodeBase64URLSafeString(byte[] imageByteArray) {
+        return Base64.encodeBase64URLSafeString(imageByteArray);
+    }
+
+    /**
+     * Decodes the base64 string into byte array
+     *
+     * @param imageDataString - a {@link java.lang.String}
+     * @return byte array
+     */
+    public static byte[] decodeBase64(String imageDataString) {
+        return Base64.decodeBase64(imageDataString);
     }
 }

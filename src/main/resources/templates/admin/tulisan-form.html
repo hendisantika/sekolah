@@ -111,6 +111,11 @@
                         <!-- /.card-header -->
                         <!-- /.box-header -->
                         <div class="card-body pad">
+                            <div class="mb-3">
+                                <label>Author</label>
+                                <input class="form-control" name="author" placeholder="Author" th:field="*{author}"
+                                       type="text"/>
+                            </div>
                             <label>Kategori</label>
                             <select class="form-control" id="id" th:field="*{kategori.id}">
                                 <option th:each="k : ${kategoriList}"
@@ -119,7 +124,8 @@
                             </select>
                             <div class="mb-3">
                                 <label>Gambar</label>
-                                <input name="gambar" required style="width: 100%;" th:field="*{gambar}" type="file">
+                                <!--th:field="*{gambar}"-->
+                                <input name="file" required style="width: 100%;" type="file">
                                 </p>
                             </div>
                         </div>
