@@ -37,8 +37,8 @@ public class Pengguna {
     @Column(name = "id")
     private Long id;
 
-    @Column(name = "nama")
-    private String nama;
+    @Column(name = "fullname")
+    private String fullname;
 
     @Column(name = "moto")
     private String moto;
@@ -46,7 +46,7 @@ public class Pengguna {
     @Column(name = "jenkel")
     private String jenkel;
 
-    @Column(name = "username")
+    @Column(name = "username", unique = true)
     private String username;
 
     @Column(name = "password")
@@ -79,6 +79,12 @@ public class Pengguna {
 
     @Column(name = "photo")
     private String photo;
+
+    @Column(name = "filename")
+    private String filename;
+
+    @Column(name = "file_content")
+    private byte[] fileContent;
 
     @Column(name = "active")
     private boolean active;

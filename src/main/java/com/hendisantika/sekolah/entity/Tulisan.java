@@ -50,17 +50,20 @@ public class Tulisan {
     @Column(name = "isi")
     private String isi;
 
+    @Column(name = "author")
+    private String author;
+
     @Column(name = "views")
     private int views;
 
     @Column(name = "gambar")
     private String gambar;
 
-    @Column(name = "pengguna_id")
-    private int penggunaId;
+    @Column(name = "filename")
+    private String filename;
 
-    @Column(name = "author")
-    private String author;
+    @Column(name = "file_content")
+    private byte[] fileContent;
 
     @Column(name = "img_slider")
     private int imgSlider;
@@ -72,6 +75,11 @@ public class Tulisan {
     @JoinColumn(name = "kategori_id", nullable = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
     private Kategori kategori;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "pengguna_id", nullable = false)
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    private Pengguna pengguna;
 
     @Column(name = "created_by")
     @CreatedBy
