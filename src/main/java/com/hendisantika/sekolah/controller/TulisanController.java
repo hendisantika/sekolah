@@ -107,4 +107,20 @@ public class TulisanController {
         return "redirect:/admin/tulisan";
     }
 
+    @GetMapping("/edit")
+    public String editTulisan(Model model) {
+        log.info("Mengedit Data Tulisan");
+        model.addAttribute("kategoriList", kategoriRepository.findAll());
+        model.addAttribute("tulisan", new Tulisan());
+        return "admin/tulisan-form";
+    }
+
+    @GetMapping("/delete")
+    public String deleteTulisan(Model model) {
+        log.info("Hapus data Tulisan");
+        model.addAttribute("kategoriList", kategoriRepository.findAll());
+        model.addAttribute("tulisan", new Tulisan());
+        return "admin/tulisan-form";
+    }
+
 }
