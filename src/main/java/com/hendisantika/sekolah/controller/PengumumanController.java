@@ -1,5 +1,6 @@
 package com.hendisantika.sekolah.controller;
 
+import com.hendisantika.sekolah.dto.PengumumanDto;
 import com.hendisantika.sekolah.entity.Pengguna;
 import com.hendisantika.sekolah.entity.Pengumuman;
 import com.hendisantika.sekolah.repository.PenggunaRepository;
@@ -12,12 +13,14 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.support.SessionStatus;
 
 import javax.validation.Valid;
 import java.security.Principal;
+import java.util.UUID;
 
 /**
  * Created by IntelliJ IDEA.
@@ -51,6 +54,24 @@ public class PengumumanController {
         log.info("Menampilkan Form untuk Tambah Pengumuman.");
         model.addAttribute("pengumuman", new Pengumuman());
         return "admin/pengumuman/pengumuman-form";
+    }
+
+    @GetMapping("edit/{pengumumanId}")
+    public String showFormPengumuman(@PathVariable("pengumumanId") UUID pengumumanId, Model model) {
+        log.info("Menampilkan Form untuk Edit Pengumuman.");
+        model.addAttribute("pengumuman", pengumumanRepository.findById(pengumumanId));
+        return "admin/pengumuman/pengumuman-edit";
+    }
+
+    @PostMapping("edit")
+    public String updatePengumuman(@Valid PengumumanDto pengumumanDto, Model model, Pageable pageable) {
+        log.info("Memperbaharui data Pengumuman.");
+        Pengumuman pengumuman = pengumumanRepository.findById(pengumumanDto.getId()).get();
+        pengumuman.setJudul(pengumumanDto.getJudul());
+        pengumuman.setDeskripsi(pengumumanDto.getDeskripsi());
+        pengumumanRepository.save(pengumuman);
+        model.addAttribute("pengumuman", pengumumanRepository.findAll(pageable));
+        return "redirect:/admin/pengumuman";
     }
 
     @PostMapping

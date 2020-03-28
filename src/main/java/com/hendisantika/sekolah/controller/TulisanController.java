@@ -82,7 +82,7 @@ public class TulisanController {
         return "admin/tulisan/tulisan-edit";
     }
 
-    @PostMapping("/edit/{tulisanId}")
+    @PostMapping("/edit")
     public String editTulisan(Model model, @Valid Tulisan tulisanBaru, @RequestParam("file") MultipartFile file,
                               Principal principal, Pageable pageable, SessionStatus status) {
         log.info("Mengedit Data Tulisan");
