@@ -1,4 +1,4 @@
-package com.hendisantika.sekolah;
+package com.hendisantika.sekolah.test;
 
 import org.jsoup.Jsoup;
 import org.jsoup.safety.Whitelist;
