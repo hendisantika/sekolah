@@ -1,5 +1,6 @@
 package com.hendisantika.sekolah.controller;
 
+import com.hendisantika.sekolah.dto.DownloadDto;
 import com.hendisantika.sekolah.entity.Files;
 import com.hendisantika.sekolah.repository.FilesRepository;
 import lombok.extern.slf4j.Slf4j;
@@ -17,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.validation.Valid;
 import java.io.IOException;
 import java.util.Base64;
 import java.util.UUID;
@@ -89,5 +91,17 @@ public class DownloadController {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    @PostMapping("edit")
+    public String updatePengumuman(@Valid DownloadDto downloadDto, @RequestParam("file") MultipartFile file,
+                                   Model model, SessionStatus status, Pageable pageable) {
+        log.info("Memperbaharui data Download File.");
+        Files files = filesRepository.findById(downloadDto.getId()).get();
+        files.setJudul(downloadDto.getJudul());
+        files.setDeskripsi(downloadDto.getDeskripsi());
+        saveDataFile(files, file, status);
+        model.addAttribute("download", filesRepository.findAll(pageable));
+        return "redirect:/admin/download";
     }
 }
