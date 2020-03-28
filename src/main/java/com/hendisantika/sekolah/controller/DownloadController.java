@@ -100,8 +100,18 @@ public class DownloadController {
         Files files = filesRepository.findById(downloadDto.getId()).get();
         files.setJudul(downloadDto.getJudul());
         files.setDeskripsi(downloadDto.getDeskripsi());
+        files.setAuthor(downloadDto.getAuthor());
         saveDataFile(files, file, status);
         model.addAttribute("download", filesRepository.findAll(pageable));
         return "redirect:/admin/download";
     }
+
+    @GetMapping("delete/{downloadId}")
+    public String deletePengumuman(@PathVariable("downloadId") UUID downloadId, Model model, Pageable pageable) {
+        log.info("Delete Download Files.");
+        filesRepository.deleteById(downloadId);
+        model.addAttribute("download", filesRepository.findAll(pageable));
+        return "redirect:/admin/download";
+    }
+
 }
