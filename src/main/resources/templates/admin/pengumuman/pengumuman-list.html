@@ -30,8 +30,10 @@
     <section class="content">
         <div class="card">
             <div class="card-header">
-                <a class="btn btn-success btn-flat" th:href="@{/admin/pengumuman/add}"><span class="fa fa-plus"></span>
-                    Post Pengumuman</a>
+                <a class="btn btn-success btn-flat" data-target="#myModal" data-toggle="modal"><span
+                        class="fa fa-plus"></span> Add Pengumuman</a>
+                <!--                <a class="btn btn-success btn-flat" th:href="@{/admin/pengumuman/add}"><span class="fa fa-plus"></span>-->
+                <!--                    Post Pengumuman</a>-->
                 Show <span class="pull-right" sd:page-size-selector="default"></span> entries
             </div>
 
@@ -83,8 +85,46 @@
             </div>
         </div>
         <!-- /.card -->
+
+
     </section>
     <!-- /.content -->
+</div>
+<!--Modal Add Pengumuman-->
+<div class="modal fade" id="myModal">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Add Pengumuman</h4>
+                <button aria-label="Close" class="close" data-dismiss="modal" type="button">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form class="form-horizontal" enctype="multipart/form-data" method="post"
+                      th:action="@{/admin/pengumuman}">
+                    <div class="modal-body">
+                        <label class="col-sm-4 control-label" for="judul">Judul</label>
+                        <div class="col-sm-14">
+                            <input class="form-control" id="inputUserName" name="judul" placeholder="Judul"
+                                   required type="text">
+                        </div>
+                        <label class="col-sm-4 control-label" for="deskripsi">Deskripsi</label>
+                        <div class="col-sm-14">
+                                        <textarea class="form-control" name="deskripsi" placeholder="Deskripsi ..."
+                                                  required rows="3"></textarea>
+                        </div>
+                    </div>
+                    <div class="modal-footer justify-content-between">
+                        <button class="btn btn-default" data-dismiss="modal" type="button">Close</button>
+                        <button class="btn btn-primary" type="button">Save changes</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
 </div>
 
 <footer th:replace="fragments/dashboard/footer :: footer"/>
