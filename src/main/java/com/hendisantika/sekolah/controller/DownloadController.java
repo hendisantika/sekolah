@@ -10,6 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -18,6 +19,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.util.Base64;
+import java.util.UUID;
 
 /**
  * Created by IntelliJ IDEA.
@@ -41,6 +43,13 @@ public class DownloadController {
         log.info("Menampilkan data untuk Halaman List Files.");
         model.addAttribute("downloadList", filesRepository.findAll(pageable));
         return "admin/download/download-list";
+    }
+
+    @GetMapping("edit/{downloadId}")
+    public String showFormEditDownload(@PathVariable("downloadId") UUID downloadId, Model model) {
+        log.info("Menampilkan Form untuk Edit Download.");
+        model.addAttribute("download", filesRepository.findById(downloadId));
+        return "admin/download/download-edit";
     }
 
     @GetMapping("add")
