@@ -63,6 +63,14 @@ public class PengumumanController {
         return "admin/pengumuman/pengumuman-edit";
     }
 
+    @GetMapping("delete/{pengumumanId}")
+    public String deletePengumuman(@PathVariable("pengumumanId") UUID pengumumanId, Model model, Pageable pageable) {
+        log.info("Delete Pengumuman.");
+        pengumumanRepository.deleteById(pengumumanId);
+        model.addAttribute("pengumuman", pengumumanRepository.findAll(pageable));
+        return "redirect:/admin/pengumuman";
+    }
+
     @PostMapping("edit")
     public String updatePengumuman(@Valid PengumumanDto pengumumanDto, Model model, Pageable pageable) {
         log.info("Memperbaharui data Pengumuman.");
