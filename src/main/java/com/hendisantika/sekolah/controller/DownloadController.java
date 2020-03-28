@@ -1,5 +1,6 @@
 package com.hendisantika.sekolah.controller;
 
+import com.hendisantika.sekolah.entity.Files;
 import com.hendisantika.sekolah.repository.FilesRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,8 +8,16 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.support.SessionStatus;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.io.IOException;
+import java.util.Base64;
 
 /**
  * Created by IntelliJ IDEA.
@@ -32,5 +41,44 @@ public class DownloadController {
         log.info("Menampilkan data untuk Halaman List Files.");
         model.addAttribute("downloadList", filesRepository.findAll(pageable));
         return "admin/download/download-list";
+    }
+
+    @GetMapping("add")
+    public String showFormDownload(Model model) {
+        log.info("Menampilkan Halaman Tambah File Download.");
+        model.addAttribute("download", new Files());
+        return "admin/download/download-form";
+    }
+
+    @PostMapping
+    public String tambahFile(Model model, Files files, @RequestParam("file") MultipartFile file,
+                             Pageable pageable, BindingResult errors, SessionStatus status) {
+        log.info("Menambahkan File yang baru");
+        if (errors.hasErrors()) {
+            log.info("Tambah File yang baru gagal. ", errors);
+            return "redirect:/admin/download/add";
+        }
+        saveDataFile(files, file, status);
+        model.addAttribute("downloadList", filesRepository.findAll(pageable));
+        return "redirect:/admin/download";
+    }
+
+    private void saveDataFile(Files files, @RequestParam("file") MultipartFile file,
+                              SessionStatus status) {
+        try {
+            // Get the file and save it somewhere
+            byte[] bytes = file.getBytes();
+            String encoded = Base64.getEncoder().encodeToString(bytes);
+
+            files.setData(file.getOriginalFilename());
+            files.setFileContent(bytes);
+            files.setFilename(file.getOriginalFilename());
+            filesRepository.save(files);
+            status.setComplete();
+            log.info("Tambah File Download yang baru sukses.");
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }
