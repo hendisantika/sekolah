@@ -3,6 +3,7 @@ package com.hendisantika.sekolah.entity;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
@@ -79,6 +80,7 @@ public class Tulisan {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "pengguna_id", nullable = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
+    @ToString.Exclude
     private Pengguna pengguna;
 
     @Column(name = "created_by")

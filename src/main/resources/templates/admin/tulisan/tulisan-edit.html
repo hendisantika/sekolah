@@ -30,7 +30,8 @@
 
     <!-- Main content -->
     <section class="content">
-        <form enctype="multipart/form-data" method="post" th:action="@{/admin/tulisan/}" th:object="${tulisan}">
+        <form enctype="multipart/form-data" method="post"
+              th:action="@{/admin/tulisan/edit/{tulisanId}(tulisanId=${tulisanId})}" th:object="${tulisan}">
             <div class="row">
                 <div class="col-md-12">
                     <div class="card-header">
@@ -44,9 +45,9 @@
                     <div class="card-body pad">
                         <div class="row">
                             <div class="col-md-10">
-                                <input class="form-control" name="judul" placeholder="Judul berita atau artikel"
-                                       required
-                                       th:field="*{judul}" type="text"/>
+                                <input class="form-control" id="judul"
+                                       name="judul" required th:field="*{judul}" type="text"/>
+                                <span class="text-danger" th:errors="*{judul}" th:if="${#fields.hasErrors('judul')}"/>
                             </div>
 
                             <!-- /.col -->
@@ -115,6 +116,11 @@
                                 <label>Author</label>
                                 <input class="form-control" name="author" placeholder="Author" th:field="*{author}"
                                        type="text"/>
+                            </div>
+                            <div class="mb-3">
+                                <label>Tulisan Id</label>
+                                <input class="form-control" name="author" th:field="*{id}"
+                                       type="hidden"/>
                             </div>
                             <label>Kategori</label>
                             <select class="form-control" id="id" th:field="*{kategori.id}">

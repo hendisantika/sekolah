@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.validation.Valid;
 import java.io.IOException;
 import java.security.Principal;
 import java.time.LocalDateTime;
@@ -81,6 +82,18 @@ public class TulisanController {
         return "admin/tulisan/tulisan-edit";
     }
 
+    @PostMapping("/edit/{tulisanId}")
+    public String editTulisan(Model model, @Valid Tulisan tulisanBaru, @RequestParam("file") MultipartFile file,
+                              Principal principal, Pageable pageable, SessionStatus status) {
+        log.info("Mengedit Data Tulisan");
+        Tulisan tulisanFromDB = tulisanRepository.findById(tulisanBaru.getId()).orElse(null);
+        tulisanBaru.setCreatedOn((tulisanFromDB.getCreatedOn() == null) ? LocalDateTime.now() :
+                tulisanFromDB.getCreatedOn());
+        saveDataTulisan(tulisanBaru, file, principal, status);
+        model.addAttribute("tulisanList", tulisanRepository.findAll(pageable));
+        return "redirect:/admin/tulisan";
+    }
+
     @PostMapping
     public String tambahTulisan(Model model, Tulisan tulisan, @RequestParam("file") MultipartFile file,
                                 Principal principal, Pageable pageable, BindingResult errors, SessionStatus status) {
@@ -89,6 +102,13 @@ public class TulisanController {
             log.info("Tambah Tulisan yang baru gagal. ", errors);
             return "redirect:/admin/tulisan/add";
         }
+        saveDataTulisan(tulisan, file, principal, status);
+        model.addAttribute("tulisanList", tulisanRepository.findAll(pageable));
+        return "redirect:/admin/tulisan";
+    }
+
+    private void saveDataTulisan(Tulisan tulisan, @RequestParam("file") MultipartFile file, Principal principal,
+                                 SessionStatus status) {
         try {
             // Get the file and save it somewhere
             byte[] bytes = file.getBytes();
@@ -113,16 +133,6 @@ public class TulisanController {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        model.addAttribute("tulisanList", tulisanRepository.findAll(pageable));
-        return "redirect:/admin/tulisan";
-    }
-
-    @GetMapping("/edit")
-    public String editTulisan(Model model) {
-        log.info("Mengedit Data Tulisan");
-        model.addAttribute("kategoriList", kategoriRepository.findAll());
-        model.addAttribute("tulisan", new Tulisan());
-        return "admin/tulisan-form";
     }
 
     @GetMapping("/delete")
