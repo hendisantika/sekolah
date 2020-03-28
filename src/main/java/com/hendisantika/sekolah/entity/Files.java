@@ -45,6 +45,15 @@ public class Files {
     @Column(name = "deskripsi")
     private String deskripsi;
 
+    @Column(name = "author")
+    private String author;
+
+    @Column(name = "filename")
+    private String filename;
+
+    @Column(name = "file_content")
+    private byte[] fileContent;
+
     @Column(name = "download")
     private int download;
 

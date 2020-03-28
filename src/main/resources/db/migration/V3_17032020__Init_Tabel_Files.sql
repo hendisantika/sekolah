@@ -1,14 +1,17 @@
 CREATE TABLE IF NOT EXISTS tbl_files
 (
-    id          UUID           DEFAULT uuid_generate_v4() NOT NULL,
-    judul       varchar(120)   DEFAULT NULL,
-    deskripsi   text,
-    download    INT            DEFAULT '0',
-    data        varchar(120)   DEFAULT NULL,
-    created_by  varchar(50),
-    created_on  timestamp NULL DEFAULT CURRENT_TIMESTAMP,
-    modified_by varchar(50),
-    modified_on timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+    id           UUID           DEFAULT uuid_generate_v4() NOT NULL,
+    judul        varchar(120)   DEFAULT NULL,
+    author       varchar(100)   DEFAULT NULL,
+    deskripsi    text,
+    filename     varchar(50)    DEFAULT NULL,
+    file_content bytea          DEFAULT NULL,
+    download     INT            DEFAULT '0',
+    data         varchar(120)   DEFAULT NULL,
+    created_by   varchar(50),
+    created_on   timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+    modified_by  varchar(50),
+    modified_on  timestamp NULL DEFAULT CURRENT_TIMESTAMP,
     PRIMARY KEY (id)
 );
 
@@ -16,7 +19,7 @@ CREATE TABLE IF NOT EXISTS tbl_files
 -- Dumping data untuk tabel tbl_files
 --
 
-INSERT INTO tbl_files (judul, deskripsi, created_on, created_by, download, data)
+INSERT INTO tbl_files (judul, deskripsi, created_on, author, download, data)
 VALUES ('Dasar-dasar CSS', 'Modul dasar-dasar CSS 3. Modul ini membantu anda untuk memahami struktur dasar CSS',
         '2019-01-23 04:30:01', 'Drs. Joko', 0, 'ab9a183ff240deadbedaff78e639af2f.pdf'),
        ('14 Teknik Komunikasi Yang Paling Efektif',
