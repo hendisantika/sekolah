@@ -135,12 +135,14 @@ public class TulisanController {
         }
     }
 
-    @GetMapping("/delete")
-    public String deleteTulisan(Model model) {
+    @GetMapping("/delete/{tulisanId}")
+    public String deleteTulisan(@PathVariable("tulisanId") UUID tulisanId, Model model, Pageable pageable) {
         log.info("Hapus data Tulisan");
+        tulisanRepository.deleteById(tulisanId);
+
         model.addAttribute("kategoriList", kategoriRepository.findAll());
-        model.addAttribute("tulisan", new Tulisan());
-        return "admin/tulisan-form";
+        model.addAttribute("tulisan", tulisanRepository.findAll(pageable));
+        return "redirect:/admin/tulisan";
     }
 
 }
