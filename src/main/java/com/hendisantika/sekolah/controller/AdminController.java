@@ -52,11 +52,11 @@ public class AdminController {
     }
 
     @PreAuthorize("hasAuthority('ADMIN')")
-    @GetMapping("/agenda")
+    @GetMapping("/agenda2")
     public String agenda(Model model) {
         log.info("Menampilkan data untuk Halaman List Agenda.");
         model.addAttribute("waktu", LocalDateTime.now());
-        return "admin/dashboard";
+        return "admin/agenda2";
     }
 
     @PreAuthorize("hasAuthority('ADMIN')")
