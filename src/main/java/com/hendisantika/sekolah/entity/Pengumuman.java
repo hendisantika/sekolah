@@ -45,6 +45,9 @@ public class Pengumuman {
     @Column(name = "deskripsi")
     private String deskripsi;
 
+    @Column(name = "author")
+    private String author;
+
     @Column(name = "created_by")
     @CreatedBy
     private String createdBy;
