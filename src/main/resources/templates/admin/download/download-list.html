@@ -13,13 +13,13 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1>List Berita</h1>
+                    <h1>List Files</h1>
                 </div>
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
                         <li class="breadcrumb-item"><a href="/">Home</a></li>
-                        <li class="breadcrumb-item"><a href="/admin/tulisan">Berita</a></li>
-                        <li class="breadcrumb-item active">List Berita</li>
+                        <li class="breadcrumb-item"><a href="/admin/tulisan">Download</a></li>
+                        <li class="breadcrumb-item active">List Files</li>
                     </ol>
                 </div>
             </div>
@@ -30,8 +30,8 @@
     <section class="content">
         <div class="card">
             <div class="card-header">
-                <a class="btn btn-success btn-flat" th:href="@{/admin/tulisan/add}"><span class="fa fa-plus"></span>
-                    Post Tulisan</a>
+                <a class="btn btn-success btn-flat" th:href="@{/admin/download/add}"><span class="fa fa-plus"></span>
+                    Tambah File Baru</a>
                 Show <span class="pull-right" sd:page-size-selector="default"></span> entries
             </div>
 
@@ -53,7 +53,7 @@
                     <td th:text="${itrStat.index + 1}">nomor urut</td>
                     <td th:text="${d.judul}">filename</td>
                     <td th:text="${#temporals.format(d.createdOn, 'dd/MM/YYYY HH:mm')}">createdOn</td>
-                    <td th:text="${d.createdBy}">file_oleh</td>
+                    <td th:text="${d.author}">file_oleh</td>
                     <td th:text="${d.download}">download</td>
                     <td style="text-align:right;">
                         <div class="btn-group pull-right">
