@@ -21,7 +21,7 @@
                     <ol class="breadcrumb float-sm-right">
                         <li class="breadcrumb-item"><a href="/admin/dashboard">Home</a></li>
                         <li class="breadcrumb-item"><a href="/admin/tulisan">Pengumuman</a></li>
-                        <li class="breadcrumb-item active">Add Pengumuman</li>
+                        <li class="breadcrumb-item active">Edit Pengumuman</li>
                     </ol>
                 </div>
             </div>
@@ -30,12 +30,13 @@
 
     <!-- Main content -->
     <section class="content">
-        <form enctype="multipart/form-data" method="post" th:action="@{/admin/pengumuman/}" th:object="${pengumuman}">
+        <form enctype="multipart/form-data" method="post" th:action="@{/admin/pengumuman/edit}"
+              th:object="${pengumuman}">
             <div class="row">
                 <div class="col-md-12">
                     <div class="card-header">
                         <h3 class="card-title">
-                            Tambah Pengumuman Baru
+                            Edit Pengumuman Baru
                             <small>Simple and fast</small>
                         </h3>
                     </div>
@@ -47,6 +48,7 @@
                                 <input class="form-control" name="judul" placeholder="Judul pengumuman"
                                        required
                                        th:field="*{judul}" type="text"/>
+                                <input class="form-control" name="id" th:field="*{id}" type="hidden"/>
                             </div>
 
                             <!-- /.col -->
