@@ -77,14 +77,13 @@
                         <div class="card-header">
                             <h3 class="card-title">
                                 Tambah Agenda Baru
-                                <small>Simple and fast</small>
                             </h3>
                         </div>
                         <!-- /.card-header -->
                         <!-- /.box-header -->
                         <div class="card-body pad">
                             <div class="mb-3">
-                <textarea class="textarea" placeholder="Place some text here" required th:field="*{isi}"
+                <textarea class="textarea" placeholder="Place some text here" required th:field="*{deskripsi}"
                           style="width: 100%; height: 200px; font-size: 14px; line-height: 18px; border: 1px solid #dddddd; padding: 10px;"></textarea>
                             </div>
                             <p class="text-sm mb-0">
@@ -103,8 +102,7 @@
                     <div class="card card-outline card-blue">
                         <div class="card-header">
                             <h3 class="card-title">
-                                Tambah Kategori
-                                <small>Simple and fast</small>
+                                Tambah Keterangan
                             </h3>
                         </div>
                         <!-- /.card-header -->
@@ -112,24 +110,15 @@
                         <div class="card-body pad">
                             <div class="mb-3">
                                 <label>Author</label>
-                                <input class="form-control" name="author" placeholder="Author" th:field="*{author}"
+                                <input class="form-control" name="author" placeholder="Author" th:field="*{created_by}"
                                        type="text"/>
                             </div>
-                            <label>Kategori</label>
-                            <select class="form-control" id="id" th:field="*{kategori.id}">
-                                <option th:each="k : ${kategoriList}"
-                                        th:selected="${k.id}" th:text="${k.id}+' : '+${k.nama}"
-                                        th:value="${k.id}"></option>
-                            </select>
-                            <div class="mb-3">
-                                <label>Gambar</label>
-                                <!--th:field="*{gambar}"-->
-                                <input name="file" required style="width: 100%;" type="file">
-                                </p>
-                            </div>
+
+                                <label>Tanggal</label>
+                                <input class="form-control" name="Tanggal" placeholder="Tanggal" th:field="*{mulai}"
+                                        type="text"/>
                         </div>
                     </div>
-                    <!-- Kategori & Image End -->
                 </div>
         </form>
         <!-- ./row -->

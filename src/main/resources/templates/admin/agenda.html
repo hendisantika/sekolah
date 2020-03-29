@@ -44,9 +44,9 @@
                 </thead>
                 <tbody>
                 <tr th:each="t, itrStat : ${agendaList}">
-                    <td th:text="${itrStat.index + 1}">nomor urut</td>
+                    <td th:text="${itrStat.index + 10}">nomor urut</td>
                     <th scope="row" th:text="${t.nama}">nama</th>
-                    <td th:text="${t.mulai, 'dd-MM-yyyy'}">tanggal</td>
+                    <td th:text="${t.mulai, t.selesai 'dd-MM-yyyy'}">tanggal</td>
                     <td th:text="${t.tempat}">tempat</td>
                     <td th:text="${t.waktu}">waktu</td>
                     <td th:text="${t.created_by}">author</td>

@@ -45,7 +45,7 @@ public class AgendaController {
     @GetMapping
     public String agenda(Model model, Pageable pageable) {
         log.info("Menampilkan data untuk Halaman Agenda.");
-        model.addAttribute("agendaList", agendaRepository.findAll(pageable));
+        model.addAttribute("agendaList", agendaRepository.findAll());
         model.addAttribute("waktu", LocalDateTime.now());
         return "admin/agenda";
     }
@@ -53,7 +53,7 @@ public class AgendaController {
     @GetMapping("/add")
     public String tampilkanFormAgenda(Model model) {
         log.info("Menampilkan Form Agenda");
-        model.addAttribute("kategoriList", kategoriRepository.findAll());
+        model.addAttribute("agendaList", agendaRepository.findAll());
         model.addAttribute("agenda", new Agenda());
         return "admin/agenda-form";
     }
@@ -79,7 +79,7 @@ public class AgendaController {
         model.addAttribute("agenda", new Agenda());
         return "admin/agenda/edit";
     }
-    @DeleteMapping("/delete")
+    @GetMapping("/delete")
     public String deleteAgenda(Model model) {
         log.info("Hapus data Agenda");
         model.addAttribute("kategoriList", kategoriRepository.findAll());
