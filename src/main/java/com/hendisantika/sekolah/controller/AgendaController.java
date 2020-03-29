@@ -59,12 +59,17 @@ public class AgendaController {
     }
 
     @PostMapping
-    public String tambahAgenda(Model model, Agenda agenda) {
-        log.info("Menambahkan Agenda yang baru");
-        model.addAttribute("agendaList",agendaRepository.findAll());
-        model.addAttribute("agenda", new Agenda());
-        return "admin/agenda/add";
-
+    public String tambahAgenda(@Valid Agenda agenda, Principal principal, BindingResult errors,
+                                 SessionStatus status) {
+        log.info("Menambahkan Agenda baru");
+        if (errors.hasErrors()) {
+            return "admin/agenda";
+        }
+        agenda.setCreated_by(principal.getName());
+        agendaRepository.save(agenda);
+        status.setComplete();
+        log.info("Data agenda yang baru {}", agenda);
+        return "redirect:/admin/agenda/add";
     }
 
     @GetMapping("/edit")
