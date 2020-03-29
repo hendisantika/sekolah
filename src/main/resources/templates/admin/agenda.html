@@ -15,13 +15,6 @@
                 <div class="col-sm-6">
                     <h1>List Agenda</h1>
                 </div>
-                <div class="col-sm-6">
-                    <ol class="breadcrumb float-sm-right">
-                        <li class="breadcrumb-item"><a href="/">Home</a></li>
-                        <li class="breadcrumb-item"><a href="/admin/agenda">Agenda</a></li>
-                        <li class="breadcrumb-item active">List Agenda</li>
-                    </ol>
-                </div>
             </div>
         </div><!-- /.container-fluid -->
     </section>
@@ -30,8 +23,8 @@
     <section class="content">
         <div class="card">
             <div class="card-header">
-                <a class="btn btn-success btn-flat" th:href="@{/admin/tulisan/add}"><span class="fa fa-plus"></span>
-                    Post Tulisan</a>
+                <a class="btn btn-success btn-flat" th:href="@{/admin/agenda/add}"><span class="fa fa-plus"></span>
+                    Post Agenda</a>
                 Show <span class="pull-right" sd:page-size-selector="default"></span> entries
             </div>
 
@@ -39,13 +32,7 @@
             <table class="table table-striped table-hover">
                 <thead>
                 <tr>
-                    <!--                    <th><a class="sorted" sd:pagination-sort="judul" >Judul</a></th>-->
-                    <!--                    <th><a class="sorted" sd:pagination-sort="isi" >Isi</a></th>-->
-                    <!--                    <th><a class="sorted" sd:pagination-sort="createdOn" >createdOn</a></th>-->
-                    <!--                    <th><a class="sorted" sd:pagination-sort="author" >author</a></th>-->
-                    <!--                    <th><a class="sorted" sd:pagination-sort="baca" >baca</a></th>-->
-                    <!--                    <th><a class="sorted" sd:pagination-sort="kategori" >kategori</a></th>-->
-                    <th>#</th>
+                    <th>No</th>
                     <th>Agenda</th>
                     <th>Tanggal</th>
                     <th>Tempat</th>
@@ -58,18 +45,18 @@
                 <tbody>
                 <tr th:each="t, itrStat : ${agendaList}">
                     <td th:text="${itrStat.index + 1}">nomor urut</td>
-                    <th scope="row" th:text="${t.judul}">Deskripsi</th>
-                    <td th:text="${#temporals.format(t.createdOn, 'dd-MM-yyyy HH:mm')}">createdOn</td>
-                    <td th:text="${t.author}">Author</td>
-                    <td th:text="${t.views}">baca</td>
-                    <td th:text="${t.kategori.nama}">kategori</td>
+                    <th scope="row" th:text="${t.nama}">nama</th>
+                    <td th:text="${t.tanggal, 'dd-MM-yyyy'}">tanggal</td>
+                    <td th:text="${t.tempat}">tempat</td>
+                    <td th:text="${t.waktu}">waktu</td>
+                    <td th:text="${t.created_by}">author</td>
                     <td>
                         <div class="btn-group pull-right">
                             <a class="btn btn-sm btn-primary"
-                               th:href="@{/admin/tulisan/edit/{id}(id=${t.id})}">Edit</a>
+                               th:href="@{/admin/agenda/edit/{id}(id=${t.id})}">Edit</a>
                             <a class="delete btn btn-sm btn-danger"
                                onclick="return confirm('Are you sure you want to delete this item?');"
-                               th:href="@{/admin/tulisan/delete/{id}(id=${t.id})}">Delete</a>
+                               th:href="@{/admin/agenda/delete/{id}(id=${t.id})}">Delete</a>
                         </div>
                     </td>
                 </tr>
