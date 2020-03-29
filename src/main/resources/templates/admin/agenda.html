@@ -13,7 +13,14 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1>List Agenda</h1>
+                    <h1>List Berita</h1>
+                </div>
+                <div class="col-sm-6">
+                    <ol class="breadcrumb float-sm-right">
+                        <li class="breadcrumb-item"><a href="/">Home</a></li>
+                        <li class="breadcrumb-item"><a href="/admin/agenda">Agenda</a></li>
+                        <li class="breadcrumb-item active">List Agenda</li>
+                    </ol>
                 </div>
             </div>
         </div><!-- /.container-fluid -->
@@ -33,30 +40,28 @@
                 <thead>
                 <tr>
                     <th>No</th>
-                    <th>Agenda</th>
+                    <th>Nama</th>
                     <th>Tanggal</th>
                     <th>Tempat</th>
                     <th>Waktu</th>
-                    <th>Author</th>
                     <th>Aksi</th>
                     <th></th>
                 </tr>
                 </thead>
                 <tbody>
                 <tr th:each="t, itrStat : ${agendaList}">
-                    <td th:text="${itrStat.index + 10}">nomor urut</td>
-                    <th scope="row" th:text="${t.nama}">nama</th>
-                    <td th:text="${t.mulai, t.selesai 'dd-MM-yyyy'}">tanggal</td>
-                    <td th:text="${t.tempat}">tempat</td>
+                    <td th:text="${itrStat.index + 1}">nomor urut</td>
+                    <th scope="row" th:text="${t.nama}">agenda</th>
+                    <td th:text="${#temporals.format(t.mulai, 'dd-MM-yyyy HH:mm')}">tanggal</td>
+                    <td th:text="${t.tempat}">Tempat</td>
                     <td th:text="${t.waktu}">waktu</td>
-                    <td th:text="${t.created_by}">author</td>
                     <td>
                         <div class="btn-group pull-right">
                             <a class="btn btn-sm btn-primary"
-                               th:href="@{/admin/agenda/edit/{id}(id=${t.id})}">Edit</a>
+                               th:href="@{/admin/agenda/edit/{agendaId}(id=${t.id})}">Edit</a>
                             <a class="delete btn btn-sm btn-danger"
                                onclick="return confirm('Are you sure you want to delete this item?');"
-                               th:href="@{/admin/agenda/delete/{id}(id=${t.id})}">Delete</a>
+                               th:href="@{/admin/agenda/delete/{agendaId}(id=${t.id})}">Delete</a>
                         </div>
                     </td>
                 </tr>

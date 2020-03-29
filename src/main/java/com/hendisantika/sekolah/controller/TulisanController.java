@@ -115,7 +115,7 @@ public class TulisanController {
         return "admin/tulisan-form";
     }
 
-    @GetMapping("/delete")
+    @GetMapping("/delete/{tulisanId")
     public String deleteTulisan(Model model) {
         log.info("Hapus data Tulisan");
         model.addAttribute("kategoriList", kategoriRepository.findAll());
