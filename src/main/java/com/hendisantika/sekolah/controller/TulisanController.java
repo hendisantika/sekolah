@@ -135,6 +135,7 @@ public class TulisanController {
         }
     }
 
+
     @GetMapping("/delete/{tulisanId}")
     public String deleteTulisan(@PathVariable("tulisanId") UUID tulisanId, Model model, Pageable pageable) {
         log.info("Hapus data Tulisan");
