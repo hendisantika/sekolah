@@ -1,5 +1,7 @@
 package com.hendisantika.sekolah.controller;
 
+import com.hendisantika.sekolah.dto.SiswaDto;
+import com.hendisantika.sekolah.repository.KelasRepository;
 import com.hendisantika.sekolah.repository.SiswaRepository;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,10 +29,21 @@ public class SiswaController {
     @Autowired
     private SiswaRepository siswaRepository;
 
+    @Autowired
+    private KelasRepository kelasRepository;
+
     @GetMapping
-    public String siswa(Model model, Pageable pageable) {
+    public String showListSiswa(Model model, Pageable pageable) {
         log.info("Menampilkan data untuk Halaman List Siswa.");
         model.addAttribute("siswaList", siswaRepository.findAll(pageable));
         return "admin/siswa/siswa-list";
+    }
+
+    @GetMapping("add")
+    public String showFormAddSiswa(Model model) {
+        log.info("Menampilkan data untuk Halaman Tambah Siswa.");
+        model.addAttribute("kelasList", kelasRepository.findAll());
+        model.addAttribute("siswa", new SiswaDto());
+        return "admin/siswa/siswa-form";
     }
 }
