@@ -63,7 +63,7 @@ public class Agenda {
 
     @Column(name = "created_by")
     @CreatedBy
-    private String created_by;
+    private String createdBy;
 
     @Column(name = "created_on")
     @CreatedDate
