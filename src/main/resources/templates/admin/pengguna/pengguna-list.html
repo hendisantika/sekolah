@@ -30,7 +30,7 @@
     <section class="content">
         <div class="card">
             <div class="card-header">
-                <a class="btn btn-success btn-flat" th:href="@{/admin/Pengguna/add}"><span class="fa fa-plus"></span>
+                <a class="btn btn-success btn-flat" th:href="@{/admin/pengguna/add}"><span class="fa fa-plus"></span>
                     Post Pengguna</a>
                 Show <span class="pull-right" sd:page-size-selector="default"></span> entries
             </div>
@@ -54,15 +54,15 @@
                     <th scope="row" th:text="${p.fullname}">Nama Lengkap</th>
                     <th scope="row" th:text="${p.fullname}">Nama Lengkap</th>
                     <td th:text="${p.jenkel}">Jengkel</td>
-                    <td th:text="${p.kontak}">Kontak</td>
-                    <td th:text="${p.level}">level</td>
+                    <td th:text="${p.nohp}">Kontak</td>
+                    <td th:text="${p.level}">Roles</td>
                     <td>
                         <div class="btn-group pull-right">
                             <a class="btn btn-sm btn-primary"
-                               th:href="@{/admin/pengumuman/edit/{id}(id=${p.id})}">Edit</a>
+                               th:href="@{/admin/pengguna/edit/{id}(id=${p.id})}">Edit</a>
                             <a class="delete btn btn-sm btn-danger"
                                onclick="return confirm('Are you sure you want to delete this item?');"
-                               th:href="@{/admin/pengumuman/delete/{id}(id=${p.id})}">Delete</a>
+                               th:href="@{/admin/pengguna/delete/{id}(id=${p.id})}">Delete</a>
                         </div>
                     </td>
                 </tr>

@@ -1,5 +1,6 @@
 package com.hendisantika.sekolah.controller;
 
+import com.hendisantika.sekolah.entity.Pengguna;
 import com.hendisantika.sekolah.repository.PenggunaRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,6 +34,13 @@ public class PenggunaController {
         log.info("Menampilkan data untuk Halaman List Pengguna.");
         model.addAttribute("penggunaList", penggunaRepository.findAll(pageable));
         return "admin/pengguna/pengguna-list";
+    }
+
+    @GetMapping("add")
+    public String showFormPengguna(Model model) {
+        log.info("Menampilkan data untuk Halaman List Pengguna.");
+        model.addAttribute("pengguna", new Pengguna());
+        return "admin/pengguna/pengguna-form";
     }
 
 }
