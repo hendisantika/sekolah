@@ -55,6 +55,13 @@ public class PenggunaController {
         return "admin/pengguna/pengguna-form";
     }
 
+    @GetMapping("edit/{penggunaId}")
+    public String showEditPenggunaForm(@PathVariable("penggunaId") Long penggunaId, Model model) {
+        log.info("Menampilkan Form Edit Pengguna.");
+        model.addAttribute("pengguna", penggunaRepository.findById(penggunaId));
+        return "admin/pengguna/pengguna-edit";
+    }
+
     @GetMapping("delete/{penggunaId}")
     public String showFormPengguna(@PathVariable("penggunaId") Long penggunaId, Model model, Pageable pageable) {
         log.info("Menghapus Data Pengguna.");
