@@ -12,6 +12,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -22,6 +23,7 @@ import javax.validation.Valid;
 import java.io.IOException;
 import java.security.Principal;
 import java.util.Base64;
+import java.util.UUID;
 
 /**
  * Created by IntelliJ IDEA.
@@ -56,6 +58,14 @@ public class SiswaController {
         model.addAttribute("kelasList", kelasRepository.findAll());
         model.addAttribute("siswa", new SiswaDto());
         return "admin/siswa/siswa-form";
+    }
+
+    @GetMapping("edit/{siswaId}")
+    public String showFormEditSiswa(@PathVariable("siswaId") UUID siswaId, Model model) {
+        log.info("Menampilkan data untuk Halaman Edit Siswa.");
+        model.addAttribute("kelasList", kelasRepository.findAll());
+        model.addAttribute("siswa", siswaRepository.findById(siswaId));
+        return "admin/siswa/siswa-edit";
     }
 
     @PostMapping
