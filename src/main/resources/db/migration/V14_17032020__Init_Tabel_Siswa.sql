@@ -5,6 +5,7 @@ CREATE TABLE IF NOT EXISTS tbl_siswa
     jenkel       varchar(2),
     nis          varchar(20),
     photo        varchar(40),
+    photo_base64 text,
     filename     varchar(50)    DEFAULT NULL,
     file_content bytea          DEFAULT NULL,
     kelas_id     int4      NOT NULL,

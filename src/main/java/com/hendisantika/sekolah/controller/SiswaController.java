@@ -1,16 +1,27 @@
 package com.hendisantika.sekolah.controller;
 
 import com.hendisantika.sekolah.dto.SiswaDto;
+import com.hendisantika.sekolah.entity.Siswa;
 import com.hendisantika.sekolah.repository.KelasRepository;
 import com.hendisantika.sekolah.repository.SiswaRepository;
 import lombok.extern.log4j.Log4j2;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.support.SessionStatus;
+import org.springframework.web.multipart.MultipartFile;
+
+import javax.validation.Valid;
+import java.io.IOException;
+import java.security.Principal;
+import java.util.Base64;
 
 /**
  * Created by IntelliJ IDEA.
@@ -46,4 +57,29 @@ public class SiswaController {
         model.addAttribute("siswa", new SiswaDto());
         return "admin/siswa/siswa-form";
     }
+
+    @PostMapping
+    public String addSiswa(Model model, @Valid SiswaDto siswaDto, @RequestParam("file") MultipartFile file,
+                           Principal principal, Pageable pageable, SessionStatus status) {
+        log.info("Menyiapkan Data Tambah Pengguna.");
+        try {
+            // Get the file and save it somewhere
+            byte[] bytes = file.getBytes();
+            String encoded = Base64.getEncoder().encodeToString(bytes);
+            Siswa siswa = new Siswa();
+            BeanUtils.copyProperties(siswaDto, siswa);
+            siswa.setPhotoBase64(encoded);
+            siswa.setPhoto(file.getOriginalFilename());
+            siswa.setFileContent(bytes);
+            siswa.setFilename(file.getOriginalFilename());
+            siswaRepository.save(siswa);
+            status.setComplete();
+            log.info("Tambah Siswa yang baru sukses.");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        model.addAttribute("siswaList", siswaRepository.findAll(pageable));
+        return "redirect:/admin/siswa";
+    }
+
 }

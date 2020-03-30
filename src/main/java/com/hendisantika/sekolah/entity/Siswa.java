@@ -50,11 +50,14 @@ public class Siswa {
     @Column(name = "nama")
     private String nama;
 
-    @Column(name = "jenkel ")
+    @Column(name = "jenkel")
     private String jenkel;
 
-    @Column(name = "photo ")
+    @Column(name = "photo")
     private String photo;
+
+    @Column(name = "photo_base64")
+    private String photoBase64;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "kelas_id", nullable = false)

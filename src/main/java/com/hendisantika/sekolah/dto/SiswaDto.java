@@ -31,6 +31,8 @@ public class SiswaDto {
 
     private String photo;
 
+    private String photoBase64;
+
     private Kelas kelas;
 
     private String filename;
