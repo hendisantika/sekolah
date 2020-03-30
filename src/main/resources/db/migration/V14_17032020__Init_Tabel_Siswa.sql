@@ -13,7 +13,8 @@ CREATE TABLE IF NOT EXISTS tbl_siswa
     created_on   timestamp NULL DEFAULT CURRENT_TIMESTAMP,
     modified_by  varchar(50),
     modified_on  timestamp NULL DEFAULT CURRENT_TIMESTAMP,
-    PRIMARY KEY (id)
+    PRIMARY KEY (id),
+    UNIQUE (nis)
 );
 
 ALTER TABLE IF EXISTS tbl_siswa
@@ -36,7 +37,7 @@ VALUES ('9287482', 'Alvaro Sanchez', 'L', 8,
         '1e148b42c71562841ba3018fc97b748a.png'),
        ('123085', 'Nadila Ginting', 'P', 1,
         '8125da21f903803b6992214967239ab3.png'),
-       ('123086', 'Anna Marina', 'P', 1,
+       ('123082', 'Anna Marina', 'P', 1,
         '33eaf3e3faf28a0fe31670c022f641f1.png'),
        ('123086', 'Dhea Lubis', 'P', 1, '03e651410e969c3c26e8e0d35380470d.png'),
        ('123087', 'Nadia Ginting', 'P', 1,
