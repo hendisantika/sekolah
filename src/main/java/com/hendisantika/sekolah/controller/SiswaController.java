@@ -21,7 +21,6 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.Valid;
 import java.io.IOException;
-import java.security.Principal;
 import java.util.Base64;
 import java.util.UUID;
 
@@ -68,9 +67,33 @@ public class SiswaController {
         return "admin/siswa/siswa-edit";
     }
 
+    @PostMapping("edit")
+    public String updateDataSiswa(@Valid SiswaDto siswaDto, Model model, @RequestParam("file") MultipartFile file,
+                                  Pageable pageable, SessionStatus status) {
+        log.info("Memperbaharui data siswa.");
+        try {
+            // Get the file and save it somewhere
+            byte[] bytes = file.getBytes();
+            String encoded = Base64.getEncoder().encodeToString(bytes);
+            Siswa siswa = new Siswa();
+            BeanUtils.copyProperties(siswaDto, siswa);
+            siswa.setPhotoBase64(encoded);
+            siswa.setPhoto(file.getOriginalFilename());
+            siswa.setFileContent(bytes);
+            siswa.setFilename(file.getOriginalFilename());
+            siswaRepository.save(siswa);
+            status.setComplete();
+            log.info("Update Data Siswa sukses.");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        model.addAttribute("siswa", siswaRepository.findAll(pageable));
+        return "redirect:/admin/siswa";
+    }
+
     @PostMapping
     public String addSiswa(Model model, @Valid SiswaDto siswaDto, @RequestParam("file") MultipartFile file,
-                           Principal principal, Pageable pageable, SessionStatus status) {
+                           Pageable pageable, SessionStatus status) {
         log.info("Menyiapkan Data Tambah Pengguna.");
         try {
             // Get the file and save it somewhere

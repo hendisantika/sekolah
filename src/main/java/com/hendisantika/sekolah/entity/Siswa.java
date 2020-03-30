@@ -44,7 +44,7 @@ public class Siswa {
     @GenericGenerator(name = "uuid2", strategy = "uuid2")
     private UUID id;
 
-    @Column(name = "nis")
+    @Column(name = "nis", unique = true)
     private String nis;
 
     @Column(name = "nama")
