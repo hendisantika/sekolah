@@ -61,6 +61,12 @@ public class Siswa {
     @OnDelete(action = OnDeleteAction.CASCADE)
     private Kelas kelas;
 
+    @Column(name = "filename")
+    private String filename;
+
+    @Column(name = "file_content")
+    private byte[] fileContent;
+
     @Column(name = "created_by")
     @CreatedBy
     private String createdBy;
