@@ -14,16 +14,19 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.validation.Valid;
 import java.io.IOException;
 import java.security.Principal;
 import java.time.LocalDateTime;
 import java.util.Base64;
+import java.util.UUID;
 
 import static com.hendisantika.sekolah.util.WordUtils.pregReplace;
 import static com.hendisantika.sekolah.util.WordUtils.stripTags;
@@ -60,7 +63,7 @@ public class TulisanController {
         log.info("Menampilkan data untuk Halaman List Berita.");
         model.addAttribute("tulisanList", tulisanRepository.findAll(pageable));
         model.addAttribute("waktu", LocalDateTime.now());
-        return "admin/tulisan";
+        return "admin/tulisan/tulisan";
     }
 
     @GetMapping("/add")
@@ -68,7 +71,27 @@ public class TulisanController {
         log.info("Menampilkan Form Tulisan");
         model.addAttribute("kategoriList", kategoriRepository.findAll());
         model.addAttribute("tulisan", new Tulisan());
-        return "admin/tulisan-form";
+        return "admin/tulisan/tulisan-form";
+    }
+
+    @GetMapping("/edit/{tulisanId}")
+    public String tampilkanFormEditTulisan(Model model, @PathVariable("tulisanId") UUID tulisanId) {
+        log.info("Menampilkan Form Edit Tulisan");
+        model.addAttribute("kategoriList", kategoriRepository.findAll());
+        model.addAttribute("tulisan", tulisanRepository.findById(tulisanId));
+        return "admin/tulisan/tulisan-edit";
+    }
+
+    @PostMapping("/edit")
+    public String editTulisan(Model model, @Valid Tulisan tulisanBaru, @RequestParam("file") MultipartFile file,
+                              Principal principal, Pageable pageable, SessionStatus status) {
+        log.info("Mengedit Data Tulisan");
+        Tulisan tulisanFromDB = tulisanRepository.findById(tulisanBaru.getId()).orElse(null);
+        tulisanBaru.setCreatedOn((tulisanFromDB.getCreatedOn() == null) ? LocalDateTime.now() :
+                tulisanFromDB.getCreatedOn());
+        saveDataTulisan(tulisanBaru, file, principal, status);
+        model.addAttribute("tulisanList", tulisanRepository.findAll(pageable));
+        return "redirect:/admin/tulisan";
     }
 
     @PostMapping
@@ -79,6 +102,13 @@ public class TulisanController {
             log.info("Tambah Tulisan yang baru gagal. ", errors);
             return "redirect:/admin/tulisan/add";
         }
+        saveDataTulisan(tulisan, file, principal, status);
+        model.addAttribute("tulisanList", tulisanRepository.findAll(pageable));
+        return "redirect:/admin/tulisan";
+    }
+
+    private void saveDataTulisan(Tulisan tulisan, @RequestParam("file") MultipartFile file, Principal principal,
+                                 SessionStatus status) {
         try {
             // Get the file and save it somewhere
             byte[] bytes = file.getBytes();
@@ -103,24 +133,17 @@ public class TulisanController {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        model.addAttribute("tulisanList", tulisanRepository.findAll(pageable));
-        return "redirect:/admin/tulisan";
     }
 
-    @GetMapping("/edit")
-    public String editTulisan(Model model) {
-        log.info("Mengedit Data Tulisan");
-        model.addAttribute("kategoriList", kategoriRepository.findAll());
-        model.addAttribute("tulisan", new Tulisan());
-        return "admin/tulisan-form";
-    }
 
-    @GetMapping("/delete/{tulisanId")
-    public String deleteTulisan(Model model) {
+    @GetMapping("/delete/{tulisanId}")
+    public String deleteTulisan(@PathVariable("tulisanId") UUID tulisanId, Model model, Pageable pageable) {
         log.info("Hapus data Tulisan");
+        tulisanRepository.deleteById(tulisanId);
+
         model.addAttribute("kategoriList", kategoriRepository.findAll());
-        model.addAttribute("tulisan", new Tulisan());
-        return "admin/tulisan-form";
+        model.addAttribute("tulisan", tulisanRepository.findAll(pageable));
+        return "redirect:/admin/tulisan";
     }
 
 }

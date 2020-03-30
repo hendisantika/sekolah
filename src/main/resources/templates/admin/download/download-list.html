@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/dashboard/header :: header"/>
+<body class="hold-transition sidebar-mini layout-fixed layout-navbar-fixed layout-footer-fixed">
+
+<head th:replace="fragments/dashboard/navbar :: navbar"/>
+<head th:replace="fragments/dashboard/sidebar :: sidebar"/>
+
+<!-- Content Wrapper. Contains page content -->
+<div class="content-wrapper" layout:fragment="content">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h1>List Files</h1>
+                </div>
+                <div class="col-sm-6">
+                    <ol class="breadcrumb float-sm-right">
+                        <li class="breadcrumb-item"><a href="/">Home</a></li>
+                        <li class="breadcrumb-item"><a href="/admin/tulisan">Download</a></li>
+                        <li class="breadcrumb-item active">List Files</li>
+                    </ol>
+                </div>
+            </div>
+        </div><!-- /.container-fluid -->
+    </section>
+
+    <!-- Main content -->
+    <section class="content">
+        <div class="card">
+            <div class="card-header">
+                <a class="btn btn-success btn-flat" th:href="@{/admin/download/add}"><span class="fa fa-plus"></span>
+                    Tambah File Baru</a>
+                Show <span class="pull-right" sd:page-size-selector="default"></span> entries
+            </div>
+
+            <!-- /.card-header -->
+            <table class="table table-striped table-hover">
+                <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Filename</th>
+                    <th>Tanggal</th>
+                    <th>Author</th>
+                    <th>Download</th>
+                    <th>Aksi</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:class="${itrStat.even}? 'even_css_class':'odd_css_class'"
+                    th:each="d, itrStat : ${downloadList}">
+                    <td th:text="${itrStat.index + 1}">nomor urut</td>
+                    <td th:text="${d.judul}">filename</td>
+                    <td th:text="${#temporals.format(d.createdOn, 'dd/MM/YYYY HH:mm')}">createdOn</td>
+                    <td th:text="${d.author}">file_oleh</td>
+                    <td th:text="${d.download}">download</td>
+                    <td style="text-align:right;">
+                        <div class="btn-group pull-right">
+                            <a class="btn btn-sm btn-primary"
+                               th:href="@{/admin/download/edit/{id}(id=${d.id})}">Edit</a>
+                            <a class="delete btn btn-sm btn-danger"
+                               onclick="return confirm('Are you sure you want to delete this item?');"
+                               th:href="@{/admin/download/delete/{id}(id=${d.id})}">Delete</a>
+                        </div>
+                    </td>
+                </tr>
+                </tr>
+                </tbody>
+            </table>
+            <div class="row">
+                <div class="col-sm-6">
+                    <div sd:pagination-summary="">info</div>
+                </div>
+                <div class="col-sm-6">
+                    <nav class="pull-right">
+                        <ul class="pagination" sd:pagination="full" sd:pagination-split="7">
+                            <!-- Pagination created by SpringDataDialect, this content is just for mockup -->
+                            <li class="disabled"><a aria-label="Previous" href="#"><span
+                                    aria-hidden="true">&laquo;</span></a></li>
+                            <li class="active"><a href="#">1 <span class="sr-only">(current)</span></a></li>
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+        </div>
+        <!-- /.card -->
+    </section>
+    <!-- /.content -->
+</div>
+
+<footer th:replace="fragments/dashboard/footer :: footer"/>
+<!-- jQuery -->
+<script th:src="@{/plugins/jquery/jquery.min.js}"></script>
+<!-- Bootstrap 4 -->
+<script th:src="@{/plugins/bootstrap/js/bootstrap.bundle.min.js}"></script>
+<!-- jsGrid -->
+<script th:src="@{/plugins/jsgrid/demos/db.js}"></script>
+<script th:src="@{/plugins/jsgrid/jsgrid.min.js}"></script>
+<!-- AdminLTE App -->
+<script th:src="@{/js/adminlte.min.js}"></script>
+<!-- AdminLTE for demo purposes -->
+<script th:src="@{/js/demo.js}"></script>
+<!-- page script -->
+<script>
+    $(function () {
+        $("#jsGrid1").jsGrid({
+            height: "100%",
+            width: "100%",
+
+            sorting: true,
+            paging: true,
+
+            data: db.clients,
+
+            fields: [
+                {name: "Name", type: "text", width: 150},
+                {name: "Age", type: "number", width: 50},
+                {name: "Address", type: "text", width: 200},
+                {name: "Country", type: "select", items: db.countries, valueField: "Id", textField: "Name"},
+                {name: "Married", type: "checkbox", title: "Is Married"}
+            ]
+        });
+    });
+</script>
+</body>
+</html>

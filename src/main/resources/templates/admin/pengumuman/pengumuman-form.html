@@ -15,13 +15,13 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1>Berita</h1>
+                    <h1>Pengumuman</h1>
                 </div>
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
                         <li class="breadcrumb-item"><a href="/admin/dashboard">Home</a></li>
-                        <li class="breadcrumb-item"><a href="/admin/tulisan">Berita</a></li>
-                        <li class="breadcrumb-item active">Add Berita</li>
+                        <li class="breadcrumb-item"><a href="/admin/tulisan">Pengumuman</a></li>
+                        <li class="breadcrumb-item active">Add Pengumuman</li>
                     </ol>
                 </div>
             </div>
@@ -30,12 +30,12 @@
 
     <!-- Main content -->
     <section class="content">
-        <form enctype="multipart/form-data" method="post" th:action="@{/admin/tulisan/}" th:object="${tulisan}">
+        <form enctype="multipart/form-data" method="post" th:action="@{/admin/pengumuman/}" th:object="${pengumuman}">
             <div class="row">
                 <div class="col-md-12">
                     <div class="card-header">
                         <h3 class="card-title">
-                            Tambah Berita Baru
+                            Tambah Pengumuman Baru
                             <small>Simple and fast</small>
                         </h3>
                     </div>
@@ -44,7 +44,7 @@
                     <div class="card-body pad">
                         <div class="row">
                             <div class="col-md-10">
-                                <input class="form-control" name="judul" placeholder="Judul berita atau artikel"
+                                <input class="form-control" name="judul" placeholder="Judul pengumuman"
                                        required
                                        th:field="*{judul}" type="text"/>
                             </div>
@@ -85,8 +85,9 @@
                         <!-- /.box-header -->
                         <div class="card-body pad">
                             <div class="mb-3">
-                <textarea class="textarea" placeholder="Place some text here" required th:field="*{isi}"
-                          style="width: 100%; height: 200px; font-size: 14px; line-height: 18px; border: 1px solid #dddddd; padding: 10px;"></textarea>
+                <textarea class="textarea" placeholder="Place some text here" required
+                          style="width: 100%; height: 200px; font-size: 14px; line-height: 18px; border: 1px solid #dddddd; padding: 10px;"
+                          th:field="*{deskripsi}"></textarea>
                             </div>
                             <p class="text-sm mb-0">
                                 Editor <a href="https://github.com/bootstrap-wysiwyg/bootstrap3-wysiwyg">Documentation
@@ -99,41 +100,8 @@
                 </div>
                 <!-- Summernote End -->
 
-                <!-- Kategori & Image Start -->
-                <div class="col-md-4">
-                    <div class="card card-outline card-blue">
-                        <div class="card-header">
-                            <h3 class="card-title">
-                                Tambah Kategori
-                                <small>Simple and fast</small>
-                            </h3>
-                        </div>
-                        <!-- /.card-header -->
-                        <!-- /.box-header -->
-                        <div class="card-body pad">
-                            <div class="mb-3">
-                                <label>Author</label>
-                                <input class="form-control" name="author" placeholder="Author" th:field="*{author}"
-                                       type="text"/>
-                            </div>
-                            <label>Kategori</label>
-                            <select class="form-control" id="id" th:field="*{kategori.id}">
-                                <option th:each="k : ${kategoriList}"
-                                        th:selected="${k.id}" th:text="${k.id}+' : '+${k.nama}"
-                                        th:value="${k.id}"></option>
-                            </select>
-                            <div class="mb-3">
-                                <label>Gambar</label>
-                                <!--th:field="*{gambar}"-->
-                                <input name="file" required style="width: 100%;" type="file">
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- Kategori & Image End -->
-                </div>
         </form>
-            <!-- ./row -->
+        <!-- ./row -->
     </section>
     <!-- /.content -->
 </div>

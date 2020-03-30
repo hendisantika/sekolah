@@ -37,6 +37,6 @@ public class WordUtils {
 
     public static String pregReplace(String pregReplace) {
         String result = pregReplace;
-        return result.replaceAll("/[^a-zA-Z0-9 \\&%|{.}=,?!*()\"-_+$@;<>']/", "");
+        return result.replaceAll("/[^a-zA-Z0-9 \\&%|{.}=,?!*()\"-_+$@;:<>']/", "");
     }
 }
