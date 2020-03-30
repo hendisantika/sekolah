@@ -115,4 +115,12 @@ public class SiswaController {
         return "redirect:/admin/siswa";
     }
 
+    @GetMapping("delete/{siswaId}")
+    public String deleteSiswa(@PathVariable("siswaId") UUID siswaId, Model model, Pageable pageable) {
+        log.info("Menghapus data siswa.");
+        siswaRepository.deleteById(siswaId);
+        model.addAttribute("siswa", siswaRepository.findAll(pageable));
+        return "redirect:/admin/siswa";
+    }
+
 }
