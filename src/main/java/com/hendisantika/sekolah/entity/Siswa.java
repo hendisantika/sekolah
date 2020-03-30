@@ -3,6 +3,7 @@ package com.hendisantika.sekolah.entity;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
@@ -62,6 +63,7 @@ public class Siswa {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "kelas_id", nullable = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
+    @ToString.Exclude
     private Kelas kelas;
 
     @Column(name = "filename")

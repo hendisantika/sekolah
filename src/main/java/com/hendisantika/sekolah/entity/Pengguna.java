@@ -80,6 +80,9 @@ public class Pengguna {
     @Column(name = "photo")
     private String photo;
 
+    @Column(name = "photo_base64")
+    private String photoBase64;
+
     @Column(name = "filename")
     private String filename;
 

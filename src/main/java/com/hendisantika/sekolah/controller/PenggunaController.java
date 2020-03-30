@@ -70,9 +70,10 @@ public class PenggunaController {
             // Get the file and save it somewhere
             byte[] bytes = file.getBytes();
             String encoded = Base64.getEncoder().encodeToString(bytes);
-            Pengguna pengguna = new Pengguna();
+            Pengguna pengguna = penggunaRepository.findById(penggunaDto.getId()).get();
             BeanUtils.copyProperties(penggunaDto, pengguna);
             pengguna.setPhoto(file.getOriginalFilename());
+            pengguna.setPhotoBase64(encoded);
             pengguna.setFileContent(bytes);
             pengguna.setFilename(file.getOriginalFilename());
             penggunaRepository.save(pengguna);
@@ -104,6 +105,7 @@ public class PenggunaController {
             Pengguna pengguna = new Pengguna();
             BeanUtils.copyProperties(penggunaDto, pengguna);
             pengguna.setPhoto(file.getOriginalFilename());
+            pengguna.setPhotoBase64(encoded);
             pengguna.setFileContent(bytes);
             pengguna.setFilename(file.getOriginalFilename());
             penggunaRepository.save(pengguna);

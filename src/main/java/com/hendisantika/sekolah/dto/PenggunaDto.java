@@ -44,6 +44,8 @@ public class PenggunaDto {
 
     private String photo;
 
+    private String photoBase64;
+
     private String filename;
 
     private byte[] fileContent;

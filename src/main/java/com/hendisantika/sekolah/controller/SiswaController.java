@@ -75,8 +75,7 @@ public class SiswaController {
             // Get the file and save it somewhere
             byte[] bytes = file.getBytes();
             String encoded = Base64.getEncoder().encodeToString(bytes);
-            Siswa siswa = new Siswa();
-            BeanUtils.copyProperties(siswaDto, siswa);
+            Siswa siswa = siswaRepository.findById(siswaDto.getId()).get();
             siswa.setPhotoBase64(encoded);
             siswa.setPhoto(file.getOriginalFilename());
             siswa.setFileContent(bytes);
