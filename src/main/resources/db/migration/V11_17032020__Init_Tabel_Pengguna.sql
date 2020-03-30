@@ -16,6 +16,7 @@ CREATE TABLE IF NOT EXISTS tbl_pengguna
     level        varchar(3)     DEFAULT NULL,
     register     timestamp NULL DEFAULT CURRENT_TIMESTAMP,
     photo        varchar(40)    DEFAULT NULL,
+    photo_base64 text,
     filename     varchar(40)    DEFAULT NULL,
     file_content bytea          DEFAULT NULL,
     active       boolean,

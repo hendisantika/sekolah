@@ -6,6 +6,7 @@ CREATE TABLE IF NOT EXISTS tbl_tulisan
     author       varchar(100)       DEFAULT NULL,
     views        int                DEFAULT '0',
     gambar       varchar            DEFAULT NULL,
+    photo_base64 text,
     filename     varchar(50)        DEFAULT NULL,
     file_content bytea              DEFAULT NULL,
     img_slider   int       NOT NULL DEFAULT '0',
