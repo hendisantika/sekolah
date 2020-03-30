@@ -62,6 +62,29 @@ public class PenggunaController {
         return "admin/pengguna/pengguna-edit";
     }
 
+    @PostMapping("edit")
+    public String editPengguna(Model model, @Valid PenggunaDto penggunaDto, @RequestParam("file") MultipartFile file,
+                               Principal principal, Pageable pageable, SessionStatus status) {
+        log.info("Memperbaharui data Pengguna.");
+        try {
+            // Get the file and save it somewhere
+            byte[] bytes = file.getBytes();
+            String encoded = Base64.getEncoder().encodeToString(bytes);
+            Pengguna pengguna = new Pengguna();
+            BeanUtils.copyProperties(penggunaDto, pengguna);
+            pengguna.setPhoto(file.getOriginalFilename());
+            pengguna.setFileContent(bytes);
+            pengguna.setFilename(file.getOriginalFilename());
+            penggunaRepository.save(pengguna);
+            status.setComplete();
+            log.info("Update Data Pengguna sukses.");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        model.addAttribute("pengguna", penggunaRepository.findAll(pageable));
+        return "redirect:/admin/pengguna";
+    }
+
     @GetMapping("delete/{penggunaId}")
     public String showFormPengguna(@PathVariable("penggunaId") Long penggunaId, Model model, Pageable pageable) {
         log.info("Menghapus Data Pengguna.");
