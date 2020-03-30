@@ -11,6 +11,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -52,6 +53,14 @@ public class PenggunaController {
         log.info("Menampilkan Form Tambah Pengguna.");
         model.addAttribute("pengguna", new PenggunaDto());
         return "admin/pengguna/pengguna-form";
+    }
+
+    @GetMapping("delete/{penggunaId}")
+    public String showFormPengguna(@PathVariable("penggunaId") Long penggunaId, Model model, Pageable pageable) {
+        log.info("Menghapus Data Pengguna.");
+        penggunaRepository.deleteById(penggunaId);
+        model.addAttribute("pengguna", penggunaRepository.findAll(pageable));
+        return "redirect:/admin/pengguna";
     }
 
     @PostMapping
