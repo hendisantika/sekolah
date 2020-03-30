@@ -36,14 +36,6 @@ public class AdminController {
     }
 
     @PreAuthorize("hasAuthority('ADMIN')")
-    @GetMapping("/tulisan2")
-    public String tulisan2(Model model) {
-        log.info("Menampilkan data untuk Halaman List Berita.");
-        model.addAttribute("waktu", LocalDateTime.now());
-        return "admin/tulisan2";
-    }
-
-    @PreAuthorize("hasAuthority('ADMIN')")
     @GetMapping("/album")
     public String album(Model model) {
         log.info("Menampilkan data untuk Halaman List Album.");
@@ -63,14 +55,6 @@ public class AdminController {
     @GetMapping("/guru")
     public String guru(Model model) {
         log.info("Menampilkan data untuk Halaman List Guru.");
-        model.addAttribute("waktu", LocalDateTime.now());
-        return "admin/dashboard";
-    }
-
-    @PreAuthorize("hasAuthority('ADMIN')")
-    @GetMapping("/siswa")
-    public String siswa(Model model) {
-        log.info("Menampilkan data untuk Halaman List Siswa.");
         model.addAttribute("waktu", LocalDateTime.now());
         return "admin/dashboard";
     }
