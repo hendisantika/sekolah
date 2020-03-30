@@ -93,6 +93,7 @@ public class PengumumanController {
         });
         pengumuman.setAuthor(pengguna.getFullname());
         pengumumanRepository.save(pengumuman);
+        status.setComplete();
         model.addAttribute("pengumumanList", pengumumanRepository.findAll(pageable));
         return "admin/pengumuman/pengumuman-list";
     }
