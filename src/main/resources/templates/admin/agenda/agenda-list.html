@@ -45,23 +45,22 @@
                     <th>Tempat</th>
                     <th>Waktu</th>
                     <th>Aksi</th>
-                    <th></th>
                 </tr>
                 </thead>
                 <tbody>
-                <tr th:each="t, itrStat : ${agendaList}">
+                <tr th:each="a, itrStat : ${agendaList}">
                     <td th:text="${itrStat.index + 1}">nomor urut</td>
-                    <th scope="row" th:text="${t.nama}">agenda</th>
-                    <td th:text="${#temporals.format(t.mulai, 'dd-MM-yyyy HH:mm')}">tanggal</td>
-                    <td th:text="${t.tempat}">Tempat</td>
-                    <td th:text="${t.waktu}">waktu</td>
+                    <th scope="row" th:text="${a.nama}">agenda</th>
+                    <td th:text="${#temporals.format(a.mulai, 'dd-MM-yyyy HH:mm')}">tanggal</td>
+                    <td th:text="${a.tempat}">Tempat</td>
+                    <td th:text="${a.waktu}">waktu</td>
                     <td>
                         <div class="btn-group pull-right">
                             <a class="btn btn-sm btn-primary"
-                               th:href="@{/admin/agenda/edit/{agendaId}(id=${t.id})}">Edit</a>
+                               th:href="@{/admin/agenda/edit/{agendaId}(agendaId=${a.id})}">Edit</a>
                             <a class="delete btn btn-sm btn-danger"
                                onclick="return confirm('Are you sure you want to delete this item?');"
-                               th:href="@{/admin/agenda/delete/{agendaId}(id=${t.id})}">Delete</a>
+                               th:href="@{/admin/agenda/delete/{agendaId}(agendaId=${a.id})}">Delete</a>
                         </div>
                     </td>
                 </tr>

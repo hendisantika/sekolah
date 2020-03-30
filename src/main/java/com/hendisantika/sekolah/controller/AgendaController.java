@@ -1,9 +1,6 @@
 package com.hendisantika.sekolah.controller;
 
-import com.hendisantika.sekolah.entity.Agenda;
-import com.hendisantika.sekolah.entity.Kategori;
-import com.hendisantika.sekolah.entity.Pengguna;
-import com.hendisantika.sekolah.entity.Tulisan;
+import com.hendisantika.sekolah.entity.*;
 import com.hendisantika.sekolah.repository.AgendaRepository;
 import com.hendisantika.sekolah.repository.KategoriRepository;
 import com.hendisantika.sekolah.repository.PenggunaRepository;
@@ -16,6 +13,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.support.SessionStatus;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.Valid;
 import java.security.Principal;
@@ -45,14 +43,14 @@ public class AgendaController {
         log.info("Menampilkan data untuk Halaman List Agenda.");
         model.addAttribute("agendaList", agendaRepository.findAll(pageable));
         model.addAttribute("waktu", LocalDateTime.now());
-        return "admin/agenda";
+        return "admin/agenda/agenda-list";
     }
 
-    @GetMapping("/add")
+    @GetMapping("add")
     public String tampilkanFormAgenda(Model model) {
         log.info("Menampilkan Form Agenda");
         model.addAttribute("agenda", new Agenda());
-        return "admin/agenda-form";
+        return "admin/agenda/agenda-form";
     }
 
     @PostMapping
@@ -66,24 +64,36 @@ public class AgendaController {
         agendaRepository.save(agenda);
         status.setComplete();
         log.info("Data agenda yang baru {}", agenda);
-        return "redirect:/admin/agenda/add";
+        return "redirect:/admin/agenda/agenda-list";
     }
 
-    @GetMapping("/edit/{agendaId}")
-    public String editAgenda(@PathVariable("agendaId")UUID agendaId, Model model, Pageable pageable) {
-        log.info("mengedit data Agenda");
+    @GetMapping("edit/{agendaId}")
+    public String tampilkanFormEditAgenda(@PathVariable("agendaId")UUID agendaId, Model model) {
+        log.info("Menampilkan Form Edit Agenda");
+        model.addAttribute("agenda", agendaRepository.findById(agendaId));
+        return "admin/agenda/agenda-edit";
+    }
 
-        model.addAttribute("agendaList", agendaRepository.findAll());
+    @PostMapping("edit")
+    public String updateAgenda(Model model, @Valid Agenda agendaBaru, Pageable pageable) {
+        log.info("Memperbaharui Data Agenda");
+
+        Agenda agenda = agendaRepository.findById(agendaBaru.getId()).get();
+        agenda.setNama(agendaBaru.getNama());
+        agenda.setDeskripsi(agendaBaru.getDeskripsi());
+        agenda.setMulai(agendaBaru.getMulai());
+        agenda.setTempat(agendaBaru.getTempat());
+        agendaRepository.save(agenda);
         model.addAttribute("agenda", agendaRepository.findAll(pageable));
         return "redirect:/admin/agenda";
     }
+
     @GetMapping("/delete/{agendaId}")
     public String deleteAgenda(@PathVariable("agendaId") UUID agendaId, Model model, Pageable pageable) {
         log.info("Hapus data Agenda");
         agendaRepository.deleteById(agendaId);
 
-        model.addAttribute("agendaList", agendaRepository.findAll());
-        model.addAttribute("agenda", agendaRepository.findAll(pageable));
+        model.addAttribute("agendaList", agendaRepository.findAll(pageable));
         return "redirect:/admin/agenda";
     }
 }
