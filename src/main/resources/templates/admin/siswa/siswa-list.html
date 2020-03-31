@@ -50,7 +50,7 @@
                 <tbody>
                 <tr th:each="s, itrStat : ${siswaList}">
                     <td th:text="${itrStat.index + 1}">nomor urut</td>
-                    <th><img border=3 height="40" th:src="*{'data:image/jpg;base64,'+ s.photoBase64}" width="40"></th>
+                    <th><img border=3 height="40" th:src="*{'data:image/*;base64,'+ s.photoBase64}" width="40"></th>
                     <td th:text="${s.nis}">NIS</td>
                     <th scope="row" th:text="${s.nama}">Nama Lengkap</th>
                     <td th:text="${s.jenkel}">Jenis Kelamin</td>

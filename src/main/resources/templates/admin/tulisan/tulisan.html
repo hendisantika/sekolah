@@ -46,6 +46,7 @@
                     <!--                    <th><a class="sorted" sd:pagination-sort="baca" >baca</a></th>-->
                     <!--                    <th><a class="sorted" sd:pagination-sort="kategori" >kategori</a></th>-->
                     <th>Isi</th>
+                    <th>Photo</th>
                     <th>Judul</th>
                     <th>Tanggal</th>
                     <th>Author</th>
@@ -58,6 +59,7 @@
                 <tbody>
                 <tr th:each="t, itrStat : ${tulisanList}">
                     <td th:text="${itrStat.index + 1}">nomor urut</td>
+                    <th><img border=3 height="70" th:src="*{'data:image/*;base64,'+ t.photoBase64}" width="120"></th>
                     <th scope="row" th:text="${t.judul}">Judul</th>
                     <td th:text="${#temporals.format(t.createdOn, 'dd-MM-yyyy HH:mm')}">createdOn</td>
                     <td th:text="${t.author}">Author</td>
