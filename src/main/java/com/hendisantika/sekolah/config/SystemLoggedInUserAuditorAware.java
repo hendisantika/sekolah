@@ -36,8 +36,6 @@ public class SystemLoggedInUserAuditorAware implements AuditorAware<String> {
             .map(Authentication::getPrincipal)
             .map(User.class::cast);
     User userLogin = user.get();
-    log.info("Data User {}", userLogin);
-    log.info("getCurrentAuditor {}", userLogin.getUsername());
     return Optional.ofNullable(userLogin.getUsername());
 
   }
