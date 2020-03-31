@@ -51,9 +51,8 @@
                 <tbody>
                 <tr th:each="p, itrStat : ${penggunaList}">
                     <td th:text="${itrStat.index + 1}">nomor urut</td>
-                    <th alt="#" scope="row"/>
+                    <th alt="#"/>
                     <img border=3 height="40" th:src="*{'data:image/jpg;base64,'+ p.photoBase64}" width="40"></th>
-                    <!--                    <th scope="row" th:text="${p.photoBase64}">Nama Lengkap</th>-->
                     <th scope="row" th:text="${p.fullname}">Nama Lengkap</th>
                     <td th:text="${p.jenkel}">Jengkel</td>
                     <td th:text="${p.nohp}">Kontak</td>
