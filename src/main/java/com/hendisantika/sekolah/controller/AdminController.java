@@ -60,14 +60,6 @@ public class AdminController {
     }
 
     @PreAuthorize("hasAuthority('ADMIN')")
-    @GetMapping("/guru")
-    public String guru(Model model) {
-        log.info("Menampilkan data untuk Halaman List Guru.");
-        model.addAttribute("waktu", LocalDateTime.now());
-        return "admin/dashboard";
-    }
-
-    @PreAuthorize("hasAuthority('ADMIN')")
     @GetMapping("/siswa")
     public String siswa(Model model) {
         log.info("Menampilkan data untuk Halaman List Siswa.");

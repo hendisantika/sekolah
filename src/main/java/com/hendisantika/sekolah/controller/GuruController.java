@@ -42,6 +42,8 @@ import java.util.UUID;
 @RequestMapping("admin/guru")
 public class GuruController {
 
+    private static String UPLOADED_FOLDER = System.getProperty("java.io.tmpdir");
+
     @Autowired
     private GuruRepository guruRepository;
 
