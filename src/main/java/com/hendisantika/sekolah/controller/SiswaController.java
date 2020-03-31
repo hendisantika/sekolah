@@ -76,6 +76,9 @@ public class SiswaController {
             byte[] bytes = file.getBytes();
             String encoded = Base64.getEncoder().encodeToString(bytes);
             Siswa siswa = siswaRepository.findById(siswaDto.getId()).get();
+            siswa.setNama(siswaDto.getNama());
+            siswa.setKelas(siswaDto.getKelas());
+            siswa.setJenkel(siswaDto.getJenkel());
             siswa.setPhotoBase64(encoded);
             siswa.setPhoto(file.getOriginalFilename());
             siswa.setFileContent(bytes);
