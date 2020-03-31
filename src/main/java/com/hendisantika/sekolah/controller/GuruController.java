@@ -55,7 +55,7 @@ public class GuruController {
     }
 
     @GetMapping("add")
-    public String showFormPengguna(Model model) {
+    public String showFormGuru(Model model) {
         log.info("Menampilkan Form Tambah Guru.");
         model.addAttribute("guru", new Guru());
         return "admin/guru/guru-form";
@@ -70,7 +70,7 @@ public class GuruController {
 
     @PostMapping("edit")
     public String updateGuru(Model model, @Valid Guru guruBaru, Pageable pageable) {
-        log.info("Memperbaharui Data Agenda");
+        log.info("Memperbaharui Data Guru");
 
         Guru guru = guruRepository.findById(guruBaru.getId()).get();
         guru.setNama(guruBaru.getNama());

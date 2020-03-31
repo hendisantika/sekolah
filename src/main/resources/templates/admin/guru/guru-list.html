@@ -18,7 +18,7 @@
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
                         <li class="breadcrumb-item"><a href="/">Home</a></li>
-                        <li class="breadcrumb-item"><a href="/admin/guru">Guru</a></li>
+                        <li class="breadcrumb-item"><a href="/admin/guru/">Guru</a></li>
                         <li class="breadcrumb-item active">List Guru</li>
                     </ol>
                 </div>
@@ -30,8 +30,8 @@
     <section class="content">
         <div class="card">
             <div class="card-header">
-                <a class="btn btn-success btn-flat" th:href="@{/admin/pengguna/add}"><span class="fa fa-plus"></span>
-                    Post Pengguna</a>
+                <a class="btn btn-success btn-flat" th:href="@{/admin/guru/add}"><span class="fa fa-plus"></span>
+                    Tambah Guru</a>
                 Show <span class="pull-right" sd:page-size-selector="default"></span> entries
             </div>
 
@@ -39,30 +39,32 @@
             <table class="table table-striped table-hover">
                 <thead>
                 <tr>
-                    <th>#</th>
-                    <th>Photo</th>
+                    <th>No</th>
                     <th>Nama Lengkap</th>
                     <th>Jenis Kelamin</th>
-                    <th>Kontak</th>
-                    <th>Level</th>
+                    <th>Tempat Lahir</th>
+                    <th>Tanggal lahir</th>
+                    <th>Mapel</th>
+                    <th>Photo</th>
                     <th>Aksi</th>
                 </tr>
                 </thead>
                 <tbody>
-                <tr th:each="p, itrStat : ${penggunaList}">
+                <tr th:each="g, itrStat : ${guruList}">
                     <td th:text="${itrStat.index + 1}">nomor urut</td>
-                    <th scope="row" th:text="${p.fullname}">Nama Lengkap</th>
-                    <th scope="row" th:text="${p.fullname}">Nama Lengkap</th>
-                    <td th:text="${p.jenkel}">Jengkel</td>
-                    <td th:text="${p.nohp}">Kontak</td>
-                    <td th:text="${p.level}">Roles</td>
+                    <th scope="row" th:text="${g.nama}">Nama Lengkap</th>
+                    <th scope="row" th:text="${g.jenkel}">Jenis Kelamin</th>
+                    <td th:text="${g.tmpLahir}">Tempat Lahir</td>
+                    <td th:text="${g.tglLahir}">Tanggal Lahir</td>
+                    <td th:text="${g.mapel}">Mata Pelajaran</td>
+                    <td th:text="${g.photo}">Photo</td>
                     <td>
                         <div class="btn-group pull-right">
                             <a class="btn btn-sm btn-primary"
-                               th:href="@{/admin/pengguna/edit/{penggunaId}(penggunaId=${p.id})}">Edit</a>
+                               th:href="@{/admin/guru/edit/{guruId}(guruId=${g.id})}">Edit</a>
                             <a class="delete btn btn-sm btn-danger"
                                onclick="return confirm('Are you sure you want to delete this item?');"
-                               th:href="@{/admin/pengguna/delete/{penggunaId}(penggunaId=${p.id})}">Delete</a>
+                               th:href="@{/admin/guru/delete/{guruId}(guruId=${g.id})}">Delete</a>
                         </div>
                     </td>
                 </tr>
