@@ -1,11 +1,8 @@
 package com.hendisantika.sekolah.controller;
 
-import com.hendisantika.sekolah.dto.PenggunaDto;
-import com.hendisantika.sekolah.entity.Agenda;
+import com.hendisantika.sekolah.dto.GuruDto;
 import com.hendisantika.sekolah.entity.Guru;
-import com.hendisantika.sekolah.entity.Pengguna;
 import com.hendisantika.sekolah.repository.GuruRepository;
-import com.hendisantika.sekolah.repository.PenggunaRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,7 +21,6 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.Valid;
 import java.io.IOException;
-import java.security.Principal;
 import java.util.Base64;
 import java.util.UUID;
 
@@ -63,17 +59,28 @@ public class GuruController {
     }
 
     @PostMapping
-    public String tambahGuru(@Valid Guru guru, Principal principal, BindingResult errors,
+    public String tambahGuru(@Valid GuruDto guruDto, Model model, @RequestParam("file") MultipartFile file,
+                             BindingResult errors, Pageable pageable,
                              SessionStatus status) {
         log.info("Menambahkan Guru baru");
-        if (errors.hasErrors()) {
-            return "admin/guru";
+        try {
+            // Get the file and save it somewhere
+            byte[] bytes = file.getBytes();
+            String encoded = Base64.getEncoder().encodeToString(bytes);
+            Guru guru = new Guru();
+            BeanUtils.copyProperties(guruDto, guru);
+            guru.setPhotoBase64(encoded);
+            guru.setPhoto(file.getOriginalFilename());
+            guru.setFileContent(bytes);
+            guru.setFilename(file.getOriginalFilename());
+            guruRepository.save(guru);
+            status.setComplete();
+            log.info("Menambahkan Data guru yang baru sukses.");
+        } catch (IOException e) {
+            e.printStackTrace();
         }
-        guru.setCreatedBy(principal.getName());
-        guruRepository.save(guru);
-        status.setComplete();
-        log.info("Data guru yang baru {}", guru);
-        return "admin/guru/guru-list";
+        model.addAttribute("guru", guruRepository.findAll(pageable));
+        return "redirect:/admin/guru";
     }
 
     @GetMapping("edit/{guruId}")

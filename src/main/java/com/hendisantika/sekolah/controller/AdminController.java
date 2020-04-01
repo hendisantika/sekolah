@@ -52,14 +52,6 @@ public class AdminController {
     }
 
     @PreAuthorize("hasAuthority('ADMIN')")
-    @GetMapping("/guru")
-    public String guru(Model model) {
-        log.info("Menampilkan data untuk Halaman List Guru.");
-        model.addAttribute("waktu", LocalDateTime.now());
-        return "admin/dashboard";
-    }
-
-    @PreAuthorize("hasAuthority('ADMIN')")
     @GetMapping("/inbox")
     public String inbox(Model model) {
         log.info("Menampilkan data untuk Halaman List Inbox.");
