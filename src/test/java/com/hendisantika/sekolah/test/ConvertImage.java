@@ -1,6 +1,7 @@
 package com.hendisantika.sekolah.test;
 
 import com.sun.org.apache.xerces.internal.impl.dv.util.Base64;
+import org.apache.commons.io.FileUtils;
 import org.junit.jupiter.api.Test;
 import org.springframework.util.ResourceUtils;
 
@@ -14,6 +15,8 @@ import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
 /**
  * Created by IntelliJ IDEA.
  * Project : sekolah
@@ -24,6 +27,9 @@ import java.util.logging.Logger;
  * Time: 18.08
  */
 public class ConvertImage {
+    private String inputFilePath = "ninja.jpeg";
+    private String outputFilePath = "ninja-test_image_copy.jpeg";
+
     @Test
     public void ConvertImageToByteArray() throws IOException {
         /*
@@ -111,4 +117,32 @@ public class ConvertImage {
         ImageIO.write(imag, "jpg", new File(dirName, "hasilnya.jpg"));
         System.out.println("Hasilnya ada di: " + dirName);
     }
+
+    @Test
+    public void ConvertImageFiletoBase64StringTest() throws IOException {
+        //load file from /src/test/resources
+        ClassLoader classLoader = getClass().getClassLoader();
+        File inputFile = new File(classLoader
+                .getResource(inputFilePath)
+                .getFile());
+
+        byte[] fileContent = FileUtils.readFileToByteArray(inputFile);
+        String encodedString = java.util.Base64
+                .getEncoder()
+                .encodeToString(fileContent);
+
+        //create output file
+        File outputFile = new File(inputFile
+                .getParentFile()
+                .getAbsolutePath() + File.pathSeparator + outputFilePath);
+
+        // decode the string and write to file
+        byte[] decodedBytes = java.util.Base64
+                .getDecoder()
+                .decode(encodedString);
+        FileUtils.writeByteArrayToFile(outputFile, decodedBytes);
+
+        assertTrue(FileUtils.contentEquals(inputFile, outputFile));
+    }
+
 }

@@ -14,7 +14,8 @@
                 <div class="col-md-8">
                     <div class="blog-single-item" th:each="t : ${tulisanList}">
                         <div class="blog-img_block">
-                            <img alt="blog-img" class="img-fluid" th:src="@{/assets/images/} + ${t.gambar}">
+                            <img alt="blog-img_block" class="img-thumbnail" height="600px"
+                                 th:src="${'data:image/*;base64,'+ t.photoBase64}" width="700px">
                             <div class="blog-date">
                                 <span th:text="${#temporals.format(t.createdOn, 'dd-MMM-yyyy')}">createdOn</span>
                             </div>
@@ -53,8 +54,10 @@
                     <div class="blog-featured_post">
                         <h3>Populer</h3>
                         <div class="blog-featured-img_block" th:each="t : ${tulisanList}">
-                            <img alt="blog-featured-img" class="img-fluid" th:src="@{/assets/images/} + ${t.gambar}"
-                                 width="35%">
+                            <!--                            <img alt="blog-featured-img" class="img-fluid" th:src="@{/assets/images/} + ${t.gambar}" width="35%">-->
+                            <img alt="blog-featured-img" class="img-fluid"
+                                 th:src="${'data:image/jpeg;base64,'+ t.photoBase64}" width="35%">
+                            <!--                            <img th:src="${'data:image/jpeg;base64,'+ t.photoBase64}" height="60" width="80" alt="blog-img" class="img-thumbnail">-->
                             <h5><a th:href="@{/artikel} + ${t.slug}"
                                    th:text="${#strings.substring(t.judul,0, 25)} + '...'">tulisan_judul</a>
                             </h5>

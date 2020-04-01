@@ -3,6 +3,7 @@ package com.hendisantika.sekolah.entity;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
@@ -44,22 +45,32 @@ public class Siswa {
     @GenericGenerator(name = "uuid2", strategy = "uuid2")
     private UUID id;
 
-    @Column(name = "nis")
+    @Column(name = "nis", unique = true)
     private String nis;
 
     @Column(name = "nama")
     private String nama;
 
-    @Column(name = "jenkel ")
+    @Column(name = "jenkel")
     private String jenkel;
 
-    @Column(name = "photo ")
+    @Column(name = "photo")
     private String photo;
+
+    @Column(name = "photo_base64")
+    private String photoBase64;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "kelas_id", nullable = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
+    @ToString.Exclude
     private Kelas kelas;
+
+    @Column(name = "filename")
+    private String filename;
+
+    @Column(name = "file_content")
+    private byte[] fileContent;
 
     @Column(name = "created_by")
     @CreatedBy

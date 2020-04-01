@@ -1,5 +1,13 @@
 package com.hendisantika.sekolah.dto;
 
+import com.hendisantika.sekolah.entity.Kelas;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+import java.time.LocalDateTime;
+import java.util.UUID;
+
 /**
  * Created by IntelliJ IDEA.
  * Project : sekolah
@@ -9,18 +17,33 @@ package com.hendisantika.sekolah.dto;
  * Date: 18/03/20
  * Time: 18.49
  */
-public interface SiswaDto {
-    String getSiswaId();
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
+public class SiswaDto {
+    private UUID id;
 
-    String getSiswaNis();
+    private String nis;
 
-    String getSiswaNama();
+    private String nama;
 
-    String getSiswaJenkel();
+    private String jenkel;
 
-    int getSiswaKelasId();
+    private String photo;
 
-    String getSiswaPhoto();
+    private String photoBase64;
 
-    String getKelasNama();
+    private Kelas kelas;
+
+    private String filename;
+
+    private byte[] fileContent;
+
+    private String createdBy;
+
+    private LocalDateTime createdOn;
+
+    private String modifiedBy;
+
+    private LocalDateTime modifiedOn;
 }

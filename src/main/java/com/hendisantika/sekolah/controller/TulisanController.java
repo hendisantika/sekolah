@@ -124,6 +124,7 @@ public class TulisanController {
             tulisan.setPengguna(pengguna);
             tulisan.setCreatedBy(username);
             tulisan.setGambar(encoded);
+            tulisan.setPhotoBase64(encoded);
             tulisan.setFileContent(bytes);
             tulisan.setFilename(file.getOriginalFilename());
             tulisanRepository.save(tulisan);

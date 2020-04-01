@@ -1,8 +1,13 @@
 package com.hendisantika.sekolah.controller;
 
+import com.hendisantika.sekolah.entity.Siswa;
+import com.hendisantika.sekolah.repository.SiswaRepository;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -13,7 +18,9 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.time.LocalDateTime;
 import java.util.Base64;
+import java.util.UUID;
 
 /**
  * Created by IntelliJ IDEA.
@@ -28,6 +35,9 @@ import java.util.Base64;
 @Controller
 @RequestMapping("tes")
 public class TestController {
+
+    @Autowired
+    private SiswaRepository siswaRepository;
 
     //Save the uploaded file to this folder
     private static String UPLOADED_FOLDER = System.getProperty("java.io.tmpdir");
@@ -111,4 +121,22 @@ public class TestController {
 //        System.out.println("encoded --> " + encoded);
 //        System.out.println("decoded --> " + decoded);
 //    }
+
+
+    @GetMapping("/image/{id}")
+    public String getImageDetails(@PathVariable("id") UUID id, Model model) {
+//            <img th:src = "\*{'data:image/jpg;base64,'+image}" alt = "" / > Image
+        Siswa siswa = siswaRepository.findById(id).orElse(null);
+//            imagesObj = imageService.getImage(id);
+        // getting imagemodel.addAttribute("name", imagesObj.getName());
+        // byte[] encode = Base64.getEncoder().encode(imagesObj.getImage());
+        // model.addAttribute("image", newString(encode, "UTF-8"));
+        // return "imagedetails";} catch (Exception e) {model.addAttribute("message",
+        // "Error in getting image");return "redirect:/";}}
+
+        model.addAttribute("waktu", LocalDateTime.now());
+        model.addAttribute("image", siswa.getPhotoBase64());
+        // In thymeleaf I just have<img th:src = "*{'data:image/jpg;base64,'+ post.getImage()}" alt = "#" / >
+        return "test/image";
+    }
 }

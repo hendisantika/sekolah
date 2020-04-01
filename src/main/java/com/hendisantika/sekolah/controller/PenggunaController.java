@@ -8,6 +8,7 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -41,6 +42,9 @@ public class PenggunaController {
     @Autowired
     private PenggunaRepository penggunaRepository;
 
+    @Autowired
+    private PasswordEncoder passwordEncoder;
+
     @GetMapping
     public String pengguna(Model model, Pageable pageable) {
         log.info("Menampilkan data untuk Halaman List Pengguna.");
@@ -70,9 +74,10 @@ public class PenggunaController {
             // Get the file and save it somewhere
             byte[] bytes = file.getBytes();
             String encoded = Base64.getEncoder().encodeToString(bytes);
-            Pengguna pengguna = new Pengguna();
-            BeanUtils.copyProperties(penggunaDto, pengguna);
+            Pengguna pengguna = penggunaRepository.findById(penggunaDto.getId()).get();
+            pengguna.setPassword(passwordEncoder.encode(penggunaDto.getPassword()));
             pengguna.setPhoto(file.getOriginalFilename());
+            pengguna.setPhotoBase64(encoded);
             pengguna.setFileContent(bytes);
             pengguna.setFilename(file.getOriginalFilename());
             penggunaRepository.save(pengguna);
@@ -103,7 +108,9 @@ public class PenggunaController {
             String encoded = Base64.getEncoder().encodeToString(bytes);
             Pengguna pengguna = new Pengguna();
             BeanUtils.copyProperties(penggunaDto, pengguna);
+            pengguna.setPassword(passwordEncoder.encode(penggunaDto.getPassword()));
             pengguna.setPhoto(file.getOriginalFilename());
+            pengguna.setPhotoBase64(encoded);
             pengguna.setFileContent(bytes);
             pengguna.setFilename(file.getOriginalFilename());
             penggunaRepository.save(pengguna);

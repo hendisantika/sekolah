@@ -60,6 +60,9 @@ public class Tulisan {
     @Column(name = "gambar")
     private String gambar;
 
+    @Column(name = "photo_base64")
+    private String photoBase64;
+
     @Column(name = "filename")
     private String filename;
 
