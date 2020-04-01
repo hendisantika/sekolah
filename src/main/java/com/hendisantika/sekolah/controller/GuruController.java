@@ -21,6 +21,8 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.Valid;
 import java.io.IOException;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.Base64;
 import java.util.UUID;
 
@@ -62,13 +64,21 @@ public class GuruController {
     public String tambahGuru(@Valid GuruDto guruDto, Model model, @RequestParam("file") MultipartFile file,
                              BindingResult errors, Pageable pageable,
                              SessionStatus status) {
-        log.info("Menambahkan Guru baru");
+        log.info("Menambahkan Data Guru baru");
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+        String tglLahirDto = guruDto.getTglLahir();
+
+        //convert String to LocalDate
+        LocalDate tglLahir = LocalDate.parse(tglLahirDto, formatter);
+        log.info("tglLahirDto {}", tglLahirDto);
+        log.info("tglLahir {}", tglLahir);
         try {
             // Get the file and save it somewhere
             byte[] bytes = file.getBytes();
             String encoded = Base64.getEncoder().encodeToString(bytes);
             Guru guru = new Guru();
             BeanUtils.copyProperties(guruDto, guru);
+            guru.setTglLahir(tglLahir);
             guru.setPhotoBase64(encoded);
             guru.setPhoto(file.getOriginalFilename());
             guru.setFileContent(bytes);

@@ -4,7 +4,6 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
@@ -23,7 +22,7 @@ public class GuruDto {
 
     private String tmpLahir;
 
-    private LocalDate tglLahir;
+    private String tglLahir;
 
     private String mapel;
 
