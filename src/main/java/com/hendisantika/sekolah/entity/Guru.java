@@ -15,6 +15,7 @@ import javax.persistence.Entity;
 import javax.persistence.EntityListeners;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
@@ -44,13 +45,22 @@ public class Guru {
     private String tmpLahir;
 
     @Column(name = "tgl_lahir")
-    private String tglLahir;
+    private LocalDate tglLahir;
 
     @Column(name = "mapel")
     private String mapel;
 
     @Column(name = "photo")
     private String photo;
+
+    @Column(name = "photo_base64")
+    private String photoBase64;
+
+    @Column(name = "filename")
+    private String filename;
+
+    @Column(name = "file_content")
+    private byte[] fileContent;
 
     @Column(name = "created_by")
     @CreatedBy
