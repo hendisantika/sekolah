@@ -70,8 +70,6 @@ public class GuruController {
 
         //convert String to LocalDate
         LocalDate tglLahir = LocalDate.parse(tglLahirDto, formatter);
-        log.info("tglLahirDto {}", tglLahirDto);
-        log.info("tglLahir {}", tglLahir);
         try {
             // Get the file and save it somewhere
             byte[] bytes = file.getBytes();
@@ -101,19 +99,32 @@ public class GuruController {
     }
 
     @PostMapping("edit")
-    public String updateGuru(Model model, @Valid Guru guruBaru, Pageable pageable) {
+    public String updateGuru(Model model, @Valid GuruDto guruBaru, @RequestParam("file") MultipartFile file,
+                             Pageable pageable, SessionStatus status) {
         log.info("Memperbaharui Data Guru");
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+        String tglLahirDto = guruBaru.getTglLahir();
 
-        Guru guru = guruRepository.findById(guruBaru.getId()).get();
-        guru.setNama(guruBaru.getNama());
-        guru.setJenkel(guruBaru.getJenkel());
-        guru.setTmpLahir(guruBaru.getTmpLahir());
-        guru.setTglLahir(guruBaru.getTglLahir());
-        guru.setMapel(guruBaru.getMapel());
-        guru.setPhoto(guruBaru.getPhoto());
-        guruRepository.save(guru);
+        //convert String to LocalDate
+        LocalDate tglLahir = LocalDate.parse(tglLahirDto, formatter);
+        try {
+            // Get the file and save it somewhere
+            byte[] bytes = file.getBytes();
+            String encoded = Base64.getEncoder().encodeToString(bytes);
+            Guru guru = guruRepository.findById(guruBaru.getId()).orElse(null);
+            guru.setTglLahir(tglLahir);
+            guru.setPhotoBase64(encoded);
+            guru.setPhoto(file.getOriginalFilename());
+            guru.setFileContent(bytes);
+            guru.setFilename(file.getOriginalFilename());
+            guruRepository.save(guru);
+            status.setComplete();
+            log.info("Memperbaharui Data guru sukses.");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         model.addAttribute("guru", guruRepository.findAll(pageable));
-        return "redirect:admin/guru";
+        return "redirect:/admin/guru";
     }
 
     @GetMapping("delete/{guruId}")
