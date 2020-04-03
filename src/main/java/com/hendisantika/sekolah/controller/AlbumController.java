@@ -123,4 +123,12 @@ public class AlbumController {
         model.addAttribute("album", albumRepository.findAll(pageable));
         return "redirect:/admin/album";
     }
+
+    @GetMapping("delete/{albumId}")
+    public String deleteDataAlbum(@PathVariable("albumId") UUID albumId, Model model, Pageable pageable) {
+        log.info("Menghapus Data Album.");
+        albumRepository.deleteById(albumId);
+        model.addAttribute("album", albumRepository.findAll(pageable));
+        return "redirect:/admin/album";
+    }
 }
