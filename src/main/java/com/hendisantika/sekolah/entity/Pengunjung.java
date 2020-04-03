@@ -5,12 +5,9 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.GenericGenerator;
-import org.springframework.data.annotation.CreatedDate;
-import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.EntityListeners;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import java.time.LocalDateTime;
@@ -30,7 +27,6 @@ import java.util.UUID;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity(name = "tbl_pengunjung")
-@EntityListeners(AuditingEntityListener.class)
 public class Pengunjung {
     @Id
     @Column(name = "id")
@@ -75,6 +71,5 @@ public class Pengunjung {
     private String hostName;
 
     @Column(name = "created_on")
-    @CreatedDate
     private LocalDateTime createdOn;
 }

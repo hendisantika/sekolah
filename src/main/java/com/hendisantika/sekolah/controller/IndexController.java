@@ -187,6 +187,7 @@ public class IndexController {
                 .deviceType(userAgentInfo.getDeviceType())
                 .hostAddress(userAgentInfo.getHostAddress())
                 .hostName(userAgentInfo.getHostName())
+                .createdOn(LocalDateTime.now())
                 .build();
         pengunjungRepository.save(pengunjung);
         //add cookie to response
