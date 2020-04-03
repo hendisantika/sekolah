@@ -1,5 +1,6 @@
 package com.hendisantika.sekolah.controller;
 
+import com.hendisantika.sekolah.entity.Album;
 import com.hendisantika.sekolah.repository.AlbumRepository;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,5 +33,12 @@ public class AlbumController {
         log.info("Menampilkan data untuk Halaman List Album.");
         model.addAttribute("albumList", albumRepository.findAll(pageable));
         return "admin/album/album-list";
+    }
+
+    @GetMapping("add")
+    public String showAlbumForm(Model model, Pageable pageable) {
+        log.info("Menampilkan Form Tambah Album.");
+        model.addAttribute("album", new Album());
+        return "admin/album/album-form";
     }
 }
