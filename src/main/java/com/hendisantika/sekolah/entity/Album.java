@@ -3,7 +3,10 @@ package com.hendisantika.sekolah.entity;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 import org.springframework.data.annotation.CreatedBy;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedBy;
@@ -13,8 +16,11 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EntityListeners;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
@@ -42,14 +48,29 @@ public class Album {
     @Column(name = "nama")
     private String nama;
 
-    @Column(name = "pengguna_id")
-    private int penggunaId;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "pengguna_id", nullable = false)
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    @ToString.Exclude
+    private Pengguna pengguna;
 
     @Column(name = "count")
     private int count;
 
     @Column(name = "cover")
     private String cover;
+
+    @Column(name = "photo_base64")
+    private String photoBase64;
+
+    @Column(name = "filename")
+    private String filename;
+
+    @Column(name = "file_content")
+    private byte[] fileContent;
+
+    @Column(name = "author")
+    private String author;
 
     @Column(name = "created_by")
     @CreatedBy
