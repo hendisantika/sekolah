@@ -36,14 +36,6 @@ public class AdminController {
     }
 
     @PreAuthorize("hasAuthority('ADMIN')")
-    @GetMapping("/album")
-    public String album(Model model) {
-        log.info("Menampilkan data untuk Halaman List Album.");
-        model.addAttribute("waktu", LocalDateTime.now());
-        return "admin/dashboard";
-    }
-
-    @PreAuthorize("hasAuthority('ADMIN')")
     @GetMapping("/galeri")
     public String galeri(Model model) {
         log.info("Menampilkan data untuk Halaman List Galeri.");
