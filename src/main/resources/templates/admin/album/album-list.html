@@ -39,29 +39,29 @@
                 <thead>
                 <tr>
                     <th>#</th>
-                    <th>Photo</th>
-                    <th>NIS</th>
-                    <th>Nama Lengkap</th>
-                    <th>Jenis Kelamin</th>
-                    <th>Kelas</th>
+                    <th>Gambar</th>
+                    <th>Album</th>
+                    <th>Tanggal</th>
+                    <th>Author</th>
+                    <th>Jumlah</th>
                     <th>Aksi</th>
                 </tr>
                 </thead>
                 <tbody>
-                <tr th:each="s, itrStat : ${siswaList}">
+                <tr th:each="a, itrStat : ${albumList}">
                     <td th:text="${itrStat.index + 1}">nomor urut</td>
-                    <th><img border=3 height="40" th:src="*{'data:image/*;base64,'+ s.photoBase64}" width="40"></th>
-                    <td th:text="${s.nis}">NIS</td>
-                    <th scope="row" th:text="${s.nama}">Nama Lengkap</th>
-                    <td th:text="${s.jenkel}">Jenis Kelamin</td>
-                    <td th:text="${s.kelas.nama}">Kelas</td>
+                    <th><img border=3 height="70" th:src="*{'data:image/*;base64,'+ a.photoBase64}" width="120"></th>
+                    <td th:text="${a.nama}">Nama Album</td>
+                    <td th:text="${#temporals.format(a.createdOn, 'dd-MMM-YYYY HH:mm')}">Tanggal</td>
+                    <td th:text="${a.author}">Author</td>
+                    <td th:text="${a.count}">Jumlah</td>
                     <td>
                         <div class="btn-group pull-right">
                             <a class="btn btn-sm btn-primary"
-                               th:href="@{/admin/siswa/edit/{siswaId}(siswaId=${s.id})}">Edit</a>
+                               th:href="@{/admin/album/edit/{albumId}(albumId=${a.id})}">Edit</a>
                             <a class="delete btn btn-sm btn-danger"
                                onclick="return confirm('Are you sure you want to delete this item?');"
-                               th:href="@{/admin/siswa/delete/{siswaId}(siswaId=${s.id})}">Delete</a>
+                               th:href="@{/admin/album/delete/{albumId}(albumId=${a.id})}">Delete</a>
                         </div>
                     </td>
                 </tr>
