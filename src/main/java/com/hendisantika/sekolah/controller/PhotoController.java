@@ -105,4 +105,30 @@ public class PhotoController {
         model.addAttribute("galeri", galeriRepository.findAll(pageable));
         return "redirect:/admin/galeri";
     }
+
+    @PostMapping("edit")
+    public String editDataGaleri(@Valid GaleriDto galeriDto, Model model, @RequestParam("file") MultipartFile file,
+                                 BindingResult errors, Pageable pageable, Principal principal,
+                                 SessionStatus status) {
+        log.info("Memperbaharui Data Galeri.");
+        try {
+            // Get the file and save it somewhere
+            byte[] bytes = file.getBytes();
+            String encoded = Base64.getEncoder().encodeToString(bytes);
+            Galeri galeri = galeriRepository.findById(galeriDto.getId()).orElse(null);
+            galeri.setAlbum(galeriDto.getAlbum());
+            galeri.setJudul(galeriDto.getJudul());
+            galeri.setAuthor(galeriDto.getAuthor());
+            galeri.setPhotoBase64(encoded);
+            galeri.setFileContent(bytes);
+            galeri.setFilename(file.getOriginalFilename());
+            galeriRepository.save(galeri);
+            status.setComplete();
+            log.info("Memperbaharui Data Galeri sukses.");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        model.addAttribute("galeri", galeriRepository.findAll(pageable));
+        return "redirect:/admin/galeri";
+    }
 }
