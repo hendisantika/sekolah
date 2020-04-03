@@ -1,5 +1,6 @@
 package com.hendisantika.sekolah.controller;
 
+import com.hendisantika.sekolah.dto.GaleriDto;
 import com.hendisantika.sekolah.repository.GaleriRepository;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,5 +33,12 @@ public class PhotoController {
         log.info("Menampilkan data untuk Halaman List Galeri.");
         model.addAttribute("galeriList", galeriRepository.findAll(pageable));
         return "admin/galeri/galeri-list";
+    }
+
+    @GetMapping("add")
+    public String showAddGaleriForm(Model model) {
+        log.info("Menampilkan form halaman tambah Galeri.");
+        model.addAttribute("galeri", new GaleriDto());
+        return "admin/galeri/galeri-form";
     }
 }
