@@ -14,6 +14,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -24,6 +25,7 @@ import javax.validation.Valid;
 import java.io.IOException;
 import java.security.Principal;
 import java.util.Base64;
+import java.util.UUID;
 
 /**
  * Created by IntelliJ IDEA.
@@ -57,6 +59,13 @@ public class AlbumController {
         log.info("Menampilkan Form Tambah Album.");
         model.addAttribute("album", new AlbumDto());
         return "admin/album/album-form";
+    }
+
+    @GetMapping("edit/{albumId}")
+    public String showAlbumForm(@PathVariable("albumId") UUID albumId, Model model) {
+        log.info("Menampilkan Form Edit Album.");
+        model.addAttribute("album", albumRepository.findById(albumId));
+        return "admin/album/album-edit";
     }
 
     @PostMapping
