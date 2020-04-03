@@ -19,7 +19,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class GaleriDto {
     private Long id;
-    private String nama;
+    private String judul;
     private String author;
     private Album album;
 }

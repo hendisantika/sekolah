@@ -19,13 +19,13 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1>Album</h1>
+                    <h1>Galeri</h1>
                 </div>
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
                         <li class="breadcrumb-item"><a href="/admin/dashboard">Home</a></li>
-                        <li class="breadcrumb-item"><a href="/admin/guru">Album</a></li>
-                        <li class="breadcrumb-item active">Tambah Album</li>
+                        <li class="breadcrumb-item"><a href="/admin/guru">Galeri</a></li>
+                        <li class="breadcrumb-item active">Tambah Galeri</li>
                     </ol>
                 </div>
             </div>
@@ -41,19 +41,29 @@
                     <!-- Horizontal Form -->
                     <div class="card card-primary">
                         <div class="card-header">
-                            <h3 class="card-title">Tambah Album</h3>
+                            <h3 class="card-title">Tambah Galeri</h3>
                         </div>
                         <!-- /.card-header -->
                         <!-- form start -->
-                        <form enctype="multipart/form-data" method="post" th:action="@{/admin/album}"
-                              th:object="${album}">
+                        <form enctype="multipart/form-data" method="post" th:action="@{/admin/galeri}"
+                              th:object="${galeri}">
                             <div class="card-body">
+                                <div class="form-group row">
+                                    <label class="col-sm-2 col-form-label">Judul Galeri</label>
+                                    <div class="col-sm-10">
+                                        <input class="form-control" name="nama" placeholder="Judul Galeri"
+                                               required th:field="*{judul}"
+                                               type="text"/>
+                                    </div>
+                                </div>
                                 <div class="form-group row">
                                     <label class="col-sm-2 col-form-label">Nama Album</label>
                                     <div class="col-sm-10">
-                                        <input class="form-control" name="nama" placeholder="Nama Album"
-                                               required th:field="*{nama}"
-                                               type="text"/>
+                                        <select class="form-control" id="id" th:field="*{album.id}">
+                                            <option th:each="a : ${albumList}"
+                                                    th:selected="${a.id}" th:text="${a.id}+' : '+${a.nama}"
+                                                    th:value="${a.id}"></option>
+                                        </select>
                                     </div>
                                 </div>
                                 <div class="form-group row">
