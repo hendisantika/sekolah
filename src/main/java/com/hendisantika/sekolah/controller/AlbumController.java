@@ -91,7 +91,32 @@ public class AlbumController {
             album.setFilename(file.getOriginalFilename());
             albumRepository.save(album);
             status.setComplete();
-            log.info("Menambahkan Data guru yang baru sukses.");
+            log.info("Menambahkan Data Album yang baru sukses.");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        model.addAttribute("album", albumRepository.findAll(pageable));
+        return "redirect:/admin/album";
+    }
+
+    @PostMapping("edit")
+    public String editDataAlbum(@Valid AlbumDto albumDto, Model model, @RequestParam("file") MultipartFile file,
+                                BindingResult errors, Pageable pageable, Principal principal,
+                                SessionStatus status) {
+        log.info("Memperbaharui Data Album.");
+        try {
+            // Get the file and save it somewhere
+            byte[] bytes = file.getBytes();
+            String encoded = Base64.getEncoder().encodeToString(bytes);
+            Album album = albumRepository.findById(albumDto.getId()).orElse(null);
+            album.setNama(albumDto.getNama());
+            album.setAuthor(albumDto.getAuthor());
+            album.setPhotoBase64(encoded);
+            album.setFileContent(bytes);
+            album.setFilename(file.getOriginalFilename());
+            albumRepository.save(album);
+            status.setComplete();
+            log.info("Memperbaharui Data Album sukses.");
         } catch (IOException e) {
             e.printStackTrace();
         }
