@@ -15,6 +15,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -56,12 +57,21 @@ public class PhotoController {
         return "admin/galeri/galeri-list";
     }
 
+
     @GetMapping("add")
     public String showAddGaleriForm(Model model) {
         log.info("Menampilkan form halaman tambah Galeri.");
         model.addAttribute("albumList", albumRepository.findAll());
         model.addAttribute("galeri", new GaleriDto());
         return "admin/galeri/galeri-form";
+    }
+
+    @GetMapping("edit/{galeriId}")
+    public String showFormEditGaleri(@PathVariable("galeriId") Long galeriId, Model model) {
+        log.info("Menampilkan data untuk Halaman Edit Galeri.");
+        model.addAttribute("albumList", albumRepository.findAll());
+        model.addAttribute("galeri", galeriRepository.findById(galeriId));
+        return "admin/galeri/galeri-edit";
     }
 
     @PostMapping
