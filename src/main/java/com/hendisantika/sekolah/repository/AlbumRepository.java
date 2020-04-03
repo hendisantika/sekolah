@@ -3,8 +3,6 @@ package com.hendisantika.sekolah.repository;
 import com.hendisantika.sekolah.entity.Album;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import java.util.UUID;
-
 /**
  * Created by IntelliJ IDEA.
  * Project : sekolah
@@ -14,5 +12,5 @@ import java.util.UUID;
  * Date: 03/04/20
  * Time: 07.53
  */
-public interface AlbumRepository extends JpaRepository<Album, UUID> {
+public interface AlbumRepository extends JpaRepository<Album, Long> {
 }

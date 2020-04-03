@@ -4,8 +4,6 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.UUID;
-
 /**
  * Created by IntelliJ IDEA.
  * Project : sekolah
@@ -19,7 +17,7 @@ import java.util.UUID;
 @AllArgsConstructor
 @NoArgsConstructor
 public class AlbumDto {
-    private UUID id;
+    private Long id;
     private String nama;
     private String author;
 }
