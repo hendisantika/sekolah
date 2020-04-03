@@ -131,4 +131,12 @@ public class PhotoController {
         model.addAttribute("galeri", galeriRepository.findAll(pageable));
         return "redirect:/admin/galeri";
     }
+
+    @GetMapping("delete/{galeriId}")
+    public String deleteGaleri(@PathVariable("galeriId") Long galeriId, Model model) {
+        log.info("Delete data Galeri.");
+        galeriRepository.deleteById(galeriId);
+        model.addAttribute("galeri", galeriRepository.findById(galeriId));
+        return "redirect:/admin/galeri";
+    }
 }
