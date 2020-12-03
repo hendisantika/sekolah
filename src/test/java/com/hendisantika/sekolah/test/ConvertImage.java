@@ -1,6 +1,6 @@
 package com.hendisantika.sekolah.test;
 
-import com.sun.org.apache.xerces.internal.impl.dv.util.Base64;
+import org.apache.commons.codec.binary.Base64;
 import org.apache.commons.io.FileUtils;
 import org.junit.jupiter.api.Test;
 import org.springframework.util.ResourceUtils;
@@ -27,8 +27,8 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
  * Time: 18.08
  */
 public class ConvertImage {
-    private String inputFilePath = "ninja.jpeg";
-    private String outputFilePath = "ninja-test_image_copy.jpeg";
+    private final String inputFilePath = "ninja.jpeg";
+    private final String outputFilePath = "ninja-test_image_copy.jpeg";
 
     @Test
     public void ConvertImageToByteArray() throws IOException {
@@ -108,10 +108,12 @@ public class ConvertImage {
         ImageIO.write(img, "jpg", baos);
         baos.flush();
 
-        String base64String = Base64.encode(baos.toByteArray());
+        Base64 base64 = new Base64();
+//        String base64String = Base64.encode(baos.toByteArray());
+        String base64String = new String(base64.encode(baos.toByteArray()));
         baos.close();
 
-        byte[] byteArray = Base64.decode(base64String);
+        byte[] byteArray = base64.decode(base64String);
 
         BufferedImage imag = ImageIO.read(new ByteArrayInputStream(byteArray));
         ImageIO.write(imag, "jpg", new File(dirName, "hasilnya.jpg"));
