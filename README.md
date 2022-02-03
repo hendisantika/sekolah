@@ -1,6 +1,6 @@
 # sekolah
-MYSCHOOL adalah source code opensource yang dibangun mengunakan Spring Boot 2.2.5.RELEASE version yang terinspirasi dari
-MSCHOOL yang dibangun menggunakan Codeigniter 3.1.9 dan Bootstrap 4.0.
+MYSCHOOL adalah source code opensource yang dibangun mengunakan Spring Boot 2.6.3 version yang terinspirasi dari MSCHOOL
+yang dibangun menggunakan Codeigniter 3.1.9 dan Bootstrap 4.0.
 
 MYSCHOOL merupakan pengembangan dari project M-Sekolah. Dengan kata lain, MSCHOOL adalah versi 2.0 dari M-Sekolah dengan Java Spring Boot.
 
@@ -10,18 +10,18 @@ Backend dari Source Code ini dibangun menggunakan template AdminLTE, yaitu templ
 
 Selain itu, source code ini juga menggunakan Toast Message untuk menampilkan pesan pada bagian Backend.
 
-Hal itulah yang membuat souce code ini menjadi sangat menarik.
+Hal itulah yang membuat source code ini menjadi sangat menarik.
 
-Source Code ini berjalan dengan baik di PaaS (Platform as as Service) seperti Heroku ataupun d VPS (Virtual Private Server) seperti Digital Ocean(DO).
-Tinggal upload dan sedikit konfigurasi, semuanya bejalan dengan baik.
+Source Code ini berjalan dengan baik di PaaS (Platform as as Service) seperti Heroku ataupun d VPS (Virtual Private
+Server) seperti Digital Ocean (DO). Tinggal upload dan sedikit konfigurasi, semuanya bejalan dengan baik.
 
-Bagaimana mengonlinekannya?
+Bagaimana mengonline-kannya?
 
 - Order Domain dan Hosting
 
 - Upload Source Code myschool ke hosting
 
-- Buat database di hosting (di sini saya menggunakan PostgreSQL
+- Buat database di hosting (di sini saya menggunakan PostgreSQL)
 
 
 Jika Anda mengalami kesulitan saat mengonlinekannya, Anda dapat meminta bantuan pihak hosting untuk membantu Anda mengonlinekannya.
@@ -106,9 +106,11 @@ CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
 Di sini saya berasumsi bahawa JDK8, maven & PostgreSQL Database sudah terinstal di lokal anda masing-masing.
 
 * Untuk menjalankan aplikasinya cukup ketik perintah di bawah ini d terminal:
-  mvn clean spring-boot:run
 
+```shell
+mvn clean spring-boot:run
 ```
+
 
 * Untuk membungkusnya menjadi paket jar anda bisa menggunakan perintah berikut ini:
 ```
@@ -127,6 +129,7 @@ Please see [CONTRIBUTING](CONTRIBUTING.md) for details.
 ## Listed by *Hendi Santika*
 - Email: hendisantika@gmail.com / hendisantika@yahoo.co.id
 - Telegram: [@hendisantika34](https://t.me/hendisantika34)
+- Linktree: https://linktr.ee/hendisantika
 
 ## License
 
