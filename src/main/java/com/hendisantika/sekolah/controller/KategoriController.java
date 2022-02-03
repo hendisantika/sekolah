@@ -37,7 +37,7 @@ public class KategoriController {
     public String kategoriForm(Model model) {
         log.info("Menampilkan data untuk Halaman Kategori Berita.");
         model.addAttribute("kategori", new Kategori());
-        return "admin/kategori";
+        return "admin/tulisan/kategori";
     }
 
     @PostMapping

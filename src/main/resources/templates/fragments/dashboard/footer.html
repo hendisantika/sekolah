@@ -1,5 +1,6 @@
 <footer class="main-footer" th:fragment="footer">
-    <strong>Copyright &copy; 2020 <a th:href="@{https://www.facebook.com/hendisantika}">Hendi Santika</a>.</strong>
+    <strong>Copyright &copy; <span th:text="${#dates.year(#dates.createNow())}"></span> <a
+            th:href="@{https://linktr.ee/hendisantika}">Hendi Santika</a>.</strong>
     All rights reserved.
     <div class="float-right d-none d-sm-inline-block">
         <b>Version</b> 1.0.0
