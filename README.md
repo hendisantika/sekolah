@@ -75,17 +75,39 @@ CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
 ```
 
 3. Konfigurasi database
+
 ```
 spring.datasource.url=jdbc:postgresql://localhost:5432/sekolah
 spring.datasource.username=adminSekolah
 spring.datasource.password=passwordSekolah
 ```
+
+### Cara menjalankan Postgres Database via Docker
+
+```
+docker run -d --rm --name pg14 \
+-e POSTGRES_USER=adminSekolah \
+-e POSTGRES_PASSWORD=password \
+-e POSTGRES_DB=sekolah -p 5432:5432 postgres:14`
+```
+
+### Cara konek ke Postgres Database via Docker
+
+```shell
+psql -h localhost -p 5432 -U adminSekolah -W sekolah
+
+docker exec -it pg14 psql -U adminSekolah -W sekolah
+
+CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
+```
+
 ## Cara menjalankan aplikasi
+
 Di sini saya berasumsi bahawa JDK8, maven & PostgreSQL Database sudah terinstal di lokal anda masing-masing.
 
 * Untuk menjalankan aplikasinya cukup ketik perintah di bawah ini d terminal:
-```
-mvn clean spring-boot:run
+  mvn clean spring-boot:run
+
 ```
 
 * Untuk membungkusnya menjadi paket jar anda bisa menggunakan perintah berikut ini:
