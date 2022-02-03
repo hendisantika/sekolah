@@ -87,8 +87,8 @@ spring.datasource.password=passwordSekolah
 ```
 docker run -d --rm --name pg14 \
 -e POSTGRES_USER=adminSekolah \
--e POSTGRES_PASSWORD=password \
--e POSTGRES_DB=sekolah -p 5432:5432 postgres:14`
+-e POSTGRES_PASSWORD=passwordSekolah \
+-e POSTGRES_DB=sekolah -p 5432:5432 postgres:14
 ```
 
 ### Cara konek ke Postgres Database via Docker
