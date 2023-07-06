@@ -2,7 +2,6 @@ package com.hendisantika.sekolah.service;
 
 import com.hendisantika.sekolah.entity.Pengguna;
 import com.hendisantika.sekolah.repository.PenggunaRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -18,16 +17,18 @@ import java.util.List;
  */
 @Service
 public class PenggunaService {
-    @Autowired
-    private PenggunaRepository penggunaRepository;
+    private final PenggunaRepository penggunaRepository;
+
+    public PenggunaService(PenggunaRepository penggunaRepository) {
+        this.penggunaRepository = penggunaRepository;
+    }
 
     public Pengguna saveUser(Pengguna user) {
         return penggunaRepository.save(user);
     }
 
     public List<Pengguna> getUsers() {
-        List<Pengguna> userDetails = penggunaRepository.findAll();
-        return userDetails;
+        return penggunaRepository.findAll();
     }
 
 //    public UserDetails loadUserByUsername(String username) {

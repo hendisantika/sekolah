@@ -1,4 +1,4 @@
-package com.hendisantika.sekolah.service;
+package com.hendisantika.sekolah.service.impl;
 
 import com.hendisantika.sekolah.entity.Pengguna;
 import com.hendisantika.sekolah.entity.Role;
@@ -25,7 +25,7 @@ import java.util.Optional;
  */
 public class UserDetailsServiceImpl implements UserDetailsService {
 
-    private PenggunaRepository penggunaRepository;
+    private final PenggunaRepository penggunaRepository;
 
     public UserDetailsServiceImpl(PenggunaRepository penggunaRepository) {
         this.penggunaRepository = penggunaRepository;
