@@ -1,10 +1,10 @@
 package com.hendisantika.sekolah.dto;
 
+import jakarta.persistence.Id;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.Id;
 import java.time.LocalDateTime;
 import java.util.UUID;
 

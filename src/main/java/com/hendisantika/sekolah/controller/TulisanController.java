@@ -5,6 +5,7 @@ import com.hendisantika.sekolah.entity.Tulisan;
 import com.hendisantika.sekolah.repository.KategoriRepository;
 import com.hendisantika.sekolah.repository.PenggunaRepository;
 import com.hendisantika.sekolah.repository.TulisanRepository;
+import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
@@ -21,7 +22,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.multipart.MultipartFile;
 
-import javax.validation.Valid;
 import java.io.IOException;
 import java.security.Principal;
 import java.time.LocalDateTime;

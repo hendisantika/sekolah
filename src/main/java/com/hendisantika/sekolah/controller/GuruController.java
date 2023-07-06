@@ -3,23 +3,18 @@ package com.hendisantika.sekolah.controller;
 import com.hendisantika.sekolah.dto.GuruDto;
 import com.hendisantika.sekolah.entity.Guru;
 import com.hendisantika.sekolah.repository.GuruRepository;
+import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.multipart.MultipartFile;
 
-import javax.validation.Valid;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -43,8 +38,11 @@ public class GuruController {
 
     private static String UPLOADED_FOLDER = System.getProperty("java.io.tmpdir");
 
-    @Autowired
-    private GuruRepository guruRepository;
+    private final GuruRepository guruRepository;
+
+    public GuruController(GuruRepository guruRepository) {
+        this.guruRepository = guruRepository;
+    }
 
     @GetMapping
     public String guru(Model model, Pageable pageable) {
@@ -112,12 +110,14 @@ public class GuruController {
             byte[] bytes = file.getBytes();
             String encoded = Base64.getEncoder().encodeToString(bytes);
             Guru guru = guruRepository.findById(guruBaru.getId()).orElse(null);
-            guru.setTglLahir(tglLahir);
-            guru.setPhotoBase64(encoded);
-            guru.setPhoto(file.getOriginalFilename());
-            guru.setFileContent(bytes);
-            guru.setFilename(file.getOriginalFilename());
-            guruRepository.save(guru);
+            if (guru != null) {
+                guru.setTglLahir(tglLahir);
+                guru.setPhotoBase64(encoded);
+                guru.setPhoto(file.getOriginalFilename());
+                guru.setFileContent(bytes);
+                guru.setFilename(file.getOriginalFilename());
+                guruRepository.save(guru);
+            }
             status.setComplete();
             log.info("Memperbaharui Data guru sukses.");
         } catch (IOException e) {

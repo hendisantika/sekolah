@@ -1,13 +1,13 @@
 package com.hendisantika.sekolah.util;
 
 import com.hendisantika.sekolah.dto.UserAgentInfo;
+import jakarta.servlet.http.HttpServletRequest;
 import lombok.extern.slf4j.Slf4j;
 import net.sf.uadetector.OperatingSystem;
 import net.sf.uadetector.ReadableDeviceCategory;
 import net.sf.uadetector.ReadableUserAgent;
 import net.sf.uadetector.VersionNumber;
 
-import javax.servlet.http.HttpServletRequest;
 
 /**
  * Created by IntelliJ IDEA.

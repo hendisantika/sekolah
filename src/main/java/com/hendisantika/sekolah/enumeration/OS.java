@@ -1,6 +1,7 @@
 package com.hendisantika.sekolah.enumeration;
 
-import javax.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletRequest;
+
 
 /**
  * Created by IntelliJ IDEA.

@@ -4,6 +4,7 @@ import com.hendisantika.sekolah.dto.SiswaDto;
 import com.hendisantika.sekolah.entity.Siswa;
 import com.hendisantika.sekolah.repository.KelasRepository;
 import com.hendisantika.sekolah.repository.SiswaRepository;
+import jakarta.validation.Valid;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,7 +20,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.multipart.MultipartFile;
 
-import javax.validation.Valid;
 import java.io.IOException;
 import java.util.Base64;
 import java.util.UUID;

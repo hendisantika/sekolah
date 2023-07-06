@@ -1,7 +1,7 @@
 package com.hendisantika.sekolah.util;
 
 import org.jsoup.Jsoup;
-import org.jsoup.safety.Whitelist;
+import org.jsoup.safety.Safelist;
 
 /**
  * Created by IntelliJ IDEA.
@@ -32,7 +32,7 @@ public class WordUtils {
     }
 
     public static String stripTags(String unsafeString) {
-        return Jsoup.clean(unsafeString, Whitelist.basic());
+        return Jsoup.clean(unsafeString, Safelist.basic());
     }
 
     public static String pregReplace(String pregReplace) {

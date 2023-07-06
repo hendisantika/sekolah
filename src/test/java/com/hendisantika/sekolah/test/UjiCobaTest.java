@@ -1,7 +1,7 @@
 package com.hendisantika.sekolah.test;
 
 import org.jsoup.Jsoup;
-import org.jsoup.safety.Whitelist;
+import org.jsoup.safety.Safelist;
 import org.junit.jupiter.api.Test;
 
 /**
@@ -23,7 +23,7 @@ public class UjiCobaTest {
         String unsafe2 = "<p>Create an Angular 7 + Google Authenticator + Node JS Web App with Two-Factor " +
                 "Authentication<br></p>";
 
-        String safe = Jsoup.clean(unsafe2, Whitelist.basic());
+        String safe = Jsoup.clean(unsafe2, Safelist.basic());
         System.out.println("=================  stripTagsTest  =================");
         System.out.println("Hasilnya: " + safe);
     }
