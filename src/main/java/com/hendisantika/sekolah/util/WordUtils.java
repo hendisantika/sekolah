@@ -2,6 +2,7 @@ package com.hendisantika.sekolah.util;
 
 import org.jsoup.Jsoup;
 import org.jsoup.safety.Safelist;
+import org.springframework.stereotype.Component;
 
 /**
  * Created by IntelliJ IDEA.
@@ -12,6 +13,7 @@ import org.jsoup.safety.Safelist;
  * Date: 20/03/20
  * Time: 14.04
  */
+@Component
 public class WordUtils {
     public static int countWords(String input) {
         if (input == null || input.isEmpty()) {
@@ -22,13 +24,13 @@ public class WordUtils {
     }
 
     public static String wordLimit(String words, int maxWords) {
-        String result = "";
+        StringBuilder result = new StringBuilder();
         String[] temp = words.split("\\s+");
         for (int i = 0; i < maxWords; i++) {
-            result += temp[i] + " ";
+            result.append(temp[i]).append(" ");
         }
 
-        return result;
+        return result.toString();
     }
 
     public static String stripTags(String unsafeString) {
@@ -36,7 +38,6 @@ public class WordUtils {
     }
 
     public static String pregReplace(String pregReplace) {
-        String result = pregReplace;
-        return result.replaceAll("/[^a-zA-Z0-9 \\&%|{.}=,?!*()\"-_+$@;:<>']/", "");
+        return pregReplace.replaceAll("/[^a-zA-Z0-9 &%|{.}=,?!*()\"-_+$@;:<>']/", "");
     }
 }

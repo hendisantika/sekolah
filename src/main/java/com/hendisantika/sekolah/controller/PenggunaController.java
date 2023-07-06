@@ -6,17 +6,12 @@ import com.hendisantika.sekolah.repository.PenggunaRepository;
 import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -39,11 +34,14 @@ import java.util.Base64;
 @RequestMapping("admin/pengguna")
 public class PenggunaController {
 
-    @Autowired
-    private PenggunaRepository penggunaRepository;
+    private final PenggunaRepository penggunaRepository;
 
-    @Autowired
-    private PasswordEncoder passwordEncoder;
+    private final PasswordEncoder passwordEncoder;
+
+    public PenggunaController(PenggunaRepository penggunaRepository, PasswordEncoder passwordEncoder) {
+        this.penggunaRepository = penggunaRepository;
+        this.passwordEncoder = passwordEncoder;
+    }
 
     @GetMapping
     public String pengguna(Model model, Pageable pageable) {
@@ -74,13 +72,15 @@ public class PenggunaController {
             // Get the file and save it somewhere
             byte[] bytes = file.getBytes();
             String encoded = Base64.getEncoder().encodeToString(bytes);
-            Pengguna pengguna = penggunaRepository.findById(penggunaDto.getId()).get();
-            pengguna.setPassword(passwordEncoder.encode(penggunaDto.getPassword()));
-            pengguna.setPhoto(file.getOriginalFilename());
-            pengguna.setPhotoBase64(encoded);
-            pengguna.setFileContent(bytes);
-            pengguna.setFilename(file.getOriginalFilename());
-            penggunaRepository.save(pengguna);
+            Pengguna pengguna = penggunaRepository.findById(penggunaDto.getId()).orElse(null);
+            if (pengguna != null) {
+                pengguna.setPassword(passwordEncoder.encode(penggunaDto.getPassword()));
+                pengguna.setPhoto(file.getOriginalFilename());
+                pengguna.setPhotoBase64(encoded);
+                pengguna.setFileContent(bytes);
+                pengguna.setFilename(file.getOriginalFilename());
+                penggunaRepository.save(pengguna);
+            }
             status.setComplete();
             log.info("Update Data Pengguna sukses.");
         } catch (IOException e) {

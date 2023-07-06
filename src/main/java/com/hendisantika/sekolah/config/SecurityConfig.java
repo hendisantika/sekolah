@@ -9,7 +9,6 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.config.annotation.web.configuration.WebSecurityCustomizer;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
@@ -75,6 +74,8 @@ public class SecurityConfig {
                 //inside the login form
                 .csrf((csrf) -> csrf.disable())
                 .authorizeHttpRequests((authz) -> authz
+                        .requestMatchers("/ignore1", "/ignore2" , "/assets/**", "/css/**", "/img/**",
+                                "/js**", "/plugins/**", "/theme/**", "/templates/**").permitAll()
                         .requestMatchers(PUBLIC_LINK).permitAll()
                         .requestMatchers(PRIVATE_LINK).hasAnyAuthority("ADMIN", "USER")
                         .anyRequest().authenticated()
@@ -97,16 +98,17 @@ public class SecurityConfig {
      * These resources are available to every users
      */
 
-    @Bean
-    public WebSecurityCustomizer webSecurityCustomizer() {
-        return (web) -> web.ignoring()
-                .requestMatchers("/ignore1", "/ignore2")
-                .requestMatchers("/assets/**")
-                .requestMatchers("/css/**")
-                .requestMatchers("/img/**")
-                .requestMatchers("/js**")
-                .requestMatchers("/plugins/**")
-                .requestMatchers("/theme/**")
-                .requestMatchers("/templates/**");
-    }
+    // by spring "You are asking Spring Security to ignore Mvc [pattern='/ignore1']" This is not recommended
+//    @Bean
+//    public WebSecurityCustomizer webSecurityCustomizer() {
+//        return (web) -> web.ignoring()
+//                .requestMatchers("/ignore1", "/ignore2")
+//                .requestMatchers("/assets/**")
+//                .requestMatchers("/css/**")
+//                .requestMatchers("/img/**")
+//                .requestMatchers("/js**")
+//                .requestMatchers("/plugins/**")
+//                .requestMatchers("/theme/**")
+//                .requestMatchers("/templates/**");
+//    }
 }

@@ -82,12 +82,14 @@ public class AgendaController {
     public String updateAgenda(Model model, @Valid Agenda agendaBaru, Pageable pageable) {
         log.info("Memperbaharui Data Agenda");
 
-        Agenda agenda = agendaRepository.findById(agendaBaru.getId()).get();
-        agenda.setNama(agendaBaru.getNama());
-        agenda.setDeskripsi(agendaBaru.getDeskripsi());
-        agenda.setMulai(agendaBaru.getMulai());
-        agenda.setTempat(agendaBaru.getTempat());
-        agendaRepository.save(agenda);
+        Agenda agenda = agendaRepository.findById(agendaBaru.getId()).orElse(null);
+        if (agenda != null) {
+            agenda.setNama(agendaBaru.getNama());
+            agenda.setDeskripsi(agendaBaru.getDeskripsi());
+            agenda.setMulai(agendaBaru.getMulai());
+            agenda.setTempat(agendaBaru.getTempat());
+            agendaRepository.save(agenda);
+        }
         model.addAttribute("agenda", agendaRepository.findAll(pageable));
         return "redirect:/admin/agenda";
     }

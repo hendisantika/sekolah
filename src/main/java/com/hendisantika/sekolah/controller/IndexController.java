@@ -1,35 +1,16 @@
 package com.hendisantika.sekolah.controller;
 
 import com.hendisantika.sekolah.dto.UserAgentInfo;
-import com.hendisantika.sekolah.entity.Agenda;
-import com.hendisantika.sekolah.entity.Files;
-import com.hendisantika.sekolah.entity.Galeri;
-import com.hendisantika.sekolah.entity.Guru;
-import com.hendisantika.sekolah.entity.Kategori;
-import com.hendisantika.sekolah.entity.Komentar;
-import com.hendisantika.sekolah.entity.Pengguna;
-import com.hendisantika.sekolah.entity.Pengumuman;
-import com.hendisantika.sekolah.entity.Pengunjung;
-import com.hendisantika.sekolah.entity.Siswa;
-import com.hendisantika.sekolah.entity.Tulisan;
-import com.hendisantika.sekolah.repository.AgendaRepository;
-import com.hendisantika.sekolah.repository.FilesRepository;
-import com.hendisantika.sekolah.repository.GaleriRepository;
-import com.hendisantika.sekolah.repository.GuruRepository;
-import com.hendisantika.sekolah.repository.KategoriRepository;
-import com.hendisantika.sekolah.repository.KomentarRepository;
-import com.hendisantika.sekolah.repository.PengumumanRepository;
-import com.hendisantika.sekolah.repository.PengunjungRepository;
-import com.hendisantika.sekolah.repository.SiswaRepository;
-import com.hendisantika.sekolah.repository.TulisanRepository;
+import com.hendisantika.sekolah.entity.*;
+import com.hendisantika.sekolah.repository.*;
 import com.hendisantika.sekolah.util.WordUtils;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import net.sf.uadetector.UserAgentStringParser;
 import net.sf.uadetector.service.UADetectorServiceFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -41,6 +22,7 @@ import org.springframework.web.context.request.RequestContextHolder;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Objects;
 
 import static com.hendisantika.sekolah.util.WebUtils.getUserAgent;
 import static com.hendisantika.sekolah.util.WebUtils.showUserAgentInfo;
@@ -58,14 +40,11 @@ import static com.hendisantika.sekolah.util.WebUtils.showUserAgentInfo;
 @Slf4j
 @Controller
 @RequestMapping("/")
+@RequiredArgsConstructor
 public class IndexController {
-    private static long TOT_GURU = 0;
-    private static long TOT_SISWA = 0;
-    private static long TOT_FILES = 0;
-    private static long TOT_AGENDA = 0;
 
     @Value("${cookie.maxAge}")
-    private int COOKIE_MAX_AGE;
+    private int cookieMAXAGE;
 
     private static final String[] IP_HEADER_CANDIDATES = {
             "X-Forwarded-For",
@@ -78,7 +57,8 @@ public class IndexController {
             "HTTP_FORWARDED_FOR",
             "HTTP_FORWARDED",
             "HTTP_VIA",
-            "REMOTE_ADDR"};
+            "REMOTE_ADDR"
+    };
 
     public static String getClientIpAddress(HttpServletRequest request) {
         for (String header : IP_HEADER_CANDIDATES) {
@@ -91,45 +71,41 @@ public class IndexController {
         return request.getRemoteAddr();
     }
 
-    @Autowired
-    private TulisanRepository tulisanRepository;
+    private final TulisanRepository tulisanRepository;
 
-    @Autowired
-    private PengumumanRepository pengumumanRepository;
+    private final PengumumanRepository pengumumanRepository;
 
-    @Autowired
-    private AgendaRepository agendaRepository;
+    private final AgendaRepository agendaRepository;
 
-    @Autowired
-    private GuruRepository guruRepository;
+    private final GuruRepository guruRepository;
 
-    @Autowired
-    private FilesRepository filesRepository;
+    private final FilesRepository filesRepository;
 
-    @Autowired
-    private SiswaRepository siswaRepository;
+    private final SiswaRepository siswaRepository;
 
-    @Autowired
-    private KategoriRepository kategoriRepository;
+    private final KategoriRepository kategoriRepository;
 
-    @Autowired
-    private KomentarRepository komentarRepository;
+    private final KomentarRepository komentarRepository;
 
-    @Autowired
-    private GaleriRepository galeriRepository;
+    private final GaleriRepository galeriRepository;
 
-    @Autowired
-    private PengunjungRepository pengunjungRepository;
+    private final PengunjungRepository pengunjungRepository;
 
     @ModelAttribute("WordUtil")
     public WordUtils addWordUtil() {
         return new WordUtils();
     }
 
-    public static UserAgentStringParser parser = UADetectorServiceFactory.getResourceModuleParser();
+    public static final UserAgentStringParser parser = UADetectorServiceFactory.getResourceModuleParser();
 
     @GetMapping
     public String index(Model model, HttpServletRequest request, HttpServletResponse response) {
+        // default value is zero
+        long totAGENDA;
+        long totFILES;
+        long totSISWA;
+        long totGURU;
+
         createCookieAndSave(request, response, "HOME");
 
         log.info("Menampilkan data untuk Halaman Home.");
@@ -137,20 +113,20 @@ public class IndexController {
         List<Pengumuman> pengumuman = pengumumanRepository.findTop4();
         List<Agenda> agenda = agendaRepository.findTop4();
 
-        TOT_GURU = guruRepository.count();
-        TOT_AGENDA = agendaRepository.count();
-        TOT_FILES = filesRepository.count();
-        TOT_SISWA = siswaRepository.count();
+        totGURU = guruRepository.count();
+        totAGENDA = agendaRepository.count();
+        totFILES = filesRepository.count();
+        totSISWA = siswaRepository.count();
 
         model.addAttribute("WordUtil", new WordUtils());
 
         model.addAttribute("tulisanList", tulisanList);
         model.addAttribute("pengumuman", pengumuman);
         model.addAttribute("agenda", agenda);
-        model.addAttribute("totGuru", TOT_GURU);
-        model.addAttribute("totAgenda", TOT_AGENDA);
-        model.addAttribute("totFiles", TOT_FILES);
-        model.addAttribute("totSiswa", TOT_SISWA);
+        model.addAttribute("totGuru", totGURU);
+        model.addAttribute("totAgenda", totAGENDA);
+        model.addAttribute("totFiles", totFILES);
+        model.addAttribute("totSiswa", totSISWA);
         return "index";
     }
 
@@ -166,11 +142,11 @@ public class IndexController {
         }
         log.info("create a cookie.");
         Cookie cookie = new Cookie(cookieName, RequestContextHolder.currentRequestAttributes().getSessionId());
-        cookie.setMaxAge(COOKIE_MAX_AGE);
+        cookie.setMaxAge(cookieMAXAGE);
         cookie.setSecure(true);
         cookie.setHttpOnly(true);
         cookie.setPath("/"); // global cookie accessible every where
-        UserAgentInfo userAgentInfo = showUserAgentInfo(parser.parse(request.getHeader("User-Agent")));
+        UserAgentInfo userAgentInfo = showUserAgentInfo(parser.parse(Objects.requireNonNull(request).getHeader("User-Agent")));
         userAgentInfo.setHostAddress(remoteIpAddr);
         userAgentInfo.setHostName(remoteHostAddr);
 
@@ -316,15 +292,15 @@ public class IndexController {
         String clientIP = getClientIpAddress(request);
 
         // Get client's host name
-        String clientHost = request.getRemoteHost();
+        String clientHost = request != null ? request.getRemoteHost() : null;
 
         UserAgentInfo userAgentInfo = getUserAgent(request);
         UserAgentInfo userAgentInfo2 = showUserAgentInfo(parser.parse(userAgentInfo.getUserAgent()));
         userAgentInfo2.setHostAddress(remoteIpAddr);
         userAgentInfo2.setHostName(remoteHostAddr);
 
-        log.info("clientIP: ", clientIP);
-        log.info("clientHost: ", clientHost);
+        log.info("clientIP: {}", clientIP);
+        log.info("clientHost: {}", clientHost);
         model.addAttribute("userAgentInfo", userAgentInfo2);
         model.addAttribute("waktu", LocalDateTime.now());
         return "samples/userAgent";

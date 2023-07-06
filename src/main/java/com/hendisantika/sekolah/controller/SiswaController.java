@@ -7,16 +7,11 @@ import com.hendisantika.sekolah.repository.SiswaRepository;
 import jakarta.validation.Valid;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.BeanUtils;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -38,11 +33,14 @@ import java.util.UUID;
 @Controller
 @RequestMapping("admin/siswa")
 public class SiswaController {
-    @Autowired
-    private SiswaRepository siswaRepository;
+    private final SiswaRepository siswaRepository;
 
-    @Autowired
-    private KelasRepository kelasRepository;
+    private final KelasRepository kelasRepository;
+
+    public SiswaController(SiswaRepository siswaRepository, KelasRepository kelasRepository) {
+        this.siswaRepository = siswaRepository;
+        this.kelasRepository = kelasRepository;
+    }
 
     @GetMapping
     public String showListSiswa(Model model, Pageable pageable) {
@@ -75,15 +73,17 @@ public class SiswaController {
             // Get the file and save it somewhere
             byte[] bytes = file.getBytes();
             String encoded = Base64.getEncoder().encodeToString(bytes);
-            Siswa siswa = siswaRepository.findById(siswaDto.getId()).get();
-            siswa.setNama(siswaDto.getNama());
-            siswa.setKelas(siswaDto.getKelas());
-            siswa.setJenkel(siswaDto.getJenkel());
-            siswa.setPhotoBase64(encoded);
-            siswa.setPhoto(file.getOriginalFilename());
-            siswa.setFileContent(bytes);
-            siswa.setFilename(file.getOriginalFilename());
-            siswaRepository.save(siswa);
+            Siswa siswa = siswaRepository.findById(siswaDto.getId()).orElse(null);
+            if (siswa != null) {
+                siswa.setNama(siswaDto.getNama());
+                siswa.setKelas(siswaDto.getKelas());
+                siswa.setJenkel(siswaDto.getJenkel());
+                siswa.setPhotoBase64(encoded);
+                siswa.setPhoto(file.getOriginalFilename());
+                siswa.setFileContent(bytes);
+                siswa.setFilename(file.getOriginalFilename());
+                siswaRepository.save(siswa);
+            }
             status.setComplete();
             log.info("Update Data Siswa sukses.");
         } catch (IOException e) {
