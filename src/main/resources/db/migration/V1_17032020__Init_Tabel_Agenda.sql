@@ -1,19 +1,21 @@
+CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
+
 CREATE TABLE IF NOT EXISTS tbl_agenda(
-                                         id          UUID           DEFAULT uuid_generate_v4() NOT NULL,
-                                         nama        varchar(200)   DEFAULT NULL,
-                                         deskripsi   text,
-                                         mulai       date           DEFAULT NULL,
-                                         selesai     date           DEFAULT NULL,
-                                         tempat      varchar(90)    DEFAULT NULL,
-                                         waktu       varchar(30)    DEFAULT NULL,
-                                         keterangan  varchar(200)   DEFAULT NULL,
-                                         created_by  varchar(50),
-                                         created_on  timestamp NULL DEFAULT CURRENT_TIMESTAMP,
-                                         modified_by varchar(50),
-                                         modified_on timestamp NULL DEFAULT CURRENT_TIMESTAMP,
-                                         status_record CHARACTER VARYING(150) NOT NULL,
-                                         version BIGINT,
-                                         PRIMARY KEY (id)
+    id          UUID           DEFAULT uuid_generate_v4() NOT NULL,
+    nama        varchar(200)   DEFAULT NULL,
+    deskripsi   text,
+    mulai       date           DEFAULT NULL,
+    selesai     date           DEFAULT NULL,
+    tempat      varchar(90)    DEFAULT NULL,
+    waktu       varchar(30)    DEFAULT NULL,
+    keterangan  varchar(200)   DEFAULT NULL,
+    created_by  varchar(50),
+    created_on  timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+    modified_by varchar(50),
+    modified_on timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+    status_record CHARACTER VARYING(150) NOT NULL,
+    version BIGINT,
+    PRIMARY KEY (id)
 );
 
 --

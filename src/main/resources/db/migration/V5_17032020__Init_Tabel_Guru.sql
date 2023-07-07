@@ -24,16 +24,16 @@ CREATE TABLE IF NOT EXISTS tbl_guru
 -- Dumping data untuk tabel tbl_guru
 --
 
-INSERT INTO tbl_guru (nip, nama, jenkel, tmp_lahir, tgl_lahir, mapel, photo)
+INSERT INTO tbl_guru (nip, nama, jenkel, tmp_lahir, tgl_lahir, mapel, photo, status_record)
 VALUES ('927482658274982', 'Hendi Santika', 'L', 'Padang', '1989-09-25', 'Teknik Komputer',
-        'f6bbe1e04e78e0d715e9830a605794aa.jpg'),
-       ('927482658274981', 'Thomas Muller', 'L', 'Germany', '1989-09-25', 'Olahgara', NULL),
-       ('-', 'Joko Subroto', 'L', 'Jakarta', '1989-09-25', 'PPKN, Matematika', NULL),
-       ('-', 'Kusta Otomo', 'L', 'Jakarta', '1989-09-25', 'Seni Budaya', NULL),
-       ('-', 'Yuliani Ningsih', 'P', 'Padang', '1989-09-25', 'Bahasa Indonesia', NULL),
-       ('927482658274993', 'Ari Hidayat', 'L', 'Padang', '1989-09-25', 'Bahasa Inggris', NULL),
+        'f6bbe1e04e78e0d715e9830a605794aa.jpg', 'ACTIVE'),
+       ('927482658274981', 'Thomas Muller', 'L', 'Germany', '1989-09-25', 'Olahgara', NULL, 'ACTIVE'),
+       ('-', 'Joko Subroto', 'L', 'Jakarta', '1989-09-25', 'PPKN, Matematika', NULL, 'ACTIVE'),
+       ('-', 'Kusta Otomo', 'L', 'Jakarta', '1989-09-25', 'Seni Budaya', NULL, 'ACTIVE'),
+       ('-', 'Yuliani Ningsih', 'P', 'Padang', '1989-09-25', 'Bahasa Indonesia', NULL, 'ACTIVE'),
+       ('927482658274993', 'Ari Hidayat', 'L', 'Padang', '1989-09-25', 'Bahasa Inggris', NULL, 'ACTIVE'),
        ('927482658274998', 'Irma Cantika', 'P', 'Padang', '1989-09-25', 'Bahasa Inggris, IPA',
-        '4200d2514abf45755943526b74474c16.jpg'),
-       ('-', 'Ririn Febriesta', 'P', 'Padang', '1989-09-25', 'Pend. Agama Islam', NULL);
+        '4200d2514abf45755943526b74474c16.jpg', 'ACTIVE'),
+       ('-', 'Ririn Febriesta', 'P', 'Padang', '1989-09-25', 'Pend. Agama Islam', NULL, 'ACTIVE');
 
 -- -----------------
