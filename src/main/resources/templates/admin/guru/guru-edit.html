@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" xmlns:th="http://www.thymeleaf.org">
-<head th:replace="fragments/dashboard/header :: header"/>
+<head th:replace="~{fragments/dashboard/header :: header}"></head>
 <!-- summernote -->
 <link rel="stylesheet" th:href="@{/plugins/summernote/summernote-bs4.css}">
 <link href="https://unpkg.com/gijgo@1.9.13/css/gijgo.min.css" rel="stylesheet" type="text/css"/>
@@ -9,8 +9,8 @@
       rel="stylesheet">
 <body class="hold-transition sidebar-mini layout-fixed layout-navbar-fixed layout-footer-fixed">
 
-<head th:replace="fragments/dashboard/navbar :: navbar"/>
-<head th:replace="fragments/dashboard/sidebar :: sidebar"/>
+<head th:replace="~{fragments/dashboard/navbar :: navbar}"></head>
+<head th:replace="~{fragments/dashboard/sidebar :: sidebar}"></head>
 
 <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper" layout:fragment="content">
@@ -161,7 +161,7 @@
 </div>
 <!-- ./wrapper -->
 
-<footer th:replace="fragments/dashboard/footer :: footer"/>
+<footer th:replace="~{fragments/dashboard/footer :: footer}"></footer>
 
 <!-- jQuery -->
 <script th:src="@{/plugins/jquery/jquery.min.js}"></script>
