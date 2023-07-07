@@ -1,13 +1,9 @@
 package com.hendisantika.sekolah.entity;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
-import org.hibernate.annotations.GenericGenerator;
-import org.hibernate.annotations.OnDelete;
-import org.hibernate.annotations.OnDeleteAction;
+import jakarta.persistence.Table;
+import lombok.*;
+import org.hibernate.annotations.*;
 import org.springframework.data.annotation.CreatedBy;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedBy;
@@ -15,6 +11,7 @@ import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.time.LocalDateTime;
+import java.util.Arrays;
 import java.util.UUID;
 
 /**
@@ -26,17 +23,16 @@ import java.util.UUID;
  * Date: 17/03/20
  * Time: 23.26
  */
-@Data
+@Getter
+@Setter
+@Entity
 @AllArgsConstructor
 @NoArgsConstructor
-@Entity(name = "tbl_tulisan")
-@EntityListeners(AuditingEntityListener.class)
-public class Tulisan {
-    @Id
-    @GeneratedValue(generator = "uuid2")
-    @GenericGenerator(name = "uuid2", strategy = "uuid2")
-    @Column(name = "id")
-    private UUID id;
+@Builder
+@Table(name = "tbl_tulisan")
+@SQLDelete(sql = "UPDATE tbl_tulisan SET status_record='INACTIVE' WHERE id=?")
+@Where(clause = "status_record='ACTIVE'")
+public class Tulisan extends AuditTableEntity<UUID> {
 
     @Column(name = "judul")
     private String judul;
@@ -79,19 +75,59 @@ public class Tulisan {
     @ToString.Exclude
     private Pengguna pengguna;
 
-    @Column(name = "created_by")
-    @CreatedBy
-    private String createdBy;
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Tulisan tulisan)) return false;
+        if (!super.equals(o)) return false;
 
-    @Column(name = "created_on")
-    @CreatedDate
-    private LocalDateTime createdOn;
+        if (getViews() != tulisan.getViews()) return false;
+        if (getImgSlider() != tulisan.getImgSlider()) return false;
+        if (!getJudul().equals(tulisan.getJudul())) return false;
+        if (!getIsi().equals(tulisan.getIsi())) return false;
+        if (!getAuthor().equals(tulisan.getAuthor())) return false;
+        if (!getGambar().equals(tulisan.getGambar())) return false;
+        if (!getPhotoBase64().equals(tulisan.getPhotoBase64())) return false;
+        if (!getFilename().equals(tulisan.getFilename())) return false;
+        if (!Arrays.equals(getFileContent(), tulisan.getFileContent())) return false;
+        if (!getSlug().equals(tulisan.getSlug())) return false;
+        if (!getKategori().equals(tulisan.getKategori())) return false;
+        return getPengguna().equals(tulisan.getPengguna());
+    }
 
-    @Column(name = "modified_by")
-    @LastModifiedBy
-    private String modifiedBy;
+    @Override
+    public int hashCode() {
+        int result = super.hashCode();
+        result = 31 * result + getJudul().hashCode();
+        result = 31 * result + getIsi().hashCode();
+        result = 31 * result + getAuthor().hashCode();
+        result = 31 * result + getViews();
+        result = 31 * result + getGambar().hashCode();
+        result = 31 * result + getPhotoBase64().hashCode();
+        result = 31 * result + getFilename().hashCode();
+        result = 31 * result + Arrays.hashCode(getFileContent());
+        result = 31 * result + getImgSlider();
+        result = 31 * result + getSlug().hashCode();
+        result = 31 * result + getKategori().hashCode();
+        result = 31 * result + getPengguna().hashCode();
+        return result;
+    }
 
-    @Column(name = "modified_on")
-    @LastModifiedDate
-    private LocalDateTime modifiedOn;
+    @Override
+    public String toString() {
+        return "Tulisan{" +
+                "judul='" + judul + '\'' +
+                ", isi='" + isi + '\'' +
+                ", author='" + author + '\'' +
+                ", views=" + views +
+                ", gambar='" + gambar + '\'' +
+                ", photoBase64='" + photoBase64 + '\'' +
+                ", filename='" + filename + '\'' +
+                ", fileContent=" + Arrays.toString(fileContent) +
+                ", imgSlider=" + imgSlider +
+                ", slug='" + slug + '\'' +
+                ", kategori=" + kategori +
+                ", pengguna=" + pengguna +
+                '}';
+    }
 }

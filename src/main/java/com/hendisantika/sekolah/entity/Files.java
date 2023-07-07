@@ -1,17 +1,13 @@
 package com.hendisantika.sekolah.entity;
 
-import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import org.hibernate.annotations.GenericGenerator;
-import org.springframework.data.annotation.CreatedBy;
-import org.springframework.data.annotation.CreatedDate;
-import org.springframework.data.annotation.LastModifiedBy;
-import org.springframework.data.annotation.LastModifiedDate;
-import org.springframework.data.jpa.domain.support.AuditingEntityListener;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Table;
+import lombok.*;
+import org.hibernate.annotations.SQLDelete;
+import org.hibernate.annotations.Where;
 
-import java.time.LocalDateTime;
+import java.util.Arrays;
 import java.util.UUID;
 
 /**
@@ -23,17 +19,16 @@ import java.util.UUID;
  * Date: 17/03/20
  * Time: 15.55
  */
-@Data
+@Getter
+@Setter
+@Entity
 @AllArgsConstructor
 @NoArgsConstructor
-@Entity(name = "tbl_files")
-@EntityListeners(AuditingEntityListener.class)
-public class Files {
-    @Id
-    @GeneratedValue(generator = "uuid2")
-    @GenericGenerator(name = "uuid2", strategy = "uuid2")
-    @Column(name = "id")
-    private UUID id;
+@Builder
+@Table(name = "tbl_files")
+@SQLDelete(sql = "UPDATE tbl_files SET status_record='INACTIVE' WHERE id=?")
+@Where(clause = "status_record='ACTIVE'")
+public class Files extends AuditTableEntity<UUID> {
 
     @Column(name = "judul")
     private String judul;
@@ -56,20 +51,44 @@ public class Files {
     @Column(name = "data")
     private String data;
 
-    @Column(name = "created_by")
-    @CreatedBy
-    private String createdBy;
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Files files)) return false;
+        if (!super.equals(o)) return false;
 
-    @Column(name = "created_on")
-    @CreatedDate
-    private LocalDateTime createdOn;
+        if (getDownload() != files.getDownload()) return false;
+        if (!getJudul().equals(files.getJudul())) return false;
+        if (!getDeskripsi().equals(files.getDeskripsi())) return false;
+        if (!getAuthor().equals(files.getAuthor())) return false;
+        if (!getFilename().equals(files.getFilename())) return false;
+        if (!Arrays.equals(getFileContent(), files.getFileContent())) return false;
+        return getData().equals(files.getData());
+    }
 
-    @Column(name = "modified_by")
-    @LastModifiedBy
-    private String modifiedBy;
+    @Override
+    public int hashCode() {
+        int result = super.hashCode();
+        result = 31 * result + getJudul().hashCode();
+        result = 31 * result + getDeskripsi().hashCode();
+        result = 31 * result + getAuthor().hashCode();
+        result = 31 * result + getFilename().hashCode();
+        result = 31 * result + Arrays.hashCode(getFileContent());
+        result = 31 * result + getDownload();
+        result = 31 * result + getData().hashCode();
+        return result;
+    }
 
-    @Column(name = "modified_on")
-    @LastModifiedDate
-    private LocalDateTime modifiedOn;
-
+    @Override
+    public String toString() {
+        return "Files{" +
+                "judul='" + judul + '\'' +
+                ", deskripsi='" + deskripsi + '\'' +
+                ", author='" + author + '\'' +
+                ", filename='" + filename + '\'' +
+                ", fileContent=" + Arrays.toString(fileContent) +
+                ", download=" + download +
+                ", data='" + data + '\'' +
+                '}';
+    }
 }

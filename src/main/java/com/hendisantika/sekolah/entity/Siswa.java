@@ -1,20 +1,13 @@
 package com.hendisantika.sekolah.entity;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
-import org.hibernate.annotations.GenericGenerator;
+import lombok.*;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
-import org.springframework.data.annotation.CreatedBy;
-import org.springframework.data.annotation.CreatedDate;
-import org.springframework.data.annotation.LastModifiedBy;
-import org.springframework.data.annotation.LastModifiedDate;
-import org.springframework.data.jpa.domain.support.AuditingEntityListener;
+import org.hibernate.annotations.SQLDelete;
+import org.hibernate.annotations.Where;
 
-import java.time.LocalDateTime;
+import java.util.Arrays;
 import java.util.UUID;
 
 /**
@@ -26,17 +19,16 @@ import java.util.UUID;
  * Date: 18/03/20
  * Time: 18.49
  */
-@Data
+@Getter
+@Setter
+@Entity
 @AllArgsConstructor
 @NoArgsConstructor
-@Entity(name = "tbl_siswa")
-@EntityListeners(AuditingEntityListener.class)
-public class Siswa {
-    @Id
-    @Column(name = "id")
-    @GeneratedValue(generator = "uuid2")
-    @GenericGenerator(name = "uuid2", strategy = "uuid2")
-    private UUID id;
+@Builder
+@Table(name = "tbl_siswa")
+@SQLDelete(sql = "UPDATE tbl_siswa SET status_record='INACTIVE' WHERE id=?")
+@Where(clause = "status_record='ACTIVE'")
+public class Siswa extends AuditTableEntity<UUID> {
 
     @Column(name = "nis", unique = true)
     private String nis;
@@ -65,19 +57,47 @@ public class Siswa {
     @Column(name = "file_content")
     private byte[] fileContent;
 
-    @Column(name = "created_by")
-    @CreatedBy
-    private String createdBy;
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Siswa siswa)) return false;
+        if (!super.equals(o)) return false;
 
-    @Column(name = "created_on")
-    @CreatedDate
-    private LocalDateTime createdOn;
+        if (!getNis().equals(siswa.getNis())) return false;
+        if (!getNama().equals(siswa.getNama())) return false;
+        if (!getJenkel().equals(siswa.getJenkel())) return false;
+        if (!getPhoto().equals(siswa.getPhoto())) return false;
+        if (!getPhotoBase64().equals(siswa.getPhotoBase64())) return false;
+        if (!getKelas().equals(siswa.getKelas())) return false;
+        if (!getFilename().equals(siswa.getFilename())) return false;
+        return Arrays.equals(getFileContent(), siswa.getFileContent());
+    }
 
-    @Column(name = "modified_by")
-    @LastModifiedBy
-    private String modifiedBy;
+    @Override
+    public int hashCode() {
+        int result = super.hashCode();
+        result = 31 * result + getNis().hashCode();
+        result = 31 * result + getNama().hashCode();
+        result = 31 * result + getJenkel().hashCode();
+        result = 31 * result + getPhoto().hashCode();
+        result = 31 * result + getPhotoBase64().hashCode();
+        result = 31 * result + getKelas().hashCode();
+        result = 31 * result + getFilename().hashCode();
+        result = 31 * result + Arrays.hashCode(getFileContent());
+        return result;
+    }
 
-    @Column(name = "modified_on")
-    @LastModifiedDate
-    private LocalDateTime modifiedOn;
+    @Override
+    public String toString() {
+        return "Siswa{" +
+                "nis='" + nis + '\'' +
+                ", nama='" + nama + '\'' +
+                ", jenkel='" + jenkel + '\'' +
+                ", photo='" + photo + '\'' +
+                ", photoBase64='" + photoBase64 + '\'' +
+                ", kelas=" + kelas +
+                ", filename='" + filename + '\'' +
+                ", fileContent=" + Arrays.toString(fileContent) +
+                '}';
+    }
 }

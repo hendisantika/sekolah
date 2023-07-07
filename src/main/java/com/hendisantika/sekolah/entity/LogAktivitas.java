@@ -1,32 +1,25 @@
 package com.hendisantika.sekolah.entity;
 
-import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import org.hibernate.annotations.GenericGenerator;
-import org.springframework.data.annotation.CreatedBy;
-import org.springframework.data.annotation.CreatedDate;
-import org.springframework.data.annotation.LastModifiedBy;
-import org.springframework.data.annotation.LastModifiedDate;
-import org.springframework.data.jpa.domain.support.AuditingEntityListener;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Table;
+import lombok.*;
+import org.hibernate.annotations.SQLDelete;
+import org.hibernate.annotations.Where;
 
-import java.time.LocalDateTime;
+import java.util.Arrays;
 import java.util.UUID;
 
-@Data
+@Getter
+@Setter
+@Entity
 @AllArgsConstructor
 @NoArgsConstructor
-@Entity(name = "tbl_log_aktivitas")
-@EntityListeners(AuditingEntityListener.class)
-public class LogAktivitas {
-
-    @Id
-    @GeneratedValue(generator = "uuid2")
-    @GenericGenerator(name = "uuid2", strategy = "uuid2")
-
-    @Column(name = "id")
-    private UUID id;
+@Builder
+@Table(name = "tbl_log_aktivitas")
+@SQLDelete(sql = "UPDATE tbl_log_aktivitas SET status_record='INACTIVE' WHERE id=?")
+@Where(clause = "status_record='ACTIVE'")
+public class LogAktivitas extends AuditTableEntity<UUID> {
 
     @Column(name = "nama")
     private String nama;
@@ -40,20 +33,35 @@ public class LogAktivitas {
     @Column(name = "jenis_icon")
     private String jenisIcon;
 
-    @Column(name = "created_by")
-    @CreatedBy
-    private String createdBy;
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof LogAktivitas that)) return false;
+        if (!super.equals(o)) return false;
 
-    @Column(name = "created_on")
-    @CreatedDate
-    private LocalDateTime createdOn;
+        if (!getNama().equals(that.getNama())) return false;
+        if (!getIp().equals(that.getIp())) return false;
+        if (!Arrays.equals(getIcon(), that.getIcon())) return false;
+        return getJenisIcon().equals(that.getJenisIcon());
+    }
 
-    @Column(name = "modified_by")
-    @LastModifiedBy
-    private String modifiedBy;
+    @Override
+    public int hashCode() {
+        int result = super.hashCode();
+        result = 31 * result + getNama().hashCode();
+        result = 31 * result + getIp().hashCode();
+        result = 31 * result + Arrays.hashCode(getIcon());
+        result = 31 * result + getJenisIcon().hashCode();
+        return result;
+    }
 
-    @Column(name = "modified_on")
-    @LastModifiedDate
-    private LocalDateTime modifiedOn;
-
+    @Override
+    public String toString() {
+        return "LogAktivitas{" +
+                "nama='" + nama + '\'' +
+                ", ip='" + ip + '\'' +
+                ", icon=" + Arrays.toString(icon) +
+                ", jenisIcon='" + jenisIcon + '\'' +
+                '}';
+    }
 }

@@ -10,6 +10,8 @@ CREATE TABLE IF NOT EXISTS tbl_inbox
     created_on  timestamp NULL DEFAULT CURRENT_TIMESTAMP,
     modified_by varchar(50),
     modified_on timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+    status_record CHARACTER VARYING(150) NOT NULL,
+    version BIGINT,
     PRIMARY KEY (id)
 );
 

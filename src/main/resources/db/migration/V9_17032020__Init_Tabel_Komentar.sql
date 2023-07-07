@@ -11,6 +11,8 @@ CREATE TABLE IF NOT EXISTS tbl_komentar
     created_on  timestamp NULL DEFAULT CURRENT_TIMESTAMP,
     modified_by varchar(50),
     modified_on timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+    status_record CHARACTER VARYING(150) NOT NULL,
+    version BIGINT,
     PRIMARY KEY (id)
 );
 CREATE INDEX tulisan_id_idx ON tbl_komentar (tulisan_id);

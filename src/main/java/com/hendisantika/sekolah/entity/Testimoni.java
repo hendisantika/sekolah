@@ -1,17 +1,12 @@
 package com.hendisantika.sekolah.entity;
 
-import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import org.hibernate.annotations.GenericGenerator;
-import org.springframework.data.annotation.CreatedBy;
-import org.springframework.data.annotation.CreatedDate;
-import org.springframework.data.annotation.LastModifiedBy;
-import org.springframework.data.annotation.LastModifiedDate;
-import org.springframework.data.jpa.domain.support.AuditingEntityListener;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Table;
+import lombok.*;
+import org.hibernate.annotations.SQLDelete;
+import org.hibernate.annotations.Where;
 
-import java.time.LocalDateTime;
 import java.util.UUID;
 
 /**
@@ -23,17 +18,16 @@ import java.util.UUID;
  * Date: 18/03/20
  * Time: 18.52
  */
-@Data
+@Getter
+@Setter
+@Entity
 @AllArgsConstructor
 @NoArgsConstructor
-@Entity(name = "tbl_testimoni")
-@EntityListeners(AuditingEntityListener.class)
-public class Testimoni {
-    @Id
-    @Column(name = "id")
-    @GeneratedValue(generator = "uuid2")
-    @GenericGenerator(name = "uuid2", strategy = "uuid2")
-    private UUID id;
+@Builder
+@Table(name = "tbl_testimoni")
+@SQLDelete(sql = "UPDATE tbl_testimoni SET status_record='INACTIVE' WHERE id=?")
+@Where(clause = "status_record='ACTIVE'")
+public class Testimoni extends AuditTableEntity<UUID> {
 
     @Column(name = "nama ")
     private String nama;
@@ -44,20 +38,32 @@ public class Testimoni {
     @Column(name = "email")
     private String email;
 
-    @Column(name = "created_by")
-    @CreatedBy
-    private String createdBy;
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Testimoni testimoni)) return false;
+        if (!super.equals(o)) return false;
 
-    @Column(name = "created_on")
-    @CreatedDate
-    private LocalDateTime createdOn;
+        if (!getNama().equals(testimoni.getNama())) return false;
+        if (!getIsi().equals(testimoni.getIsi())) return false;
+        return getEmail().equals(testimoni.getEmail());
+    }
 
-    @Column(name = "modified_by")
-    @LastModifiedBy
-    private String modifiedBy;
+    @Override
+    public int hashCode() {
+        int result = super.hashCode();
+        result = 31 * result + getNama().hashCode();
+        result = 31 * result + getIsi().hashCode();
+        result = 31 * result + getEmail().hashCode();
+        return result;
+    }
 
-    @Column(name = "modified_on")
-    @LastModifiedDate
-    private LocalDateTime modifiedOn;
-
+    @Override
+    public String toString() {
+        return "Testimoni{" +
+                "nama='" + nama + '\'' +
+                ", isi='" + isi + '\'' +
+                ", email='" + email + '\'' +
+                '}';
+    }
 }

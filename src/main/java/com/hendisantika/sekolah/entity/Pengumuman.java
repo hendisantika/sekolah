@@ -1,17 +1,12 @@
 package com.hendisantika.sekolah.entity;
 
-import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import org.hibernate.annotations.GenericGenerator;
-import org.springframework.data.annotation.CreatedBy;
-import org.springframework.data.annotation.CreatedDate;
-import org.springframework.data.annotation.LastModifiedBy;
-import org.springframework.data.annotation.LastModifiedDate;
-import org.springframework.data.jpa.domain.support.AuditingEntityListener;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Table;
+import lombok.*;
+import org.hibernate.annotations.SQLDelete;
+import org.hibernate.annotations.Where;
 
-import java.time.LocalDateTime;
 import java.util.UUID;
 
 /**
@@ -23,17 +18,16 @@ import java.util.UUID;
  * Date: 18/03/20
  * Time: 06.41
  */
-@Data
+@Getter
+@Setter
+@Entity
 @AllArgsConstructor
 @NoArgsConstructor
-@Entity(name = "tbl_pengumuman")
-@EntityListeners(AuditingEntityListener.class)
-public class Pengumuman {
-    @Id
-    @GeneratedValue(generator = "uuid2")
-    @GenericGenerator(name = "uuid2", strategy = "uuid2")
-    @Column(name = "id")
-    private UUID id;
+@Builder
+@Table(name = "tbl_pengumuman")
+@SQLDelete(sql = "UPDATE tbl_pengumuman SET status_record='INACTIVE' WHERE id=?")
+@Where(clause = "status_record='ACTIVE'")
+public class Pengumuman extends AuditTableEntity<UUID> {
 
     @Column(name = "judul")
     private String judul;
@@ -44,20 +38,32 @@ public class Pengumuman {
     @Column(name = "author")
     private String author;
 
-    @Column(name = "created_by")
-    @CreatedBy
-    private String createdBy;
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Pengumuman that)) return false;
+        if (!super.equals(o)) return false;
 
-    @Column(name = "created_on")
-    @CreatedDate
-    private LocalDateTime createdOn;
+        if (!getJudul().equals(that.getJudul())) return false;
+        if (!getDeskripsi().equals(that.getDeskripsi())) return false;
+        return getAuthor().equals(that.getAuthor());
+    }
 
-    @Column(name = "modified_by")
-    @LastModifiedBy
-    private String modifiedBy;
+    @Override
+    public int hashCode() {
+        int result = super.hashCode();
+        result = 31 * result + getJudul().hashCode();
+        result = 31 * result + getDeskripsi().hashCode();
+        result = 31 * result + getAuthor().hashCode();
+        return result;
+    }
 
-    @Column(name = "modified_on")
-    @LastModifiedDate
-    private LocalDateTime modifiedOn;
-
+    @Override
+    public String toString() {
+        return "Pengumuman{" +
+                "judul='" + judul + '\'' +
+                ", deskripsi='" + deskripsi + '\'' +
+                ", author='" + author + '\'' +
+                '}';
+    }
 }

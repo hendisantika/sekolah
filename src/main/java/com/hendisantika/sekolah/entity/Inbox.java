@@ -1,30 +1,24 @@
 package com.hendisantika.sekolah.entity;
 
-import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import org.hibernate.annotations.GenericGenerator;
-import org.springframework.data.annotation.CreatedBy;
-import org.springframework.data.annotation.CreatedDate;
-import org.springframework.data.annotation.LastModifiedBy;
-import org.springframework.data.annotation.LastModifiedDate;
-import org.springframework.data.jpa.domain.support.AuditingEntityListener;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Table;
+import lombok.*;
+import org.hibernate.annotations.SQLDelete;
+import org.hibernate.annotations.Where;
 
-import java.time.LocalDateTime;
 import java.util.UUID;
 
-@Data
+@Getter
+@Setter
+@Entity
 @AllArgsConstructor
 @NoArgsConstructor
-@Entity(name = "tbl_inbox")
-@EntityListeners(AuditingEntityListener.class)
-public class Inbox {
-    @Id
-    @GeneratedValue(generator = "uuid2")
-    @GenericGenerator(name = "uuid2", strategy = "uuid2")
-    @Column(name = "id")
-    private UUID id;
+@Builder
+@Table(name = "tbl_inbox")
+@SQLDelete(sql = "UPDATE tbl_inbox SET status_record='INACTIVE' WHERE id=?")
+@Where(clause = "status_record='ACTIVE'")
+public class Inbox extends AuditTableEntity<UUID> {
 
     @Column(name = "nama")
     private String nama;
@@ -41,20 +35,38 @@ public class Inbox {
     @Column(name = "status")
     private int status;
 
-    @Column(name = "created_by")
-    @CreatedBy
-    private String createdBy;
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Inbox inbox)) return false;
+        if (!super.equals(o)) return false;
 
-    @Column(name = "created_on")
-    @CreatedDate
-    private LocalDateTime createdOn;
+        if (getStatus() != inbox.getStatus()) return false;
+        if (!getNama().equals(inbox.getNama())) return false;
+        if (!getEmail().equals(inbox.getEmail())) return false;
+        if (!getKontak().equals(inbox.getKontak())) return false;
+        return getPesan().equals(inbox.getPesan());
+    }
 
-    @Column(name = "modified_by")
-    @LastModifiedBy
-    private String modifiedBy;
+    @Override
+    public int hashCode() {
+        int result = super.hashCode();
+        result = 31 * result + getNama().hashCode();
+        result = 31 * result + getEmail().hashCode();
+        result = 31 * result + getKontak().hashCode();
+        result = 31 * result + getPesan().hashCode();
+        result = 31 * result + getStatus();
+        return result;
+    }
 
-    @Column(name = "modified_on")
-    @LastModifiedDate
-    private LocalDateTime modifiedOn;
-
+    @Override
+    public String toString() {
+        return "Inbox{" +
+                "nama='" + nama + '\'' +
+                ", email='" + email + '\'' +
+                ", kontak='" + kontak + '\'' +
+                ", pesan='" + pesan + '\'' +
+                ", status=" + status +
+                '}';
+    }
 }
