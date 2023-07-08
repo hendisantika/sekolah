@@ -24,7 +24,7 @@ public class FileUtils {
         FileInputStream fileInputStreamReader = new FileInputStream(file);
         byte[] bytes = new byte[(int) file.length()];
         fileInputStreamReader.read(bytes);
-        return new String(Base64.encodeBase64(bytes), StandardCharsets.UTF_8);
+        return new String(Base64.encodeBase64(bytes, false), StandardCharsets.UTF_8);
     }
 
     /**

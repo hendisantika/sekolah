@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html lang="en" layout:decorate="~{fragments/layout}" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       xmlns:th="http://www.thymeleaf.org">
-<head th:replace="fragments/header :: head"/>
-<div th:replace="fragments/header :: header"/>
+<head th:replace="~{fragments/header :: head}"></head>
+<div th:replace="~{fragments/header :: header}"></div>
 <body>
-<div th:replace="fragments/header :: menu"/>
+<div th:replace="~{fragments/header :: menu}"></div>
 
 <div class="gallery-wrap" layout:fragment="content">
     <div class="container">
@@ -35,7 +35,7 @@
         </div>
     </div>
 
-<div th:replace="fragments/footer :: footer"/>
-<div th:replace="fragments/footer :: scripts"/>
+<div th:replace="~{fragments/footer :: footer}"></div>
+<div th:replace="~{fragments/footer :: scripts}"></div>
 </body>
 </html>

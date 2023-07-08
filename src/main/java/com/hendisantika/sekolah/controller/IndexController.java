@@ -1,28 +1,12 @@
 package com.hendisantika.sekolah.controller;
 
 import com.hendisantika.sekolah.dto.UserAgentInfo;
-import com.hendisantika.sekolah.entity.Agenda;
-import com.hendisantika.sekolah.entity.Files;
-import com.hendisantika.sekolah.entity.Galeri;
-import com.hendisantika.sekolah.entity.Guru;
-import com.hendisantika.sekolah.entity.Kategori;
-import com.hendisantika.sekolah.entity.Komentar;
-import com.hendisantika.sekolah.entity.Pengguna;
-import com.hendisantika.sekolah.entity.Pengumuman;
-import com.hendisantika.sekolah.entity.Pengunjung;
-import com.hendisantika.sekolah.entity.Siswa;
-import com.hendisantika.sekolah.entity.Tulisan;
-import com.hendisantika.sekolah.repository.AgendaRepository;
-import com.hendisantika.sekolah.repository.FilesRepository;
-import com.hendisantika.sekolah.repository.GaleriRepository;
-import com.hendisantika.sekolah.repository.GuruRepository;
-import com.hendisantika.sekolah.repository.KategoriRepository;
-import com.hendisantika.sekolah.repository.KomentarRepository;
-import com.hendisantika.sekolah.repository.PengumumanRepository;
-import com.hendisantika.sekolah.repository.PengunjungRepository;
-import com.hendisantika.sekolah.repository.SiswaRepository;
-import com.hendisantika.sekolah.repository.TulisanRepository;
+import com.hendisantika.sekolah.entity.*;
+import com.hendisantika.sekolah.repository.*;
 import com.hendisantika.sekolah.util.WordUtils;
+import jakarta.servlet.http.Cookie;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import lombok.extern.slf4j.Slf4j;
 import net.sf.uadetector.UserAgentStringParser;
 import net.sf.uadetector.service.UADetectorServiceFactory;
@@ -36,9 +20,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.context.request.RequestContextHolder;
 
-import javax.servlet.http.Cookie;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import java.time.LocalDateTime;
 import java.util.List;
 

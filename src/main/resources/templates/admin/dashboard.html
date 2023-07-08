@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" xmlns:th="http://www.thymeleaf.org">
-<head th:replace="fragments/dashboard/header :: header"/>
+<head th:replace="~{fragments/dashboard/header :: header}"></head>
 
 <body class="hold-transition sidebar-mini layout-fixed layout-navbar-fixed layout-footer-fixed">
 
-<head th:replace="fragments/dashboard/navbar :: navbar"/>
-<head th:replace="fragments/dashboard/sidebar :: sidebar"/>
+<head th:replace="~{fragments/dashboard/navbar :: navbar}"></head>
+<head th:replace="~{fragments/dashboard/sidebar :: sidebar}"></head>
 
 <div class="content-wrapper" layout:fragment="content">
     <!-- Content Header (Page header) -->
@@ -889,7 +889,7 @@
     <!-- /.content -->
 </div>
 
-<footer th:replace="fragments/dashboard/footer :: footer"/>
-<th:block th:replace="fragments/dashboard/scripts :: scripts"/>
+<footer th:replace="~{fragments/dashboard/footer :: footer}"></footer>
+<th:block th:replace="~{fragments/dashboard/scripts :: scripts}"/>
 </body>
 </html>

@@ -7,8 +7,9 @@
 <body>
 <p th:text="${image}">Image</p><br><br>
 In thymeleaf I just have<img alt="#" th:src="*{'data:image/jpg;base64,'+ image}"/>
-<p>This is admin page</p><br>
-Waktu saat ini : <b th:text="${#temporals.format(waktu, 'dd-MMM-yyyy HH:mm')}">10.30 AM<b/>
+<p>This is admin page</p>
+<br>
+Waktu saat ini : <b th:text="${#temporals.format(waktu, 'dd-MMM-yyyy HH:mm')}">10.30 AM</b>
     <br>
 
 

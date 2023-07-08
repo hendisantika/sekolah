@@ -4,6 +4,7 @@ spring:
     username: adminSekolah
     password: passwordSekolah
   jpa:
+    open-in-view: false
     show-sql: true
     hibernate:
       ddl-auto: validate

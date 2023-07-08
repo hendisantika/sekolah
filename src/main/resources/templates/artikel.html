@@ -12,10 +12,10 @@
         text-decoration: none;
     }
 </style>
-<head th:replace="fragments/header :: head"/>
-<div th:replace="fragments/header :: header"/>
+<head th:replace="~{fragments/header :: head}"></head>
+<div th:replace="~{fragments/header :: header}"></div>
 <body>
-<div th:replace="fragments/header :: menu"/>
+<div th:replace="~{fragments/header :: menu}"></div>
 
 <div layout:fragment="content">
     <!--============================= BLOG =============================-->
@@ -31,11 +31,16 @@
                     </div>
                     <div class="blog-tiltle_block">
                         <h4><a th:href="@{/artikel/} + ${t.slug}" th:text="${t.judul}">tulisan_judul</a></h4>
-                        <h6><a href="#"><i aria-hidden="true" class="fa fa-user"></i><span th:text="${t.author}">
-                                tulisan_author</span> </a> | <a href="#"><i aria-hidden="true"
-                                                                            class="fa fa-tags"></i><span
-                                th:text="${t.kategori.nama}">
-                                tulisan_kategori_nama</span></a></h6>
+                        <h6>
+                            <a href="#"><i aria-hidden="true" class="fa fa-user">
+                            </i><span th:text="${t.author}">tulisan_author</span>
+                            </a>
+                            |
+                            <a href="#">
+                            <i aria-hidden="true" class="fa fa-tags"></i>
+                            <span th:text="${t.kategori.nama}">tulisan_kategori_nama</span>
+                            </a>
+                        </h6>
                         <span + th:text="${t.isi}">Isi</span>
                     </div>
 
@@ -190,7 +195,7 @@
 
 </div>
 
-<div th:replace="fragments/footer :: footer"/>
-<div th:replace="fragments/footer :: scripts"/>
+<div th:replace="~{fragments/footer :: footer}"></div>
+<div th:replace="~{fragments/footer :: scripts}"></div>
 </body>
 </html>

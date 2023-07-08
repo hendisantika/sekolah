@@ -85,10 +85,15 @@ spring.datasource.password=passwordSekolah
 ### Cara menjalankan Postgres Database via Docker
 
 ```
-docker run -d --rm --name pg14 \
+docker run --rm \
+--name=sekolah \
+-e POSTGRES_DB=sekolah \
 -e POSTGRES_USER=adminSekolah \
 -e POSTGRES_PASSWORD=passwordSekolah \
--e POSTGRES_DB=sekolah -p 5432:5432 postgres:14
+-e PGDATA=/var/lib/postgresql/data/pgdata \
+-v "$PWD/sekolah-data:/var/lib/postgresql/data" \
+-p 5432:5432 \
+postgres:15
 ```
 
 ### Cara konek ke Postgres Database via Docker
