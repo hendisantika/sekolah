@@ -7,7 +7,6 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 
-
 /**
  * Created by IntelliJ IDEA.
  * Project : sekolah

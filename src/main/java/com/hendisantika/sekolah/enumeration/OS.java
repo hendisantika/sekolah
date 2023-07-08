@@ -2,7 +2,6 @@ package com.hendisantika.sekolah.enumeration;
 
 import jakarta.servlet.http.HttpServletRequest;
 
-
 /**
  * Created by IntelliJ IDEA.
  * Project : sekolah

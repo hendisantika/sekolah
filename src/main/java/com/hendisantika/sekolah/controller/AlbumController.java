@@ -7,6 +7,7 @@ import com.hendisantika.sekolah.repository.AlbumRepository;
 import com.hendisantika.sekolah.repository.PenggunaRepository;
 import jakarta.validation.Valid;
 import lombok.extern.log4j.Log4j2;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -35,14 +36,11 @@ import java.util.Base64;
 @PreAuthorize("hasAuthority('ADMIN')")
 @RequestMapping("admin/album")
 public class AlbumController {
-    private final AlbumRepository albumRepository;
+    @Autowired
+    private AlbumRepository albumRepository;
 
-    private final PenggunaRepository penggunaRepository;
-
-    public AlbumController(AlbumRepository albumRepository, PenggunaRepository penggunaRepository) {
-        this.albumRepository = albumRepository;
-        this.penggunaRepository = penggunaRepository;
-    }
+    @Autowired
+    private PenggunaRepository penggunaRepository;
 
     @GetMapping
     public String album(Model model, Pageable pageable) {
@@ -106,14 +104,12 @@ public class AlbumController {
             byte[] bytes = file.getBytes();
             String encoded = Base64.getEncoder().encodeToString(bytes);
             Album album = albumRepository.findById(albumDto.getId()).orElse(null);
-            if (album != null) {
-                album.setNama(albumDto.getNama());
-                album.setAuthor(albumDto.getAuthor());
-                album.setPhotoBase64(encoded);
-                album.setFileContent(bytes);
-                album.setFilename(file.getOriginalFilename());
-                albumRepository.save(album);
-            }
+            album.setNama(albumDto.getNama());
+            album.setAuthor(albumDto.getAuthor());
+            album.setPhotoBase64(encoded);
+            album.setFileContent(bytes);
+            album.setFilename(file.getOriginalFilename());
+            albumRepository.save(album);
             status.setComplete();
             log.info("Memperbaharui Data Album sukses.");
         } catch (IOException e) {

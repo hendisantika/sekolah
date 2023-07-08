@@ -2,7 +2,8 @@ package com.hendisantika.sekolah.config;
 
 import com.hendisantika.sekolah.repository.PenggunaRepository;
 import com.hendisantika.sekolah.security.AuthenticationFailureHandler;
-import com.hendisantika.sekolah.service.impl.UserDetailsServiceImpl;
+import com.hendisantika.sekolah.service.UserDetailsServiceImpl;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -24,24 +25,20 @@ import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
  * Time: 21.22
  */
 @Configuration
-@EnableMethodSecurity
 @EnableWebSecurity
+@EnableMethodSecurity
 public class SecurityConfig {
-    private static final String LOGIN = "/login";
     private static final String[] PUBLIC_LINK = new String[]{
             "/", "/about", "/guru", "/siswa", "/blog", "/pengumuman", "/agenda", "/download",
-            "/galeri", "/contact", LOGIN, "/logout", "/v1/api/**",
+            "/galeri", "/contact", "/login", "/logout", "/v1/api/**",
             "/test", "/test2", "/test3", "/tes/**"
     };
 
-    private final PenggunaRepository userRepository;
+    @Autowired
+    private PenggunaRepository userRepository;
     private static final String[] PRIVATE_LINK = new String[]{
             "/admin/**"
     };
-
-    public SecurityConfig(PenggunaRepository userRepository) {
-        this.userRepository = userRepository;
-    }
 
     @Bean
     public BCryptPasswordEncoder passwordEncoder() {
@@ -62,9 +59,11 @@ public class SecurityConfig {
         authBuilder.userDetailsService(userDetailsServiceBean()).passwordEncoder(passwordEncoder());
     }
 
+    @Bean
     public UserDetailsService userDetailsServiceBean() {
         return new UserDetailsServiceImpl(userRepository);
     }
+
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
@@ -81,8 +80,8 @@ public class SecurityConfig {
                         .anyRequest().authenticated()
                 )
                 .formLogin(formLogin -> formLogin
-                        .loginPage(LOGIN) //enable this to go to your own custom login page
-                        .loginProcessingUrl(LOGIN) //enable this to use login page provided by spring security
+                        .loginPage("/login") //enable this to go to your own custom login page
+                        .loginProcessingUrl("/login") //enable this to use login page provided by spring security
                         .defaultSuccessUrl("/admin/dashboard", true)
                         .failureUrl("/login?error")
                 )
@@ -93,22 +92,4 @@ public class SecurityConfig {
         return http.build();
     }
 
-    /*
-     *
-     * These resources are available to every users
-     */
-
-    // by spring "You are asking Spring Security to ignore Mvc [pattern='/ignore1']" This is not recommended
-//    @Bean
-//    public WebSecurityCustomizer webSecurityCustomizer() {
-//        return (web) -> web.ignoring()
-//                .requestMatchers("/ignore1", "/ignore2")
-//                .requestMatchers("/assets/**")
-//                .requestMatchers("/css/**")
-//                .requestMatchers("/img/**")
-//                .requestMatchers("/js**")
-//                .requestMatchers("/plugins/**")
-//                .requestMatchers("/theme/**")
-//                .requestMatchers("/templates/**");
-//    }
 }

@@ -8,7 +8,6 @@ import net.sf.uadetector.ReadableDeviceCategory;
 import net.sf.uadetector.ReadableUserAgent;
 import net.sf.uadetector.VersionNumber;
 
-
 /**
  * Created by IntelliJ IDEA.
  * Project : sekolah

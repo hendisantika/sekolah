@@ -8,6 +8,7 @@ import com.hendisantika.sekolah.repository.GaleriRepository;
 import com.hendisantika.sekolah.repository.PenggunaRepository;
 import jakarta.validation.Valid;
 import lombok.extern.log4j.Log4j2;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -36,17 +37,14 @@ import java.util.Base64;
 @PreAuthorize("hasAuthority('ADMIN')")
 @RequestMapping("admin/galeri")
 public class PhotoController {
-    private final GaleriRepository galeriRepository;
+    @Autowired
+    private GaleriRepository galeriRepository;
 
-    private final AlbumRepository albumRepository;
+    @Autowired
+    private AlbumRepository albumRepository;
 
-    private final PenggunaRepository penggunaRepository;
-
-    public PhotoController(GaleriRepository galeriRepository, AlbumRepository albumRepository, PenggunaRepository penggunaRepository) {
-        this.galeriRepository = galeriRepository;
-        this.albumRepository = albumRepository;
-        this.penggunaRepository = penggunaRepository;
-    }
+    @Autowired
+    private PenggunaRepository penggunaRepository;
 
     @GetMapping
     public String galeri(Model model, Pageable pageable) {
@@ -114,15 +112,13 @@ public class PhotoController {
             byte[] bytes = file.getBytes();
             String encoded = Base64.getEncoder().encodeToString(bytes);
             Galeri galeri = galeriRepository.findById(galeriDto.getId()).orElse(null);
-            if (galeri != null) {
-                galeri.setAlbum(galeriDto.getAlbum());
-                galeri.setJudul(galeriDto.getJudul());
-                galeri.setAuthor(galeriDto.getAuthor());
-                galeri.setPhotoBase64(encoded);
-                galeri.setFileContent(bytes);
-                galeri.setFilename(file.getOriginalFilename());
-                galeriRepository.save(galeri);
-            }
+            galeri.setAlbum(galeriDto.getAlbum());
+            galeri.setJudul(galeriDto.getJudul());
+            galeri.setAuthor(galeriDto.getAuthor());
+            galeri.setPhotoBase64(encoded);
+            galeri.setFileContent(bytes);
+            galeri.setFilename(file.getOriginalFilename());
+            galeriRepository.save(galeri);
             status.setComplete();
             log.info("Memperbaharui Data Galeri sukses.");
         } catch (IOException e) {

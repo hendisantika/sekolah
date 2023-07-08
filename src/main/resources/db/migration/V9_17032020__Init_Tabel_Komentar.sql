@@ -11,8 +11,6 @@ CREATE TABLE IF NOT EXISTS tbl_komentar
     created_on  timestamp NULL DEFAULT CURRENT_TIMESTAMP,
     modified_by varchar(50),
     modified_on timestamp NULL DEFAULT CURRENT_TIMESTAMP,
-    status_record CHARACTER VARYING(150) NOT NULL,
-    version BIGINT,
     PRIMARY KEY (id)
 );
 CREATE INDEX tulisan_id_idx ON tbl_komentar (tulisan_id);
@@ -21,9 +19,9 @@ CREATE INDEX tulisan_id_idx ON tbl_komentar (tulisan_id);
 --
 
 INSERT INTO tbl_komentar (nama, email, isi, created_on, status,
-                          tulisan_id, parent, status_record)
+                          tulisan_id, parent)
 VALUES ('M Fikri', 'fikrifiver97@gmail.com', ' Nice Post.', '2019-08-07 15:09:07', '1',
-        '2588df34-3058-4faf-a5d2-e8d13aba7e49', 0, 'ACTIVE'),
+        '2588df34-3058-4faf-a5d2-e8d13aba7e49', 0),
        ('Hendi Santika', 'fikrifiver97@gmail.com', ' Awesome Post', '2019-08-07 15:14:26', '1',
-        '2588df34-3058-4faf-a5d2-e8d13aba7e49', 0, 'ACTIVE'),
-       ('Joko', 'joko@gmail.com', 'Thank you.', '2019-08-08 03:54:56', '1', '2588df34-3058-4faf-a5d2-e8d13aba7e49', 1, 'ACTIVE');
+        '2588df34-3058-4faf-a5d2-e8d13aba7e49', 0),
+       ('Joko', 'joko@gmail.com', 'Thank you.', '2019-08-08 03:54:56', '1', '2588df34-3058-4faf-a5d2-e8d13aba7e49', 1);

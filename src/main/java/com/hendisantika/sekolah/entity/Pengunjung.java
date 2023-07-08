@@ -2,10 +2,13 @@ package com.hendisantika.sekolah.entity;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.Table;
-import lombok.*;
-import org.hibernate.annotations.SQLDelete;
-import org.hibernate.annotations.Where;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.Id;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import org.hibernate.annotations.GenericGenerator;
 
 import java.time.LocalDateTime;
 import java.util.UUID;
@@ -19,16 +22,17 @@ import java.util.UUID;
  * Date: 18/03/20
  * Time: 18.44
  */
-@Getter
-@Setter
-@Entity
+@Data
+@Builder
 @AllArgsConstructor
 @NoArgsConstructor
-@Builder
-@Table(name = "tbl_pengunjung")
-@SQLDelete(sql = "UPDATE tbl_pengunjung SET status_record='INACTIVE' WHERE id=?")
-@Where(clause = "status_record='ACTIVE'")
-public class Pengunjung extends AuditTableEntity<UUID> {
+@Entity(name = "tbl_pengunjung")
+public class Pengunjung {
+    @Id
+    @Column(name = "id")
+    @GeneratedValue(generator = "uuid2")
+    @GenericGenerator(name = "uuid2", strategy = "uuid2")
+    private UUID id;
 
     @Column(name = "session_id")
     private String sessionId;
@@ -68,63 +72,4 @@ public class Pengunjung extends AuditTableEntity<UUID> {
 
     @Column(name = "created_on")
     private LocalDateTime createdOn;
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof Pengunjung that)) return false;
-        if (!super.equals(o)) return false;
-
-        if (!getSessionId().equals(that.getSessionId())) return false;
-        if (!getCookieName().equals(that.getCookieName())) return false;
-        if (!getUrl().equals(that.getUrl())) return false;
-        if (!getIpAddress().equals(that.getIpAddress())) return false;
-        if (!getOsType().equals(that.getOsType())) return false;
-        if (!getOsVersion().equals(that.getOsVersion())) return false;
-        if (!getBrowserName().equals(that.getBrowserName())) return false;
-        if (!getBrowserType().equals(that.getBrowserType())) return false;
-        if (!getBrowserVersion().equals(that.getBrowserVersion())) return false;
-        if (!getDeviceType().equals(that.getDeviceType())) return false;
-        if (!getHostAddress().equals(that.getHostAddress())) return false;
-        if (!getHostName().equals(that.getHostName())) return false;
-        return getCreatedOn().equals(that.getCreatedOn());
-    }
-
-    @Override
-    public int hashCode() {
-        int result = super.hashCode();
-        result = 31 * result + getSessionId().hashCode();
-        result = 31 * result + getCookieName().hashCode();
-        result = 31 * result + getUrl().hashCode();
-        result = 31 * result + getIpAddress().hashCode();
-        result = 31 * result + getOsType().hashCode();
-        result = 31 * result + getOsVersion().hashCode();
-        result = 31 * result + getBrowserName().hashCode();
-        result = 31 * result + getBrowserType().hashCode();
-        result = 31 * result + getBrowserVersion().hashCode();
-        result = 31 * result + getDeviceType().hashCode();
-        result = 31 * result + getHostAddress().hashCode();
-        result = 31 * result + getHostName().hashCode();
-        result = 31 * result + getCreatedOn().hashCode();
-        return result;
-    }
-
-    @Override
-    public String toString() {
-        return "Pengunjung{" +
-                "sessionId='" + sessionId + '\'' +
-                ", cookieName='" + cookieName + '\'' +
-                ", url='" + url + '\'' +
-                ", ipAddress='" + ipAddress + '\'' +
-                ", osType='" + osType + '\'' +
-                ", osVersion='" + osVersion + '\'' +
-                ", browserName='" + browserName + '\'' +
-                ", browserType='" + browserType + '\'' +
-                ", browserVersion='" + browserVersion + '\'' +
-                ", deviceType='" + deviceType + '\'' +
-                ", hostAddress='" + hostAddress + '\'' +
-                ", hostName='" + hostName + '\'' +
-                ", createdOn=" + createdOn +
-                '}';
-    }
 }

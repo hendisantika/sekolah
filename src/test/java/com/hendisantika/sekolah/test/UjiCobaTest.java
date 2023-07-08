@@ -13,10 +13,10 @@ import org.junit.jupiter.api.Test;
  * Date: 26/03/20
  * Time: 17.06
  */
-public class UjiCobaTest {
+class UjiCobaTest {
 
     @Test
-    public void stripTagsTest() {
+    void stripTagsTest() {
         String unsafe =
                 "<p><a href='http://example.com/' onclick='stealCookies()'>Link</a></p>";
 
@@ -29,7 +29,7 @@ public class UjiCobaTest {
     }
 
     @Test
-    public void pregReplaceTest() {
+    void pregReplaceTest() {
         String str = "word <a href=\"word\">word</word>word word";
         //        str = str.replaceAll("word(?!([^<]+)?>)", "");
         str = str.replaceAll("/[^a-zA-Z0-9 \\&%|{.}=,?!*()\"-_+$@;<>']/", "");

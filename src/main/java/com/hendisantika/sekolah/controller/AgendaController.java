@@ -6,6 +6,7 @@ import com.hendisantika.sekolah.repository.KategoriRepository;
 import com.hendisantika.sekolah.repository.PenggunaRepository;
 import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
@@ -28,19 +29,16 @@ import java.util.UUID;
 @PreAuthorize("hasAuthority('ADMIN')")
 public class AgendaController {
 
-    private static final String UPLOADED_FOLDER = System.getProperty("java.io.tmpdir");
+    private static String UPLOADED_FOLDER = System.getProperty("java.io.tmpdir");
 
-    private final AgendaRepository agendaRepository;
+    @Autowired
+    private AgendaRepository agendaRepository;
 
-    private final KategoriRepository kategoriRepository;
+    @Autowired
+    private KategoriRepository kategoriRepository;
 
-    private final PenggunaRepository penggunaRepository;
-
-    public AgendaController(AgendaRepository agendaRepository, KategoriRepository kategoriRepository, PenggunaRepository penggunaRepository) {
-        this.agendaRepository = agendaRepository;
-        this.kategoriRepository = kategoriRepository;
-        this.penggunaRepository = penggunaRepository;
-    }
+    @Autowired
+    private PenggunaRepository penggunaRepository;
 
     @GetMapping
     public String agenda(Model model, Pageable pageable) {
@@ -82,14 +80,12 @@ public class AgendaController {
     public String updateAgenda(Model model, @Valid Agenda agendaBaru, Pageable pageable) {
         log.info("Memperbaharui Data Agenda");
 
-        Agenda agenda = agendaRepository.findById(agendaBaru.getId()).orElse(null);
-        if (agenda != null) {
-            agenda.setNama(agendaBaru.getNama());
-            agenda.setDeskripsi(agendaBaru.getDeskripsi());
-            agenda.setMulai(agendaBaru.getMulai());
-            agenda.setTempat(agendaBaru.getTempat());
-            agendaRepository.save(agenda);
-        }
+        Agenda agenda = agendaRepository.findById(agendaBaru.getId()).get();
+        agenda.setNama(agendaBaru.getNama());
+        agenda.setDeskripsi(agendaBaru.getDeskripsi());
+        agenda.setMulai(agendaBaru.getMulai());
+        agenda.setTempat(agendaBaru.getTempat());
+        agendaRepository.save(agenda);
         model.addAttribute("agenda", agendaRepository.findAll(pageable));
         return "redirect:/admin/agenda";
     }

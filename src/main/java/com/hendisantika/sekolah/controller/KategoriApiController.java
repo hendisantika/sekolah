@@ -5,6 +5,7 @@ import com.hendisantika.sekolah.exception.KategoriNotFoundException;
 import com.hendisantika.sekolah.repository.KategoriRepository;
 import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -17,11 +18,8 @@ import java.util.Optional;
 @RequestMapping("/v1/api/news")
 public class KategoriApiController {
 
-    private final KategoriRepository kategoriRepository;
-
-    public KategoriApiController(KategoriRepository kategoriRepository) {
-        this.kategoriRepository = kategoriRepository;
-    }
+    @Autowired
+    private KategoriRepository kategoriRepository;
 
     @PostMapping("categories")
     @ResponseBody
@@ -49,13 +47,10 @@ public class KategoriApiController {
     @PutMapping("/categories/{kategoriId}")
     @ResponseBody
     public ResponseEntity<Kategori> updateKategoriFromDB(@PathVariable("kategoriId") Long kategoriId,
-                                                         @RequestBody @Valid Kategori kategori) throws KategoriNotFoundException {
+                                                         @RequestBody @Valid Kategori kategori) {
         log.info("memperbaharui kategori berita");
         Optional<Kategori> currentKategoriOpt = kategoriRepository.findById(kategoriId);
-        Kategori currentKategori = currentKategoriOpt.orElseThrow(() -> {
-            log.warn("Kategori Not Found not found.");
-            return new KategoriNotFoundException("Kategori Not Found");
-        });
+        Kategori currentKategori = currentKategoriOpt.get();
         currentKategori.setId(kategori.getId());
         currentKategori.setNama(kategori.getNama());
 

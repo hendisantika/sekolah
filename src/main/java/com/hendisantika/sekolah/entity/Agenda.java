@@ -1,14 +1,18 @@
 package com.hendisantika.sekolah.entity;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Table;
-import jakarta.validation.constraints.Size;
-import lombok.*;
-import org.hibernate.annotations.SQLDelete;
-import org.hibernate.annotations.Where;
+import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import org.hibernate.annotations.GenericGenerator;
+import org.springframework.data.annotation.CreatedBy;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedBy;
+import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.UUID;
 
 /**
@@ -20,20 +24,19 @@ import java.util.UUID;
  * Date: 17/03/20
  * Time: 13.59
  */
-
-@Getter
-@Setter
-@Entity
+@Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Builder
-@Table(name = "tbl_agenda")
-@SQLDelete(sql = "UPDATE tbl_agenda SET status_record='INACTIVE' WHERE id=?")
-@Where(clause = "status_record='ACTIVE'")
-public class Agenda extends AuditTableEntity<UUID> {
+@Entity(name = "tbl_agenda")
+@EntityListeners(AuditingEntityListener.class)
+public class Agenda {
+    @Id
+    @GeneratedValue(generator = "uuid2")
+    @GenericGenerator(name = "uuid2", strategy = "uuid2")
+    @Column(name = "id")
+    private UUID id;
 
     @Column(name = "nama")
-    @Size(min = 3, max = 200)
     private String nama;
 
     @Column(name = "deskripsi")
@@ -46,55 +49,28 @@ public class Agenda extends AuditTableEntity<UUID> {
     private LocalDate selesai;
 
     @Column(name = "tempat")
-    @Size(min = 5, max = 90)
     private String tempat;
 
     @Column(name = "waktu")
-    @Size(min = 5, max = 30)
     private String waktu;
 
     @Column(name = "keterangan")
-    @Size(min = 5, max = 200)
     private String keterangan;
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof Agenda agenda)) return false;
-        if (!super.equals(o)) return false;
+    @Column(name = "created_by")
+    @CreatedBy
+    private String createdBy;
 
-        if (!getNama().equals(agenda.getNama())) return false;
-        if (!getDeskripsi().equals(agenda.getDeskripsi())) return false;
-        if (!getMulai().equals(agenda.getMulai())) return false;
-        if (!getSelesai().equals(agenda.getSelesai())) return false;
-        if (!getTempat().equals(agenda.getTempat())) return false;
-        if (!getWaktu().equals(agenda.getWaktu())) return false;
-        return getKeterangan().equals(agenda.getKeterangan());
-    }
+    @Column(name = "created_on")
+    @CreatedDate
+    private LocalDateTime createdOn;
 
-    @Override
-    public int hashCode() {
-        int result = super.hashCode();
-        result = 31 * result + getNama().hashCode();
-        result = 31 * result + getDeskripsi().hashCode();
-        result = 31 * result + getMulai().hashCode();
-        result = 31 * result + getSelesai().hashCode();
-        result = 31 * result + getTempat().hashCode();
-        result = 31 * result + getWaktu().hashCode();
-        result = 31 * result + getKeterangan().hashCode();
-        return result;
-    }
+    @Column(name = "modified_by")
+    @LastModifiedBy
+    private String modifiedBy;
 
-    @Override
-    public String toString() {
-        return "Agenda{" +
-                "nama='" + nama + '\'' +
-                ", deskripsi='" + deskripsi + '\'' +
-                ", mulai=" + mulai +
-                ", selesai=" + selesai +
-                ", tempat='" + tempat + '\'' +
-                ", waktu='" + waktu + '\'' +
-                ", keterangan='" + keterangan + '\'' +
-                '}';
-    }
+    @Column(name = "modified_on")
+    @LastModifiedDate
+    private LocalDateTime modifiedOn;
+
 }

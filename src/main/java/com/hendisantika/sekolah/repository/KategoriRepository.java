@@ -2,8 +2,6 @@ package com.hendisantika.sekolah.repository;
 
 import com.hendisantika.sekolah.entity.Kategori;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.lang.NonNull;
-import org.springframework.stereotype.Repository;
 
 import java.util.Optional;
 
@@ -16,7 +14,6 @@ import java.util.Optional;
  * Date: 18/03/20
  * Time: 14.23
  */
-@Repository
 public interface KategoriRepository extends JpaRepository<Kategori, Long> {
-    @NonNull Optional<Kategori> findById(@NonNull Long kategoriId);
+    Optional<Kategori> findById(Long kategoriId);
 }

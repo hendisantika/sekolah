@@ -43,7 +43,7 @@ import static org.apache.commons.lang3.StringUtils.lowerCase;
 @PreAuthorize("hasAuthority('ADMIN')")
 public class TulisanController {
     //Save the uploaded file to this folder
-    private static final String UPLOADED_FOLDER = System.getProperty("java.io.tmpdir");
+    private static String UPLOADED_FOLDER = System.getProperty("java.io.tmpdir");
 
     @Autowired
     private TulisanRepository tulisanRepository;
@@ -82,9 +82,9 @@ public class TulisanController {
     public String editTulisan(Model model, @Valid Tulisan tulisanBaru, @RequestParam("file") MultipartFile file,
                               Principal principal, Pageable pageable, SessionStatus status) {
         log.info("Mengedit Data Tulisan");
-        tulisanRepository.findById(tulisanBaru.getId()).ifPresent(tulisanFromDB ->
-                tulisanBaru.setCreatedOn((tulisanFromDB.getCreatedOn() == null) ? LocalDateTime.now() :
-                        tulisanFromDB.getCreatedOn()));
+        Tulisan tulisanFromDB = tulisanRepository.findById(tulisanBaru.getId()).orElse(null);
+        tulisanBaru.setCreatedOn((tulisanFromDB.getCreatedOn() == null) ? LocalDateTime.now() :
+                tulisanFromDB.getCreatedOn());
         saveDataTulisan(tulisanBaru, file, principal, status);
         model.addAttribute("tulisanList", tulisanRepository.findAll(pageable));
         return "redirect:/admin/tulisan";
@@ -95,7 +95,7 @@ public class TulisanController {
                                 Principal principal, Pageable pageable, BindingResult errors, SessionStatus status) {
         log.info("Menambahkan Tulisan yang baru");
         if (errors.hasErrors()) {
-            log.info("Tambah Tulisan yang baru gagal. {}", errors);
+            log.info("Tambah Tulisan yang baru gagal. ", errors);
             return "redirect:/admin/tulisan/add";
         }
         saveDataTulisan(tulisan, file, principal, status);
@@ -116,7 +116,7 @@ public class TulisanController {
             });
 
             tulisan.setJudul(stripTags(tulisan.getJudul()));
-            tulisan.setSlug(lowerCase((pregReplace(tulisan.getJudul()))).replace(" ", "-"));
+            tulisan.setSlug(lowerCase((pregReplace(tulisan.getJudul()))).replaceAll(" ", "-"));
             tulisan.setPengguna(pengguna);
             tulisan.setCreatedBy(username);
             tulisan.setGambar(encoded);

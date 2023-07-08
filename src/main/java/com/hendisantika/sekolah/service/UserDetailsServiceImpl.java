@@ -1,4 +1,4 @@
-package com.hendisantika.sekolah.service.impl;
+package com.hendisantika.sekolah.service;
 
 import com.hendisantika.sekolah.entity.Pengguna;
 import com.hendisantika.sekolah.entity.Role;
@@ -9,7 +9,6 @@ import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,10 +23,9 @@ import java.util.Optional;
  * Date: 21/03/20
  * Time: 06.28
  */
-@Service
 public class UserDetailsServiceImpl implements UserDetailsService {
 
-    private final PenggunaRepository penggunaRepository;
+    private PenggunaRepository penggunaRepository;
 
     public UserDetailsServiceImpl(PenggunaRepository penggunaRepository) {
         this.penggunaRepository = penggunaRepository;

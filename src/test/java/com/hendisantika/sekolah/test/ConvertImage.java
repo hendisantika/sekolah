@@ -7,7 +7,11 @@ import org.springframework.util.ResourceUtils;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
-import java.io.*;
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -22,12 +26,12 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
  * Date: 26/03/20
  * Time: 18.08
  */
-public class ConvertImage {
+class ConvertImage {
     private final String inputFilePath = "ninja.jpeg";
     private final String outputFilePath = "ninja-test_image_copy.jpeg";
 
     @Test
-    public void ConvertImageToByteArray() throws IOException {
+    void ConvertImageToByteArray() throws IOException {
         /*
          * 1. How to convert an image file to  byte array?
          */
@@ -96,7 +100,7 @@ public class ConvertImage {
 //    }
 
     @Test
-    public void ConvertImageToByteArrayTest() throws IOException {
+    void ConvertImageToByteArrayTest() throws IOException {
         File file = ResourceUtils.getFile("classpath:girl.png");
         String dirName = "/tmp";
         ByteArrayOutputStream baos = new ByteArrayOutputStream(1000);
@@ -117,7 +121,7 @@ public class ConvertImage {
     }
 
     @Test
-    public void ConvertImageFiletoBase64StringTest() throws IOException {
+    void ConvertImageFiletoBase64StringTest() throws IOException {
         //load file from /src/test/resources
         ClassLoader classLoader = getClass().getClassLoader();
         File inputFile = new File(classLoader

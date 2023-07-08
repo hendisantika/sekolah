@@ -11,8 +11,6 @@ CREATE TABLE IF NOT EXISTS tbl_log_aktivitas
     created_on  timestamp NULL DEFAULT CURRENT_TIMESTAMP,
     modified_by varchar(50),
     modified_on timestamp NULL DEFAULT CURRENT_TIMESTAMP,
-    status_record CHARACTER VARYING(150) NOT NULL,
-    version BIGINT,
     PRIMARY KEY (id)
 );
 CREATE INDEX log_pengguna_idx ON tbl_log_aktivitas (pengguna_id);

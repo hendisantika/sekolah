@@ -7,6 +7,7 @@ import com.hendisantika.sekolah.repository.PenggunaRepository;
 import com.hendisantika.sekolah.repository.PengumumanRepository;
 import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -35,14 +36,11 @@ import java.util.UUID;
 @Controller
 @RequestMapping("admin/pengumuman")
 public class PengumumanController {
-    private final PengumumanRepository pengumumanRepository;
+    @Autowired
+    private PengumumanRepository pengumumanRepository;
 
-    private final PenggunaRepository penggunaRepository;
-
-    public PengumumanController(PengumumanRepository pengumumanRepository, PenggunaRepository penggunaRepository) {
-        this.pengumumanRepository = pengumumanRepository;
-        this.penggunaRepository = penggunaRepository;
-    }
+    @Autowired
+    private PenggunaRepository penggunaRepository;
 
     @GetMapping
     public String showPengumuman(Model model, Pageable pageable) {
@@ -76,12 +74,10 @@ public class PengumumanController {
     @PostMapping("edit")
     public String updatePengumuman(@Valid PengumumanDto pengumumanDto, Model model, Pageable pageable) {
         log.info("Memperbaharui data Pengumuman.");
-        Pengumuman pengumuman = pengumumanRepository.findById(pengumumanDto.getId()).orElse(null);
-        if (pengumuman != null) {
-            pengumuman.setJudul(pengumumanDto.getJudul());
-            pengumuman.setDeskripsi(pengumumanDto.getDeskripsi());
-            pengumumanRepository.save(pengumuman);
-        }
+        Pengumuman pengumuman = pengumumanRepository.findById(pengumumanDto.getId()).get();
+        pengumuman.setJudul(pengumumanDto.getJudul());
+        pengumuman.setDeskripsi(pengumumanDto.getDeskripsi());
+        pengumumanRepository.save(pengumuman);
         model.addAttribute("pengumuman", pengumumanRepository.findAll(pageable));
         return "redirect:/admin/pengumuman";
     }
