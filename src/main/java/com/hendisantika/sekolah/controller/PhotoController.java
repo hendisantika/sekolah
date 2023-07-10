@@ -21,6 +21,7 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.IOException;
 import java.security.Principal;
 import java.util.Base64;
+import java.util.Objects;
 
 /**
  * Created by IntelliJ IDEA.
@@ -114,7 +115,7 @@ public class PhotoController {
             byte[] bytes = file.getBytes();
             String encoded = Base64.getEncoder().encodeToString(bytes);
             Galeri galeri = galeriRepository.findById(galeriDto.getId()).orElse(null);
-            galeri.setAlbum(galeriDto.getAlbum());
+            Objects.requireNonNull(galeri).setAlbum(galeriDto.getAlbum());
             galeri.setJudul(galeriDto.getJudul());
             galeri.setAuthor(galeriDto.getAuthor());
             galeri.setPhotoBase64(encoded);

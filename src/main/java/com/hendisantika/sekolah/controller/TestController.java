@@ -15,6 +15,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.time.LocalDateTime;
 import java.util.Base64;
+import java.util.Objects;
 import java.util.UUID;
 
 /**
@@ -48,7 +49,7 @@ public class TestController {
     @PostMapping("upload")
     public String singleFileUpload(@RequestParam("file") MultipartFile file,
                                    RedirectAttributes redirectAttributes) {
-        log.info("UPLOADED_FOLDER --> ", UPLOADED_FOLDER);
+        log.info("UPLOADED_FOLDER --> {}", UPLOADED_FOLDER);
         if (file.isEmpty()) {
             redirectAttributes.addFlashAttribute("message", "Please select a file to upload");
             return "redirect:uploadStatus";
@@ -133,7 +134,7 @@ public class TestController {
         // "Error in getting image");return "redirect:/";}}
 
         model.addAttribute("waktu", LocalDateTime.now());
-        model.addAttribute("image", siswa.getPhotoBase64());
+        model.addAttribute("image", Objects.requireNonNull(siswa).getPhotoBase64());
         // In thymeleaf I just have<img th:src = "*{'data:image/jpg;base64,'+ post.getImage()}" alt = "#" / >
         return "test/image";
     }

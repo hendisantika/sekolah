@@ -21,6 +21,7 @@ import org.springframework.web.context.request.RequestContextHolder;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Objects;
 
 import static com.hendisantika.sekolah.util.WebUtils.getUserAgent;
 import static com.hendisantika.sekolah.util.WebUtils.showUserAgentInfo;
@@ -105,10 +106,10 @@ public class IndexController {
 
     @GetMapping
     public String index(Model model, HttpServletRequest request, HttpServletResponse response) {
-        long TOT_AGENDA = 0;
-        long TOT_FILES = 0;
-        long TOT_SISWA = 0;
-        long TOT_GURU = 0;
+        long TOT_AGENDA;
+        long TOT_FILES;
+        long TOT_SISWA;
+        long TOT_GURU;
         createCookieAndSave(request, response, "HOME");
 
         log.info("Menampilkan data untuk Halaman Home.");
@@ -149,7 +150,7 @@ public class IndexController {
         cookie.setSecure(true);
         cookie.setHttpOnly(true);
         cookie.setPath("/"); // global cookie accessible every where
-        UserAgentInfo userAgentInfo = showUserAgentInfo(parser.parse(request.getHeader("User-Agent")));
+        UserAgentInfo userAgentInfo = showUserAgentInfo(parser.parse(Objects.requireNonNull(request).getHeader("User-Agent")));
         userAgentInfo.setHostAddress(remoteIpAddr);
         userAgentInfo.setHostName(remoteHostAddr);
 
@@ -295,7 +296,7 @@ public class IndexController {
         String clientIP = getClientIpAddress(request);
 
         // Get client's host name
-        String clientHost = request.getRemoteHost();
+        String clientHost = Objects.requireNonNull(request).getRemoteHost();
 
         UserAgentInfo userAgentInfo = getUserAgent(request);
         UserAgentInfo userAgentInfo2 = showUserAgentInfo(parser.parse(userAgentInfo.getUserAgent()));

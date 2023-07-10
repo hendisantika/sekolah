@@ -19,6 +19,7 @@ import java.io.IOException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Base64;
+import java.util.Objects;
 import java.util.UUID;
 
 /**
@@ -110,7 +111,7 @@ public class GuruController {
             byte[] bytes = file.getBytes();
             String encoded = Base64.getEncoder().encodeToString(bytes);
             Guru guru = guruRepository.findById(guruBaru.getId()).orElse(null);
-            guru.setTglLahir(tglLahir);
+            Objects.requireNonNull(guru).setTglLahir(tglLahir);
             guru.setPhotoBase64(encoded);
             guru.setPhoto(file.getOriginalFilename());
             guru.setFileContent(bytes);

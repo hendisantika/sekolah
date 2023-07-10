@@ -21,6 +21,7 @@ import java.io.IOException;
 import java.security.Principal;
 import java.time.LocalDateTime;
 import java.util.Base64;
+import java.util.Objects;
 import java.util.UUID;
 
 import static com.hendisantika.sekolah.util.WordUtils.pregReplace;
@@ -85,7 +86,7 @@ public class TulisanController {
                               Principal principal, Pageable pageable, SessionStatus status) {
         log.info("Mengedit Data Tulisan");
         Tulisan tulisanFromDB = tulisanRepository.findById(tulisanBaru.getId()).orElse(null);
-        tulisanBaru.setCreatedOn((tulisanFromDB.getCreatedOn() == null) ? LocalDateTime.now() :
+        tulisanBaru.setCreatedOn((Objects.requireNonNull(tulisanFromDB).getCreatedOn() == null) ? LocalDateTime.now() :
                 tulisanFromDB.getCreatedOn());
         saveDataTulisan(tulisanBaru, file, principal, status);
         model.addAttribute("tulisanList", tulisanRepository.findAll(pageable));
@@ -97,7 +98,7 @@ public class TulisanController {
                                 Principal principal, Pageable pageable, BindingResult errors, SessionStatus status) {
         log.info("Menambahkan Tulisan yang baru");
         if (errors.hasErrors()) {
-            log.info("Tambah Tulisan yang baru gagal. ", errors);
+            log.info("Tambah Tulisan yang baru gagal. {}", errors);
             return "redirect:/admin/tulisan/add";
         }
         saveDataTulisan(tulisan, file, principal, status);

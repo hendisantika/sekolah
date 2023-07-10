@@ -64,7 +64,7 @@ public class DownloadController {
                              Pageable pageable, BindingResult errors, SessionStatus status) {
         log.info("Menambahkan File yang baru");
         if (errors.hasErrors()) {
-            log.info("Tambah File yang baru gagal. ", errors);
+            log.info("Tambah File yang baru gagal. {}", errors);
             return "redirect:/admin/download/add";
         }
         saveDataFile(files, file, status);

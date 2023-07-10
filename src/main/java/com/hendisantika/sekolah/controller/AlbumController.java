@@ -20,6 +20,7 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.IOException;
 import java.security.Principal;
 import java.util.Base64;
+import java.util.Objects;
 
 /**
  * Created by IntelliJ IDEA.
@@ -106,7 +107,7 @@ public class AlbumController {
             byte[] bytes = file.getBytes();
             String encoded = Base64.getEncoder().encodeToString(bytes);
             Album album = albumRepository.findById(albumDto.getId()).orElse(null);
-            album.setNama(albumDto.getNama());
+            Objects.requireNonNull(album).setNama(albumDto.getNama());
             album.setAuthor(albumDto.getAuthor());
             album.setPhotoBase64(encoded);
             album.setFileContent(bytes);

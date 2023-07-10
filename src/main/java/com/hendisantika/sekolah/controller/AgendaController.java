@@ -36,7 +36,8 @@ public class AgendaController {
 
     private final PenggunaRepository penggunaRepository;
 
-    public AgendaController(AgendaRepository agendaRepository, KategoriRepository kategoriRepository, PenggunaRepository penggunaRepository) {
+    public AgendaController(AgendaRepository agendaRepository, KategoriRepository kategoriRepository,
+                            PenggunaRepository penggunaRepository) {
         this.agendaRepository = agendaRepository;
         this.kategoriRepository = kategoriRepository;
         this.penggunaRepository = penggunaRepository;
