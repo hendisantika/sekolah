@@ -3,7 +3,6 @@ package com.hendisantika.sekolah.controller;
 import com.hendisantika.sekolah.dto.UserAgentInfo;
 import com.hendisantika.sekolah.entity.*;
 import com.hendisantika.sekolah.repository.*;
-import com.hendisantika.sekolah.util.WordUtils;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -14,7 +13,6 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.context.request.RequestContextHolder;
@@ -42,7 +40,7 @@ import static com.hendisantika.sekolah.util.WebUtils.showUserAgentInfo;
 public class IndexController {
 
     @Value("${cookie.maxAge}")
-    private int COOKIE_MAX_AGE;
+    private Integer COOKIE_MAX_AGE;
 
     private static final String[] IP_HEADER_CANDIDATES = {
             "X-Forwarded-For",
@@ -97,11 +95,6 @@ public class IndexController {
         this.pengunjungRepository = pengunjungRepository;
     }
 
-    @ModelAttribute("WordUtil")
-    public WordUtils addWordUtil() {
-        return new WordUtils();
-    }
-
     public static final UserAgentStringParser parser = UADetectorServiceFactory.getResourceModuleParser();
 
     @GetMapping
@@ -121,8 +114,6 @@ public class IndexController {
         TOT_AGENDA = agendaRepository.count();
         TOT_FILES = filesRepository.count();
         TOT_SISWA = siswaRepository.count();
-
-        model.addAttribute("WordUtil", new WordUtils());
 
         model.addAttribute("tulisanList", tulisanList);
         model.addAttribute("pengumuman", pengumuman);

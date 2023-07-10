@@ -119,7 +119,7 @@ public class TulisanController {
             });
 
             tulisan.setJudul(stripTags(tulisan.getJudul()));
-            tulisan.setSlug(lowerCase((pregReplace(tulisan.getJudul()))).replaceAll(" ", "-"));
+            tulisan.setSlug(lowerCase((pregReplace(tulisan.getJudul()))).replace(" ", "-"));
             tulisan.setPengguna(pengguna);
             tulisan.setCreatedBy(username);
             tulisan.setGambar(encoded);
