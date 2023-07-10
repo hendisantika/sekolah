@@ -1,5 +1,4 @@
-CREATE TABLE IF NOT EXISTS tbl_tulisan
-(
+CREATE TABLE IF NOT EXISTS tbl_tulisan (
     id           UUID               DEFAULT uuid_generate_v4() NOT NULL,
     judul        varchar(100)       DEFAULT NULL,
     isi          text,

@@ -4,11 +4,13 @@ import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.annotations.UuidGenerator;
 
 import java.time.LocalDateTime;
 import java.util.UUID;
@@ -29,45 +31,60 @@ import java.util.UUID;
 @Entity(name = "tbl_pengunjung")
 public class Pengunjung {
     @Id
-    @Column(name = "id")
     @GeneratedValue(generator = "uuid2")
-    @GenericGenerator(name = "uuid2", strategy = "uuid2")
+    @UuidGenerator
+    @Column(name = "id")
     private UUID id;
 
     @Column(name = "session_id")
+    @Size(max = 50)
+    @NotNull
     private String sessionId;
 
     @Column(name = "cookie_name")
+    @Size(max = 50)
+    @NotNull
     private String cookieName;
 
     @Column(name = "url")
+    @Size(max = 150)
+    @NotNull
     private String url;
 
     @Column(name = "ip")
+    @Size(max = 40)
     private String ipAddress;
 
     @Column(name = "os_type")
+    @Size(max = 50)
     private String osType;
 
     @Column(name = "os_version")
+    @Size(max = 50)
     private String osVersion;
 
     @Column(name = "browser_name")
+    @Size(max = 50)
     private String browserName;
 
     @Column(name = "browser_type")
+    @Size(max = 50)
     private String browserType;
 
     @Column(name = "browser_version")
+    @Size(max = 50)
     private String browserVersion;
 
     @Column(name = "device_type")
+    @Size(max = 50)
     private String deviceType;
 
     @Column(name = "host_address")
+    @Size(max = 50)
     private String hostAddress;
 
     @Column(name = "host_name")
+    @Size(max = 50)
     private String hostName;
 
     @Column(name = "created_on")

@@ -1,5 +1,4 @@
-CREATE TABLE IF NOT EXISTS tbl_pengunjung
-(
+CREATE TABLE IF NOT EXISTS tbl_pengunjung (
     id              UUID              DEFAULT uuid_generate_v4() NOT NULL,
     session_id      varchar(50)  NOT NULL,
     cookie_name     varchar(50)  NOT NULL,

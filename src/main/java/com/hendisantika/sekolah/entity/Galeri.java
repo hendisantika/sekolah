@@ -1,6 +1,8 @@
 package com.hendisantika.sekolah.entity;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -27,18 +29,22 @@ public class Galeri {
     private Long id;
 
     @Column(name = "judul")
+    @Size(max = 60)
     private String judul;
 
     @Column(name = "author")
+    @Size(max = 60)
     private String author;
 
     @Column(name = "gambar")
+    @Size(max = 40)
     private String gambar;
 
     @Column(name = "photo_base64")
     private String photoBase64;
 
     @Column(name = "filename")
+    @Size(max = 50)
     private String filename;
 
     @Column(name = "file_content")
@@ -48,16 +54,19 @@ public class Galeri {
     @JoinColumn(name = "album_id", nullable = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
     @ToString.Exclude
+    @NotNull
     private Album album;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "pengguna_id", nullable = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
     @ToString.Exclude
+    @NotNull
     private Pengguna pengguna;
 
     @Column(name = "created_by")
     @CreatedBy
+    @Size(max = 50)
     private String createdBy;
 
     @Column(name = "created_on")
@@ -66,6 +75,7 @@ public class Galeri {
 
     @Column(name = "modified_by")
     @LastModifiedBy
+    @Size(max = 50)
     private String modifiedBy;
 
     @Column(name = "modified_on")

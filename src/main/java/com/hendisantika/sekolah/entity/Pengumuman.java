@@ -1,10 +1,11 @@
 package com.hendisantika.sekolah.entity;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.annotations.UuidGenerator;
 import org.springframework.data.annotation.CreatedBy;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedBy;
@@ -31,21 +32,24 @@ import java.util.UUID;
 public class Pengumuman {
     @Id
     @GeneratedValue(generator = "uuid2")
-    @GenericGenerator(name = "uuid2", strategy = "uuid2")
+    @UuidGenerator
     @Column(name = "id")
     private UUID id;
 
     @Column(name = "judul")
+    @Size(max = 150)
     private String judul;
 
     @Column(name = "deskripsi")
     private String deskripsi;
 
     @Column(name = "author")
+    @Size(max = 60)
     private String author;
 
     @Column(name = "created_by")
     @CreatedBy
+    @Size(max = 50)
     private String createdBy;
 
     @Column(name = "created_on")
@@ -54,6 +58,7 @@ public class Pengumuman {
 
     @Column(name = "modified_by")
     @LastModifiedBy
+    @Size(max = 50)
     private String modifiedBy;
 
     @Column(name = "modified_on")

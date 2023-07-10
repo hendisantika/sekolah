@@ -1,6 +1,7 @@
 package com.hendisantika.sekolah.entity;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -32,11 +33,13 @@ public class Kategori {
     @Column(name = "id")
     private int id;
 
-    @Column(name = "nama ")
+    @Column(name = "nama")
+    @Size(max = 30)
     private String nama;
 
     @Column(name = "created_by")
     @CreatedBy
+    @Size(max = 50)
     private String createdBy;
 
     @Column(name = "created_on")
@@ -45,6 +48,7 @@ public class Kategori {
 
     @Column(name = "modified_by")
     @LastModifiedBy
+    @Size(max = 50)
     private String modifiedBy;
 
     @Column(name = "modified_on")

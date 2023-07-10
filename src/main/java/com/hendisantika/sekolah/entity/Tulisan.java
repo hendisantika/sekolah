@@ -1,13 +1,16 @@
 package com.hendisantika.sekolah.entity;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.PositiveOrZero;
+import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
-import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
+import org.hibernate.annotations.UuidGenerator;
 import org.springframework.data.annotation.CreatedBy;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedBy;
@@ -34,20 +37,24 @@ import java.util.UUID;
 public class Tulisan {
     @Id
     @GeneratedValue(generator = "uuid2")
-    @GenericGenerator(name = "uuid2", strategy = "uuid2")
+    @UuidGenerator
     @Column(name = "id")
+    @NotNull
     private UUID id;
 
     @Column(name = "judul")
+    @Size(max = 100)
     private String judul;
 
     @Column(name = "isi")
     private String isi;
 
     @Column(name = "author")
+    @Size(max = 100)
     private String author;
 
     @Column(name = "views")
+    @PositiveOrZero
     private int views;
 
     @Column(name = "gambar")
@@ -63,24 +70,29 @@ public class Tulisan {
     private byte[] fileContent;
 
     @Column(name = "img_slider")
+    @PositiveOrZero
     private int imgSlider;
 
     @Column(name = "slug")
+    @Size(max = 200)
     private String slug;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "kategori_id", nullable = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
+    @NotNull
     private Kategori kategori;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "pengguna_id", nullable = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
     @ToString.Exclude
+    @NotNull
     private Pengguna pengguna;
 
     @Column(name = "created_by")
     @CreatedBy
+    @Size(max = 50)
     private String createdBy;
 
     @Column(name = "created_on")
@@ -89,6 +101,7 @@ public class Tulisan {
 
     @Column(name = "modified_by")
     @LastModifiedBy
+    @Size(max = 50)
     private String modifiedBy;
 
     @Column(name = "modified_on")

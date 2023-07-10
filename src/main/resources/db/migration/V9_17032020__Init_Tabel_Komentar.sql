@@ -1,5 +1,4 @@
-CREATE TABLE IF NOT EXISTS tbl_komentar
-(
+CREATE TABLE IF NOT EXISTS tbl_komentar (
     id          UUID           DEFAULT uuid_generate_v4() NOT NULL,
     nama        varchar(30)    DEFAULT NULL,
     email       varchar(50)    DEFAULT NULL,
@@ -13,6 +12,7 @@ CREATE TABLE IF NOT EXISTS tbl_komentar
     modified_on timestamp NULL DEFAULT CURRENT_TIMESTAMP,
     PRIMARY KEY (id)
 );
+
 CREATE INDEX tulisan_id_idx ON tbl_komentar (tulisan_id);
 --
 -- Dumping data untuk tabel tbl_komentar

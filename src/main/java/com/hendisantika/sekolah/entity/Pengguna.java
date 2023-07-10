@@ -2,6 +2,8 @@ package com.hendisantika.sekolah.entity;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.PositiveOrZero;
+import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -28,18 +30,23 @@ public class Pengguna {
     private Long id;
 
     @Column(name = "fullname")
+    @Size(max = 50)
     private String fullname;
 
     @Column(name = "moto")
+    @Size(max = 120)
     private String moto;
 
     @Column(name = "jenkel")
+    @Size(max = 2)
     private String jenkel;
 
     @Column(name = "username", unique = true)
+    @Size(max = 30)
     private String username;
 
     @Column(name = "password")
+    @Size(max = 75)
     private String password;
 
     @Column(name = "tentang")
@@ -47,33 +54,42 @@ public class Pengguna {
 
     @Column(name = "email", unique = true)
     @Email
+    @Size(max = 50)
     private String email;
 
     @Column(name = "nohp")
+    @Size(max = 20)
     private String nohp;
 
     @Column(name = "facebook")
+    @Size(max = 50)
     private String facebook;
 
     @Column(name = "twitter")
+    @Size(max = 50)
     private String witter;
 
     @Column(name = "linkedin")
+    @Size(max = 50)
     private String linkedin;
 
     @Column(name = "status")
+    @PositiveOrZero
     private int status;
 
     @Column(name = "level")
+    @Size(max = 3)
     private String level;
 
     @Column(name = "photo")
+    @Size(max = 40)
     private String photo;
 
     @Column(name = "photo_base64")
     private String photoBase64;
 
     @Column(name = "filename")
+    @Size(max = 40)
     private String filename;
 
     @Column(name = "file_content")
@@ -86,12 +102,13 @@ public class Pengguna {
     @Column(name = "register")
     private LocalDateTime register;
 
-    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @ManyToMany(fetch = FetchType.EAGER, cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
     @JoinTable(joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
     private List<Role> roles;
 
     @Column(name = "created_by")
     @CreatedBy
+    @Size(max = 50)
     private String createdBy;
 
     @Column(name = "created_on")
@@ -100,6 +117,7 @@ public class Pengguna {
 
     @Column(name = "modified_by")
     @LastModifiedBy
+    @Size(max = 50)
     private String modifiedBy;
 
     @Column(name = "modified_on")

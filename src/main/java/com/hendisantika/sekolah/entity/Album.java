@@ -1,6 +1,9 @@
 package com.hendisantika.sekolah.entity;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.PositiveOrZero;
+import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -36,34 +39,41 @@ public class Album {
     private Long id;
 
     @Column(name = "nama")
+    @Size(max = 50)
     private String nama;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "pengguna_id", nullable = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
     @ToString.Exclude
+    @NotNull
     private Pengguna pengguna;
 
     @Column(name = "count")
+    @PositiveOrZero
     private int count;
 
     @Column(name = "cover")
+    @Size(max = 40)
     private String cover;
 
     @Column(name = "photo_base64")
     private String photoBase64;
 
     @Column(name = "filename")
+    @Size(max = 50)
     private String filename;
 
     @Column(name = "file_content")
     private byte[] fileContent;
 
     @Column(name = "author")
+    @Size(max = 60)
     private String author;
 
     @Column(name = "created_by")
     @CreatedBy
+    @Size(max = 50)
     private String createdBy;
 
     @Column(name = "created_on")
@@ -72,6 +82,7 @@ public class Album {
 
     @Column(name = "modified_by")
     @LastModifiedBy
+    @Size(max = 50)
     private String modifiedBy;
 
     @Column(name = "modified_on")

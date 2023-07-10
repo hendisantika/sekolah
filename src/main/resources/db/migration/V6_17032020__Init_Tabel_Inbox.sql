@@ -1,5 +1,4 @@
-CREATE TABLE IF NOT EXISTS tbl_inbox
-(
+CREATE TABLE IF NOT EXISTS tbl_inbox (
     id          UUID           DEFAULT uuid_generate_v4() NOT NULL,
     nama        varchar(40)    DEFAULT NULL,
     email       varchar(60)    DEFAULT NULL,

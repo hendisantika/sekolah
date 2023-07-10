@@ -1,10 +1,11 @@
 package com.hendisantika.sekolah.entity;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.annotations.UuidGenerator;
 import org.springframework.data.annotation.CreatedBy;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedBy;
@@ -23,25 +24,28 @@ public class LogAktivitas {
 
     @Id
     @GeneratedValue(generator = "uuid2")
-    @GenericGenerator(name = "uuid2", strategy = "uuid2")
-
+    @UuidGenerator
     @Column(name = "id")
     private UUID id;
 
     @Column(name = "nama")
+    @Size(max = 200)
     private String nama;
 
     @Column(name = "ip")
+    @Size(max = 20)
     private String ip;
 
     @Column(name = "icon")
     private byte[] icon;
 
     @Column(name = "jenis_icon")
+    @Size(max = 50)
     private String jenisIcon;
 
     @Column(name = "created_by")
     @CreatedBy
+    @Size(max = 50)
     private String createdBy;
 
     @Column(name = "created_on")
@@ -50,6 +54,7 @@ public class LogAktivitas {
 
     @Column(name = "modified_by")
     @LastModifiedBy
+    @Size(max = 50)
     private String modifiedBy;
 
     @Column(name = "modified_on")

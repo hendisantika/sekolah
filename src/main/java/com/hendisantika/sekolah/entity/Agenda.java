@@ -1,10 +1,11 @@
 package com.hendisantika.sekolah.entity;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.annotations.UuidGenerator;
 import org.springframework.data.annotation.CreatedBy;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedBy;
@@ -32,11 +33,12 @@ import java.util.UUID;
 public class Agenda {
     @Id
     @GeneratedValue(generator = "uuid2")
-    @GenericGenerator(name = "uuid2", strategy = "uuid2")
+    @UuidGenerator
     @Column(name = "id")
     private UUID id;
 
     @Column(name = "nama")
+    @Size(max = 200)
     private String nama;
 
     @Column(name = "deskripsi")
@@ -49,16 +51,20 @@ public class Agenda {
     private LocalDate selesai;
 
     @Column(name = "tempat")
+    @Size(max = 90)
     private String tempat;
 
     @Column(name = "waktu")
+    @Size(max = 30)
     private String waktu;
 
     @Column(name = "keterangan")
+    @Size(max = 200)
     private String keterangan;
 
     @Column(name = "created_by")
     @CreatedBy
+    @Size(max = 50)
     private String createdBy;
 
     @Column(name = "created_on")
@@ -67,6 +73,7 @@ public class Agenda {
 
     @Column(name = "modified_by")
     @LastModifiedBy
+    @Size(max = 50)
     private String modifiedBy;
 
     @Column(name = "modified_on")

@@ -1,6 +1,8 @@
 package com.hendisantika.sekolah.entity;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -26,13 +28,16 @@ public class Kelas {
     private int id;
 
     @Column(name = "nama")
+    @Size(max = 25)
     private String nama;
 
     @OneToMany(mappedBy = "kelas", fetch = FetchType.LAZY)
+    @NotNull
     private Set<Siswa> siswa = new HashSet<>();
 
     @Column(name = "created_by")
     @CreatedBy
+    @Size(max = 50)
     private String createdBy;
 
     @Column(name = "created_on")
@@ -41,6 +46,7 @@ public class Kelas {
 
     @Column(name = "modified_by")
     @LastModifiedBy
+    @Size(max = 50)
     private String modifiedBy;
 
     @Column(name = "modified_on")
