@@ -4,7 +4,6 @@ import com.hendisantika.sekolah.entity.Kategori;
 import com.hendisantika.sekolah.repository.KategoriRepository;
 import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -30,8 +29,11 @@ import java.security.Principal;
 @Controller
 @RequestMapping("admin/kategori")
 public class KategoriController {
-    @Autowired
-    private KategoriRepository kategoriRepository;
+    private final KategoriRepository kategoriRepository;
+
+    public KategoriController(KategoriRepository kategoriRepository) {
+        this.kategoriRepository = kategoriRepository;
+    }
 
     @GetMapping
     public String kategoriForm(Model model) {

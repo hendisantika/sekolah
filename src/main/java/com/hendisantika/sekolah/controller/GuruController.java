@@ -6,7 +6,6 @@ import com.hendisantika.sekolah.repository.GuruRepository;
 import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
@@ -37,10 +36,13 @@ import java.util.UUID;
 @RequestMapping("admin/guru")
 public class GuruController {
 
-    private static String UPLOADED_FOLDER = System.getProperty("java.io.tmpdir");
+    private static final String UPLOADED_FOLDER = System.getProperty("java.io.tmpdir");
 
-    @Autowired
-    private GuruRepository guruRepository;
+    private final GuruRepository guruRepository;
+
+    public GuruController(GuruRepository guruRepository) {
+        this.guruRepository = guruRepository;
+    }
 
     @GetMapping
     public String guru(Model model, Pageable pageable) {

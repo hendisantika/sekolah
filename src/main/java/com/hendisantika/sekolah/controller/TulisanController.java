@@ -7,7 +7,6 @@ import com.hendisantika.sekolah.repository.PenggunaRepository;
 import com.hendisantika.sekolah.repository.TulisanRepository;
 import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -43,16 +42,19 @@ import static org.apache.commons.lang3.StringUtils.lowerCase;
 @PreAuthorize("hasAuthority('ADMIN')")
 public class TulisanController {
     //Save the uploaded file to this folder
-    private static String UPLOADED_FOLDER = System.getProperty("java.io.tmpdir");
+    private static final String UPLOADED_FOLDER = System.getProperty("java.io.tmpdir");
 
-    @Autowired
-    private TulisanRepository tulisanRepository;
+    private final TulisanRepository tulisanRepository;
 
-    @Autowired
-    private KategoriRepository kategoriRepository;
+    private final KategoriRepository kategoriRepository;
 
-    @Autowired
-    private PenggunaRepository penggunaRepository;
+    private final PenggunaRepository penggunaRepository;
+
+    public TulisanController(TulisanRepository tulisanRepository, KategoriRepository kategoriRepository, PenggunaRepository penggunaRepository) {
+        this.tulisanRepository = tulisanRepository;
+        this.kategoriRepository = kategoriRepository;
+        this.penggunaRepository = penggunaRepository;
+    }
 
     @GetMapping
     public String tulisan(Model model, Pageable pageable) {

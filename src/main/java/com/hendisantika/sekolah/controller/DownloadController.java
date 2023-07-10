@@ -5,7 +5,6 @@ import com.hendisantika.sekolah.entity.Files;
 import com.hendisantika.sekolah.repository.FilesRepository;
 import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
@@ -33,8 +32,11 @@ import java.util.UUID;
 @Controller
 @RequestMapping("admin/download")
 public class DownloadController {
-    @Autowired
-    private FilesRepository filesRepository;
+    private final FilesRepository filesRepository;
+
+    public DownloadController(FilesRepository filesRepository) {
+        this.filesRepository = filesRepository;
+    }
 
     @GetMapping
     public String download(Model model, Pageable pageable) {

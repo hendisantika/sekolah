@@ -6,7 +6,6 @@ import com.hendisantika.sekolah.repository.KategoriRepository;
 import com.hendisantika.sekolah.repository.PenggunaRepository;
 import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
@@ -29,16 +28,19 @@ import java.util.UUID;
 @PreAuthorize("hasAuthority('ADMIN')")
 public class AgendaController {
 
-    private static String UPLOADED_FOLDER = System.getProperty("java.io.tmpdir");
+    private static final String UPLOADED_FOLDER = System.getProperty("java.io.tmpdir");
 
-    @Autowired
-    private AgendaRepository agendaRepository;
+    private final AgendaRepository agendaRepository;
 
-    @Autowired
-    private KategoriRepository kategoriRepository;
+    private final KategoriRepository kategoriRepository;
 
-    @Autowired
-    private PenggunaRepository penggunaRepository;
+    private final PenggunaRepository penggunaRepository;
+
+    public AgendaController(AgendaRepository agendaRepository, KategoriRepository kategoriRepository, PenggunaRepository penggunaRepository) {
+        this.agendaRepository = agendaRepository;
+        this.kategoriRepository = kategoriRepository;
+        this.penggunaRepository = penggunaRepository;
+    }
 
     @GetMapping
     public String agenda(Model model, Pageable pageable) {

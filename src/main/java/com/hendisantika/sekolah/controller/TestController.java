@@ -3,14 +3,9 @@ package com.hendisantika.sekolah.controller;
 import com.hendisantika.sekolah.entity.Siswa;
 import com.hendisantika.sekolah.repository.SiswaRepository;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -36,11 +31,14 @@ import java.util.UUID;
 @RequestMapping("tes")
 public class TestController {
 
-    @Autowired
-    private SiswaRepository siswaRepository;
+    private final SiswaRepository siswaRepository;
 
     //Save the uploaded file to this folder
-    private static String UPLOADED_FOLDER = System.getProperty("java.io.tmpdir");
+    private static final String UPLOADED_FOLDER = System.getProperty("java.io.tmpdir");
+
+    public TestController(SiswaRepository siswaRepository) {
+        this.siswaRepository = siswaRepository;
+    }
 
     @GetMapping("upload")
     public String index() {
