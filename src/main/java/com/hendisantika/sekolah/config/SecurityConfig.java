@@ -3,7 +3,6 @@ package com.hendisantika.sekolah.config;
 import com.hendisantika.sekolah.repository.PenggunaRepository;
 import com.hendisantika.sekolah.security.AuthenticationFailureHandler;
 import com.hendisantika.sekolah.service.UserDetailsServiceImpl;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -34,11 +33,15 @@ public class SecurityConfig {
             "/test", "/test2", "/test3", "/tes/**"
     };
 
-    @Autowired
-    private PenggunaRepository userRepository;
+    private final PenggunaRepository userRepository;
+
     private static final String[] PRIVATE_LINK = new String[]{
             "/admin/**"
     };
+
+    public SecurityConfig(PenggunaRepository userRepository) {
+        this.userRepository = userRepository;
+    }
 
     @Bean
     public BCryptPasswordEncoder passwordEncoder() {
@@ -56,11 +59,11 @@ public class SecurityConfig {
 
 
     protected void configure(AuthenticationManagerBuilder authBuilder) throws Exception {
-        authBuilder.userDetailsService(userDetailsServiceBean()).passwordEncoder(passwordEncoder());
+        authBuilder.userDetailsService(userDetailsServiceBean(userRepository)).passwordEncoder(passwordEncoder());
     }
 
     @Bean
-    public UserDetailsService userDetailsServiceBean() {
+    public UserDetailsService userDetailsServiceBean(PenggunaRepository userRepository) throws Exception {
         return new UserDetailsServiceImpl(userRepository);
     }
 

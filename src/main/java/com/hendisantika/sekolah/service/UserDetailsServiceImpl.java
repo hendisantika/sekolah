@@ -25,7 +25,7 @@ import java.util.Optional;
  */
 public class UserDetailsServiceImpl implements UserDetailsService {
 
-    private PenggunaRepository penggunaRepository;
+    private final PenggunaRepository penggunaRepository;
 
     public UserDetailsServiceImpl(PenggunaRepository penggunaRepository) {
         this.penggunaRepository = penggunaRepository;
