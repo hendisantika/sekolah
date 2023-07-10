@@ -53,6 +53,13 @@ spring:
 #httpOnly: if true then browser script won't be able to access the cookie
 #secure: if true then the cookie will be sent only over HTTPS connection
 server:
+  tomcat:
+    threads:
+      max: 200
+    max-swallow-size: 2MB
+    max-http-post-size: 2MB
+  connection-timeout: 5s
+  max-http-header-size: 100KB
   servlet:
     session:
       cookie:
@@ -62,6 +69,8 @@ server:
 # 1 days = 1 * 24 * 60 * 60
 cookie:
   maxAge: 86400
+
+
 
 #hendisantika/password
 #admin/password

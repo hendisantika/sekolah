@@ -21,11 +21,11 @@ public class WordUtils {
         return words.length;
     }
 
-    public static String wordLimit(String words, int maxWords) {
-        String result = "";
+    public static StringBuilder wordLimit(String words, int maxWords) {
+        StringBuilder result = new StringBuilder();
         String[] temp = words.split("\\s+");
         for (int i = 0; i < maxWords; i++) {
-            result += temp[i] + " ";
+            result.append(temp[i]).append(" ");
         }
 
         return result;
@@ -36,7 +36,6 @@ public class WordUtils {
     }
 
     public static String pregReplace(String pregReplace) {
-        String result = pregReplace;
-        return result.replaceAll("/[^a-zA-Z0-9 \\&%|{.}=,?!*()\"-_+$@;:<>']/", "");
+        return pregReplace.replaceAll("/[^a-zA-Z0-9 \\&%|{.}=,?!*()\"-_+$@;:<>']/", "");
     }
 }

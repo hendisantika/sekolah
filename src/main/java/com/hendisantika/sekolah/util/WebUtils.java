@@ -19,6 +19,10 @@ import net.sf.uadetector.VersionNumber;
  */
 @Slf4j
 public class WebUtils {
+    private WebUtils() {
+        throw new IllegalStateException("Utility class");
+    }
+
     public static UserAgentInfo getUserAgent(HttpServletRequest request) {
         String userAgent = "Unknown";
         String osType = "Unknown";
@@ -36,28 +40,26 @@ public class WebUtils {
             // .0.3282.140 Safari/537.36 Edge/17.17134";
             //userAgent = "Mozilla/5.0 (iPhone; CPU iPhone OS 12_3_1 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like
             // Gecko) Version/12.1.1 Mobile/15E148 Safari/604.1";
-            boolean exceptionTest = false;
-            if (exceptionTest) throw new Exception("EXCEPTION TEST");
 
-            if (userAgent.indexOf("Windows NT") >= 0) {
+            if (userAgent.contains("Windows NT")) {
                 osType = "Windows";
                 osVersion = userAgent.substring(userAgent.indexOf("Windows NT ") + 11, userAgent.indexOf(";"));
 
-            } else if (userAgent.indexOf("Mac OS") >= 0) {
+            } else if (userAgent.contains("Mac OS")) {
                 osType = "Mac";
                 osVersion = userAgent.substring(userAgent.indexOf("Mac OS ") + 7, userAgent.indexOf(")"));
 
-                if (userAgent.indexOf("iPhone") >= 0) {
+                if (userAgent.contains("iPhone")) {
                     deviceType = "iPhone";
-                } else if (userAgent.indexOf("iPad") >= 0) {
+                } else if (userAgent.contains("iPad")) {
                     deviceType = "iPad";
                 }
 
-            } else if (userAgent.indexOf("X11") >= 0) {
+            } else if (userAgent.contains("X11")) {
                 osType = "Unix";
                 osVersion = "Unknown";
 
-            } else if (userAgent.indexOf("android") >= 0 || userAgent.contains("Android")) {
+            } else if (userAgent.contains("android") || userAgent.contains("Android")) {
                 osType = "Android";
                 osVersion = "Unknown";
             }
@@ -136,7 +138,7 @@ public class WebUtils {
         // device category
         ReadableDeviceCategory device = agent.getDeviceCategory();
         log.info("Device: " + device.getName());
-        UserAgentInfo agentInfo = UserAgentInfo.builder()
+        return UserAgentInfo.builder()
                 .browserName(agent.getName())
                 .browserType(agent.getType().getName())
                 .browserVersion(browserVersion.toVersionString())
@@ -144,6 +146,5 @@ public class WebUtils {
                 .osType(os.getName())
                 .osVersion(osVersion.toVersionString())
                 .build();
-        return agentInfo;
     }
 }

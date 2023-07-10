@@ -10,7 +10,6 @@ import jakarta.servlet.http.HttpServletResponse;
 import lombok.extern.slf4j.Slf4j;
 import net.sf.uadetector.UserAgentStringParser;
 import net.sf.uadetector.service.UADetectorServiceFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -40,10 +39,6 @@ import static com.hendisantika.sekolah.util.WebUtils.showUserAgentInfo;
 @Controller
 @RequestMapping("/")
 public class IndexController {
-    private static long TOT_GURU = 0;
-    private static long TOT_SISWA = 0;
-    private static long TOT_FILES = 0;
-    private static long TOT_AGENDA = 0;
 
     @Value("${cookie.maxAge}")
     private int COOKIE_MAX_AGE;
@@ -61,6 +56,7 @@ public class IndexController {
             "HTTP_VIA",
             "REMOTE_ADDR"};
 
+
     public static String getClientIpAddress(HttpServletRequest request) {
         for (String header : IP_HEADER_CANDIDATES) {
             String ip = request.getHeader(header);
@@ -72,45 +68,47 @@ public class IndexController {
         return request.getRemoteAddr();
     }
 
-    @Autowired
-    private TulisanRepository tulisanRepository;
+    private final TulisanRepository tulisanRepository;
+    private final PengumumanRepository pengumumanRepository;
+    private final AgendaRepository agendaRepository;
+    private final GuruRepository guruRepository;
+    private final FilesRepository filesRepository;
+    private final SiswaRepository siswaRepository;
+    private final KategoriRepository kategoriRepository;
+    private final KomentarRepository komentarRepository;
+    private final GaleriRepository galeriRepository;
+    private final PengunjungRepository pengunjungRepository;
 
-    @Autowired
-    private PengumumanRepository pengumumanRepository;
-
-    @Autowired
-    private AgendaRepository agendaRepository;
-
-    @Autowired
-    private GuruRepository guruRepository;
-
-    @Autowired
-    private FilesRepository filesRepository;
-
-    @Autowired
-    private SiswaRepository siswaRepository;
-
-    @Autowired
-    private KategoriRepository kategoriRepository;
-
-    @Autowired
-    private KomentarRepository komentarRepository;
-
-    @Autowired
-    private GaleriRepository galeriRepository;
-
-    @Autowired
-    private PengunjungRepository pengunjungRepository;
+    public IndexController(TulisanRepository tulisanRepository, PengumumanRepository pengumumanRepository,
+                           AgendaRepository agendaRepository, GuruRepository guruRepository,
+                           FilesRepository filesRepository, SiswaRepository siswaRepository,
+                           KategoriRepository kategoriRepository, KomentarRepository komentarRepository,
+                           GaleriRepository galeriRepository, PengunjungRepository pengunjungRepository) {
+        this.tulisanRepository = tulisanRepository;
+        this.pengumumanRepository = pengumumanRepository;
+        this.agendaRepository = agendaRepository;
+        this.guruRepository = guruRepository;
+        this.filesRepository = filesRepository;
+        this.siswaRepository = siswaRepository;
+        this.kategoriRepository = kategoriRepository;
+        this.komentarRepository = komentarRepository;
+        this.galeriRepository = galeriRepository;
+        this.pengunjungRepository = pengunjungRepository;
+    }
 
     @ModelAttribute("WordUtil")
     public WordUtils addWordUtil() {
         return new WordUtils();
     }
 
-    public static UserAgentStringParser parser = UADetectorServiceFactory.getResourceModuleParser();
+    public static final UserAgentStringParser parser = UADetectorServiceFactory.getResourceModuleParser();
 
     @GetMapping
     public String index(Model model, HttpServletRequest request, HttpServletResponse response) {
+        long TOT_AGENDA = 0;
+        long TOT_FILES = 0;
+        long TOT_SISWA = 0;
+        long TOT_GURU = 0;
         createCookieAndSave(request, response, "HOME");
 
         log.info("Menampilkan data untuk Halaman Home.");
@@ -304,8 +302,8 @@ public class IndexController {
         userAgentInfo2.setHostAddress(remoteIpAddr);
         userAgentInfo2.setHostName(remoteHostAddr);
 
-        log.info("clientIP: ", clientIP);
-        log.info("clientHost: ", clientHost);
+        log.info("clientIP: {}", clientIP);
+        log.info("clientHost: {}", clientHost);
         model.addAttribute("userAgentInfo", userAgentInfo2);
         model.addAttribute("waktu", LocalDateTime.now());
         return "samples/userAgent";
