@@ -1,6 +1,10 @@
 package com.hendisantika.sekolah.dto;
 
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -14,10 +18,18 @@ import lombok.NoArgsConstructor;
  * Time: 08.47
  */
 @Data
+@Builder
 @AllArgsConstructor
 @NoArgsConstructor
 public class AlbumDto {
+    @NotNull
     private Long id;
+
+    @NotBlank
+    @NotEmpty
     private String nama;
+
+    @NotBlank
+    @NotEmpty
     private String author;
 }

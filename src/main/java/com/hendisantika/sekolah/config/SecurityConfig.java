@@ -2,7 +2,7 @@ package com.hendisantika.sekolah.config;
 
 import com.hendisantika.sekolah.repository.PenggunaRepository;
 import com.hendisantika.sekolah.security.AuthenticationFailureHandler;
-import com.hendisantika.sekolah.service.UserDetailsServiceImpl;
+import com.hendisantika.sekolah.service.impl.UserDetailsServiceImpl;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;

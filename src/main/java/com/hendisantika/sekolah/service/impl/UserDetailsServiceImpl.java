@@ -1,4 +1,4 @@
-package com.hendisantika.sekolah.service;
+package com.hendisantika.sekolah.service.impl;
 
 import com.hendisantika.sekolah.entity.Pengguna;
 import com.hendisantika.sekolah.entity.Role;

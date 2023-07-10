@@ -30,8 +30,7 @@ public class MyAccessDeniedHandler implements AccessDeniedHandler {
                        HttpServletResponse httpServletResponse,
                        AccessDeniedException e) throws IOException, ServletException {
 
-        Authentication auth
-                = SecurityContextHolder.getContext().getAuthentication();
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 
         if (auth != null) {
             log.info("User '" + auth.getName()
