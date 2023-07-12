@@ -2,7 +2,9 @@ package com.hendisantika.sekolah.controller;
 
 import com.hendisantika.sekolah.dto.UserAgentInfo;
 import com.hendisantika.sekolah.entity.*;
-import com.hendisantika.sekolah.repository.*;
+import com.hendisantika.sekolah.enumeration.IndexAllArgConstructor;
+import com.hendisantika.sekolah.enumeration.IndexAllArgConstructor1;
+import com.hendisantika.sekolah.enumeration.IndexAllArgConstructor2;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -53,8 +55,22 @@ public class IndexController {
             "HTTP_FORWARDED_FOR",
             "HTTP_FORWARDED",
             "HTTP_VIA",
-            "REMOTE_ADDR"};
+            "REMOTE_ADDR"
+    };
 
+    private final IndexAllArgConstructor indexAllArgConstructor;
+    private final IndexAllArgConstructor1 indexAllArgConstructor1;
+    private final IndexAllArgConstructor2 indexAllArgConstructor2;
+
+    public static final UserAgentStringParser parser = UADetectorServiceFactory.getResourceModuleParser();
+
+    public IndexController(IndexAllArgConstructor indexAllArgConstructor,
+                           IndexAllArgConstructor1 indexAllArgConstructor1,
+                           IndexAllArgConstructor2 indexAllArgConstructor2) {
+        this.indexAllArgConstructor = indexAllArgConstructor;
+        this.indexAllArgConstructor1 = indexAllArgConstructor1;
+        this.indexAllArgConstructor2 = indexAllArgConstructor2;
+    }
 
     public static String getClientIpAddress(HttpServletRequest request) {
         for (String header : IP_HEADER_CANDIDATES) {
@@ -67,36 +83,6 @@ public class IndexController {
         return request.getRemoteAddr();
     }
 
-    private final TulisanRepository tulisanRepository;
-    private final PengumumanRepository pengumumanRepository;
-    private final AgendaRepository agendaRepository;
-    private final GuruRepository guruRepository;
-    private final FilesRepository filesRepository;
-    private final SiswaRepository siswaRepository;
-    private final KategoriRepository kategoriRepository;
-    private final KomentarRepository komentarRepository;
-    private final GaleriRepository galeriRepository;
-    private final PengunjungRepository pengunjungRepository;
-
-    public IndexController(TulisanRepository tulisanRepository, PengumumanRepository pengumumanRepository,
-                           AgendaRepository agendaRepository, GuruRepository guruRepository,
-                           FilesRepository filesRepository, SiswaRepository siswaRepository,
-                           KategoriRepository kategoriRepository, KomentarRepository komentarRepository,
-                           GaleriRepository galeriRepository, PengunjungRepository pengunjungRepository) {
-        this.tulisanRepository = tulisanRepository;
-        this.pengumumanRepository = pengumumanRepository;
-        this.agendaRepository = agendaRepository;
-        this.guruRepository = guruRepository;
-        this.filesRepository = filesRepository;
-        this.siswaRepository = siswaRepository;
-        this.kategoriRepository = kategoriRepository;
-        this.komentarRepository = komentarRepository;
-        this.galeriRepository = galeriRepository;
-        this.pengunjungRepository = pengunjungRepository;
-    }
-
-    public static final UserAgentStringParser parser = UADetectorServiceFactory.getResourceModuleParser();
-
     @GetMapping
     public String index(Model model, HttpServletRequest request, HttpServletResponse response) {
         long TOT_AGENDA;
@@ -106,14 +92,14 @@ public class IndexController {
         createCookieAndSave(request, response, "HOME");
 
         log.info("Menampilkan data untuk Halaman Home.");
-        List<Tulisan> tulisanList = tulisanRepository.findTop4();
-        List<Pengumuman> pengumuman = pengumumanRepository.findTop4();
-        List<Agenda> agenda = agendaRepository.findTop4();
+        List<Tulisan> tulisanList = indexAllArgConstructor.getTulisanRepository().findTop4();
+        List<Pengumuman> pengumuman = indexAllArgConstructor.getPengumumanRepository().findTop4();
+        List<Agenda> agenda = indexAllArgConstructor.getAgendaRepository().findTop4();
 
-        TOT_GURU = guruRepository.count();
-        TOT_AGENDA = agendaRepository.count();
-        TOT_FILES = filesRepository.count();
-        TOT_SISWA = siswaRepository.count();
+        TOT_GURU = indexAllArgConstructor.getGuruRepository().count();
+        TOT_AGENDA = indexAllArgConstructor.getAgendaRepository().count();
+        TOT_FILES = indexAllArgConstructor1.getFilesRepository().count();
+        TOT_SISWA = indexAllArgConstructor1.getSiswaRepository().count();
 
         model.addAttribute("tulisanList", tulisanList);
         model.addAttribute("pengumuman", pengumuman);
@@ -160,7 +146,7 @@ public class IndexController {
                 .hostName(userAgentInfo.getHostName())
                 .createdOn(LocalDateTime.now())
                 .build();
-        pengunjungRepository.save(pengunjung);
+        indexAllArgConstructor2.getPengunjungRepository().save(pengunjung);
         //add cookie to response
         response.addCookie(cookie);
     }
@@ -176,7 +162,7 @@ public class IndexController {
     public String showGuru(Model model, HttpServletRequest request, HttpServletResponse response) {
         createCookieAndSave(request, response, "GURU");
         log.info("Menampilkan data untuk Halaman Guru.");
-        List<Guru> guruList = guruRepository.findAll();
+        List<Guru> guruList = indexAllArgConstructor.getGuruRepository().findAll();
         model.addAttribute("guruList", guruList);
         return "guru";
     }
@@ -185,7 +171,7 @@ public class IndexController {
     public String showSiswa(Model model, HttpServletRequest request, HttpServletResponse response) {
         createCookieAndSave(request, response, "SISWA");
         log.info("Menampilkan data untuk Halaman Siswa.");
-        List<Siswa> siswaList = siswaRepository.findAll();
+        List<Siswa> siswaList = indexAllArgConstructor1.getSiswaRepository().findAll();
         model.addAttribute("siswaList", siswaList);
         return "siswa";
     }
@@ -194,8 +180,8 @@ public class IndexController {
     public String showBlog(Model model, HttpServletRequest request, HttpServletResponse response) {
         createCookieAndSave(request, response, "BLOG");
         log.info("Menampilkan data untuk Halaman Blog.");
-        List<Tulisan> tulisanList = tulisanRepository.findAll();
-        List<Kategori> kategoriList = kategoriRepository.findAll();
+        List<Tulisan> tulisanList = indexAllArgConstructor.getTulisanRepository().findAll();
+        List<Kategori> kategoriList = indexAllArgConstructor1.getKategoriRepository().findAll();
         model.addAttribute("tulisanList", tulisanList);
         model.addAttribute("kategoriList", kategoriList);
         return "blog";
@@ -207,11 +193,11 @@ public class IndexController {
         createCookieAndSave(request, response, "ARTIKEL");
         String[] colors = {"#ff9e67", "#10bdff", "#14b5c7", "#f98182", "#8f9ce2", "#ee2b33", "#d4ec15", "#613021"};
         log.info("Menampilkan data untuk Halaman Details Blog.");
-        Tulisan tulisan = tulisanRepository.findBySlug(slug);
-        List<Tulisan> populer = tulisanRepository.findByOrderByViewsDesc();
-        List<Kategori> kategoriList = kategoriRepository.findAll();
-        List<Komentar> komentarList = komentarRepository.findByTulisanIdAndStatusAndParent(tulisan.getId(), "1", 0);
-        List<Komentar> parentKomentarList = komentarRepository.findByStatusAndParentOrderByCreatedOnAsc("1", 0);
+        Tulisan tulisan = indexAllArgConstructor.getTulisanRepository().findBySlug(slug);
+        List<Tulisan> populer = indexAllArgConstructor.getTulisanRepository().findByOrderByViewsDesc();
+        List<Kategori> kategoriList = indexAllArgConstructor1.getKategoriRepository().findAll();
+        List<Komentar> komentarList = indexAllArgConstructor1.getKomentarRepository().findByTulisanIdAndStatusAndParent(tulisan.getId(), "1", 0);
+        List<Komentar> parentKomentarList = indexAllArgConstructor1.getKomentarRepository().findByStatusAndParentOrderByCreatedOnAsc("1", 0);
         model.addAttribute("tulisan", tulisan);
         model.addAttribute("populer", populer);
         model.addAttribute("kategoriList", kategoriList);
@@ -225,7 +211,7 @@ public class IndexController {
     public String showPengumuman(Model model, HttpServletRequest request, HttpServletResponse response) {
         createCookieAndSave(request, response, "PENGUMUMAN");
         log.info("Menampilkan data untuk Halaman Pengumuman.");
-        List<Pengumuman> pengumumanList = pengumumanRepository.findByOrderByCreatedOnDesc();
+        List<Pengumuman> pengumumanList = indexAllArgConstructor.getPengumumanRepository().findByOrderByCreatedOnDesc();
         model.addAttribute("pengumumanList", pengumumanList);
         return "pengumuman";
     }
@@ -234,7 +220,7 @@ public class IndexController {
     public String showAgenda(Model model, HttpServletRequest request, HttpServletResponse response) {
         createCookieAndSave(request, response, "AGENDA");
         log.info("Menampilkan data untuk Halaman Agenda.");
-        List<Agenda> agendaList = agendaRepository.findAll();
+        List<Agenda> agendaList = indexAllArgConstructor.getAgendaRepository().findAll();
         model.addAttribute("agendaList", agendaList);
         return "agenda";
     }
@@ -243,7 +229,7 @@ public class IndexController {
     public String showDownload(Model model, HttpServletRequest request, HttpServletResponse response) {
         createCookieAndSave(request, response, "DOWNLOAD");
         log.info("Menampilkan data untuk Halaman Download.");
-        List<Files> filesList = filesRepository.findAll();
+        List<Files> filesList = indexAllArgConstructor1.getFilesRepository().findAll();
         model.addAttribute("filesList", filesList);
         return "download";
     }
@@ -252,7 +238,7 @@ public class IndexController {
     public String showGaleri(Model model, HttpServletRequest request, HttpServletResponse response) {
         createCookieAndSave(request, response, "GALERI");
         log.info("Menampilkan data untuk Halaman Galeri.");
-        List<Galeri> galeriList = galeriRepository.findAll();
+        List<Galeri> galeriList = indexAllArgConstructor2.getGaleriRepository().findAll();
         model.addAttribute("galeriList", galeriList);
         return "galeri";
     }
