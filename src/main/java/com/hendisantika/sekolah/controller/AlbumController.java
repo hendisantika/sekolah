@@ -20,7 +20,6 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.IOException;
 import java.security.Principal;
 import java.util.Base64;
-import java.util.Objects;
 
 /**
  * Created by IntelliJ IDEA.
@@ -81,8 +80,8 @@ public class AlbumController {
             byte[] bytes = file.getBytes();
             String encoded = Base64.getEncoder().encodeToString(bytes);
             Album album = new Album();
-            album.setNama(albumDto.getNama());
-            album.setAuthor(albumDto.getAuthor());
+            album.setNama(albumDto.nama());
+            album.setAuthor(albumDto.author());
             album.setPengguna(pengguna);
             album.setPhotoBase64(encoded);
             album.setFileContent(bytes);
@@ -106,15 +105,19 @@ public class AlbumController {
             // Get the file and save it somewhere
             byte[] bytes = file.getBytes();
             String encoded = Base64.getEncoder().encodeToString(bytes);
-            Album album = albumRepository.findById(albumDto.getId()).orElse(null);
-            Objects.requireNonNull(album).setNama(albumDto.getNama());
-            album.setAuthor(albumDto.getAuthor());
-            album.setPhotoBase64(encoded);
-            album.setFileContent(bytes);
-            album.setFilename(file.getOriginalFilename());
-            albumRepository.save(album);
-            status.setComplete();
-            log.info("Memperbaharui Data Album sukses.");
+            Album album = albumRepository.findById(albumDto.id()).orElse(null);
+            if (album != null) {
+                album.setNama(albumDto.nama());
+                album.setAuthor(albumDto.author());
+                album.setPhotoBase64(encoded);
+                album.setFileContent(bytes);
+                album.setFilename(file.getOriginalFilename());
+                albumRepository.save(album);
+                status.setComplete();
+                log.info("Memperbaharui Data Album sukses.");
+            } else {
+                log.error("Album tidak ada {}", errors);
+            }
         } catch (IOException e) {
             e.printStackTrace();
         }

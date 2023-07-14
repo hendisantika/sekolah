@@ -1,13 +1,5 @@
 package com.hendisantika.sekolah.dto;
 
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotEmpty;
-import jakarta.validation.constraints.NotNull;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-
 /**
  * Created by IntelliJ IDEA.
  * Project : sekolah
@@ -17,19 +9,8 @@ import lombok.NoArgsConstructor;
  * Date: 03/04/20
  * Time: 08.47
  */
-@Data
-@Builder
-@AllArgsConstructor
-@NoArgsConstructor
-public class AlbumDto {
-    @NotNull
-    private Long id;
-
-    @NotBlank
-    @NotEmpty
-    private String nama;
-
-    @NotBlank
-    @NotEmpty
-    private String author;
+public record AlbumDto(Long id, String nama, String author) {
+    public AlbumDto() {
+        this(1L, "Default", "yeahbutstill");
+    }
 }
