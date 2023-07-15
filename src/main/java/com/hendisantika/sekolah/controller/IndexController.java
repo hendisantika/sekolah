@@ -58,7 +58,7 @@ public class IndexController {
 
     private final ConstructorIndex constructorIndex;
 
-    public static final UserAgentStringParser parser = UADetectorServiceFactory.getResourceModuleParser();
+    private static final UserAgentStringParser parser = UADetectorServiceFactory.getResourceModuleParser();
 
     public IndexController(ConstructorIndex constructorIndex) {
         this.constructorIndex = constructorIndex;
@@ -68,8 +68,10 @@ public class IndexController {
         for (String header : IP_HEADER_CANDIDATES) {
             String ip = request.getHeader(header);
             String hostName = request.getRemoteHost();
-            if (ip != null && ip.length() != 0 && !"unknown" .equalsIgnoreCase(ip)) {
+            if (ip != null && ip.length() != 0 && !"unknown".equalsIgnoreCase(ip)) {
                 return ip;
+            } else if (hostName != null && hostName.length() != 0 && !"unknown".equalsIgnoreCase(hostName)) {
+                return hostName;
             }
         }
         return request.getRemoteAddr();
@@ -144,7 +146,7 @@ public class IndexController {
     }
 
     @GetMapping("about")
-    public String about(Model model, HttpServletRequest request, HttpServletResponse response) {
+    public String about(HttpServletRequest request, HttpServletResponse response) {
         createCookieAndSave(request, response, "ABOUT");
         log.info("Menampilkan data untuk Halaman about.");
         return "about";

@@ -3,13 +3,14 @@ package com.hendisantika.sekolah.controller;
 import com.hendisantika.sekolah.dto.AlbumDto;
 import com.hendisantika.sekolah.entity.Album;
 import com.hendisantika.sekolah.entity.Pengguna;
+import com.hendisantika.sekolah.exception.UsernameNotFoundException;
 import com.hendisantika.sekolah.repository.AlbumRepository;
 import com.hendisantika.sekolah.repository.PenggunaRepository;
 import jakarta.validation.Valid;
 import lombok.extern.log4j.Log4j2;
+import org.springframework.data.crossstore.ChangeSetPersister;
 import org.springframework.data.domain.Pageable;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -90,6 +91,7 @@ public class AlbumController {
             status.setComplete();
             log.info("Menambahkan Data Album yang baru sukses.");
         } catch (IOException e) {
+            log.error("Menambahkan Data Album yang baru gagal, {}", errors);
             e.printStackTrace();
         }
         model.addAttribute("album", albumRepository.findAll(pageable));
@@ -102,13 +104,22 @@ public class AlbumController {
                                 SessionStatus status) {
         log.info("Memperbaharui Data Album.");
         try {
+            String username = principal.getName();
+            Pengguna pengguna = penggunaRepository.findByUsername(username).orElseThrow(() -> {
+                log.warn("Username Not Found {}", username);
+                return new UsernameNotFoundException("Username Not Found");
+            });
             // Get the file and save it somewhere
             byte[] bytes = file.getBytes();
             String encoded = Base64.getEncoder().encodeToString(bytes);
-            Album album = albumRepository.findById(albumDto.id()).orElse(null);
+            Album album = albumRepository.findById(albumDto.id()).orElseThrow(() -> {
+                log.warn("Album Not Found {}", albumDto.id());
+                return new ChangeSetPersister.NotFoundException();
+            });
             if (album != null) {
                 album.setNama(albumDto.nama());
                 album.setAuthor(albumDto.author());
+                album.setPengguna(pengguna);
                 album.setPhotoBase64(encoded);
                 album.setFileContent(bytes);
                 album.setFilename(file.getOriginalFilename());
@@ -118,7 +129,7 @@ public class AlbumController {
             } else {
                 log.error("Album tidak ada {}", errors);
             }
-        } catch (IOException e) {
+        } catch (IOException | ChangeSetPersister.NotFoundException e) {
             e.printStackTrace();
         }
         model.addAttribute("album", albumRepository.findAll(pageable));
