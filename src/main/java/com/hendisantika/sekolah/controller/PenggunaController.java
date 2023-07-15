@@ -35,7 +35,6 @@ import java.util.Base64;
 public class PenggunaController {
 
     private final PenggunaRepository penggunaRepository;
-
     private final PasswordEncoder passwordEncoder;
 
     public PenggunaController(PenggunaRepository penggunaRepository, PasswordEncoder passwordEncoder) {

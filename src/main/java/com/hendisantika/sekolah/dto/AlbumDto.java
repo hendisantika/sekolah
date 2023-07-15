@@ -1,9 +1,6 @@
 package com.hendisantika.sekolah.dto;
 
-import org.springframework.util.StringUtils;
-
-import java.util.Random;
-import java.util.random.RandomGenerator;
+import lombok.*;
 
 /**
  * Created by IntelliJ IDEA.
@@ -14,8 +11,13 @@ import java.util.random.RandomGenerator;
  * Date: 03/04/20
  * Time: 08.47
  */
-public record AlbumDto(Long id, String nama, String author) {
-    public AlbumDto() {
-        this(RandomGenerator.getDefault().nextLong(), Random.class.getSimpleName(), "yeahbutstill");
-    }
+@AllArgsConstructor
+@NoArgsConstructor
+@Getter
+@Setter
+@Builder
+public class AlbumDto {
+    private Long id;
+    private String nama;
+    private String author;
 }

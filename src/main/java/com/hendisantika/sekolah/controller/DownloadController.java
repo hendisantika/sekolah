@@ -98,13 +98,13 @@ public class DownloadController {
         log.info("Memperbaharui data Download File.");
         Files files;
         try {
-            files = filesRepository.findById(downloadDto.id()).orElseThrow(() -> {
-                log.error("Download File Not Found {}", downloadDto.id());
+            files = filesRepository.findById(downloadDto.getId()).orElseThrow(() -> {
+                log.error("Download File Not Found {}", downloadDto.getId());
                 return new ChangeSetPersister.NotFoundException();
             });
-            files.setJudul(downloadDto.judul());
-            files.setDeskripsi(downloadDto.deskripsi());
-            files.setAuthor(downloadDto.author());
+            files.setJudul(downloadDto.getJudul());
+            files.setDeskripsi(downloadDto.getDeskripsi());
+            files.setAuthor(downloadDto.getAuthor());
             saveDataFile(files, file, status);
         } catch (ChangeSetPersister.NotFoundException e) {
             e.printStackTrace();

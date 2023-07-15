@@ -37,7 +37,6 @@ import java.util.Base64;
 @RequestMapping("admin/album")
 public class AlbumController {
     private final AlbumRepository albumRepository;
-
     private final PenggunaRepository penggunaRepository;
 
     public AlbumController(AlbumRepository albumRepository, PenggunaRepository penggunaRepository) {
@@ -81,8 +80,8 @@ public class AlbumController {
             byte[] bytes = file.getBytes();
             String encoded = Base64.getEncoder().encodeToString(bytes);
             Album album = new Album();
-            album.setNama(albumDto.nama());
-            album.setAuthor(albumDto.author());
+            album.setNama(albumDto.getNama());
+            album.setAuthor(albumDto.getAuthor());
             album.setPengguna(pengguna);
             album.setPhotoBase64(encoded);
             album.setFileContent(bytes);
@@ -112,13 +111,13 @@ public class AlbumController {
             // Get the file and save it somewhere
             byte[] bytes = file.getBytes();
             String encoded = Base64.getEncoder().encodeToString(bytes);
-            Album album = albumRepository.findById(albumDto.id()).orElseThrow(() -> {
-                log.error("Album Not Found {}", albumDto.id());
+            Album album = albumRepository.findById(albumDto.getId()).orElseThrow(() -> {
+                log.error("Album Not Found {}", albumDto.getId());
                 return new ChangeSetPersister.NotFoundException();
             });
             if (album != null) {
-                album.setNama(albumDto.nama());
-                album.setAuthor(albumDto.author());
+                album.setNama(albumDto.getNama());
+                album.setAuthor(albumDto.getAuthor());
                 album.setPengguna(pengguna);
                 album.setPhotoBase64(encoded);
                 album.setFileContent(bytes);

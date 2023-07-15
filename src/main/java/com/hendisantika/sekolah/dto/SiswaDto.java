@@ -1,13 +1,7 @@
 package com.hendisantika.sekolah.dto;
 
 import com.hendisantika.sekolah.entity.Kelas;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotEmpty;
-import jakarta.validation.constraints.NotNull;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.time.LocalDateTime;
 import java.util.UUID;
@@ -18,55 +12,26 @@ import java.util.UUID;
  * User: hendisantika
  * Email: hendisantika@gmail.com
  * Telegram : @hendisantika34
- * Date: 18/03/20
- * Time: 18.49
+ * Date: 03/04/20
+ * Time: 08.47
  */
-@Data
-@Builder
 @AllArgsConstructor
 @NoArgsConstructor
+@Getter
+@Setter
+@Builder
 public class SiswaDto {
-    @NotNull
     private UUID id;
-
-    @NotEmpty
-    @NotBlank
     private String nis;
-
-    @NotEmpty
-    @NotBlank
     private String nama;
-
-    @NotEmpty
-    @NotBlank
     private String jenkel;
-
-    @NotEmpty
-    @NotBlank
     private String photo;
-
-    @NotEmpty
-    @NotBlank
     private String photoBase64;
-
-    @NotNull
     private Kelas kelas;
-
-    @NotEmpty
-    @NotBlank
     private String filename;
-
     private byte[] fileContent;
-
-    @NotEmpty
-    @NotBlank
     private String createdBy;
-
     private LocalDateTime createdOn;
-
-    @NotEmpty
-    @NotBlank
     private String modifiedBy;
-
     private LocalDateTime modifiedOn;
 }

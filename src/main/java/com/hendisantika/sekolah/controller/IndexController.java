@@ -1,8 +1,8 @@
 package com.hendisantika.sekolah.controller;
 
+import com.hendisantika.sekolah.constructor.ConstructorIndex;
 import com.hendisantika.sekolah.dto.UserAgentInfo;
 import com.hendisantika.sekolah.entity.*;
-import com.hendisantika.sekolah.constructor.ConstructorIndex;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -41,6 +41,9 @@ public class IndexController {
 
     @Value("${cookie.maxAge}")
     private Integer cookieMaxAge;
+    private final ConstructorIndex constructorIndex;
+
+    private static final UserAgentStringParser parser = UADetectorServiceFactory.getResourceModuleParser();
 
     private static final String[] IP_HEADER_CANDIDATES = {
             "X-Forwarded-For",
@@ -55,10 +58,6 @@ public class IndexController {
             "HTTP_VIA",
             "REMOTE_ADDR"
     };
-
-    private final ConstructorIndex constructorIndex;
-
-    private static final UserAgentStringParser parser = UADetectorServiceFactory.getResourceModuleParser();
 
     public IndexController(ConstructorIndex constructorIndex) {
         this.constructorIndex = constructorIndex;

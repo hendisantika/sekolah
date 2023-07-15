@@ -38,9 +38,7 @@ import java.util.Objects;
 @RequestMapping("admin/galeri")
 public class PhotoController {
     private final GaleriRepository galeriRepository;
-
     private final AlbumRepository albumRepository;
-
     private final PenggunaRepository penggunaRepository;
 
     public PhotoController(GaleriRepository galeriRepository, AlbumRepository albumRepository, PenggunaRepository penggunaRepository) {

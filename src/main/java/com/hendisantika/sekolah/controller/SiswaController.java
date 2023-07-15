@@ -34,7 +34,6 @@ import java.util.UUID;
 @RequestMapping("admin/siswa")
 public class SiswaController {
     private final SiswaRepository siswaRepository;
-
     private final KelasRepository kelasRepository;
 
     public SiswaController(SiswaRepository siswaRepository, KelasRepository kelasRepository) {

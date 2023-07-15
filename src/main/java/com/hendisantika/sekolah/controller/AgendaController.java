@@ -31,9 +31,7 @@ public class AgendaController {
     private static final String UPLOADED_FOLDER = System.getProperty("java.io.tmpdir");
 
     private final AgendaRepository agendaRepository;
-
     private final KategoriRepository kategoriRepository;
-
     private final PenggunaRepository penggunaRepository;
 
     public AgendaController(AgendaRepository agendaRepository, KategoriRepository kategoriRepository,

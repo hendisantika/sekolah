@@ -36,7 +36,6 @@ import java.util.UUID;
 @RequestMapping("admin/pengumuman")
 public class PengumumanController {
     private final PengumumanRepository pengumumanRepository;
-
     private final PenggunaRepository penggunaRepository;
 
     public PengumumanController(PengumumanRepository pengumumanRepository, PenggunaRepository penggunaRepository) {

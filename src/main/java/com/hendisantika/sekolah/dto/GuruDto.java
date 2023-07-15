@@ -1,72 +1,38 @@
 package com.hendisantika.sekolah.dto;
 
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotEmpty;
-import jakarta.validation.constraints.NotNull;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.time.LocalDateTime;
 import java.util.UUID;
 
-@Data
-@Builder
+/**
+ * Created by IntelliJ IDEA.
+ * Project : sekolah
+ * User: hendisantika
+ * Email: hendisantika@gmail.com
+ * Telegram : @hendisantika34
+ * Date: 03/04/20
+ * Time: 08.47
+ */
 @AllArgsConstructor
 @NoArgsConstructor
+@Getter
+@Setter
+@Builder
 public class GuruDto {
-
-    @NotNull
     private UUID id;
-
-    @NotBlank
-    @NotEmpty
     private String nip;
-
-    @NotBlank
-    @NotEmpty
     private String nama;
-
-    @NotBlank
-    @NotEmpty
     private String jenkel;
-
-    @NotBlank
-    @NotEmpty
     private String tmpLahir;
-
-    @NotBlank
-    @NotEmpty
     private String tglLahir;
-
-    @NotBlank
-    @NotEmpty
     private String mapel;
-
-    @NotBlank
-    @NotEmpty
     private String photo;
-
-    @NotBlank
-    @NotEmpty
     private String photoBase64;
-
-    @NotBlank
-    @NotEmpty
     private String filename;
-
     private byte[] fileContent;
-
-    @NotBlank
-    @NotEmpty
     private String createdBy;
-
     private LocalDateTime createdOn;
-
-    @NotBlank
-    @NotEmpty
     private String modifiedBy;
-
     private LocalDateTime modifiedOn;
 }
