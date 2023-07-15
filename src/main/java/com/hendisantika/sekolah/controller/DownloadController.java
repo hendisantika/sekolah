@@ -5,6 +5,7 @@ import com.hendisantika.sekolah.entity.Files;
 import com.hendisantika.sekolah.repository.FilesRepository;
 import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.crossstore.ChangeSetPersister;
 import org.springframework.data.domain.Pageable;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
@@ -80,7 +81,7 @@ public class DownloadController {
             String encoded = Base64.getEncoder().encodeToString(bytes);
 
             files.setData(file.getOriginalFilename());
-            files.setFileContent(bytes);
+            files.setFileContent(encoded.getBytes());
             files.setFilename(file.getOriginalFilename());
             filesRepository.save(files);
             status.setComplete();
@@ -95,11 +96,20 @@ public class DownloadController {
     public String updatePengumuman(@Valid DownloadDto downloadDto, @RequestParam("file") MultipartFile file,
                                    Model model, SessionStatus status, Pageable pageable) {
         log.info("Memperbaharui data Download File.");
-        Files files = filesRepository.findById(downloadDto.getId()).get();
-        files.setJudul(downloadDto.getJudul());
-        files.setDeskripsi(downloadDto.getDeskripsi());
-        files.setAuthor(downloadDto.getAuthor());
-        saveDataFile(files, file, status);
+        Files files;
+        try {
+            files = filesRepository.findById(downloadDto.id()).orElseThrow(() -> {
+                log.error("Download File Not Found {}", downloadDto.id());
+                return new ChangeSetPersister.NotFoundException();
+            });
+            files.setJudul(downloadDto.judul());
+            files.setDeskripsi(downloadDto.deskripsi());
+            files.setAuthor(downloadDto.author());
+            saveDataFile(files, file, status);
+        } catch (ChangeSetPersister.NotFoundException e) {
+            e.printStackTrace();
+        }
+
         model.addAttribute("download", filesRepository.findAll(pageable));
         return "redirect:/admin/download";
     }

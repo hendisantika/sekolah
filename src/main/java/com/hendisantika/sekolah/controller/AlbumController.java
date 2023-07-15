@@ -74,7 +74,7 @@ public class AlbumController {
         try {
             String username = principal.getName();
             Pengguna pengguna = penggunaRepository.findByUsername(username).orElseThrow(() -> {
-                log.warn("Username Not Found {}", username);
+                log.error("Username Not Found {}", username);
                 return new UsernameNotFoundException("Username Not Found");
             });
             // Get the file and save it somewhere
@@ -106,14 +106,14 @@ public class AlbumController {
         try {
             String username = principal.getName();
             Pengguna pengguna = penggunaRepository.findByUsername(username).orElseThrow(() -> {
-                log.warn("Username Not Found {}", username);
+                log.error("Username Not Found {}", username);
                 return new UsernameNotFoundException("Username Not Found");
             });
             // Get the file and save it somewhere
             byte[] bytes = file.getBytes();
             String encoded = Base64.getEncoder().encodeToString(bytes);
             Album album = albumRepository.findById(albumDto.id()).orElseThrow(() -> {
-                log.warn("Album Not Found {}", albumDto.id());
+                log.error("Album Not Found {}", albumDto.id());
                 return new ChangeSetPersister.NotFoundException();
             });
             if (album != null) {

@@ -2,7 +2,7 @@ package com.hendisantika.sekolah.controller;
 
 import com.hendisantika.sekolah.dto.UserAgentInfo;
 import com.hendisantika.sekolah.entity.*;
-import com.hendisantika.sekolah.record.constructor.ConstructorIndex;
+import com.hendisantika.sekolah.constructor.ConstructorIndex;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
