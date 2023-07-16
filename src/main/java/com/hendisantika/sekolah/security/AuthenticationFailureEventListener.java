@@ -22,7 +22,7 @@ public class AuthenticationFailureEventListener implements ApplicationListener<A
     @Override
     public void onApplicationEvent(AuthenticationFailureBadCredentialsEvent event) {
         WebAuthenticationDetails wad = (WebAuthenticationDetails) event.getAuthentication().getDetails();
-        log.info("Login failed request from " + event.getAuthentication().getDetails());
+        log.info("Login failed request from {}", wad);
     }
 
 }

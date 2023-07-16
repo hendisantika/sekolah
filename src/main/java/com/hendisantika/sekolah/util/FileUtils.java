@@ -45,7 +45,7 @@ public class FileUtils {
     }
 
     /**
-     * Decodes the base64 string into byte array
+     * Decodes the base64 string into a byte array
      *
      * @param imageDataString - a {@link java.lang.String}
      * @return byte array
