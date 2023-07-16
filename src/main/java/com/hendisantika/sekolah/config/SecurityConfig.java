@@ -53,7 +53,7 @@ public class SecurityConfig {
         return new AuthenticationFailureHandler();
     }
     /*
-     * Tell Spring Security to use the custom built UserDetailsServiceImpl class
+     * Tell Spring Security to use the custom-built UserDetailsServiceImpl class
      *
      */
 

@@ -35,8 +35,10 @@ public class SystemLoggedInUserAuditorAware implements AuditorAware<String> {
             .filter(Authentication::isAuthenticated)
             .map(Authentication::getPrincipal)
             .map(User.class::cast);
-    User userLogin = user.get();
-    return Optional.ofNullable(userLogin.getUsername());
-
+    if (user.isPresent()) {
+      User userLogin = user.get();
+      return Optional.ofNullable(userLogin.getUsername());
+    }
+    return Optional.empty();
   }
 }
