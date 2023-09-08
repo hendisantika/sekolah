@@ -23,8 +23,7 @@ public class RequestLogger implements HandlerInterceptor {
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response,
-                             Object handler)
-            throws Exception {
+                             Object handler) {
 
         /* Logs the "wrong" ip - the ip of the reverse proxy, in our example 127.0.0.1 */
         log.info("Page {} was requested by IP {}", request.getRequestURI(), request.getRemoteAddr());
@@ -37,11 +36,13 @@ public class RequestLogger implements HandlerInterceptor {
 
     @Override
     public void postHandle(HttpServletRequest request, HttpServletResponse response,
-                           Object handler, ModelAndView modelAndView) throws Exception {
+                           Object handler, ModelAndView modelAndView) {
+        // TODO document why this method is empty
     }
 
     @Override
     public void afterCompletion(HttpServletRequest request, HttpServletResponse response,
-                                Object handler, Exception ex) throws Exception {
+                                Object handler, Exception ex) {
+        // TODO document why this method is empty
     }
 }

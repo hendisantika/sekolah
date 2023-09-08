@@ -33,6 +33,8 @@ import java.util.UUID;
 @Controller
 @RequestMapping("admin/download")
 public class DownloadController {
+    private static final String DOWNLOAD = "download";
+    private static final String REDIRECT_ADMIN_DOWNLOAD = "redirect:/admin/download";
     private final FilesRepository filesRepository;
 
     public DownloadController(FilesRepository filesRepository) {
@@ -49,14 +51,14 @@ public class DownloadController {
     @GetMapping("edit/{downloadId}")
     public String showFormEditDownload(@PathVariable("downloadId") UUID downloadId, Model model) {
         log.info("Menampilkan Form untuk Edit Download.");
-        model.addAttribute("download", filesRepository.findById(downloadId));
+        model.addAttribute(DOWNLOAD, filesRepository.findById(downloadId));
         return "admin/download/download-edit";
     }
 
     @GetMapping("add")
     public String showFormDownload(Model model) {
         log.info("Menampilkan Halaman Tambah File Download.");
-        model.addAttribute("download", new Files());
+        model.addAttribute(DOWNLOAD, new Files());
         return "admin/download/download-form";
     }
 
@@ -65,12 +67,12 @@ public class DownloadController {
                              Pageable pageable, BindingResult errors, SessionStatus status) {
         log.info("Menambahkan File yang baru");
         if (errors.hasErrors()) {
-            log.info("Tambah File yang baru gagal. {}", errors);
+            log.error("Tambah File yang baru gagal. {}", errors);
             return "redirect:/admin/download/add";
         }
         saveDataFile(files, file, status);
         model.addAttribute("downloadList", filesRepository.findAll(pageable));
-        return "redirect:/admin/download";
+        return REDIRECT_ADMIN_DOWNLOAD;
     }
 
     private void saveDataFile(Files files, @RequestParam("file") MultipartFile file,
@@ -88,7 +90,7 @@ public class DownloadController {
             log.info("Tambah File Download yang baru sukses.");
 
         } catch (IOException e) {
-            e.printStackTrace();
+            log.error("An error occurred: {}", e.getMessage());
         }
     }
 
@@ -107,19 +109,19 @@ public class DownloadController {
             files.setAuthor(downloadDto.getAuthor());
             saveDataFile(files, file, status);
         } catch (ChangeSetPersister.NotFoundException e) {
-            e.printStackTrace();
+            log.error("An error occurred: {}", e.getMessage());
         }
 
-        model.addAttribute("download", filesRepository.findAll(pageable));
-        return "redirect:/admin/download";
+        model.addAttribute(DOWNLOAD, filesRepository.findAll(pageable));
+        return REDIRECT_ADMIN_DOWNLOAD;
     }
 
     @GetMapping("delete/{downloadId}")
     public String deletePengumuman(@PathVariable("downloadId") UUID downloadId, Model model, Pageable pageable) {
         log.info("Delete Download Files.");
         filesRepository.deleteById(downloadId);
-        model.addAttribute("download", filesRepository.findAll(pageable));
-        return "redirect:/admin/download";
+        model.addAttribute(DOWNLOAD, filesRepository.findAll(pageable));
+        return REDIRECT_ADMIN_DOWNLOAD;
     }
 
 }

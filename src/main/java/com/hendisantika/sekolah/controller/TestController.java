@@ -69,7 +69,7 @@ public class TestController {
                     "You successfully uploaded '" + file.getOriginalFilename() + "'");
 
         } catch (IOException e) {
-            e.printStackTrace();
+            log.error("An error occurred: {}", e.getMessage());
         }
 
         return "redirect:/uploadStatus";

@@ -10,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.Optional;
 
 @Slf4j
@@ -52,7 +53,7 @@ public class KategoriApiController {
                                                          @RequestBody @Valid Kategori kategori) {
         log.info("memperbaharui kategori berita");
         Optional<Kategori> currentKategoriOpt = kategoriRepository.findById(kategoriId);
-        Kategori currentKategori = currentKategoriOpt.get();
+        Kategori currentKategori = currentKategoriOpt.orElseThrow(() -> new NoSuchElementException("Value is empty"));
         currentKategori.setId(kategori.getId());
         currentKategori.setNama(kategori.getNama());
 

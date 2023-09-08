@@ -18,6 +18,7 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.IOException;
 import java.security.Principal;
 import java.util.Base64;
+import java.util.NoSuchElementException;
 
 /**
  * Created by IntelliJ IDEA.
@@ -33,7 +34,8 @@ import java.util.Base64;
 @Controller
 @RequestMapping("admin/pengguna")
 public class PenggunaController {
-
+    private static final String PENGGUNA = "pengguna";
+    private static final String REDIRECT_ADMIN_PENGGUNA = "redirect:/admin/pengguna";
     private final PenggunaRepository penggunaRepository;
     private final PasswordEncoder passwordEncoder;
 
@@ -52,14 +54,14 @@ public class PenggunaController {
     @GetMapping("add")
     public String showFormPengguna(Model model) {
         log.info("Menampilkan Form Tambah Pengguna.");
-        model.addAttribute("pengguna", new PenggunaDto());
+        model.addAttribute(PENGGUNA, new PenggunaDto());
         return "admin/pengguna/pengguna-form";
     }
 
     @GetMapping("edit/{penggunaId}")
     public String showEditPenggunaForm(@PathVariable("penggunaId") Long penggunaId, Model model) {
         log.info("Menampilkan Form Edit Pengguna.");
-        model.addAttribute("pengguna", penggunaRepository.findById(penggunaId));
+        model.addAttribute(PENGGUNA, penggunaRepository.findById(penggunaId));
         return "admin/pengguna/pengguna-edit";
     }
 
@@ -71,7 +73,7 @@ public class PenggunaController {
             // Get the file and save it somewhere
             byte[] bytes = file.getBytes();
             String encoded = Base64.getEncoder().encodeToString(bytes);
-            Pengguna pengguna = penggunaRepository.findById(penggunaDto.getId()).get();
+            Pengguna pengguna = penggunaRepository.findById(penggunaDto.getId()).orElseThrow(() -> new NoSuchElementException("Value is empty"));
             pengguna.setPassword(passwordEncoder.encode(penggunaDto.getPassword()));
             pengguna.setPhoto(file.getOriginalFilename());
             pengguna.setPhotoBase64(encoded);
@@ -81,18 +83,18 @@ public class PenggunaController {
             status.setComplete();
             log.info("Update Data Pengguna sukses.");
         } catch (IOException e) {
-            e.printStackTrace();
+            log.error("An error occurred: {}", e.getMessage());
         }
-        model.addAttribute("pengguna", penggunaRepository.findAll(pageable));
-        return "redirect:/admin/pengguna";
+        model.addAttribute(PENGGUNA, penggunaRepository.findAll(pageable));
+        return REDIRECT_ADMIN_PENGGUNA;
     }
 
     @GetMapping("delete/{penggunaId}")
     public String showFormPengguna(@PathVariable("penggunaId") Long penggunaId, Model model, Pageable pageable) {
         log.info("Menghapus Data Pengguna.");
         penggunaRepository.deleteById(penggunaId);
-        model.addAttribute("pengguna", penggunaRepository.findAll(pageable));
-        return "redirect:/admin/pengguna";
+        model.addAttribute(PENGGUNA, penggunaRepository.findAll(pageable));
+        return REDIRECT_ADMIN_PENGGUNA;
     }
 
     @PostMapping
@@ -114,10 +116,10 @@ public class PenggunaController {
             status.setComplete();
             log.info("Tambah Pengguna yang baru sukses.");
         } catch (IOException e) {
-            e.printStackTrace();
+            log.error("An error occurred: {}", e.getMessage());
         }
         model.addAttribute("penggunaList", penggunaRepository.findAll(pageable));
-        return "redirect:/admin/pengguna";
+        return REDIRECT_ADMIN_PENGGUNA;
     }
 
 }

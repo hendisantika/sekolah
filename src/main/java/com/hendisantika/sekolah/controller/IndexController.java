@@ -1,6 +1,6 @@
 package com.hendisantika.sekolah.controller;
 
-import com.hendisantika.sekolah.constructor.ConstructorIndex;
+import com.hendisantika.sekolah.record.ConstructorIndex;
 import com.hendisantika.sekolah.dto.UserAgentInfo;
 import com.hendisantika.sekolah.entity.*;
 import jakarta.servlet.http.Cookie;
@@ -67,9 +67,9 @@ public class IndexController {
         for (String header : IP_HEADER_CANDIDATES) {
             String ip = request.getHeader(header);
             String hostName = request.getRemoteHost();
-            if (ip != null && ip.length() != 0 && !"unknown".equalsIgnoreCase(ip)) {
+            if (ip != null && !ip.isEmpty() && !"unknown".equalsIgnoreCase(ip)) {
                 return ip;
-            } else if (hostName != null && hostName.length() != 0 && !"unknown".equalsIgnoreCase(hostName)) {
+            } else if (hostName != null && !hostName.isEmpty() && !"unknown".equalsIgnoreCase(hostName)) {
                 return hostName;
             }
         }
@@ -109,7 +109,7 @@ public class IndexController {
         String remoteHostAddr = "";
         if (request != null) {
             remoteIpAddr = request.getHeader("X-FORWARDED-FOR");
-            if (remoteIpAddr == null || "".equals(remoteIpAddr)) {
+            if (remoteIpAddr == null || remoteIpAddr.isEmpty()) {
                 remoteIpAddr = request.getRemoteAddr();
                 remoteHostAddr = request.getRemoteHost();
             }
@@ -256,7 +256,7 @@ public class IndexController {
         String remoteHostAddr = "";
         if (request != null) {
             remoteIpAddr = request.getHeader("X-FORWARDED-FOR");
-            if (remoteIpAddr == null || "" .equals(remoteIpAddr)) {
+            if (remoteIpAddr == null || remoteIpAddr.isEmpty()) {
                 remoteIpAddr = request.getRemoteAddr();
                 remoteHostAddr = request.getRemoteHost();
             }
