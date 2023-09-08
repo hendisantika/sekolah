@@ -3,6 +3,7 @@ package com.hendisantika.sekolah.security;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.web.DefaultRedirectStrategy;
@@ -23,6 +24,7 @@ import java.util.Collection;
  * Time: 12.33
  */
 @Component
+@Slf4j
 public class SimpleAuthenticationSuccessHandler implements AuthenticationSuccessHandler {
 
     private final RedirectStrategy redirectStrategy = new DefaultRedirectStrategy();
@@ -38,15 +40,13 @@ public class SimpleAuthenticationSuccessHandler implements AuthenticationSuccess
                 try {
                     redirectStrategy.sendRedirect(arg0, arg1, "/");
                 } catch (Exception e) {
-                    // TODO Auto-generated catch block
-                    e.printStackTrace();
+                    log.error("An error occurred: {}", e.getMessage());
                 }
             } else if (authority.getAuthority().equals("ROLE_ADMIN")) {
                 try {
                     redirectStrategy.sendRedirect(arg0, arg1, "/admin/dashboard");
                 } catch (Exception e) {
-                    // TODO Auto-generated catch block
-                    e.printStackTrace();
+                    log.error("An error occurred: {}", e.getMessage());
                 }
             } else {
                 throw new IllegalStateException();
