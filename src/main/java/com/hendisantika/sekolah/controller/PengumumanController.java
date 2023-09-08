@@ -19,7 +19,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.support.SessionStatus;
 
 import java.security.Principal;
-import java.util.NoSuchElementException;
 import java.util.UUID;
 
 /**
@@ -36,7 +35,6 @@ import java.util.UUID;
 @Controller
 @RequestMapping("admin/pengumuman")
 public class PengumumanController {
-    private static final String PENGUMUMAN = "pengumuman";
     private final PengumumanRepository pengumumanRepository;
     private final PenggunaRepository penggunaRepository;
 
@@ -55,14 +53,14 @@ public class PengumumanController {
     @GetMapping("add")
     public String showFormPengumuman(Model model) {
         log.info("Menampilkan Form untuk Tambah Pengumuman.");
-        model.addAttribute(PENGUMUMAN, new Pengumuman());
+        model.addAttribute("pengumuman", new Pengumuman());
         return "admin/pengumuman/pengumuman-form";
     }
 
     @GetMapping("edit/{pengumumanId}")
     public String showFormPengumuman(@PathVariable("pengumumanId") UUID pengumumanId, Model model) {
         log.info("Menampilkan Form untuk Edit Pengumuman.");
-        model.addAttribute(PENGUMUMAN, pengumumanRepository.findById(pengumumanId));
+        model.addAttribute("pengumuman", pengumumanRepository.findById(pengumumanId));
         return "admin/pengumuman/pengumuman-edit";
     }
 
@@ -70,18 +68,18 @@ public class PengumumanController {
     public String deletePengumuman(@PathVariable("pengumumanId") UUID pengumumanId, Model model, Pageable pageable) {
         log.info("Delete Pengumuman.");
         pengumumanRepository.deleteById(pengumumanId);
-        model.addAttribute(PENGUMUMAN, pengumumanRepository.findAll(pageable));
+        model.addAttribute("pengumuman", pengumumanRepository.findAll(pageable));
         return "redirect:/admin/pengumuman";
     }
 
     @PostMapping("edit")
     public String updatePengumuman(@Valid PengumumanDto pengumumanDto, Model model, Pageable pageable) {
         log.info("Memperbaharui data Pengumuman.");
-        Pengumuman pengumuman = pengumumanRepository.findById(pengumumanDto.getId()).orElseThrow(() -> new NoSuchElementException("Value is empty"));
+        Pengumuman pengumuman = pengumumanRepository.findById(pengumumanDto.getId()).get();
         pengumuman.setJudul(pengumumanDto.getJudul());
         pengumuman.setDeskripsi(pengumumanDto.getDeskripsi());
         pengumumanRepository.save(pengumuman);
-        model.addAttribute(PENGUMUMAN, pengumumanRepository.findAll(pageable));
+        model.addAttribute("pengumuman", pengumumanRepository.findAll(pageable));
         return "redirect:/admin/pengumuman";
     }
 

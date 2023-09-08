@@ -38,7 +38,7 @@ public class FileUtils {
      * Encodes the byte array into base64 string
      *
      * @param imageByteArray - byte array
-     * @return String a {@link java.lang.String}
+     * @return String a {@link String}
      */
     public static String encodeBase64URLSafeString(byte[] imageByteArray) {
         return Base64.encodeBase64URLSafeString(imageByteArray);
@@ -47,7 +47,7 @@ public class FileUtils {
     /**
      * Decodes the base64 string into a byte array
      *
-     * @param imageDataString - a {@link java.lang.String}
+     * @param imageDataString - a {@link String}
      * @return byte array
      */
     public static byte[] decodeBase64(String imageDataString) {

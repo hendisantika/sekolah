@@ -36,8 +36,6 @@ import java.util.Base64;
 @PreAuthorize("hasAuthority('ADMIN')")
 @RequestMapping("admin/album")
 public class AlbumController {
-    private static final String ALBUM = "album";
-    private static final String REDIRECT_ADMIN_ALBUM = "redirect:/admin/album";
     private final AlbumRepository albumRepository;
     private final PenggunaRepository penggunaRepository;
 
@@ -56,14 +54,14 @@ public class AlbumController {
     @GetMapping("add")
     public String showAlbumForm(Model model) {
         log.info("Menampilkan Form Tambah Album.");
-        model.addAttribute(ALBUM, new AlbumDto());
+        model.addAttribute("album", new AlbumDto());
         return "admin/album/album-form";
     }
 
     @GetMapping("edit/{albumId}")
     public String showAlbumForm(@PathVariable("albumId") Long albumId, Model model) {
         log.info("Menampilkan Form Edit Album.");
-        model.addAttribute(ALBUM, albumRepository.findById(albumId));
+        model.addAttribute("album", albumRepository.findById(albumId));
         return "admin/album/album-edit";
     }
 
@@ -93,10 +91,10 @@ public class AlbumController {
             log.info("Menambahkan Data Album yang baru sukses.");
         } catch (IOException e) {
             log.error("Menambahkan Data Album yang baru gagal, {}", errors);
-            log.error("An error occurred: {}", e.getMessage());
+            e.printStackTrace();
         }
-        model.addAttribute(ALBUM, albumRepository.findAll(pageable));
-        return REDIRECT_ADMIN_ALBUM;
+        model.addAttribute("album", albumRepository.findAll(pageable));
+        return "redirect:/admin/album";
     }
 
     @PostMapping("edit")
@@ -131,17 +129,17 @@ public class AlbumController {
                 log.error("Album tidak ada {}", errors);
             }
         } catch (IOException | ChangeSetPersister.NotFoundException e) {
-            log.error("An error occurred: {}", e.getMessage());
+            e.printStackTrace();
         }
-        model.addAttribute(ALBUM, albumRepository.findAll(pageable));
-        return REDIRECT_ADMIN_ALBUM;
+        model.addAttribute("album", albumRepository.findAll(pageable));
+        return "redirect:/admin/album";
     }
 
     @GetMapping("delete/{albumId}")
     public String deleteDataAlbum(@PathVariable("albumId") Long albumId, Model model, Pageable pageable) {
         log.info("Menghapus Data Album.");
         albumRepository.deleteById(albumId);
-        model.addAttribute(ALBUM, albumRepository.findAll(pageable));
-        return REDIRECT_ADMIN_ALBUM;
+        model.addAttribute("album", albumRepository.findAll(pageable));
+        return "redirect:/admin/album";
     }
 }

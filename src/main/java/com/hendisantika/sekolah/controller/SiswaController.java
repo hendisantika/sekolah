@@ -17,7 +17,6 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.util.Base64;
-import java.util.NoSuchElementException;
 import java.util.UUID;
 
 /**
@@ -34,8 +33,6 @@ import java.util.UUID;
 @Controller
 @RequestMapping("admin/siswa")
 public class SiswaController {
-    private static final String SISWA = "siswa";
-    private static final String REDIRECT_ADMIN_SISWA = "redirect:/admin/siswa";
     private final SiswaRepository siswaRepository;
     private final KelasRepository kelasRepository;
 
@@ -55,7 +52,7 @@ public class SiswaController {
     public String showFormAddSiswa(Model model) {
         log.info("Menampilkan data untuk Halaman Tambah Siswa.");
         model.addAttribute("kelasList", kelasRepository.findAll());
-        model.addAttribute(SISWA, new SiswaDto());
+        model.addAttribute("siswa", new SiswaDto());
         return "admin/siswa/siswa-form";
     }
 
@@ -63,7 +60,7 @@ public class SiswaController {
     public String showFormEditSiswa(@PathVariable("siswaId") UUID siswaId, Model model) {
         log.info("Menampilkan data untuk Halaman Edit Siswa.");
         model.addAttribute("kelasList", kelasRepository.findAll());
-        model.addAttribute(SISWA, siswaRepository.findById(siswaId));
+        model.addAttribute("siswa", siswaRepository.findById(siswaId));
         return "admin/siswa/siswa-edit";
     }
 
@@ -75,7 +72,7 @@ public class SiswaController {
             // Get the file and save it somewhere
             byte[] bytes = file.getBytes();
             String encoded = Base64.getEncoder().encodeToString(bytes);
-            Siswa siswa = siswaRepository.findById(siswaDto.getId()).orElseThrow(() -> new NoSuchElementException("Value is empty"));
+            Siswa siswa = siswaRepository.findById(siswaDto.getId()).get();
             siswa.setNama(siswaDto.getNama());
             siswa.setKelas(siswaDto.getKelas());
             siswa.setJenkel(siswaDto.getJenkel());
@@ -87,10 +84,10 @@ public class SiswaController {
             status.setComplete();
             log.info("Update Data Siswa sukses.");
         } catch (IOException e) {
-            log.error("An error occurred: {}", e.getMessage());
+            e.printStackTrace();
         }
-        model.addAttribute(SISWA, siswaRepository.findAll(pageable));
-        return REDIRECT_ADMIN_SISWA;
+        model.addAttribute("siswa", siswaRepository.findAll(pageable));
+        return "redirect:/admin/siswa";
     }
 
     @PostMapping
@@ -111,18 +108,18 @@ public class SiswaController {
             status.setComplete();
             log.info("Tambah Siswa yang baru sukses.");
         } catch (IOException e) {
-            log.error("An error occurred: {}", e.getMessage());
+            e.printStackTrace();
         }
         model.addAttribute("siswaList", siswaRepository.findAll(pageable));
-        return REDIRECT_ADMIN_SISWA;
+        return "redirect:/admin/siswa";
     }
 
     @GetMapping("delete/{siswaId}")
     public String deleteSiswa(@PathVariable("siswaId") UUID siswaId, Model model, Pageable pageable) {
         log.info("Menghapus data siswa.");
         siswaRepository.deleteById(siswaId);
-        model.addAttribute(SISWA, siswaRepository.findAll(pageable));
-        return REDIRECT_ADMIN_SISWA;
+        model.addAttribute("siswa", siswaRepository.findAll(pageable));
+        return "redirect:/admin/siswa";
     }
 
 }

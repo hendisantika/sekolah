@@ -41,7 +41,6 @@ public class WordUtils {
     }
 
     public static String pregReplace(String pregReplace) {
-        // ''' is already covered by '\"-_'
-        return pregReplace.replaceAll("/[^a-z |{}!\"-_]/", "");
+        return pregReplace.replaceAll("/[^a-zA-Z0-9 &%|{.}=,?!*()\"-_+$@;:<>']/", "");
     }
 }

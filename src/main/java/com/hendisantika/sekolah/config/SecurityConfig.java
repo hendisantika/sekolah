@@ -9,7 +9,6 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
@@ -28,12 +27,9 @@ import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 @EnableWebSecurity
 @EnableMethodSecurity
 public class SecurityConfig {
-
-    private static final String LOGIN = "/login";
-
     private static final String[] PUBLIC_LINK = new String[]{
             "/", "/about", "/guru", "/siswa", "/blog", "/pengumuman", "/agenda", "/download",
-            "/galeri", "/contact", LOGIN, "/logout", "/v1/api/**",
+            "/galeri", "/contact", "/login", "/logout", "/v1/api/**",
             "/test", "/test2", "/test3", "/tes/**"
     };
 
@@ -67,7 +63,7 @@ public class SecurityConfig {
     }
 
     @Bean
-    public UserDetailsService userDetailsServiceBean(PenggunaRepository userRepository) {
+    public UserDetailsService userDetailsServiceBean(PenggunaRepository userRepository) throws Exception {
         return new UserDetailsServiceImpl(userRepository);
     }
 
@@ -78,8 +74,8 @@ public class SecurityConfig {
                 //you can either disable this or
                 //put <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
                 //inside the login form
-                .csrf(AbstractHttpConfigurer::disable)
-                .authorizeHttpRequests(authz -> authz
+                .csrf((csrf) -> csrf.disable())
+                .authorizeHttpRequests((authz) -> authz
                         .requestMatchers("/ignore1", "/ignore2" , "/assets/**", "/css/**", "/img/**",
                                 "/js**", "/plugins/**", "/theme/**", "/templates/**").permitAll()
                         .requestMatchers(PUBLIC_LINK).permitAll()
@@ -87,8 +83,8 @@ public class SecurityConfig {
                         .anyRequest().authenticated()
                 )
                 .formLogin(formLogin -> formLogin
-                        .loginPage(LOGIN) //enable this to go to your own custom login page
-                        .loginProcessingUrl(LOGIN) //enable this to use login page provided by spring security
+                        .loginPage("/login") //enable this to go to your own custom login page
+                        .loginProcessingUrl("/login") //enable this to use login page provided by spring security
                         .defaultSuccessUrl("/admin/dashboard", true)
                         .failureUrl("/login?error")
                 )

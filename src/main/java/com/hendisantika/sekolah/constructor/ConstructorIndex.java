@@ -1,4 +1,4 @@
-package com.hendisantika.sekolah.record;
+package com.hendisantika.sekolah.constructor;
 
 import com.hendisantika.sekolah.repository.*;
 import org.springframework.stereotype.Component;

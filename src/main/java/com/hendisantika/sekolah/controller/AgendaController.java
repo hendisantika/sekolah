@@ -29,7 +29,6 @@ import java.util.UUID;
 public class AgendaController {
 
     private static final String UPLOADED_FOLDER = System.getProperty("java.io.tmpdir");
-    private static final String AGENDA = "agenda";
 
     private final AgendaRepository agendaRepository;
     private final KategoriRepository kategoriRepository;
@@ -53,7 +52,7 @@ public class AgendaController {
     @GetMapping("add")
     public String tampilkanFormAgenda(Model model) {
         log.info("Menampilkan Form Agenda");
-        model.addAttribute(AGENDA, new Agenda());
+        model.addAttribute("agenda", new Agenda());
         return "admin/agenda/agenda-form";
     }
 
@@ -74,7 +73,7 @@ public class AgendaController {
     @GetMapping("edit/{agendaId}")
     public String tampilkanFormEditAgenda(@PathVariable("agendaId")UUID agendaId, Model model) {
         log.info("Menampilkan Form Edit Agenda");
-        model.addAttribute(AGENDA, agendaRepository.findById(agendaId));
+        model.addAttribute("agenda", agendaRepository.findById(agendaId));
         return "admin/agenda/agenda-edit";
     }
 
@@ -88,7 +87,7 @@ public class AgendaController {
         agenda.setMulai(agendaBaru.getMulai());
         agenda.setTempat(agendaBaru.getTempat());
         agendaRepository.save(agenda);
-        model.addAttribute(AGENDA, agendaRepository.findAll(pageable));
+        model.addAttribute("agenda", agendaRepository.findAll(pageable));
         return "redirect:/admin/agenda";
     }
 
