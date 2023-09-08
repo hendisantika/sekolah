@@ -16,8 +16,6 @@ import lombok.*;
 @Getter
 @Setter
 @Builder
-@ToString
-@EqualsAndHashCode
 public class AlbumDto {
     private Long id;
     private String nama;

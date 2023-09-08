@@ -19,8 +19,6 @@ import java.util.UUID;
 @Getter
 @Setter
 @Builder
-@ToString
-@EqualsAndHashCode
 public class GuruDto {
     private UUID id;
     private String nip;

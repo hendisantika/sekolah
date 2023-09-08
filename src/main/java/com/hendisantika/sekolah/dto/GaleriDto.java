@@ -17,8 +17,6 @@ import lombok.*;
 @Getter
 @Setter
 @Builder
-@ToString
-@EqualsAndHashCode
 public class GaleriDto {
     private Long id;
     private String judul;

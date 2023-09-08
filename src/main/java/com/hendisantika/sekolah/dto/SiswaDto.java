@@ -20,8 +20,6 @@ import java.util.UUID;
 @Getter
 @Setter
 @Builder
-@ToString
-@EqualsAndHashCode
 public class SiswaDto {
     private UUID id;
     private String nis;
