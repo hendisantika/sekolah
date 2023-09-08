@@ -19,6 +19,8 @@ import java.util.UUID;
 @Getter
 @Setter
 @Builder
+@ToString
+@EqualsAndHashCode
 public class DownloadDto {
     private UUID id;
     private String judul;

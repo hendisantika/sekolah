@@ -20,6 +20,8 @@ import java.util.List;
 @Getter
 @Setter
 @Builder
+@ToString
+@EqualsAndHashCode
 public class PenggunaDto {
     private Long id;
     private String fullname;

@@ -16,6 +16,8 @@ import lombok.*;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
+@ToString
+@EqualsAndHashCode
 public class UserAgentInfo {
     private String userAgent;
     private String osType;
