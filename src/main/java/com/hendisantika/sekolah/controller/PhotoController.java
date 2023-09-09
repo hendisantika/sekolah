@@ -37,6 +37,8 @@ import java.util.Objects;
 @PreAuthorize("hasAuthority('ADMIN')")
 @RequestMapping("admin/galeri")
 public class PhotoController {
+    private static final String GALERI = "galeri";
+    private static final String REDIRECT_ADMIN_GALERI = "redirect:/admin/galeri";
     private final GaleriRepository galeriRepository;
     private final AlbumRepository albumRepository;
     private final PenggunaRepository penggunaRepository;
@@ -59,7 +61,7 @@ public class PhotoController {
     public String showAddGaleriForm(Model model) {
         log.info("Menampilkan form halaman tambah Galeri.");
         model.addAttribute("albumList", albumRepository.findAll());
-        model.addAttribute("galeri", new GaleriDto());
+        model.addAttribute(GALERI, new GaleriDto());
         return "admin/galeri/galeri-form";
     }
 
@@ -67,7 +69,7 @@ public class PhotoController {
     public String showFormEditGaleri(@PathVariable("galeriId") Long galeriId, Model model) {
         log.info("Menampilkan data untuk Halaman Edit Galeri.");
         model.addAttribute("albumList", albumRepository.findAll());
-        model.addAttribute("galeri", galeriRepository.findById(galeriId));
+        model.addAttribute(GALERI, galeriRepository.findById(galeriId));
         return "admin/galeri/galeri-edit";
     }
 
@@ -99,8 +101,8 @@ public class PhotoController {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        model.addAttribute("galeri", galeriRepository.findAll(pageable));
-        return "redirect:/admin/galeri";
+        model.addAttribute(GALERI, galeriRepository.findAll(pageable));
+        return REDIRECT_ADMIN_GALERI;
     }
 
     @PostMapping("edit")
@@ -125,15 +127,15 @@ public class PhotoController {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        model.addAttribute("galeri", galeriRepository.findAll(pageable));
-        return "redirect:/admin/galeri";
+        model.addAttribute(GALERI, galeriRepository.findAll(pageable));
+        return REDIRECT_ADMIN_GALERI;
     }
 
     @GetMapping("delete/{galeriId}")
     public String deleteGaleri(@PathVariable("galeriId") Long galeriId, Model model) {
         log.info("Delete data Galeri.");
         galeriRepository.deleteById(galeriId);
-        model.addAttribute("galeri", galeriRepository.findById(galeriId));
-        return "redirect:/admin/galeri";
+        model.addAttribute(GALERI, galeriRepository.findById(galeriId));
+        return REDIRECT_ADMIN_GALERI;
     }
 }

@@ -33,6 +33,8 @@ import java.util.UUID;
 @Controller
 @RequestMapping("admin/siswa")
 public class SiswaController {
+    private static final String SISWA = "siswa";
+    private static final String REDIRECT_ADMIN_SISWA = "redirect:/admin/siswa";
     private final SiswaRepository siswaRepository;
     private final KelasRepository kelasRepository;
 
@@ -52,7 +54,7 @@ public class SiswaController {
     public String showFormAddSiswa(Model model) {
         log.info("Menampilkan data untuk Halaman Tambah Siswa.");
         model.addAttribute("kelasList", kelasRepository.findAll());
-        model.addAttribute("siswa", new SiswaDto());
+        model.addAttribute(SISWA, new SiswaDto());
         return "admin/siswa/siswa-form";
     }
 
@@ -60,7 +62,7 @@ public class SiswaController {
     public String showFormEditSiswa(@PathVariable("siswaId") UUID siswaId, Model model) {
         log.info("Menampilkan data untuk Halaman Edit Siswa.");
         model.addAttribute("kelasList", kelasRepository.findAll());
-        model.addAttribute("siswa", siswaRepository.findById(siswaId));
+        model.addAttribute(SISWA, siswaRepository.findById(siswaId));
         return "admin/siswa/siswa-edit";
     }
 
@@ -86,8 +88,8 @@ public class SiswaController {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        model.addAttribute("siswa", siswaRepository.findAll(pageable));
-        return "redirect:/admin/siswa";
+        model.addAttribute(SISWA, siswaRepository.findAll(pageable));
+        return REDIRECT_ADMIN_SISWA;
     }
 
     @PostMapping
@@ -111,15 +113,15 @@ public class SiswaController {
             e.printStackTrace();
         }
         model.addAttribute("siswaList", siswaRepository.findAll(pageable));
-        return "redirect:/admin/siswa";
+        return REDIRECT_ADMIN_SISWA;
     }
 
     @GetMapping("delete/{siswaId}")
     public String deleteSiswa(@PathVariable("siswaId") UUID siswaId, Model model, Pageable pageable) {
         log.info("Menghapus data siswa.");
         siswaRepository.deleteById(siswaId);
-        model.addAttribute("siswa", siswaRepository.findAll(pageable));
-        return "redirect:/admin/siswa";
+        model.addAttribute(SISWA, siswaRepository.findAll(pageable));
+        return REDIRECT_ADMIN_SISWA;
     }
 
 }

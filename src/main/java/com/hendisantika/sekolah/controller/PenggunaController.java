@@ -33,7 +33,8 @@ import java.util.Base64;
 @Controller
 @RequestMapping("admin/pengguna")
 public class PenggunaController {
-
+    private static final String PENGGUNA = "pengguna";
+    private static final String REDIRECT_ADMIN_PENGGUNA = "redirect:/admin/pengguna";
     private final PenggunaRepository penggunaRepository;
     private final PasswordEncoder passwordEncoder;
 
@@ -52,14 +53,14 @@ public class PenggunaController {
     @GetMapping("add")
     public String showFormPengguna(Model model) {
         log.info("Menampilkan Form Tambah Pengguna.");
-        model.addAttribute("pengguna", new PenggunaDto());
+        model.addAttribute(PENGGUNA, new PenggunaDto());
         return "admin/pengguna/pengguna-form";
     }
 
     @GetMapping("edit/{penggunaId}")
     public String showEditPenggunaForm(@PathVariable("penggunaId") Long penggunaId, Model model) {
         log.info("Menampilkan Form Edit Pengguna.");
-        model.addAttribute("pengguna", penggunaRepository.findById(penggunaId));
+        model.addAttribute(PENGGUNA, penggunaRepository.findById(penggunaId));
         return "admin/pengguna/pengguna-edit";
     }
 
@@ -83,16 +84,16 @@ public class PenggunaController {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        model.addAttribute("pengguna", penggunaRepository.findAll(pageable));
-        return "redirect:/admin/pengguna";
+        model.addAttribute(PENGGUNA, penggunaRepository.findAll(pageable));
+        return REDIRECT_ADMIN_PENGGUNA;
     }
 
     @GetMapping("delete/{penggunaId}")
     public String showFormPengguna(@PathVariable("penggunaId") Long penggunaId, Model model, Pageable pageable) {
         log.info("Menghapus Data Pengguna.");
         penggunaRepository.deleteById(penggunaId);
-        model.addAttribute("pengguna", penggunaRepository.findAll(pageable));
-        return "redirect:/admin/pengguna";
+        model.addAttribute(PENGGUNA, penggunaRepository.findAll(pageable));
+        return REDIRECT_ADMIN_PENGGUNA;
     }
 
     @PostMapping
@@ -117,7 +118,7 @@ public class PenggunaController {
             e.printStackTrace();
         }
         model.addAttribute("penggunaList", penggunaRepository.findAll(pageable));
-        return "redirect:/admin/pengguna";
+        return REDIRECT_ADMIN_PENGGUNA;
     }
 
 }
