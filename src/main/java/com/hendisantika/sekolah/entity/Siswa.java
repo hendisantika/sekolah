@@ -61,7 +61,7 @@ public class Siswa {
     @Column(name = "photo_base64")
     private String photoBase64;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "kelas_id", nullable = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
     @ToString.Exclude

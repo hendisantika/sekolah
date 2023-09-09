@@ -54,14 +54,11 @@
                     <div class="blog-featured_post">
                         <h3>Populer</h3>
                         <div class="blog-featured-img_block" th:each="t : ${tulisanList}">
-                            <!--                            <img alt="blog-featured-img" class="img-fluid" th:src="@{/assets/images/} + ${t.gambar}" width="35%">-->
-                            <img alt="blog-featured-img" class="img-fluid"
-                                 th:src="${'data:image/jpeg;base64,'+ t.photoBase64}" width="35%">
-                            <!--                            <img th:src="${'data:image/jpeg;base64,'+ t.photoBase64}" height="60" width="80" alt="blog-img" class="img-thumbnail">-->
+                            <img alt="blog-featured-img" class="img-fluid" th:src="${'data:image/jpeg;base64,'+ t.photoBase64}" width="35%">
                             <h5><a th:href="@{'/artikel/' + ${t.slug}}"
-                                   th:text="${#strings.substring(t.judul,0, 25)} + '...'">tulisan_judul</a>
+                                   th:text="${#strings.substring(t.judul,0, 25)} + '...'"/>
                             </h5>
-                            <p th:text="${#strings.substring(t.isi,0,25)}">tulisan_isi,5).'...'}</p>
+                            <p th:text="${#strings.substring(t.isi,0,25)}"/>
                         </div>
                         <hr>
                     </div>
