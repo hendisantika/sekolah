@@ -49,7 +49,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     private List<GrantedAuthority> getAuthorities(Pengguna user) {
         List<GrantedAuthority> authorities = new ArrayList<>();
         for (Role role : user.getRoles()) {
-            GrantedAuthority grantedAuthority = new SimpleGrantedAuthority(role.getRole());
+            GrantedAuthority grantedAuthority = new SimpleGrantedAuthority(role.getRoles());
             authorities.add(grantedAuthority);
         }
 
