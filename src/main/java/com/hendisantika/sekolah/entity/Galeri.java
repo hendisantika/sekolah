@@ -50,17 +50,15 @@ public class Galeri {
     @Column(name = "file_content")
     private byte[] fileContent;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "album_id", nullable = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
-    @ToString.Exclude
     @NotNull
     private Album album;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "pengguna_id", nullable = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
-    @ToString.Exclude
     @NotNull
     private Pengguna pengguna;
 
