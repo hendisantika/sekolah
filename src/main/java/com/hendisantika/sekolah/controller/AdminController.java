@@ -22,28 +22,31 @@ import java.time.LocalDateTime;
 @Controller
 @RequestMapping("admin")
 public class AdminController {
+    private static final String WAKTU = "waktu";
+    private static final String ADMIN_DASHBOARD = "admin/dashboard";
+
     @PreAuthorize("hasAuthority('ADMIN')")
     @GetMapping("/dashboard")
     public String dashboard(Model model) {
         log.info("Menampilkan data untuk Halaman Dashboard.");
-        model.addAttribute("waktu", LocalDateTime.now());
-        return "admin/dashboard";
+        model.addAttribute(WAKTU, LocalDateTime.now());
+        return ADMIN_DASHBOARD;
     }
 
     @PreAuthorize("hasAuthority('ADMIN')")
     @GetMapping("/inbox")
     public String inbox(Model model) {
         log.info("Menampilkan data untuk Halaman List Inbox.");
-        model.addAttribute("waktu", LocalDateTime.now());
-        return "admin/dashboard";
+        model.addAttribute(WAKTU, LocalDateTime.now());
+        return ADMIN_DASHBOARD;
     }
 
     @PreAuthorize("hasAuthority('ADMIN')")
     @GetMapping("/komentar")
     public String komentar(Model model) {
         log.info("Menampilkan data untuk Halaman List Komentar.");
-        model.addAttribute("waktu", LocalDateTime.now());
-        return "admin/dashboard";
+        model.addAttribute(WAKTU, LocalDateTime.now());
+        return ADMIN_DASHBOARD;
     }
 
 }
