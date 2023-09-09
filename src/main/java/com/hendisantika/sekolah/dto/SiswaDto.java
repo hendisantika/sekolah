@@ -1,10 +1,9 @@
 package com.hendisantika.sekolah.dto;
 
 import com.hendisantika.sekolah.entity.Kelas;
-import lombok.*;
-
 import java.time.LocalDateTime;
 import java.util.UUID;
+import lombok.*;
 
 /**
  * Created by IntelliJ IDEA.

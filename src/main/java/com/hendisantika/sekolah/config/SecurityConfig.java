@@ -74,8 +74,8 @@ public class SecurityConfig {
                 //you can either disable this or
                 //put <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
                 //inside the login form
-                .csrf((csrf) -> csrf.disable())
-                .authorizeHttpRequests((authz) -> authz
+                .csrf(csrf -> csrf.disable())
+                .authorizeHttpRequests(authz -> authz
                         .requestMatchers("/ignore1", "/ignore2" , "/assets/**", "/css/**", "/img/**",
                                 "/js**", "/plugins/**", "/theme/**", "/templates/**").permitAll()
                         .requestMatchers(PUBLIC_LINK).permitAll()

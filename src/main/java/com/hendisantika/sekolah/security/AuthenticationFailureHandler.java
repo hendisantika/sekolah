@@ -2,11 +2,10 @@ package com.hendisantika.sekolah.security;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import java.io.IOException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.authentication.SimpleUrlAuthenticationFailureHandler;
-
-import java.io.IOException;
 
 /**
  * Created by IntelliJ IDEA.

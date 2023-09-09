@@ -3,9 +3,8 @@ package com.hendisantika.sekolah.service.impl;
 import com.hendisantika.sekolah.entity.Pengguna;
 import com.hendisantika.sekolah.repository.PenggunaRepository;
 import com.hendisantika.sekolah.service.PenggunaService;
-import org.springframework.stereotype.Service;
-
 import java.util.List;
+import org.springframework.stereotype.Service;
 
 /**
  * Created by IntelliJ IDEA.

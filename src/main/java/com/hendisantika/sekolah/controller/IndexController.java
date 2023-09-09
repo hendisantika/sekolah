@@ -1,11 +1,17 @@
 package com.hendisantika.sekolah.controller;
 
+import static com.hendisantika.sekolah.util.WebUtils.getUserAgent;
+import static com.hendisantika.sekolah.util.WebUtils.showUserAgentInfo;
+
 import com.hendisantika.sekolah.controller.constructor.ConstructorIndex;
 import com.hendisantika.sekolah.dto.UserAgentInfo;
 import com.hendisantika.sekolah.entity.*;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import java.time.LocalDateTime;
+import java.util.List;
+import java.util.Objects;
 import lombok.extern.slf4j.Slf4j;
 import net.sf.uadetector.UserAgentStringParser;
 import net.sf.uadetector.service.UADetectorServiceFactory;
@@ -16,14 +22,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.context.request.RequestContextHolder;
-
-import java.time.LocalDateTime;
-import java.util.List;
-import java.util.Objects;
-
-import static com.hendisantika.sekolah.util.WebUtils.getUserAgent;
-import static com.hendisantika.sekolah.util.WebUtils.showUserAgentInfo;
-
 
 /**
  * Created by IntelliJ IDEA.
