@@ -2,9 +2,10 @@ package com.hendisantika.sekolah.controller;
 
 import com.hendisantika.sekolah.entity.Agenda;
 import com.hendisantika.sekolah.repository.AgendaRepository;
-import com.hendisantika.sekolah.repository.KategoriRepository;
-import com.hendisantika.sekolah.repository.PenggunaRepository;
 import jakarta.validation.Valid;
+import java.security.Principal;
+import java.time.LocalDateTime;
+import java.util.UUID;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Pageable;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -17,28 +18,18 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.support.SessionStatus;
 
-import java.security.Principal;
-import java.time.LocalDateTime;
-import java.util.UUID;
-
-
 @Slf4j
 @Controller
 @RequestMapping("admin/agenda")
 @PreAuthorize("hasAuthority('ADMIN')")
 public class AgendaController {
-
+    private static final String AGENDA = "agenda";
     private static final String UPLOADED_FOLDER = System.getProperty("java.io.tmpdir");
 
     private final AgendaRepository agendaRepository;
-    private final KategoriRepository kategoriRepository;
-    private final PenggunaRepository penggunaRepository;
 
-    public AgendaController(AgendaRepository agendaRepository, KategoriRepository kategoriRepository,
-                            PenggunaRepository penggunaRepository) {
+    public AgendaController(AgendaRepository agendaRepository) {
         this.agendaRepository = agendaRepository;
-        this.kategoriRepository = kategoriRepository;
-        this.penggunaRepository = penggunaRepository;
     }
 
     @GetMapping
@@ -52,7 +43,7 @@ public class AgendaController {
     @GetMapping("add")
     public String tampilkanFormAgenda(Model model) {
         log.info("Menampilkan Form Agenda");
-        model.addAttribute("agenda", new Agenda());
+        model.addAttribute(AGENDA, new Agenda());
         return "admin/agenda/agenda-form";
     }
 
@@ -73,7 +64,7 @@ public class AgendaController {
     @GetMapping("edit/{agendaId}")
     public String tampilkanFormEditAgenda(@PathVariable("agendaId")UUID agendaId, Model model) {
         log.info("Menampilkan Form Edit Agenda");
-        model.addAttribute("agenda", agendaRepository.findById(agendaId));
+        model.addAttribute(AGENDA, agendaRepository.findById(agendaId));
         return "admin/agenda/agenda-edit";
     }
 
@@ -87,7 +78,7 @@ public class AgendaController {
         agenda.setMulai(agendaBaru.getMulai());
         agenda.setTempat(agendaBaru.getTempat());
         agendaRepository.save(agenda);
-        model.addAttribute("agenda", agendaRepository.findAll(pageable));
+        model.addAttribute(AGENDA, agendaRepository.findAll(pageable));
         return "redirect:/admin/agenda";
     }
 
