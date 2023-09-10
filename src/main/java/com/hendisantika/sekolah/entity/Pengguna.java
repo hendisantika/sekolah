@@ -5,7 +5,6 @@ import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.PositiveOrZero;
 import jakarta.validation.constraints.Size;
 import java.time.LocalDateTime;
-import java.util.Arrays;
 import java.util.List;
 import lombok.*;
 import org.springframework.data.annotation.CreatedBy;
