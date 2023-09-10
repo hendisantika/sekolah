@@ -22,6 +22,7 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 @Getter
 @Setter
 @ToString
+@EqualsAndHashCode
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
@@ -54,31 +55,4 @@ public class Kategori {
     @Column(name = "modified_on")
     @LastModifiedDate
     private LocalDateTime modifiedOn;
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof Kategori kategori)) return false;
-
-        if (getId() != kategori.getId()) return false;
-        if (getNama() != null ? !getNama().equals(kategori.getNama()) : kategori.getNama() != null) return false;
-        if (getCreatedBy() != null ? !getCreatedBy().equals(kategori.getCreatedBy()) : kategori.getCreatedBy() != null)
-            return false;
-        if (getCreatedOn() != null ? !getCreatedOn().equals(kategori.getCreatedOn()) : kategori.getCreatedOn() != null)
-            return false;
-        if (getModifiedBy() != null ? !getModifiedBy().equals(kategori.getModifiedBy()) : kategori.getModifiedBy() != null)
-            return false;
-        return getModifiedOn() != null ? getModifiedOn().equals(kategori.getModifiedOn()) : kategori.getModifiedOn() == null;
-    }
-
-    @Override
-    public int hashCode() {
-        int result = getId();
-        result = 31 * result + (getNama() != null ? getNama().hashCode() : 0);
-        result = 31 * result + (getCreatedBy() != null ? getCreatedBy().hashCode() : 0);
-        result = 31 * result + (getCreatedOn() != null ? getCreatedOn().hashCode() : 0);
-        result = 31 * result + (getModifiedBy() != null ? getModifiedBy().hashCode() : 0);
-        result = 31 * result + (getModifiedOn() != null ? getModifiedOn().hashCode() : 0);
-        return result;
-    }
 }

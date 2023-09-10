@@ -5,7 +5,6 @@ import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.PositiveOrZero;
 import jakarta.validation.constraints.Size;
 import java.time.LocalDateTime;
-import java.util.Arrays;
 import lombok.*;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
@@ -27,6 +26,7 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 @Getter
 @Setter
 @ToString
+@EqualsAndHashCode
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
@@ -42,7 +42,7 @@ public class Album {
     @Size(max = 50)
     private String nama;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name = "pengguna_id", nullable = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
     @ToString.Exclude
@@ -88,48 +88,4 @@ public class Album {
     @Column(name = "modified_on")
     @LastModifiedDate
     private LocalDateTime modifiedOn;
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof Album album)) return false;
-
-        if (getCount() != album.getCount()) return false;
-        if (getId() != null ? !getId().equals(album.getId()) : album.getId() != null) return false;
-        if (getNama() != null ? !getNama().equals(album.getNama()) : album.getNama() != null) return false;
-        if (getPengguna() != null ? !getPengguna().equals(album.getPengguna()) : album.getPengguna() != null)
-            return false;
-        if (getCover() != null ? !getCover().equals(album.getCover()) : album.getCover() != null) return false;
-        if (getPhotoBase64() != null ? !getPhotoBase64().equals(album.getPhotoBase64()) : album.getPhotoBase64() != null)
-            return false;
-        if (getFilename() != null ? !getFilename().equals(album.getFilename()) : album.getFilename() != null)
-            return false;
-        if (!Arrays.equals(getFileContent(), album.getFileContent())) return false;
-        if (getAuthor() != null ? !getAuthor().equals(album.getAuthor()) : album.getAuthor() != null) return false;
-        if (getCreatedBy() != null ? !getCreatedBy().equals(album.getCreatedBy()) : album.getCreatedBy() != null)
-            return false;
-        if (getCreatedOn() != null ? !getCreatedOn().equals(album.getCreatedOn()) : album.getCreatedOn() != null)
-            return false;
-        if (getModifiedBy() != null ? !getModifiedBy().equals(album.getModifiedBy()) : album.getModifiedBy() != null)
-            return false;
-        return getModifiedOn() != null ? getModifiedOn().equals(album.getModifiedOn()) : album.getModifiedOn() == null;
-    }
-
-    @Override
-    public int hashCode() {
-        int result = getId() != null ? getId().hashCode() : 0;
-        result = 31 * result + (getNama() != null ? getNama().hashCode() : 0);
-        result = 31 * result + (getPengguna() != null ? getPengguna().hashCode() : 0);
-        result = 31 * result + getCount();
-        result = 31 * result + (getCover() != null ? getCover().hashCode() : 0);
-        result = 31 * result + (getPhotoBase64() != null ? getPhotoBase64().hashCode() : 0);
-        result = 31 * result + (getFilename() != null ? getFilename().hashCode() : 0);
-        result = 31 * result + Arrays.hashCode(getFileContent());
-        result = 31 * result + (getAuthor() != null ? getAuthor().hashCode() : 0);
-        result = 31 * result + (getCreatedBy() != null ? getCreatedBy().hashCode() : 0);
-        result = 31 * result + (getCreatedOn() != null ? getCreatedOn().hashCode() : 0);
-        result = 31 * result + (getModifiedBy() != null ? getModifiedBy().hashCode() : 0);
-        result = 31 * result + (getModifiedOn() != null ? getModifiedOn().hashCode() : 0);
-        return result;
-    }
 }

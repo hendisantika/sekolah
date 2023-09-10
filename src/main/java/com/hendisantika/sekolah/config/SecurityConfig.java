@@ -27,10 +27,11 @@ import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 @EnableWebSecurity
 @EnableMethodSecurity
 public class SecurityConfig {
+    private static final String LOGIN = "/login";
     private static final String[] PUBLIC_LINK = new String[]{
-            "/", "/about", "/guru", "/siswa", "/blog", "/pengumuman", "/agenda", "/download",
-            "/galeri", "/contact", "/login", "/logout", "/v1/api/**",
-            "/test", "/test2", "/test3", "/tes/**"
+//            "/", "/about", "/guru", "/siswa", "/blog/**", "/artikel/**", "/pengumuman", "/agenda",
+//            "/download", "/galeri", "/contact", LOGIN, "/logout", "/v1/api/**", "/test", "/test2", "/test3", "/tes/**"
+            "/**"
     };
 
     private final PenggunaRepository userRepository;
@@ -63,7 +64,7 @@ public class SecurityConfig {
     }
 
     @Bean
-    public UserDetailsService userDetailsServiceBean(PenggunaRepository userRepository) throws Exception {
+    public UserDetailsService userDetailsServiceBean(PenggunaRepository userRepository) {
         return new UserDetailsServiceImpl(userRepository);
     }
 
@@ -83,8 +84,8 @@ public class SecurityConfig {
                         .anyRequest().authenticated()
                 )
                 .formLogin(formLogin -> formLogin
-                        .loginPage("/login") //enable this to go to your own custom login page
-                        .loginProcessingUrl("/login") //enable this to use login page provided by spring security
+                        .loginPage(LOGIN) //enable this to go to your own custom login page
+                        .loginProcessingUrl(LOGIN) //enable this to use login page provided by spring security
                         .defaultSuccessUrl("/admin/dashboard", true)
                         .failureUrl("/login?error")
                 )

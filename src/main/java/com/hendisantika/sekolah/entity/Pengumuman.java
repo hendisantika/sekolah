@@ -24,6 +24,7 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 @Getter
 @Setter
 @ToString
+@EqualsAndHashCode
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
@@ -64,36 +65,4 @@ public class Pengumuman {
     @Column(name = "modified_on")
     @LastModifiedDate
     private LocalDateTime modifiedOn;
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof Pengumuman that)) return false;
-
-        if (getId() != null ? !getId().equals(that.getId()) : that.getId() != null) return false;
-        if (getJudul() != null ? !getJudul().equals(that.getJudul()) : that.getJudul() != null) return false;
-        if (getDeskripsi() != null ? !getDeskripsi().equals(that.getDeskripsi()) : that.getDeskripsi() != null)
-            return false;
-        if (getAuthor() != null ? !getAuthor().equals(that.getAuthor()) : that.getAuthor() != null) return false;
-        if (getCreatedBy() != null ? !getCreatedBy().equals(that.getCreatedBy()) : that.getCreatedBy() != null)
-            return false;
-        if (getCreatedOn() != null ? !getCreatedOn().equals(that.getCreatedOn()) : that.getCreatedOn() != null)
-            return false;
-        if (getModifiedBy() != null ? !getModifiedBy().equals(that.getModifiedBy()) : that.getModifiedBy() != null)
-            return false;
-        return getModifiedOn() != null ? getModifiedOn().equals(that.getModifiedOn()) : that.getModifiedOn() == null;
-    }
-
-    @Override
-    public int hashCode() {
-        int result = getId() != null ? getId().hashCode() : 0;
-        result = 31 * result + (getJudul() != null ? getJudul().hashCode() : 0);
-        result = 31 * result + (getDeskripsi() != null ? getDeskripsi().hashCode() : 0);
-        result = 31 * result + (getAuthor() != null ? getAuthor().hashCode() : 0);
-        result = 31 * result + (getCreatedBy() != null ? getCreatedBy().hashCode() : 0);
-        result = 31 * result + (getCreatedOn() != null ? getCreatedOn().hashCode() : 0);
-        result = 31 * result + (getModifiedBy() != null ? getModifiedBy().hashCode() : 0);
-        result = 31 * result + (getModifiedOn() != null ? getModifiedOn().hashCode() : 0);
-        return result;
-    }
 }
