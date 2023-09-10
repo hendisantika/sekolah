@@ -28,9 +28,6 @@ import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 @EnableMethodSecurity
 public class SecurityConfig {
     private static final String[] PUBLIC_LINK = new String[]{
-//            "/", "/about", "/guru", "/siswa/", "/blog", "/blog/**", "/pengumuman", "/agenda", "/download",
-//            "/galeri", "/contact", "/login", "/v1/api/**", "/test", "/test2", "/test3", "/tes/**",
-//            "/artikel", "/artikel/**"
             "/**"
     };
 
