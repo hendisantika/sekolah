@@ -4,8 +4,6 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.PositiveOrZero;
 import jakarta.validation.constraints.Size;
-import java.time.LocalDateTime;
-import java.util.UUID;
 import lombok.*;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
@@ -15,6 +13,10 @@ import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedBy;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
+
+import java.time.LocalDateTime;
+import java.util.Arrays;
+import java.util.UUID;
 
 /**
  * Created by IntelliJ IDEA.
@@ -28,7 +30,6 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 @Getter
 @Setter
 @ToString
-@EqualsAndHashCode
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
@@ -77,15 +78,17 @@ public class Tulisan {
     @Size(max = 200)
     private String slug;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "kategori_id", nullable = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
     @NotNull
+    @ToString.Exclude
     private Kategori kategori;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "pengguna_id", nullable = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
+    @ToString.Exclude
     @NotNull
     private Pengguna pengguna;
 
@@ -106,4 +109,57 @@ public class Tulisan {
     @Column(name = "modified_on")
     @LastModifiedDate
     private LocalDateTime modifiedOn;
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Tulisan tulisan)) return false;
+
+        if (getViews() != tulisan.getViews()) return false;
+        if (getImgSlider() != tulisan.getImgSlider()) return false;
+        if (getId() != null ? !getId().equals(tulisan.getId()) : tulisan.getId() != null) return false;
+        if (getJudul() != null ? !getJudul().equals(tulisan.getJudul()) : tulisan.getJudul() != null) return false;
+        if (getIsi() != null ? !getIsi().equals(tulisan.getIsi()) : tulisan.getIsi() != null) return false;
+        if (getAuthor() != null ? !getAuthor().equals(tulisan.getAuthor()) : tulisan.getAuthor() != null) return false;
+        if (getGambar() != null ? !getGambar().equals(tulisan.getGambar()) : tulisan.getGambar() != null) return false;
+        if (getPhotoBase64() != null ? !getPhotoBase64().equals(tulisan.getPhotoBase64()) : tulisan.getPhotoBase64() != null)
+            return false;
+        if (getFilename() != null ? !getFilename().equals(tulisan.getFilename()) : tulisan.getFilename() != null)
+            return false;
+        if (!Arrays.equals(getFileContent(), tulisan.getFileContent())) return false;
+        if (getSlug() != null ? !getSlug().equals(tulisan.getSlug()) : tulisan.getSlug() != null) return false;
+        if (getKategori() != null ? !getKategori().equals(tulisan.getKategori()) : tulisan.getKategori() != null)
+            return false;
+        if (getPengguna() != null ? !getPengguna().equals(tulisan.getPengguna()) : tulisan.getPengguna() != null)
+            return false;
+        if (getCreatedBy() != null ? !getCreatedBy().equals(tulisan.getCreatedBy()) : tulisan.getCreatedBy() != null)
+            return false;
+        if (getCreatedOn() != null ? !getCreatedOn().equals(tulisan.getCreatedOn()) : tulisan.getCreatedOn() != null)
+            return false;
+        if (getModifiedBy() != null ? !getModifiedBy().equals(tulisan.getModifiedBy()) : tulisan.getModifiedBy() != null)
+            return false;
+        return getModifiedOn() != null ? getModifiedOn().equals(tulisan.getModifiedOn()) : tulisan.getModifiedOn() == null;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = getId() != null ? getId().hashCode() : 0;
+        result = 31 * result + (getJudul() != null ? getJudul().hashCode() : 0);
+        result = 31 * result + (getIsi() != null ? getIsi().hashCode() : 0);
+        result = 31 * result + (getAuthor() != null ? getAuthor().hashCode() : 0);
+        result = 31 * result + getViews();
+        result = 31 * result + (getGambar() != null ? getGambar().hashCode() : 0);
+        result = 31 * result + (getPhotoBase64() != null ? getPhotoBase64().hashCode() : 0);
+        result = 31 * result + (getFilename() != null ? getFilename().hashCode() : 0);
+        result = 31 * result + Arrays.hashCode(getFileContent());
+        result = 31 * result + getImgSlider();
+        result = 31 * result + (getSlug() != null ? getSlug().hashCode() : 0);
+        result = 31 * result + (getKategori() != null ? getKategori().hashCode() : 0);
+        result = 31 * result + (getPengguna() != null ? getPengguna().hashCode() : 0);
+        result = 31 * result + (getCreatedBy() != null ? getCreatedBy().hashCode() : 0);
+        result = 31 * result + (getCreatedOn() != null ? getCreatedOn().hashCode() : 0);
+        result = 31 * result + (getModifiedBy() != null ? getModifiedBy().hashCode() : 0);
+        result = 31 * result + (getModifiedOn() != null ? getModifiedOn().hashCode() : 0);
+        return result;
+    }
 }

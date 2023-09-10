@@ -1,21 +1,11 @@
 package com.hendisantika.sekolah.controller;
 
-import static com.hendisantika.sekolah.util.WordUtils.pregReplace;
-import static com.hendisantika.sekolah.util.WordUtils.stripTags;
-import static org.apache.commons.lang3.StringUtils.lowerCase;
-
 import com.hendisantika.sekolah.entity.Pengguna;
 import com.hendisantika.sekolah.entity.Tulisan;
 import com.hendisantika.sekolah.repository.KategoriRepository;
 import com.hendisantika.sekolah.repository.PenggunaRepository;
 import com.hendisantika.sekolah.repository.TulisanRepository;
 import jakarta.validation.Valid;
-import java.io.IOException;
-import java.security.Principal;
-import java.time.LocalDateTime;
-import java.util.Base64;
-import java.util.Objects;
-import java.util.UUID;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Pageable;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -26,6 +16,17 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.multipart.MultipartFile;
+
+import java.io.IOException;
+import java.security.Principal;
+import java.time.LocalDateTime;
+import java.util.Base64;
+import java.util.Objects;
+import java.util.UUID;
+
+import static com.hendisantika.sekolah.util.WordUtils.pregReplace;
+import static com.hendisantika.sekolah.util.WordUtils.stripTags;
+import static org.apache.commons.lang3.StringUtils.lowerCase;
 
 /**
  * Created by IntelliJ IDEA.
@@ -41,11 +42,6 @@ import org.springframework.web.multipart.MultipartFile;
 @RequestMapping("admin/tulisan")
 @PreAuthorize("hasAuthority('ADMIN')")
 public class TulisanController {
-    private static final String TULISAN_LIST = "tulisanList";
-    private static final String TULISAN = "tulisan";
-    private static final String KATEGORI_LIST = "kategoriList";
-    private static final String REDIRECT_ADMIN_TULISAN = "redirect:/admin/tulisan";
-
     //Save the uploaded file to this folder
     private static final String UPLOADED_FOLDER = System.getProperty("java.io.tmpdir");
 
@@ -64,7 +60,7 @@ public class TulisanController {
     @GetMapping
     public String tulisan(Model model, Pageable pageable) {
         log.info("Menampilkan data untuk Halaman List Berita.");
-        model.addAttribute(TULISAN_LIST, tulisanRepository.findAll(pageable));
+        model.addAttribute("tulisanList", tulisanRepository.findAll(pageable));
         model.addAttribute("waktu", LocalDateTime.now());
         return "admin/tulisan/tulisan";
     }
@@ -72,16 +68,16 @@ public class TulisanController {
     @GetMapping("/add")
     public String tampilkanFormTulisan(Model model) {
         log.info("Menampilkan Form Tulisan");
-        model.addAttribute(KATEGORI_LIST, kategoriRepository.findAll());
-        model.addAttribute(TULISAN, new Tulisan());
+        model.addAttribute("kategoriList", kategoriRepository.findAll());
+        model.addAttribute("tulisan", new Tulisan());
         return "admin/tulisan/tulisan-form";
     }
 
     @GetMapping("/edit/{tulisanId}")
     public String tampilkanFormEditTulisan(Model model, @PathVariable("tulisanId") UUID tulisanId) {
         log.info("Menampilkan Form Edit Tulisan");
-        model.addAttribute(KATEGORI_LIST, kategoriRepository.findAll());
-        model.addAttribute(TULISAN, tulisanRepository.findById(tulisanId));
+        model.addAttribute("kategoriList", kategoriRepository.findAll());
+        model.addAttribute("tulisan", tulisanRepository.findById(tulisanId));
         return "admin/tulisan/tulisan-edit";
     }
 
@@ -93,8 +89,8 @@ public class TulisanController {
         tulisanBaru.setCreatedOn((Objects.requireNonNull(tulisanFromDB).getCreatedOn() == null) ? LocalDateTime.now() :
                 tulisanFromDB.getCreatedOn());
         saveDataTulisan(tulisanBaru, file, principal, status);
-        model.addAttribute(TULISAN_LIST, tulisanRepository.findAll(pageable));
-        return REDIRECT_ADMIN_TULISAN;
+        model.addAttribute("tulisanList", tulisanRepository.findAll(pageable));
+        return "redirect:/admin/tulisan";
     }
 
     @PostMapping
@@ -106,8 +102,8 @@ public class TulisanController {
             return "redirect:/admin/tulisan/add";
         }
         saveDataTulisan(tulisan, file, principal, status);
-        model.addAttribute(TULISAN_LIST, tulisanRepository.findAll(pageable));
-        return REDIRECT_ADMIN_TULISAN;
+        model.addAttribute("tulisanList", tulisanRepository.findAll(pageable));
+        return "redirect:/admin/tulisan";
     }
 
     private void saveDataTulisan(Tulisan tulisan, @RequestParam("file") MultipartFile file, Principal principal,
@@ -145,9 +141,9 @@ public class TulisanController {
         log.info("Hapus data Tulisan");
         tulisanRepository.deleteById(tulisanId);
 
-        model.addAttribute(KATEGORI_LIST, kategoriRepository.findAll());
-        model.addAttribute(TULISAN, tulisanRepository.findAll(pageable));
-        return REDIRECT_ADMIN_TULISAN;
+        model.addAttribute("kategoriList", kategoriRepository.findAll());
+        model.addAttribute("tulisan", tulisanRepository.findAll(pageable));
+        return "redirect:/admin/tulisan";
     }
 
 }

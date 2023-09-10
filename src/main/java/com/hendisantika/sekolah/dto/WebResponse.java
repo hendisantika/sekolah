@@ -1,7 +1,8 @@
 package com.hendisantika.sekolah.dto;
 
-import java.util.List;
 import lombok.Builder;
+
+import java.util.List;
 
 @Builder
 public record WebResponse<T>(

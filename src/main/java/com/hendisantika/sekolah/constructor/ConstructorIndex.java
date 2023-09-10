@@ -1,8 +1,9 @@
-package com.hendisantika.sekolah.controller.constructor;
+package com.hendisantika.sekolah.constructor;
 
 import com.hendisantika.sekolah.repository.*;
-import java.util.Objects;
 import org.springframework.stereotype.Component;
+
+import java.util.Objects;
 
 @Component
 public record ConstructorIndex(

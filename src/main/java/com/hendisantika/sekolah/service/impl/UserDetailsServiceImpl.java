@@ -3,16 +3,16 @@ package com.hendisantika.sekolah.service.impl;
 import com.hendisantika.sekolah.entity.Pengguna;
 import com.hendisantika.sekolah.entity.Role;
 import com.hendisantika.sekolah.repository.PenggunaRepository;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
 
 /**
  * Created by IntelliJ IDEA.
@@ -23,7 +23,6 @@ import org.springframework.stereotype.Service;
  * Date: 21/03/20
  * Time: 06.28
  */
-@Service
 public class UserDetailsServiceImpl implements UserDetailsService {
 
     private final PenggunaRepository penggunaRepository;

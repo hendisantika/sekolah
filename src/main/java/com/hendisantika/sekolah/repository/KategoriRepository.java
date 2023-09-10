@@ -1,9 +1,10 @@
 package com.hendisantika.sekolah.repository;
 
 import com.hendisantika.sekolah.entity.Kategori;
-import java.util.Optional;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
+
+import java.util.Optional;
 
 /**
  * Created by IntelliJ IDEA.

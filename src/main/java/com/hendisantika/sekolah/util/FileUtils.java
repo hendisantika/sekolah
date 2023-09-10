@@ -1,10 +1,11 @@
 package com.hendisantika.sekolah.util;
 
+import org.apache.tomcat.util.codec.binary.Base64;
+
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
-import org.apache.tomcat.util.codec.binary.Base64;
 
 /**
  * Created by IntelliJ IDEA.

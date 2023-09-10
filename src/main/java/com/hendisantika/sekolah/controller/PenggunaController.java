@@ -4,9 +4,6 @@ import com.hendisantika.sekolah.dto.PenggunaDto;
 import com.hendisantika.sekolah.entity.Pengguna;
 import com.hendisantika.sekolah.repository.PenggunaRepository;
 import jakarta.validation.Valid;
-import java.io.IOException;
-import java.security.Principal;
-import java.util.Base64;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
 import org.springframework.data.domain.Pageable;
@@ -17,6 +14,10 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.multipart.MultipartFile;
+
+import java.io.IOException;
+import java.security.Principal;
+import java.util.Base64;
 
 /**
  * Created by IntelliJ IDEA.
@@ -32,8 +33,7 @@ import org.springframework.web.multipart.MultipartFile;
 @Controller
 @RequestMapping("admin/pengguna")
 public class PenggunaController {
-    private static final String PENGGUNA = "pengguna";
-    private static final String REDIRECT_ADMIN_PENGGUNA = "redirect:/admin/pengguna";
+
     private final PenggunaRepository penggunaRepository;
     private final PasswordEncoder passwordEncoder;
 
@@ -52,14 +52,14 @@ public class PenggunaController {
     @GetMapping("add")
     public String showFormPengguna(Model model) {
         log.info("Menampilkan Form Tambah Pengguna.");
-        model.addAttribute(PENGGUNA, new PenggunaDto());
+        model.addAttribute("pengguna", new PenggunaDto());
         return "admin/pengguna/pengguna-form";
     }
 
     @GetMapping("edit/{penggunaId}")
     public String showEditPenggunaForm(@PathVariable("penggunaId") Long penggunaId, Model model) {
         log.info("Menampilkan Form Edit Pengguna.");
-        model.addAttribute(PENGGUNA, penggunaRepository.findById(penggunaId));
+        model.addAttribute("pengguna", penggunaRepository.findById(penggunaId));
         return "admin/pengguna/pengguna-edit";
     }
 
@@ -83,16 +83,16 @@ public class PenggunaController {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        model.addAttribute(PENGGUNA, penggunaRepository.findAll(pageable));
-        return REDIRECT_ADMIN_PENGGUNA;
+        model.addAttribute("pengguna", penggunaRepository.findAll(pageable));
+        return "redirect:/admin/pengguna";
     }
 
     @GetMapping("delete/{penggunaId}")
     public String showFormPengguna(@PathVariable("penggunaId") Long penggunaId, Model model, Pageable pageable) {
         log.info("Menghapus Data Pengguna.");
         penggunaRepository.deleteById(penggunaId);
-        model.addAttribute(PENGGUNA, penggunaRepository.findAll(pageable));
-        return REDIRECT_ADMIN_PENGGUNA;
+        model.addAttribute("pengguna", penggunaRepository.findAll(pageable));
+        return "redirect:/admin/pengguna";
     }
 
     @PostMapping
@@ -117,7 +117,7 @@ public class PenggunaController {
             e.printStackTrace();
         }
         model.addAttribute("penggunaList", penggunaRepository.findAll(pageable));
-        return REDIRECT_ADMIN_PENGGUNA;
+        return "redirect:/admin/pengguna";
     }
 
 }

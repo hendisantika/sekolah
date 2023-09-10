@@ -5,9 +5,6 @@ import com.hendisantika.sekolah.entity.Siswa;
 import com.hendisantika.sekolah.repository.KelasRepository;
 import com.hendisantika.sekolah.repository.SiswaRepository;
 import jakarta.validation.Valid;
-import java.io.IOException;
-import java.util.Base64;
-import java.util.UUID;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.BeanUtils;
 import org.springframework.data.domain.Pageable;
@@ -17,6 +14,10 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.multipart.MultipartFile;
+
+import java.io.IOException;
+import java.util.Base64;
+import java.util.UUID;
 
 /**
  * Created by IntelliJ IDEA.
@@ -32,8 +33,6 @@ import org.springframework.web.multipart.MultipartFile;
 @Controller
 @RequestMapping("admin/siswa")
 public class SiswaController {
-    private static final String SISWA = "siswa";
-    private static final String REDIRECT_ADMIN_SISWA = "redirect:/admin/siswa";
     private final SiswaRepository siswaRepository;
     private final KelasRepository kelasRepository;
 
@@ -53,7 +52,7 @@ public class SiswaController {
     public String showFormAddSiswa(Model model) {
         log.info("Menampilkan data untuk Halaman Tambah Siswa.");
         model.addAttribute("kelasList", kelasRepository.findAll());
-        model.addAttribute(SISWA, new SiswaDto());
+        model.addAttribute("siswa", new SiswaDto());
         return "admin/siswa/siswa-form";
     }
 
@@ -61,7 +60,7 @@ public class SiswaController {
     public String showFormEditSiswa(@PathVariable("siswaId") UUID siswaId, Model model) {
         log.info("Menampilkan data untuk Halaman Edit Siswa.");
         model.addAttribute("kelasList", kelasRepository.findAll());
-        model.addAttribute(SISWA, siswaRepository.findById(siswaId));
+        model.addAttribute("siswa", siswaRepository.findById(siswaId));
         return "admin/siswa/siswa-edit";
     }
 
@@ -87,8 +86,8 @@ public class SiswaController {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        model.addAttribute(SISWA, siswaRepository.findAll(pageable));
-        return REDIRECT_ADMIN_SISWA;
+        model.addAttribute("siswa", siswaRepository.findAll(pageable));
+        return "redirect:/admin/siswa";
     }
 
     @PostMapping
@@ -112,15 +111,15 @@ public class SiswaController {
             e.printStackTrace();
         }
         model.addAttribute("siswaList", siswaRepository.findAll(pageable));
-        return REDIRECT_ADMIN_SISWA;
+        return "redirect:/admin/siswa";
     }
 
     @GetMapping("delete/{siswaId}")
     public String deleteSiswa(@PathVariable("siswaId") UUID siswaId, Model model, Pageable pageable) {
         log.info("Menghapus data siswa.");
         siswaRepository.deleteById(siswaId);
-        model.addAttribute(SISWA, siswaRepository.findAll(pageable));
-        return REDIRECT_ADMIN_SISWA;
+        model.addAttribute("siswa", siswaRepository.findAll(pageable));
+        return "redirect:/admin/siswa";
     }
 
 }

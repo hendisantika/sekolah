@@ -7,9 +7,6 @@ import com.hendisantika.sekolah.exception.UsernameNotFoundException;
 import com.hendisantika.sekolah.repository.AlbumRepository;
 import com.hendisantika.sekolah.repository.PenggunaRepository;
 import jakarta.validation.Valid;
-import java.io.IOException;
-import java.security.Principal;
-import java.util.Base64;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.data.crossstore.ChangeSetPersister;
 import org.springframework.data.domain.Pageable;
@@ -20,6 +17,10 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.multipart.MultipartFile;
+
+import java.io.IOException;
+import java.security.Principal;
+import java.util.Base64;
 
 /**
  * Created by IntelliJ IDEA.
@@ -35,8 +36,6 @@ import org.springframework.web.multipart.MultipartFile;
 @PreAuthorize("hasAuthority('ADMIN')")
 @RequestMapping("admin/album")
 public class AlbumController {
-    private static final String ALBUM = "album";
-    private static final String REDIRECT_ADMIN_ALBUM = "redirect:/admin/album";
     private final AlbumRepository albumRepository;
     private final PenggunaRepository penggunaRepository;
 
@@ -55,14 +54,14 @@ public class AlbumController {
     @GetMapping("add")
     public String showAlbumForm(Model model) {
         log.info("Menampilkan Form Tambah Album.");
-        model.addAttribute(ALBUM, new AlbumDto());
+        model.addAttribute("album", new AlbumDto());
         return "admin/album/album-form";
     }
 
     @GetMapping("edit/{albumId}")
     public String showAlbumForm(@PathVariable("albumId") Long albumId, Model model) {
         log.info("Menampilkan Form Edit Album.");
-        model.addAttribute(ALBUM, albumRepository.findById(albumId));
+        model.addAttribute("album", albumRepository.findById(albumId));
         return "admin/album/album-edit";
     }
 
@@ -94,8 +93,8 @@ public class AlbumController {
             log.error("Menambahkan Data Album yang baru gagal, {}", errors);
             e.printStackTrace();
         }
-        model.addAttribute(ALBUM, albumRepository.findAll(pageable));
-        return REDIRECT_ADMIN_ALBUM;
+        model.addAttribute("album", albumRepository.findAll(pageable));
+        return "redirect:/admin/album";
     }
 
     @PostMapping("edit")
@@ -132,15 +131,15 @@ public class AlbumController {
         } catch (IOException | ChangeSetPersister.NotFoundException e) {
             e.printStackTrace();
         }
-        model.addAttribute(ALBUM, albumRepository.findAll(pageable));
-        return REDIRECT_ADMIN_ALBUM;
+        model.addAttribute("album", albumRepository.findAll(pageable));
+        return "redirect:/admin/album";
     }
 
     @GetMapping("delete/{albumId}")
     public String deleteDataAlbum(@PathVariable("albumId") Long albumId, Model model, Pageable pageable) {
         log.info("Menghapus Data Album.");
         albumRepository.deleteById(albumId);
-        model.addAttribute(ALBUM, albumRepository.findAll(pageable));
-        return REDIRECT_ADMIN_ALBUM;
+        model.addAttribute("album", albumRepository.findAll(pageable));
+        return "redirect:/admin/album";
     }
 }
