@@ -4,7 +4,6 @@ import org.apache.tomcat.util.codec.binary.Base64;
 
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 
 /**
@@ -21,16 +20,10 @@ public class FileUtils {
         throw new IllegalStateException("Utility class");
     }
 
-    public static String encodeFileToBase64Binary(File file) {
-        byte[] bytes;
-        try(FileInputStream fileInputStreamReader = new FileInputStream(file)) {
-            bytes = new byte[(int) file.length()];
-            if (fileInputStreamReader.read(bytes) == -1) {
-                return null;
-            }
-        } catch (IOException e) {
-            throw new RuntimeException(e.getMessage());
-        }
+    public static String encodeFileToBase64Binary(File file) throws Exception {
+        FileInputStream fileInputStreamReader = new FileInputStream(file);
+        byte[] bytes = new byte[(int) file.length()];
+        fileInputStreamReader.read(bytes);
         return new String(Base64.encodeBase64(bytes, false), StandardCharsets.UTF_8);
     }
 
@@ -45,7 +38,7 @@ public class FileUtils {
     }
 
     /**
-     * Decodes the base64 string into a byte array
+     * Decodes the base64 string into byte array
      *
      * @param imageDataString - a {@link String}
      * @return byte array

@@ -7,6 +7,7 @@ import com.hendisantika.sekolah.repository.PenggunaRepository;
 import com.hendisantika.sekolah.repository.PengumumanRepository;
 import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -35,13 +36,11 @@ import java.util.UUID;
 @Controller
 @RequestMapping("admin/pengumuman")
 public class PengumumanController {
-    private final PengumumanRepository pengumumanRepository;
-    private final PenggunaRepository penggunaRepository;
+    @Autowired
+    private PengumumanRepository pengumumanRepository;
 
-    public PengumumanController(PengumumanRepository pengumumanRepository, PenggunaRepository penggunaRepository) {
-        this.pengumumanRepository = pengumumanRepository;
-        this.penggunaRepository = penggunaRepository;
-    }
+    @Autowired
+    private PenggunaRepository penggunaRepository;
 
     @GetMapping
     public String showPengumuman(Model model, Pageable pageable) {

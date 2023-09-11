@@ -5,7 +5,7 @@ import com.hendisantika.sekolah.entity.Files;
 import com.hendisantika.sekolah.repository.FilesRepository;
 import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.data.crossstore.ChangeSetPersister;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
@@ -33,11 +33,8 @@ import java.util.UUID;
 @Controller
 @RequestMapping("admin/download")
 public class DownloadController {
-    private final FilesRepository filesRepository;
-
-    public DownloadController(FilesRepository filesRepository) {
-        this.filesRepository = filesRepository;
-    }
+    @Autowired
+    private FilesRepository filesRepository;
 
     @GetMapping
     public String download(Model model, Pageable pageable) {
@@ -65,7 +62,7 @@ public class DownloadController {
                              Pageable pageable, BindingResult errors, SessionStatus status) {
         log.info("Menambahkan File yang baru");
         if (errors.hasErrors()) {
-            log.info("Tambah File yang baru gagal. {}", errors);
+            log.info("Tambah File yang baru gagal. ", errors);
             return "redirect:/admin/download/add";
         }
         saveDataFile(files, file, status);
@@ -81,7 +78,7 @@ public class DownloadController {
             String encoded = Base64.getEncoder().encodeToString(bytes);
 
             files.setData(file.getOriginalFilename());
-            files.setFileContent(encoded.getBytes());
+            files.setFileContent(bytes);
             files.setFilename(file.getOriginalFilename());
             filesRepository.save(files);
             status.setComplete();
@@ -96,20 +93,11 @@ public class DownloadController {
     public String updatePengumuman(@Valid DownloadDto downloadDto, @RequestParam("file") MultipartFile file,
                                    Model model, SessionStatus status, Pageable pageable) {
         log.info("Memperbaharui data Download File.");
-        Files files;
-        try {
-            files = filesRepository.findById(downloadDto.getId()).orElseThrow(() -> {
-                log.error("Download File Not Found {}", downloadDto.getId());
-                return new ChangeSetPersister.NotFoundException();
-            });
-            files.setJudul(downloadDto.getJudul());
-            files.setDeskripsi(downloadDto.getDeskripsi());
-            files.setAuthor(downloadDto.getAuthor());
-            saveDataFile(files, file, status);
-        } catch (ChangeSetPersister.NotFoundException e) {
-            e.printStackTrace();
-        }
-
+        Files files = filesRepository.findById(downloadDto.getId()).get();
+        files.setJudul(downloadDto.getJudul());
+        files.setDeskripsi(downloadDto.getDeskripsi());
+        files.setAuthor(downloadDto.getAuthor());
+        saveDataFile(files, file, status);
         model.addAttribute("download", filesRepository.findAll(pageable));
         return "redirect:/admin/download";
     }

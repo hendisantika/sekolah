@@ -2,7 +2,6 @@ package com.hendisantika.sekolah.repository;
 
 import com.hendisantika.sekolah.entity.Album;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.stereotype.Repository;
 
 /**
  * Created by IntelliJ IDEA.
@@ -13,6 +12,5 @@ import org.springframework.stereotype.Repository;
  * Date: 03/04/20
  * Time: 07.53
  */
-@Repository
 public interface AlbumRepository extends JpaRepository<Album, Long> {
 }

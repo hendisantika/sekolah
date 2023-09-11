@@ -6,6 +6,7 @@ import com.hendisantika.sekolah.repository.PenggunaRepository;
 import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -34,13 +35,11 @@ import java.util.Base64;
 @RequestMapping("admin/pengguna")
 public class PenggunaController {
 
-    private final PenggunaRepository penggunaRepository;
-    private final PasswordEncoder passwordEncoder;
+    @Autowired
+    private PenggunaRepository penggunaRepository;
 
-    public PenggunaController(PenggunaRepository penggunaRepository, PasswordEncoder passwordEncoder) {
-        this.penggunaRepository = penggunaRepository;
-        this.passwordEncoder = passwordEncoder;
-    }
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
     @GetMapping
     public String pengguna(Model model, Pageable pageable) {

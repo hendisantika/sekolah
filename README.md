@@ -101,7 +101,7 @@ postgres:15
 ```shell
 psql -h localhost -p 5432 -U adminSekolah -W sekolah
 
-docker exec -it pg14 psql -U adminSekolah -W sekolah
+docker exec -it sekolah psql -U adminSekolah -W sekolah
 
 CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
 ```

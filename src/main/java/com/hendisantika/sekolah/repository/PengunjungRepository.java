@@ -2,7 +2,6 @@ package com.hendisantika.sekolah.repository;
 
 import com.hendisantika.sekolah.entity.Pengunjung;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.stereotype.Repository;
 
 import java.util.UUID;
 
@@ -15,6 +14,5 @@ import java.util.UUID;
  * Date: 18/03/20
  * Time: 18.48
  */
-@Repository
 public interface PengunjungRepository extends JpaRepository<Pengunjung, UUID> {
 }

@@ -13,11 +13,6 @@ import org.jsoup.safety.Safelist;
  * Time: 14.04
  */
 public class WordUtils {
-
-    private WordUtils() {
-        throw new IllegalStateException("Utility class");
-    }
-
     public static int countWords(String input) {
         if (input == null || input.isEmpty()) {
             return 0;
@@ -26,11 +21,11 @@ public class WordUtils {
         return words.length;
     }
 
-    public static StringBuilder wordLimit(String words, int maxWords) {
-        StringBuilder result = new StringBuilder();
+    public static String wordLimit(String words, int maxWords) {
+        String result = "";
         String[] temp = words.split("\\s+");
         for (int i = 0; i < maxWords; i++) {
-            result.append(temp[i]).append(" ");
+            result += temp[i] + " ";
         }
 
         return result;
@@ -41,6 +36,7 @@ public class WordUtils {
     }
 
     public static String pregReplace(String pregReplace) {
-        return pregReplace.replaceAll("/[^a-zA-Z0-9 &%|{.}=,?!*()\"-_+$@;:<>']/", "");
+        String result = pregReplace;
+        return result.replaceAll("/[^a-zA-Z0-9 \\&%|{.}=,?!*()\"-_+$@;:<>']/", "");
     }
 }

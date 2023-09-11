@@ -6,6 +6,7 @@ import com.hendisantika.sekolah.repository.GuruRepository;
 import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
@@ -19,7 +20,6 @@ import java.io.IOException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Base64;
-import java.util.Objects;
 import java.util.UUID;
 
 /**
@@ -36,13 +36,11 @@ import java.util.UUID;
 @Controller
 @RequestMapping("admin/guru")
 public class GuruController {
-    private static final String UPLOADED_FOLDER = System.getProperty("java.io.tmpdir");
 
-    private final GuruRepository guruRepository;
+    private static String UPLOADED_FOLDER = System.getProperty("java.io.tmpdir");
 
-    public GuruController(GuruRepository guruRepository) {
-        this.guruRepository = guruRepository;
-    }
+    @Autowired
+    private GuruRepository guruRepository;
 
     @GetMapping
     public String guru(Model model, Pageable pageable) {
@@ -110,7 +108,7 @@ public class GuruController {
             byte[] bytes = file.getBytes();
             String encoded = Base64.getEncoder().encodeToString(bytes);
             Guru guru = guruRepository.findById(guruBaru.getId()).orElse(null);
-            Objects.requireNonNull(guru).setTglLahir(tglLahir);
+            guru.setTglLahir(tglLahir);
             guru.setPhotoBase64(encoded);
             guru.setPhoto(file.getOriginalFilename());
             guru.setFileContent(bytes);
