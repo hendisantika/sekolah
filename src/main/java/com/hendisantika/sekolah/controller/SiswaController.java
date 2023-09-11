@@ -17,6 +17,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.util.Base64;
+import java.util.Optional;
 import java.util.UUID;
 
 /**
@@ -33,6 +34,8 @@ import java.util.UUID;
 @Controller
 @RequestMapping("admin/siswa")
 public class SiswaController {
+    private static final String SISWA = "siswa";
+    private static final String RIE_ADMIN_SISW = "redirect:/admin/siswa";
     private final SiswaRepository siswaRepository;
     private final KelasRepository kelasRepository;
 
@@ -52,7 +55,7 @@ public class SiswaController {
     public String showFormAddSiswa(Model model) {
         log.info("Menampilkan data untuk Halaman Tambah Siswa.");
         model.addAttribute("kelasList", kelasRepository.findAll());
-        model.addAttribute("siswa", new SiswaDto());
+        model.addAttribute(SISWA, new SiswaDto());
         return "admin/siswa/siswa-form";
     }
 
@@ -60,7 +63,7 @@ public class SiswaController {
     public String showFormEditSiswa(@PathVariable("siswaId") UUID siswaId, Model model) {
         log.info("Menampilkan data untuk Halaman Edit Siswa.");
         model.addAttribute("kelasList", kelasRepository.findAll());
-        model.addAttribute("siswa", siswaRepository.findById(siswaId));
+        model.addAttribute(SISWA, siswaRepository.findById(siswaId));
         return "admin/siswa/siswa-edit";
     }
 
@@ -72,22 +75,27 @@ public class SiswaController {
             // Get the file and save it somewhere
             byte[] bytes = file.getBytes();
             String encoded = Base64.getEncoder().encodeToString(bytes);
-            Siswa siswa = siswaRepository.findById(siswaDto.getId()).get();
-            siswa.setNama(siswaDto.getNama());
-            siswa.setKelas(siswaDto.getKelas());
-            siswa.setJenkel(siswaDto.getJenkel());
-            siswa.setPhotoBase64(encoded);
-            siswa.setPhoto(file.getOriginalFilename());
-            siswa.setFileContent(bytes);
-            siswa.setFilename(file.getOriginalFilename());
-            siswaRepository.save(siswa);
-            status.setComplete();
-            log.info("Update Data Siswa sukses.");
+            Optional<Siswa> byId = siswaRepository.findById(siswaDto.getId());
+            if (byId.isPresent()) {
+                Siswa siswa = byId.get();
+                siswa.setNama(siswaDto.getNama());
+                siswa.setKelas(siswaDto.getKelas());
+                siswa.setJenkel(siswaDto.getJenkel());
+                siswa.setPhotoBase64(encoded);
+                siswa.setPhoto(file.getOriginalFilename());
+                siswa.setFileContent(bytes);
+                siswa.setFilename(file.getOriginalFilename());
+                siswaRepository.save(siswa);
+                status.setComplete();
+                log.info("Update Data Siswa sukses.");
+            } else {
+                log.error("Error Data Siswa batal.");
+            }
         } catch (IOException e) {
             e.printStackTrace();
         }
-        model.addAttribute("siswa", siswaRepository.findAll(pageable));
-        return "redirect:/admin/siswa";
+        model.addAttribute(SISWA, siswaRepository.findAll(pageable));
+        return RIE_ADMIN_SISW;
     }
 
     @PostMapping
@@ -111,15 +119,15 @@ public class SiswaController {
             e.printStackTrace();
         }
         model.addAttribute("siswaList", siswaRepository.findAll(pageable));
-        return "redirect:/admin/siswa";
+        return RIE_ADMIN_SISW;
     }
 
     @GetMapping("delete/{siswaId}")
     public String deleteSiswa(@PathVariable("siswaId") UUID siswaId, Model model, Pageable pageable) {
         log.info("Menghapus data siswa.");
         siswaRepository.deleteById(siswaId);
-        model.addAttribute("siswa", siswaRepository.findAll(pageable));
-        return "redirect:/admin/siswa";
+        model.addAttribute(SISWA, siswaRepository.findAll(pageable));
+        return RIE_ADMIN_SISW;
     }
 
 }

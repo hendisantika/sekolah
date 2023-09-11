@@ -7,6 +7,7 @@ import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
@@ -86,8 +87,8 @@ public class PenggunaController {
                 status.setComplete();
                 log.info("Update Data Pengguna sukses.");
             } else {
-                status.isComplete();
-                log.error("Error: {}", currPengguna);
+                HttpStatus badRequest = HttpStatus.BAD_REQUEST;
+                log.error("Error {}", badRequest);
             }
         } catch (IOException e) {
             e.printStackTrace();
