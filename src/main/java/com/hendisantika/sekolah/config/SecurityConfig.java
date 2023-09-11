@@ -2,14 +2,13 @@ package com.hendisantika.sekolah.config;
 
 import com.hendisantika.sekolah.repository.PenggunaRepository;
 import com.hendisantika.sekolah.security.AuthenticationFailureHandler;
-import com.hendisantika.sekolah.service.UserDetailsServiceImpl;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.hendisantika.sekolah.service.impl.UserDetailsServiceImpl;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
@@ -29,13 +28,9 @@ import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 @EnableMethodSecurity
 public class SecurityConfig {
     private static final String[] PUBLIC_LINK = new String[]{
-            "/", "/about", "/guru", "/siswa", "/blog", "/pengumuman", "/agenda", "/download",
-            "/galeri", "/contact", "/login", "/logout", "/v1/api/**",
-            "/test", "/test2", "/test3", "/tes/**"
+            "/**"
     };
 
-    @Autowired
-    private PenggunaRepository userRepository;
     private static final String[] PRIVATE_LINK = new String[]{
             "/admin/**"
     };
@@ -49,18 +44,9 @@ public class SecurityConfig {
     public AuthenticationFailureHandler authenticationFailureHandler() {
         return new AuthenticationFailureHandler();
     }
-    /*
-     * Tell Spring Security to use the custom built UserDetailsServiceImpl class
-     *
-     */
-
-
-    protected void configure(AuthenticationManagerBuilder authBuilder) throws Exception {
-        authBuilder.userDetailsService(userDetailsServiceBean()).passwordEncoder(passwordEncoder());
-    }
 
     @Bean
-    public UserDetailsService userDetailsServiceBean() {
+    public UserDetailsService userDetailsServiceBean(PenggunaRepository userRepository) {
         return new UserDetailsServiceImpl(userRepository);
     }
 
@@ -71,8 +57,8 @@ public class SecurityConfig {
                 //you can either disable this or
                 //put <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
                 //inside the login form
-                .csrf((csrf) -> csrf.disable())
-                .authorizeHttpRequests((authz) -> authz
+                .csrf(AbstractHttpConfigurer::disable)
+                .authorizeHttpRequests(authz -> authz
                         .requestMatchers("/ignore1", "/ignore2" , "/assets/**", "/css/**", "/img/**",
                                 "/js**", "/plugins/**", "/theme/**", "/templates/**").permitAll()
                         .requestMatchers(PUBLIC_LINK).permitAll()

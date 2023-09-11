@@ -1,21 +1,18 @@
 package com.hendisantika.sekolah.test;
 
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
+import java.awt.image.BufferedImage;
+import java.io.*;
+import java.util.Objects;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.imageio.ImageIO;
 import org.apache.commons.codec.binary.Base64;
 import org.apache.commons.io.FileUtils;
 import org.junit.jupiter.api.Test;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.util.ResourceUtils;
-
-import javax.imageio.ImageIO;
-import java.awt.image.BufferedImage;
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-
-import static org.junit.jupiter.api.Assertions.assertTrue;
 
 /**
  * Created by IntelliJ IDEA.
@@ -26,9 +23,10 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
  * Date: 26/03/20
  * Time: 18.08
  */
-class ConvertImage {
-    private final String inputFilePath = "ninja.jpeg";
-    private final String outputFilePath = "ninja-test_image_copy.jpeg";
+@SpringBootTest
+class ConvertImageTest {
+    private final String INPUT_FILE_PATH = "ninja.jpeg";
+    private final String OUTPUT_FILE_PATH = "ninja-test_image_copy.jpeg";
 
     @Test
     void ConvertImageToByteArray() throws IOException {
@@ -36,31 +34,31 @@ class ConvertImage {
          * 1. How to convert an image file to  byte array?
          */
         String fileName = "girl.png";
-        ClassLoader classLoader = new ConvertImage().getClass().getClassLoader();
+        ClassLoader classLoader = ConvertImageTest.class.getClassLoader();
 
-//        File file = new File(classLoader.getResource(fileName).getFile());
-        File file = ResourceUtils.getFile("classpath:girl.png");
+        File file = new File(Objects.requireNonNull(classLoader.getResource(fileName)).getFile());
+//        File file = ResourceUtils.getFile("classpath:girl.png");
         System.out.println("File getAbsolutePath : " + file.getAbsolutePath());
         System.out.println("File: " + file.getName());
         System.out.println("File Found : " + file.exists());
 
-        FileInputStream fis = new FileInputStream(file);
-        //create FileInputStream which obtains input bytes from a file in a file system
-        //FileInputStream is meant for reading streams of raw bytes such as image data. For reading streams of
-        // characters, consider using FileReader.
-
-        ByteArrayOutputStream bos = new ByteArrayOutputStream();
-        byte[] buf = new byte[1024];
-        try {
-            for (int readNum; (readNum = fis.read(buf)) != -1; ) {
-                //Writes to this byte array output stream
-                bos.write(buf, 0, readNum);
-                System.out.println("read " + readNum + " bytes,");
+        try (FileInputStream fis = new FileInputStream(file)) {
+            //create FileInputStream which obtains input bytes from a file in a file system
+            //FileInputStream is meant for reading streams of raw bytes such as image data. For reading streams of
+            // characters, consider using FileReader.
+            ByteArrayOutputStream bos = new ByteArrayOutputStream();
+            byte[] buf = new byte[1024];
+            try {
+                for (int readNum; (readNum = fis.read(buf)) != -1; ) {
+                    //Writes to this byte array output stream
+                    bos.write(buf, 0, readNum);
+                    System.out.println("read " + readNum + " bytes,");
+                }
+                System.out.println("Size1: " + file.length());
+                System.out.println("Size2: " + bos.size());
+            } catch (IOException ex) {
+                Logger.getLogger(ConvertImageTest.class.getName()).log(Level.SEVERE, null, ex);
             }
-            System.out.println("Size1: " + file.length());
-            System.out.println("Size2: " + bos.size());
-        } catch (IOException ex) {
-            Logger.getLogger(ConvertImage.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -109,8 +107,8 @@ class ConvertImage {
         baos.flush();
 
         Base64 base64 = new Base64();
-//        String base64String = Base64.encode(baos.toByteArray());
-        String base64String = new String(base64.encode(baos.toByteArray()));
+        byte[] base64String = base64.encode(baos.toByteArray());
+//        String base64String = new String(base64.encode(baos.toByteArray()));
         baos.close();
 
         byte[] byteArray = base64.decode(base64String);
@@ -121,11 +119,11 @@ class ConvertImage {
     }
 
     @Test
-    void ConvertImageFiletoBase64StringTest() throws IOException {
+    void ConvertImageFileToBase64StringTest() throws IOException {
         //load file from /src/test/resources
         ClassLoader classLoader = getClass().getClassLoader();
-        File inputFile = new File(classLoader
-                .getResource(inputFilePath)
+        File inputFile = new File(Objects.requireNonNull(classLoader
+                        .getResource(INPUT_FILE_PATH))
                 .getFile());
 
         byte[] fileContent = FileUtils.readFileToByteArray(inputFile);
@@ -136,7 +134,7 @@ class ConvertImage {
         //create output file
         File outputFile = new File(inputFile
                 .getParentFile()
-                .getAbsolutePath() + File.pathSeparator + outputFilePath);
+                .getAbsolutePath() + File.pathSeparator + OUTPUT_FILE_PATH);
 
         // decode the string and write to file
         byte[] decodedBytes = java.util.Base64

@@ -13,6 +13,10 @@ import org.jsoup.safety.Safelist;
  * Time: 14.04
  */
 public class WordUtils {
+    private WordUtils() {
+        throw new IllegalStateException("Utility class");
+    }
+
     public static int countWords(String input) {
         if (input == null || input.isEmpty()) {
             return 0;

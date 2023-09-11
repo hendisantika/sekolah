@@ -1,5 +1,7 @@
 package com.hendisantika.sekolah.exception;
 
+import java.io.Serial;
+
 /**
  * Created by IntelliJ IDEA.
  * Project : sekolah
@@ -10,6 +12,7 @@ package com.hendisantika.sekolah.exception;
  * Time: 17.49
  */
 public class KategoriNotFoundException extends Exception {
+    @Serial
     private static final long serialVersionUID = 1668398822129870029L;
 
     public KategoriNotFoundException() {

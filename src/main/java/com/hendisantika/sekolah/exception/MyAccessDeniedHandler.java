@@ -23,15 +23,14 @@ import java.io.IOException;
  */
 @Component
 @Slf4j
-public class MyAccessDeniedHandler implements AccessDeniedHandler {
+public class MyAccessDeniedHandler extends Exception implements AccessDeniedHandler {
 
     @Override
     public void handle(HttpServletRequest httpServletRequest,
                        HttpServletResponse httpServletResponse,
                        AccessDeniedException e) throws IOException, ServletException {
 
-        Authentication auth
-                = SecurityContextHolder.getContext().getAuthentication();
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 
         if (auth != null) {
             log.info("User '" + auth.getName()

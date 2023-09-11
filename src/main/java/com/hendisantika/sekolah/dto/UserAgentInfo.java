@@ -1,9 +1,6 @@
 package com.hendisantika.sekolah.dto;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 /**
  * Created by IntelliJ IDEA.
@@ -14,10 +11,11 @@ import lombok.NoArgsConstructor;
  * Date: 24/03/20
  * Time: 06.44
  */
-@Data
+@Builder
+@Getter
+@Setter
 @AllArgsConstructor
 @NoArgsConstructor
-@Builder
 public class UserAgentInfo {
     private String userAgent;
     private String osType;

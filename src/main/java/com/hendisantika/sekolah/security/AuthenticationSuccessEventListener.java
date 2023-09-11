@@ -22,7 +22,7 @@ public class AuthenticationSuccessEventListener implements ApplicationListener<A
     @Override
     public void onApplicationEvent(AuthenticationSuccessEvent event) {
         WebAuthenticationDetails wad = (WebAuthenticationDetails) event.getAuthentication().getDetails();
-        log.info("Login success from " + event.getAuthentication().getDetails());
+        log.info("Login success from {}", wad);
     }
 
 }

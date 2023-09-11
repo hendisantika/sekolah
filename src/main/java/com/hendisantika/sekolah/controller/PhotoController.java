@@ -8,7 +8,6 @@ import com.hendisantika.sekolah.repository.GaleriRepository;
 import com.hendisantika.sekolah.repository.PenggunaRepository;
 import jakarta.validation.Valid;
 import lombok.extern.log4j.Log4j2;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -22,6 +21,7 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.IOException;
 import java.security.Principal;
 import java.util.Base64;
+import java.util.Objects;
 
 /**
  * Created by IntelliJ IDEA.
@@ -37,14 +37,17 @@ import java.util.Base64;
 @PreAuthorize("hasAuthority('ADMIN')")
 @RequestMapping("admin/galeri")
 public class PhotoController {
-    @Autowired
-    private GaleriRepository galeriRepository;
+    private static final String GALERI = "galeri";
+    private static final String RIE_ADMIN_GALE = "redirect:/admin/galeri";
+    private final GaleriRepository galeriRepository;
+    private final AlbumRepository albumRepository;
+    private final PenggunaRepository penggunaRepository;
 
-    @Autowired
-    private AlbumRepository albumRepository;
-
-    @Autowired
-    private PenggunaRepository penggunaRepository;
+    public PhotoController(GaleriRepository galeriRepository, AlbumRepository albumRepository, PenggunaRepository penggunaRepository) {
+        this.galeriRepository = galeriRepository;
+        this.albumRepository = albumRepository;
+        this.penggunaRepository = penggunaRepository;
+    }
 
     @GetMapping
     public String galeri(Model model, Pageable pageable) {
@@ -58,7 +61,7 @@ public class PhotoController {
     public String showAddGaleriForm(Model model) {
         log.info("Menampilkan form halaman tambah Galeri.");
         model.addAttribute("albumList", albumRepository.findAll());
-        model.addAttribute("galeri", new GaleriDto());
+        model.addAttribute(GALERI, new GaleriDto());
         return "admin/galeri/galeri-form";
     }
 
@@ -66,7 +69,7 @@ public class PhotoController {
     public String showFormEditGaleri(@PathVariable("galeriId") Long galeriId, Model model) {
         log.info("Menampilkan data untuk Halaman Edit Galeri.");
         model.addAttribute("albumList", albumRepository.findAll());
-        model.addAttribute("galeri", galeriRepository.findById(galeriId));
+        model.addAttribute(GALERI, galeriRepository.findById(galeriId));
         return "admin/galeri/galeri-edit";
     }
 
@@ -98,8 +101,8 @@ public class PhotoController {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        model.addAttribute("galeri", galeriRepository.findAll(pageable));
-        return "redirect:/admin/galeri";
+        model.addAttribute(GALERI, galeriRepository.findAll(pageable));
+        return RIE_ADMIN_GALE;
     }
 
     @PostMapping("edit")
@@ -112,7 +115,7 @@ public class PhotoController {
             byte[] bytes = file.getBytes();
             String encoded = Base64.getEncoder().encodeToString(bytes);
             Galeri galeri = galeriRepository.findById(galeriDto.getId()).orElse(null);
-            galeri.setAlbum(galeriDto.getAlbum());
+            Objects.requireNonNull(galeri).setAlbum(galeriDto.getAlbum());
             galeri.setJudul(galeriDto.getJudul());
             galeri.setAuthor(galeriDto.getAuthor());
             galeri.setPhotoBase64(encoded);
@@ -124,15 +127,15 @@ public class PhotoController {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        model.addAttribute("galeri", galeriRepository.findAll(pageable));
-        return "redirect:/admin/galeri";
+        model.addAttribute(GALERI, galeriRepository.findAll(pageable));
+        return RIE_ADMIN_GALE;
     }
 
     @GetMapping("delete/{galeriId}")
     public String deleteGaleri(@PathVariable("galeriId") Long galeriId, Model model) {
         log.info("Delete data Galeri.");
         galeriRepository.deleteById(galeriId);
-        model.addAttribute("galeri", galeriRepository.findById(galeriId));
-        return "redirect:/admin/galeri";
+        model.addAttribute(GALERI, galeriRepository.findById(galeriId));
+        return RIE_ADMIN_GALE;
     }
 }

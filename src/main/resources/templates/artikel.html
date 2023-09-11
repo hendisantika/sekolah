@@ -177,9 +177,9 @@
                     <div class="blog-featured_post">
                         <h3>Populer</h3>
                         <div class="blog-featured-img_block" th:each="p : ${populer}">
-                            <img alt="blog-featured-img" class="img-fluid" th:src="@{/assets/images/} + ${p.gambar}"
-                                 width="35%">
-                            <h5><a th:href="@{/artikel} + ${p.slug}"
+                            <img alt="blog-featured-img" class="img-fluid"
+                                 th:src="${'data:image/jpeg;base64,'+ p.gambar}" width="35%">
+                            <h5><a th:href="@{/artikel/} + ${p.slug}"
                                    th:text="${#strings.substring(p.judul,0, 25)} + '...'">tulisan_judul</a>
                             </h5>
                             <p th:text="${#strings.substring(p.isi,0,25)}">tulisan_isi,5).'...'}</p>

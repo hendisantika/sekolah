@@ -28,11 +28,11 @@
                                     th:text="${t.kategori.nama}">
                                 tulisan_kategori_nama</span></a></h6>
                             <span + th:text="${#strings.substring(t.isi,0, 100)}" '...'>Isi</span>
-                            <div class="blog-icons">
-                                <div class="blog-share_block">
-                                    <a th:href="@{/artikel} + ${t.slug}">Read More</a>
-                                </div>
-                            </div>
+                            <a th:href="@{/artikel} + ${t.slug}"> Read More</a>
+                            <br>
+                            <br>
+                            <br>
+                            <br>
                         </div>
                     </div>
                     </nav>
@@ -58,7 +58,7 @@
                             <img alt="blog-featured-img" class="img-fluid"
                                  th:src="${'data:image/jpeg;base64,'+ t.photoBase64}" width="35%">
                             <!--                            <img th:src="${'data:image/jpeg;base64,'+ t.photoBase64}" height="60" width="80" alt="blog-img" class="img-thumbnail">-->
-                            <h5><a th:href="@{/artikel} + ${t.slug}"
+                            <h5><a th:href="@{/artikel/} + ${t.slug}"
                                    th:text="${#strings.substring(t.judul,0, 25)} + '...'">tulisan_judul</a>
                             </h5>
                             <p th:text="${#strings.substring(t.isi,0,25)}">tulisan_isi,5).'...'}</p>
