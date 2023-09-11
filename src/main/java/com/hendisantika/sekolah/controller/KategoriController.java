@@ -29,6 +29,7 @@ import java.security.Principal;
 @Controller
 @RequestMapping("admin/kategori")
 public class KategoriController {
+
     private final KategoriRepository kategoriRepository;
 
     public KategoriController(KategoriRepository kategoriRepository) {

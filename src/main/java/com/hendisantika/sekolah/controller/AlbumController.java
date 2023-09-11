@@ -22,6 +22,9 @@ import java.io.IOException;
 import java.security.Principal;
 import java.util.Base64;
 
+import static com.hendisantika.sekolah.constant.Constants.ALBUM;
+import static com.hendisantika.sekolah.constant.Constants.RIE_ADMIN_ALBM;
+
 /**
  * Created by IntelliJ IDEA.
  * Project : sekolah
@@ -36,8 +39,6 @@ import java.util.Base64;
 @PreAuthorize("hasAuthority('ADMIN')")
 @RequestMapping("admin/album")
 public class AlbumController {
-    private static final String ALBUM = "album";
-    private static final String RIE_ADMIN_ALBM = "redirect:/admin/album";
     private final AlbumRepository albumRepository;
     private final PenggunaRepository penggunaRepository;
 

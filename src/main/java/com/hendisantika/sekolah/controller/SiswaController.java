@@ -20,6 +20,9 @@ import java.util.Base64;
 import java.util.Optional;
 import java.util.UUID;
 
+import static com.hendisantika.sekolah.constant.Constants.RIE_ADMIN_SISW;
+import static com.hendisantika.sekolah.constant.Constants.SISWA;
+
 /**
  * Created by IntelliJ IDEA.
  * Project : sekolah
@@ -34,8 +37,7 @@ import java.util.UUID;
 @Controller
 @RequestMapping("admin/siswa")
 public class SiswaController {
-    private static final String SISWA = "siswa";
-    private static final String RIE_ADMIN_SISW = "redirect:/admin/siswa";
+
     private final SiswaRepository siswaRepository;
     private final KelasRepository kelasRepository;
 

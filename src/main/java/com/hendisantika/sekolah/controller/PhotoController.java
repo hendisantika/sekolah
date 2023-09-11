@@ -23,6 +23,9 @@ import java.security.Principal;
 import java.util.Base64;
 import java.util.Objects;
 
+import static com.hendisantika.sekolah.constant.Constants.GALERI;
+import static com.hendisantika.sekolah.constant.Constants.RIE_ADMIN_GALE;
+
 /**
  * Created by IntelliJ IDEA.
  * Project : sekolah
@@ -37,8 +40,7 @@ import java.util.Objects;
 @PreAuthorize("hasAuthority('ADMIN')")
 @RequestMapping("admin/galeri")
 public class PhotoController {
-    private static final String GALERI = "galeri";
-    private static final String RIE_ADMIN_GALE = "redirect:/admin/galeri";
+
     private final GaleriRepository galeriRepository;
     private final AlbumRepository albumRepository;
     private final PenggunaRepository penggunaRepository;

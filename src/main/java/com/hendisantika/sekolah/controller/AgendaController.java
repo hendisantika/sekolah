@@ -2,8 +2,6 @@ package com.hendisantika.sekolah.controller;
 
 import com.hendisantika.sekolah.entity.Agenda;
 import com.hendisantika.sekolah.repository.AgendaRepository;
-import com.hendisantika.sekolah.repository.KategoriRepository;
-import com.hendisantika.sekolah.repository.PenggunaRepository;
 import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Pageable;
@@ -19,7 +17,10 @@ import org.springframework.web.bind.support.SessionStatus;
 
 import java.security.Principal;
 import java.time.LocalDateTime;
+import java.util.Optional;
 import java.util.UUID;
+
+import static com.hendisantika.sekolah.constant.Constants.AGENDA;
 
 
 @Slf4j
@@ -27,9 +28,6 @@ import java.util.UUID;
 @RequestMapping("admin/agenda")
 @PreAuthorize("hasAuthority('ADMIN')")
 public class AgendaController {
-
-    private static final String UPLOADED_FOLDER = System.getProperty("java.io.tmpdir");
-    private static final String AGENDA = "agenda";
 
     private final AgendaRepository agendaRepository;
 
@@ -76,14 +74,18 @@ public class AgendaController {
     @PostMapping("edit")
     public String updateAgenda(Model model, @Valid Agenda agendaBaru, Pageable pageable) {
         log.info("Memperbaharui Data Agenda");
-
-        Agenda agenda = agendaRepository.findById(agendaBaru.getId()).get();
-        agenda.setNama(agendaBaru.getNama());
-        agenda.setDeskripsi(agendaBaru.getDeskripsi());
-        agenda.setMulai(agendaBaru.getMulai());
-        agenda.setTempat(agendaBaru.getTempat());
-        agendaRepository.save(agenda);
-        model.addAttribute(AGENDA, agendaRepository.findAll(pageable));
+        Optional<Agenda> byId = agendaRepository.findById(agendaBaru.getId());
+        if (byId.isPresent()) {
+            Agenda agenda = byId.get();
+            agenda.setNama(agendaBaru.getNama());
+            agenda.setDeskripsi(agendaBaru.getDeskripsi());
+            agenda.setMulai(agendaBaru.getMulai());
+            agenda.setTempat(agendaBaru.getTempat());
+            agendaRepository.save(agenda);
+            model.addAttribute(AGENDA, agendaRepository.findAll(pageable));
+        } else {
+            log.error("Data agenda tidak ada");
+        }
         return "redirect:/admin/agenda";
     }
 
@@ -95,4 +97,5 @@ public class AgendaController {
         model.addAttribute("agendaList", agendaRepository.findAll(pageable));
         return "redirect:/admin/agenda";
     }
+
 }

@@ -19,6 +19,9 @@ import java.io.IOException;
 import java.util.Base64;
 import java.util.UUID;
 
+import static com.hendisantika.sekolah.constant.Constants.DL;
+import static com.hendisantika.sekolah.constant.Constants.RIE_ADMIN_DL;
+
 /**
  * Created by IntelliJ IDEA.
  * Project : sekolah
@@ -33,8 +36,7 @@ import java.util.UUID;
 @Controller
 @RequestMapping("admin/download")
 public class DownloadController {
-    private static final String DL = "download";
-    private static final String RIE_ADMIN_DL = "redirect:/admin/download";
+
     private final FilesRepository filesRepository;
 
     public DownloadController(FilesRepository filesRepository) {

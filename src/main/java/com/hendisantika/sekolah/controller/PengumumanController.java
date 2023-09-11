@@ -23,6 +23,8 @@ import java.security.Principal;
 import java.util.Optional;
 import java.util.UUID;
 
+import static com.hendisantika.sekolah.constant.Constants.PENGUMUMAN;
+
 /**
  * Created by IntelliJ IDEA.
  * Project : sekolah
@@ -37,7 +39,7 @@ import java.util.UUID;
 @Controller
 @RequestMapping("admin/pengumuman")
 public class PengumumanController {
-    private static final String PENGUMUMAN = "pengumuman";
+
     private final PengumumanRepository pengumumanRepository;
     private final PenggunaRepository penggunaRepository;
 
@@ -108,4 +110,5 @@ public class PengumumanController {
         model.addAttribute("pengumumanList", pengumumanRepository.findAll(pageable));
         return "admin/pengumuman/pengumuman-list";
     }
+
 }

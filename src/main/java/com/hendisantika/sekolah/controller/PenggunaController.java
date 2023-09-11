@@ -21,6 +21,9 @@ import java.security.Principal;
 import java.util.Base64;
 import java.util.Optional;
 
+import static com.hendisantika.sekolah.constant.Constants.PENGGUNA;
+import static com.hendisantika.sekolah.constant.Constants.RIE_ADMIN_PENGGUNA;
+
 /**
  * Created by IntelliJ IDEA.
  * Project : sekolah
@@ -35,8 +38,6 @@ import java.util.Optional;
 @Controller
 @RequestMapping("admin/pengguna")
 public class PenggunaController {
-    private static final String PENGGUNA = "pengguna";
-    private static final String RIE_ADMIN_PENGGUNA = "redirect:/admin/pengguna";
 
     private final PenggunaRepository penggunaRepository;
     private final PasswordEncoder passwordEncoder;
