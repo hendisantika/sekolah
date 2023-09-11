@@ -7,7 +7,6 @@ import com.hendisantika.sekolah.repository.PenggunaRepository;
 import com.hendisantika.sekolah.repository.TulisanRepository;
 import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -22,6 +21,7 @@ import java.io.IOException;
 import java.security.Principal;
 import java.time.LocalDateTime;
 import java.util.Base64;
+import java.util.Objects;
 import java.util.UUID;
 
 import static com.hendisantika.sekolah.util.WordUtils.pregReplace;
@@ -43,16 +43,19 @@ import static org.apache.commons.lang3.StringUtils.lowerCase;
 @PreAuthorize("hasAuthority('ADMIN')")
 public class TulisanController {
     //Save the uploaded file to this folder
-    private static String UPLOADED_FOLDER = System.getProperty("java.io.tmpdir");
+    private static final String UPLOADED_FOLDER = System.getProperty("java.io.tmpdir");
 
-    @Autowired
-    private TulisanRepository tulisanRepository;
+    private final TulisanRepository tulisanRepository;
 
-    @Autowired
-    private KategoriRepository kategoriRepository;
+    private final KategoriRepository kategoriRepository;
 
-    @Autowired
-    private PenggunaRepository penggunaRepository;
+    private final PenggunaRepository penggunaRepository;
+
+    public TulisanController(TulisanRepository tulisanRepository, KategoriRepository kategoriRepository, PenggunaRepository penggunaRepository) {
+        this.tulisanRepository = tulisanRepository;
+        this.kategoriRepository = kategoriRepository;
+        this.penggunaRepository = penggunaRepository;
+    }
 
     @GetMapping
     public String tulisan(Model model, Pageable pageable) {
@@ -83,7 +86,7 @@ public class TulisanController {
                               Principal principal, Pageable pageable, SessionStatus status) {
         log.info("Mengedit Data Tulisan");
         Tulisan tulisanFromDB = tulisanRepository.findById(tulisanBaru.getId()).orElse(null);
-        tulisanBaru.setCreatedOn((tulisanFromDB.getCreatedOn() == null) ? LocalDateTime.now() :
+        tulisanBaru.setCreatedOn((Objects.requireNonNull(tulisanFromDB).getCreatedOn() == null) ? LocalDateTime.now() :
                 tulisanFromDB.getCreatedOn());
         saveDataTulisan(tulisanBaru, file, principal, status);
         model.addAttribute("tulisanList", tulisanRepository.findAll(pageable));
@@ -95,7 +98,7 @@ public class TulisanController {
                                 Principal principal, Pageable pageable, BindingResult errors, SessionStatus status) {
         log.info("Menambahkan Tulisan yang baru");
         if (errors.hasErrors()) {
-            log.info("Tambah Tulisan yang baru gagal. ", errors);
+            log.info("Tambah Tulisan yang baru gagal. {}", errors);
             return "redirect:/admin/tulisan/add";
         }
         saveDataTulisan(tulisan, file, principal, status);
@@ -116,7 +119,7 @@ public class TulisanController {
             });
 
             tulisan.setJudul(stripTags(tulisan.getJudul()));
-            tulisan.setSlug(lowerCase((pregReplace(tulisan.getJudul()))).replaceAll(" ", "-"));
+            tulisan.setSlug(lowerCase((pregReplace(tulisan.getJudul()))).replace(" ", "-"));
             tulisan.setPengguna(pengguna);
             tulisan.setCreatedBy(username);
             tulisan.setGambar(encoded);

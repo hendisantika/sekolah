@@ -7,7 +7,6 @@ import com.hendisantika.sekolah.repository.SiswaRepository;
 import jakarta.validation.Valid;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.BeanUtils;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
@@ -34,11 +33,13 @@ import java.util.UUID;
 @Controller
 @RequestMapping("admin/siswa")
 public class SiswaController {
-    @Autowired
-    private SiswaRepository siswaRepository;
+    private final SiswaRepository siswaRepository;
+    private final KelasRepository kelasRepository;
 
-    @Autowired
-    private KelasRepository kelasRepository;
+    public SiswaController(SiswaRepository siswaRepository, KelasRepository kelasRepository) {
+        this.siswaRepository = siswaRepository;
+        this.kelasRepository = kelasRepository;
+    }
 
     @GetMapping
     public String showListSiswa(Model model, Pageable pageable) {

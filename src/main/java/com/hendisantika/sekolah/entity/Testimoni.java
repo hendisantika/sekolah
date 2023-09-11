@@ -1,10 +1,11 @@
 package com.hendisantika.sekolah.entity;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import org.hibernate.annotations.GenericGenerator;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
+import lombok.*;
+import org.hibernate.annotations.UuidGenerator;
 import org.springframework.data.annotation.CreatedBy;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedBy;
@@ -23,29 +24,38 @@ import java.util.UUID;
  * Date: 18/03/20
  * Time: 18.52
  */
-@Data
+@Getter
+@Setter
+@ToString
+@Builder
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity(name = "tbl_testimoni")
 @EntityListeners(AuditingEntityListener.class)
 public class Testimoni {
     @Id
-    @Column(name = "id")
     @GeneratedValue(generator = "uuid2")
-    @GenericGenerator(name = "uuid2", strategy = "uuid2")
+    @UuidGenerator
+    @Column(name = "id")
+    @NotNull
     private UUID id;
 
-    @Column(name = "nama ")
+    @Column(name = "nama")
+    @Size(max = 30)
     private String nama;
 
-    @Column(name = "isi ")
+    @Column(name = "isi")
+    @Size(max = 120)
     private String isi;
 
     @Column(name = "email")
+    @Email
+    @Size(max = 35)
     private String email;
 
     @Column(name = "created_by")
     @CreatedBy
+    @Size(max = 50)
     private String createdBy;
 
     @Column(name = "created_on")
@@ -54,10 +64,41 @@ public class Testimoni {
 
     @Column(name = "modified_by")
     @LastModifiedBy
+    @Size(max = 50)
     private String modifiedBy;
 
     @Column(name = "modified_on")
     @LastModifiedDate
     private LocalDateTime modifiedOn;
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Testimoni testimoni)) return false;
+
+        if (getId() != null ? !getId().equals(testimoni.getId()) : testimoni.getId() != null) return false;
+        if (getNama() != null ? !getNama().equals(testimoni.getNama()) : testimoni.getNama() != null) return false;
+        if (getIsi() != null ? !getIsi().equals(testimoni.getIsi()) : testimoni.getIsi() != null) return false;
+        if (getEmail() != null ? !getEmail().equals(testimoni.getEmail()) : testimoni.getEmail() != null) return false;
+        if (getCreatedBy() != null ? !getCreatedBy().equals(testimoni.getCreatedBy()) : testimoni.getCreatedBy() != null)
+            return false;
+        if (getCreatedOn() != null ? !getCreatedOn().equals(testimoni.getCreatedOn()) : testimoni.getCreatedOn() != null)
+            return false;
+        if (getModifiedBy() != null ? !getModifiedBy().equals(testimoni.getModifiedBy()) : testimoni.getModifiedBy() != null)
+            return false;
+        return getModifiedOn() != null ? getModifiedOn().equals(testimoni.getModifiedOn()) : testimoni.getModifiedOn() == null;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = getId() != null ? getId().hashCode() : 0;
+        result = 31 * result + (getNama() != null ? getNama().hashCode() : 0);
+        result = 31 * result + (getIsi() != null ? getIsi().hashCode() : 0);
+        result = 31 * result + (getEmail() != null ? getEmail().hashCode() : 0);
+        result = 31 * result + (getCreatedBy() != null ? getCreatedBy().hashCode() : 0);
+        result = 31 * result + (getCreatedOn() != null ? getCreatedOn().hashCode() : 0);
+        result = 31 * result + (getModifiedBy() != null ? getModifiedBy().hashCode() : 0);
+        result = 31 * result + (getModifiedOn() != null ? getModifiedOn().hashCode() : 0);
+        return result;
+    }
 }

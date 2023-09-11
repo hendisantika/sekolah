@@ -5,10 +5,10 @@ import com.hendisantika.sekolah.security.AuthenticationFailureHandler;
 import com.hendisantika.sekolah.service.impl.UserDetailsServiceImpl;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
@@ -27,20 +27,13 @@ import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 @EnableWebSecurity
 @EnableMethodSecurity
 public class SecurityConfig {
-    private static final String LOGIN = "/login";
     private static final String[] PUBLIC_LINK = new String[]{
             "/**"
     };
 
-    private final PenggunaRepository userRepository;
-
     private static final String[] PRIVATE_LINK = new String[]{
             "/admin/**"
     };
-
-    public SecurityConfig(PenggunaRepository userRepository) {
-        this.userRepository = userRepository;
-    }
 
     @Bean
     public BCryptPasswordEncoder passwordEncoder() {
@@ -50,15 +43,6 @@ public class SecurityConfig {
     @Bean
     public AuthenticationFailureHandler authenticationFailureHandler() {
         return new AuthenticationFailureHandler();
-    }
-    /*
-     * Tell Spring Security to use the custom-built UserDetailsServiceImpl class
-     *
-     */
-
-
-    protected void configure(AuthenticationManagerBuilder authBuilder) throws Exception {
-        authBuilder.userDetailsService(userDetailsServiceBean(userRepository)).passwordEncoder(passwordEncoder());
     }
 
     @Bean
@@ -73,7 +57,7 @@ public class SecurityConfig {
                 //you can either disable this or
                 //put <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
                 //inside the login form
-                .csrf(csrf -> csrf.disable())
+                .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(authz -> authz
                         .requestMatchers("/ignore1", "/ignore2" , "/assets/**", "/css/**", "/img/**",
                                 "/js**", "/plugins/**", "/theme/**", "/templates/**").permitAll()
@@ -82,8 +66,8 @@ public class SecurityConfig {
                         .anyRequest().authenticated()
                 )
                 .formLogin(formLogin -> formLogin
-                        .loginPage(LOGIN) //enable this to go to your own custom login page
-                        .loginProcessingUrl(LOGIN) //enable this to use login page provided by spring security
+                        .loginPage("/login") //enable this to go to your own custom login page
+                        .loginProcessingUrl("/login") //enable this to use login page provided by spring security
                         .defaultSuccessUrl("/admin/dashboard", true)
                         .failureUrl("/login?error")
                 )

@@ -5,7 +5,6 @@ import com.hendisantika.sekolah.exception.KategoriNotFoundException;
 import com.hendisantika.sekolah.repository.KategoriRepository;
 import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -18,8 +17,11 @@ import java.util.Optional;
 @RequestMapping("/v1/api/news")
 public class KategoriApiController {
 
-    @Autowired
-    private KategoriRepository kategoriRepository;
+    private final KategoriRepository kategoriRepository;
+
+    public KategoriApiController(KategoriRepository kategoriRepository) {
+        this.kategoriRepository = kategoriRepository;
+    }
 
     @PostMapping("categories")
     @ResponseBody

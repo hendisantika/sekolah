@@ -8,7 +8,6 @@ import com.hendisantika.sekolah.repository.GaleriRepository;
 import com.hendisantika.sekolah.repository.PenggunaRepository;
 import jakarta.validation.Valid;
 import lombok.extern.log4j.Log4j2;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -22,6 +21,7 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.IOException;
 import java.security.Principal;
 import java.util.Base64;
+import java.util.Objects;
 
 /**
  * Created by IntelliJ IDEA.
@@ -37,14 +37,15 @@ import java.util.Base64;
 @PreAuthorize("hasAuthority('ADMIN')")
 @RequestMapping("admin/galeri")
 public class PhotoController {
-    @Autowired
-    private GaleriRepository galeriRepository;
+    private final GaleriRepository galeriRepository;
+    private final AlbumRepository albumRepository;
+    private final PenggunaRepository penggunaRepository;
 
-    @Autowired
-    private AlbumRepository albumRepository;
-
-    @Autowired
-    private PenggunaRepository penggunaRepository;
+    public PhotoController(GaleriRepository galeriRepository, AlbumRepository albumRepository, PenggunaRepository penggunaRepository) {
+        this.galeriRepository = galeriRepository;
+        this.albumRepository = albumRepository;
+        this.penggunaRepository = penggunaRepository;
+    }
 
     @GetMapping
     public String galeri(Model model, Pageable pageable) {
@@ -112,7 +113,7 @@ public class PhotoController {
             byte[] bytes = file.getBytes();
             String encoded = Base64.getEncoder().encodeToString(bytes);
             Galeri galeri = galeriRepository.findById(galeriDto.getId()).orElse(null);
-            galeri.setAlbum(galeriDto.getAlbum());
+            Objects.requireNonNull(galeri).setAlbum(galeriDto.getAlbum());
             galeri.setJudul(galeriDto.getJudul());
             galeri.setAuthor(galeriDto.getAuthor());
             galeri.setPhotoBase64(encoded);

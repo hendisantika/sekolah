@@ -1,9 +1,6 @@
 package com.hendisantika.sekolah.dto;
 
-import jakarta.persistence.Id;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.time.LocalDateTime;
 import java.util.UUID;
@@ -14,28 +11,21 @@ import java.util.UUID;
  * User: hendisantika
  * Email: hendisantika@gmail.com
  * Telegram : @hendisantika34
- * Date: 18/03/20
- * Time: 06.41
+ * Date: 03/04/20
+ * Time: 08.47
  */
-@Data
 @AllArgsConstructor
 @NoArgsConstructor
+@Getter
+@Setter
+@Builder
 public class PengumumanDto {
-    @Id
     private UUID id;
-
     private String judul;
-
     private String deskripsi;
-
     private String author;
-
     private String createdBy;
-
     private LocalDateTime createdOn;
-
     private String modifiedBy;
-
     private LocalDateTime modifiedOn;
-
 }

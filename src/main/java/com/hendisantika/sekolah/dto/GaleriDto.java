@@ -1,9 +1,7 @@
 package com.hendisantika.sekolah.dto;
 
 import com.hendisantika.sekolah.entity.Album;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 /**
  * Created by IntelliJ IDEA.
@@ -14,9 +12,11 @@ import lombok.NoArgsConstructor;
  * Date: 03/04/20
  * Time: 08.47
  */
-@Data
 @AllArgsConstructor
 @NoArgsConstructor
+@Getter
+@Setter
+@Builder
 public class GaleriDto {
     private Long id;
     private String judul;
