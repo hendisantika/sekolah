@@ -40,7 +40,7 @@
                     <div class="courses_box mb-4">
                         <div class="course-img-wrap">
                             <img alt="courses-img" class="img-fluid"
-                                 th:src="@{/assets/images/} + ${t.Gambar}">
+                                 th:src="${'data:image/jpeg;base64,'+ t.photoBase64}">
                         </div>
                         <!-- // end .course-img-wrap -->
                         <a class="course-box-content" th:href="@{/artikel/} + ${t.slug}">
