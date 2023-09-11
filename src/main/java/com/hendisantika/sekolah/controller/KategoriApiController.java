@@ -52,11 +52,14 @@ public class KategoriApiController {
                                                          @RequestBody @Valid Kategori kategori) {
         log.info("memperbaharui kategori berita");
         Optional<Kategori> currentKategoriOpt = kategoriRepository.findById(kategoriId);
-        Kategori currentKategori = currentKategoriOpt.get();
-        currentKategori.setId(kategori.getId());
-        currentKategori.setNama(kategori.getNama());
-
-        return new ResponseEntity<>(kategoriRepository.save(currentKategori), HttpStatus.OK);
+        if (currentKategoriOpt.isPresent()) {
+            Kategori currentKategori = currentKategoriOpt.get();
+            currentKategori.setId(kategori.getId());
+            currentKategori.setNama(kategori.getNama());
+            return new ResponseEntity<>(kategoriRepository.save(currentKategori), HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
     }
 
     @GetMapping("/categories")
