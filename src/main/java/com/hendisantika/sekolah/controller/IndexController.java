@@ -67,9 +67,9 @@ public class IndexController {
         for (String header : IP_HEADER_CANDIDATES) {
             String ip = request.getHeader(header);
             String hostName = request.getRemoteHost();
-            if (ip != null && ip.length() != 0 && !"unknown".equalsIgnoreCase(ip)) {
+            if (ip != null && !ip.isEmpty() && !"unknown".equalsIgnoreCase(ip)) {
                 return ip;
-            } else if (hostName != null && hostName.length() != 0 && !"unknown".equalsIgnoreCase(hostName)) {
+            } else if (hostName != null && !hostName.isEmpty() && !"unknown".equalsIgnoreCase(hostName)) {
                 return hostName;
             }
         }
@@ -78,13 +78,12 @@ public class IndexController {
 
     @GetMapping
     public String index(Model model, HttpServletRequest request, HttpServletResponse response) {
+        createCookieAndSave(request, response, "HOME");
+        log.info("Menampilkan data untuk Halaman Home.");
         long totAgenda;
         long totFiles;
         long totSiswa;
         long totGuru;
-        createCookieAndSave(request, response, "HOME");
-
-        log.info("Menampilkan data untuk Halaman Home.");
         List<Tulisan> tulisanList = constructorIndex.tulisanRepository().findTop4();
         List<Pengumuman> pengumuman = constructorIndex.pengumumanRepository().findTop4();
         List<Agenda> agenda = constructorIndex.agendaRepository().findTop4();
@@ -109,7 +108,7 @@ public class IndexController {
         String remoteHostAddr = "";
         if (request != null) {
             remoteIpAddr = request.getHeader("X-FORWARDED-FOR");
-            if (remoteIpAddr == null || "".equals(remoteIpAddr)) {
+            if (remoteIpAddr == null || remoteIpAddr.isEmpty()) {
                 remoteIpAddr = request.getRemoteAddr();
                 remoteHostAddr = request.getRemoteHost();
             }
@@ -145,9 +144,22 @@ public class IndexController {
     }
 
     @GetMapping("about")
-    public String about(HttpServletRequest request, HttpServletResponse response) {
+    public String about(Model model, HttpServletRequest request, HttpServletResponse response) {
         createCookieAndSave(request, response, "ABOUT");
         log.info("Menampilkan data untuk Halaman about.");
+        long totAgenda;
+        long totFiles;
+        long totSiswa;
+        long totGuru;
+        totGuru = constructorIndex.guruRepository().count();
+        totAgenda = constructorIndex.agendaRepository().count();
+        totFiles = constructorIndex.filesRepository().count();
+        totSiswa = constructorIndex.siswaRepository().count();
+
+        model.addAttribute("totGuru", totGuru);
+        model.addAttribute("totAgenda", totAgenda);
+        model.addAttribute("totFiles", totFiles);
+        model.addAttribute("totSiswa", totSiswa);
         return "about";
     }
 
@@ -256,7 +268,7 @@ public class IndexController {
         String remoteHostAddr = "";
         if (request != null) {
             remoteIpAddr = request.getHeader("X-FORWARDED-FOR");
-            if (remoteIpAddr == null || "" .equals(remoteIpAddr)) {
+            if (remoteIpAddr == null || remoteIpAddr.isEmpty()) {
                 remoteIpAddr = request.getRemoteAddr();
                 remoteHostAddr = request.getRemoteHost();
             }

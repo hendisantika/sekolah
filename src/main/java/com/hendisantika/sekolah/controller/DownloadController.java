@@ -33,6 +33,8 @@ import java.util.UUID;
 @Controller
 @RequestMapping("admin/download")
 public class DownloadController {
+    private static final String DL = "download";
+    private static final String RIE_ADMIN_DL = "redirect:/admin/download";
     private final FilesRepository filesRepository;
 
     public DownloadController(FilesRepository filesRepository) {
@@ -49,14 +51,14 @@ public class DownloadController {
     @GetMapping("edit/{downloadId}")
     public String showFormEditDownload(@PathVariable("downloadId") UUID downloadId, Model model) {
         log.info("Menampilkan Form untuk Edit Download.");
-        model.addAttribute("download", filesRepository.findById(downloadId));
+        model.addAttribute(DL, filesRepository.findById(downloadId));
         return "admin/download/download-edit";
     }
 
     @GetMapping("add")
     public String showFormDownload(Model model) {
         log.info("Menampilkan Halaman Tambah File Download.");
-        model.addAttribute("download", new Files());
+        model.addAttribute(DL, new Files());
         return "admin/download/download-form";
     }
 
@@ -70,7 +72,7 @@ public class DownloadController {
         }
         saveDataFile(files, file, status);
         model.addAttribute("downloadList", filesRepository.findAll(pageable));
-        return "redirect:/admin/download";
+        return RIE_ADMIN_DL;
     }
 
     private void saveDataFile(Files files, @RequestParam("file") MultipartFile file,
@@ -110,16 +112,16 @@ public class DownloadController {
             e.printStackTrace();
         }
 
-        model.addAttribute("download", filesRepository.findAll(pageable));
-        return "redirect:/admin/download";
+        model.addAttribute(DL, filesRepository.findAll(pageable));
+        return RIE_ADMIN_DL;
     }
 
     @GetMapping("delete/{downloadId}")
     public String deletePengumuman(@PathVariable("downloadId") UUID downloadId, Model model, Pageable pageable) {
         log.info("Delete Download Files.");
         filesRepository.deleteById(downloadId);
-        model.addAttribute("download", filesRepository.findAll(pageable));
-        return "redirect:/admin/download";
+        model.addAttribute(DL, filesRepository.findAll(pageable));
+        return RIE_ADMIN_DL;
     }
 
 }

@@ -36,6 +36,8 @@ import java.util.Base64;
 @PreAuthorize("hasAuthority('ADMIN')")
 @RequestMapping("admin/album")
 public class AlbumController {
+    private static final String ALBUM = "album";
+    private static final String RIE_ADMIN_ALBM = "redirect:/admin/album";
     private final AlbumRepository albumRepository;
     private final PenggunaRepository penggunaRepository;
 
@@ -54,14 +56,14 @@ public class AlbumController {
     @GetMapping("add")
     public String showAlbumForm(Model model) {
         log.info("Menampilkan Form Tambah Album.");
-        model.addAttribute("album", new AlbumDto());
+        model.addAttribute(ALBUM, new AlbumDto());
         return "admin/album/album-form";
     }
 
     @GetMapping("edit/{albumId}")
     public String showAlbumForm(@PathVariable("albumId") Long albumId, Model model) {
         log.info("Menampilkan Form Edit Album.");
-        model.addAttribute("album", albumRepository.findById(albumId));
+        model.addAttribute(ALBUM, albumRepository.findById(albumId));
         return "admin/album/album-edit";
     }
 
@@ -93,8 +95,8 @@ public class AlbumController {
             log.error("Menambahkan Data Album yang baru gagal, {}", errors);
             e.printStackTrace();
         }
-        model.addAttribute("album", albumRepository.findAll(pageable));
-        return "redirect:/admin/album";
+        model.addAttribute(ALBUM, albumRepository.findAll(pageable));
+        return RIE_ADMIN_ALBM;
     }
 
     @PostMapping("edit")
@@ -131,15 +133,15 @@ public class AlbumController {
         } catch (IOException | ChangeSetPersister.NotFoundException e) {
             e.printStackTrace();
         }
-        model.addAttribute("album", albumRepository.findAll(pageable));
-        return "redirect:/admin/album";
+        model.addAttribute(ALBUM, albumRepository.findAll(pageable));
+        return RIE_ADMIN_ALBM;
     }
 
     @GetMapping("delete/{albumId}")
     public String deleteDataAlbum(@PathVariable("albumId") Long albumId, Model model, Pageable pageable) {
         log.info("Menghapus Data Album.");
         albumRepository.deleteById(albumId);
-        model.addAttribute("album", albumRepository.findAll(pageable));
-        return "redirect:/admin/album";
+        model.addAttribute(ALBUM, albumRepository.findAll(pageable));
+        return RIE_ADMIN_ALBM;
     }
 }
