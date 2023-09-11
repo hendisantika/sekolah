@@ -1,4 +1,5 @@
-CREATE TABLE IF NOT EXISTS tbl_log_aktivitas (
+CREATE TABLE IF NOT EXISTS tbl_log_aktivitas
+(
     id          UUID           DEFAULT uuid_generate_v4() NOT NULL,
     nama        text,
     tanggal     timestamp NULL DEFAULT CURRENT_TIMESTAMP,
@@ -12,6 +13,5 @@ CREATE TABLE IF NOT EXISTS tbl_log_aktivitas (
     modified_on timestamp NULL DEFAULT CURRENT_TIMESTAMP,
     PRIMARY KEY (id)
 );
-
 CREATE INDEX log_pengguna_idx ON tbl_log_aktivitas (pengguna_id);
 -- --------------------------------------------------------

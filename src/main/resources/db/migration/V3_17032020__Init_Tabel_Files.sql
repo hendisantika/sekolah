@@ -1,4 +1,5 @@
-CREATE TABLE IF NOT EXISTS tbl_files (
+CREATE TABLE IF NOT EXISTS tbl_files
+(
     id           UUID           DEFAULT uuid_generate_v4() NOT NULL,
     judul        varchar(120)   DEFAULT NULL,
     author       varchar(100)   DEFAULT NULL,

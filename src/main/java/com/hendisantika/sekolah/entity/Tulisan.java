@@ -68,7 +68,7 @@ public class Tulisan {
     @Column(name = "slug")
     private String slug;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "kategori_id", nullable = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
     private Kategori kategori;

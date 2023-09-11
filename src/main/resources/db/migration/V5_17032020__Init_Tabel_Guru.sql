@@ -1,4 +1,5 @@
-CREATE TABLE IF NOT EXISTS tbl_guru (
+CREATE TABLE IF NOT EXISTS tbl_guru
+(
     id           UUID           DEFAULT uuid_generate_v4() NOT NULL,
     nip          varchar(30)    DEFAULT NULL,
     nama         varchar(70)    DEFAULT NULL,

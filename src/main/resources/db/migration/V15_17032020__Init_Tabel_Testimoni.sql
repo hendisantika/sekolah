@@ -1,4 +1,5 @@
-CREATE TABLE IF NOT EXISTS tbl_testimoni (
+CREATE TABLE IF NOT EXISTS tbl_testimoni
+(
     id          UUID           DEFAULT uuid_generate_v4() NOT NULL,
     nama        varchar(30)    DEFAULT NULL,
     isi         varchar(120)   DEFAULT NULL,

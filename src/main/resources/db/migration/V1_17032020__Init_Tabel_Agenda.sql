@@ -1,27 +1,27 @@
-create EXTENSION IF NOT EXISTS "uuid-ossp";
+CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
 
-create TABLE IF NOT EXISTS tbl_agenda (
-    id          UUID           DEFAULT uuid_generate_v4() NOT NULL,
-    nama        varchar(200)   DEFAULT NULL,
-    deskripsi   text,
-    mulai       date           DEFAULT NULL,
-    selesai     date           DEFAULT NULL,
-    tempat      varchar(90)    DEFAULT NULL,
-    waktu       varchar(30)    DEFAULT NULL,
-    keterangan  varchar(200)   DEFAULT NULL,
-    created_by  varchar(50),
-    created_on  timestamp NULL DEFAULT CURRENT_TIMESTAMP,
-    modified_by varchar(50),
-    modified_on timestamp NULL DEFAULT CURRENT_TIMESTAMP,
-    PRIMARY KEY (id)
+CREATE TABLE IF NOT EXISTS tbl_agenda(
+                                         id          UUID           DEFAULT uuid_generate_v4() NOT NULL,
+                                         nama        varchar(200)   DEFAULT NULL,
+                                         deskripsi   text,
+                                         mulai       date           DEFAULT NULL,
+                                         selesai     date           DEFAULT NULL,
+                                         tempat      varchar(90)    DEFAULT NULL,
+                                         waktu       varchar(30)    DEFAULT NULL,
+                                         keterangan  varchar(200)   DEFAULT NULL,
+                                         created_by  varchar(50),
+                                         created_on  timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+                                         modified_by varchar(50),
+                                         modified_on timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+                                         PRIMARY KEY (id)
 );
 
 --
 -- Dumping data untuk tabel tbl_agenda
 --
 
-insert into tbl_agenda (nama, deskripsi, mulai, selesai, tempat, waktu, keterangan, created_by)
-values ('Penyembelihan Hewan Kurban Idul Adha 2019',
+INSERT INTO tbl_agenda (nama, deskripsi, mulai, selesai, tempat, waktu, keterangan, created_by)
+VALUES ('Penyembelihan Hewan Kurban Idul Adha 2019',
         'Idul Adha yang biasa disebut lebaran haji atapun lebaran kurban sangat identik dengan penyembelihan hewan kurban. M-Sekolah tahun ini juga melakukan penyembelihan hewan kurban. Yang rencananya akan dihadiri oleh guru-guru, siswa dan pengurus OSIS.',
         '2019-01-22', '2019-01-22', 'M-Sekolah', '08.00 - 11.00 WIB',
         'Dihadiri oleh guru-guru, siswa dan pengurus OSIS', 'Hendi Santika'),
