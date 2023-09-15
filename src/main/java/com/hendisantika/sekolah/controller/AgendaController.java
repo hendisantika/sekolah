@@ -25,7 +25,7 @@ import static com.hendisantika.sekolah.constant.Constants.AGENDA;
 
 @Slf4j
 @Controller
-@RequestMapping("admin/agenda")
+@RequestMapping("/admin/agenda")
 @PreAuthorize("hasAuthority('ADMIN')")
 public class AgendaController {
 
@@ -40,13 +40,15 @@ public class AgendaController {
         log.info("Menampilkan data untuk Halaman List Agenda.");
         model.addAttribute("agendaList", agendaRepository.findAll(pageable));
         model.addAttribute("waktu", LocalDateTime.now());
+
         return "admin/agenda/agenda-list";
     }
 
-    @GetMapping("add")
+    @GetMapping("/add")
     public String tampilkanFormAgenda(Model model) {
         log.info("Menampilkan Form Agenda");
         model.addAttribute(AGENDA, new Agenda());
+
         return "admin/agenda/agenda-form";
     }
 
@@ -57,21 +59,24 @@ public class AgendaController {
         if (errors.hasErrors()) {
             return "admin/agenda";
         }
+        agenda.setNama(agenda.getNama());
         agenda.setCreatedBy(principal.getName());
         agendaRepository.save(agenda);
         status.setComplete();
         log.info("Data agenda yang baru {}", agenda);
+
         return "redirect:/admin/agenda/agenda-list";
     }
 
-    @GetMapping("edit/{agendaId}")
+    @GetMapping("/edit/{agendaId}")
     public String tampilkanFormEditAgenda(@PathVariable("agendaId")UUID agendaId, Model model) {
         log.info("Menampilkan Form Edit Agenda");
         model.addAttribute(AGENDA, agendaRepository.findById(agendaId));
+
         return "admin/agenda/agenda-edit";
     }
 
-    @PostMapping("edit")
+    @PostMapping("/edit")
     public String updateAgenda(Model model, @Valid Agenda agendaBaru, Pageable pageable) {
         log.info("Memperbaharui Data Agenda");
         Optional<Agenda> byId = agendaRepository.findById(agendaBaru.getId());
@@ -86,6 +91,7 @@ public class AgendaController {
         } else {
             log.error("Data agenda tidak ada");
         }
+
         return "redirect:/admin/agenda";
     }
 
@@ -93,8 +99,8 @@ public class AgendaController {
     public String deleteAgenda(@PathVariable("agendaId") UUID agendaId, Model model, Pageable pageable) {
         log.info("Hapus data Agenda");
         agendaRepository.deleteById(agendaId);
-
         model.addAttribute("agendaList", agendaRepository.findAll(pageable));
+
         return "redirect:/admin/agenda";
     }
 

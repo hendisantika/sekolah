@@ -33,9 +33,7 @@ import static com.hendisantika.sekolah.constant.Constants.LOGIN;
 @EnableMethodSecurity
 public class SecurityConfig {
     private static final String[] PUBLIC_LINK = new String[]{
-            "/", "/about", "/guru", "/siswa", "/blog", "/pengumuman", "/agenda", "/download",
-            "/galeri", "/contact", LOGIN, "/logout", "/v1/api/**",
-            "/test", "/test2", "/test3", "/tes/**"
+            "/**"
     };
 
     private static final String[] PRIVATE_LINK = new String[]{

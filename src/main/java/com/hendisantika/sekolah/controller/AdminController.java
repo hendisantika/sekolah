@@ -23,7 +23,7 @@ import static com.hendisantika.sekolah.constant.Constants.WAKTU;
  */
 @Slf4j
 @Controller
-@RequestMapping("admin")
+@RequestMapping("/admin")
 public class AdminController {
 
     @PreAuthorize("hasAuthority('ADMIN')")

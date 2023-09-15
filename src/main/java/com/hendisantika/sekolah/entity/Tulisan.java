@@ -85,7 +85,7 @@ public class Tulisan {
     @ToString.Exclude
     private Kategori kategori;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "pengguna_id", nullable = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
     @ToString.Exclude
