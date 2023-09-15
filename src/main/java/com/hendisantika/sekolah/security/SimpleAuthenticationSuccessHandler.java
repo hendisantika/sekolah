@@ -28,7 +28,7 @@ public class SimpleAuthenticationSuccessHandler implements AuthenticationSuccess
     private final RedirectStrategy redirectStrategy = new DefaultRedirectStrategy();
 
     @Override
-    public void onAuthenticationSuccess(HttpServletRequest arg0, HttpServletResponse arg1,
+    public void onAuthenticationSuccess(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse,
                                         Authentication authentication)
             throws IOException, ServletException {
 
@@ -36,14 +36,14 @@ public class SimpleAuthenticationSuccessHandler implements AuthenticationSuccess
         authorities.forEach(authority -> {
             if (authority.getAuthority().equals("ROLE_USER")) {
                 try {
-                    redirectStrategy.sendRedirect(arg0, arg1, "/");
+                    redirectStrategy.sendRedirect(httpServletRequest, httpServletResponse, "/");
                 } catch (Exception e) {
                     // TODO Auto-generated catch block
                     e.printStackTrace();
                 }
             } else if (authority.getAuthority().equals("ROLE_ADMIN")) {
                 try {
-                    redirectStrategy.sendRedirect(arg0, arg1, "/admin/dashboard");
+                    redirectStrategy.sendRedirect(httpServletRequest, httpServletResponse, "/admin/dashboard");
                 } catch (Exception e) {
                     // TODO Auto-generated catch block
                     e.printStackTrace();

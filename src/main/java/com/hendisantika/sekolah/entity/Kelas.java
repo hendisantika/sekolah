@@ -35,7 +35,6 @@ public class Kelas {
     @OneToMany(mappedBy = "kelas", fetch = FetchType.LAZY)
     @NotNull
     @ToString.Exclude
-    @Builder.Default
     private Set<Siswa> siswa = new HashSet<>();
 
     @Column(name = "created_by")

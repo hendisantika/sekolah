@@ -2,6 +2,7 @@ package com.hendisantika.sekolah.constant;
 
 public interface Constants {
 
+    String LOGIN = "/login";
     String WAKTU = "waktu";
     String ADMIN_DASH = "admin/dashboard";
     String UPLOADED_FOLDER = System.getProperty("java.io.tmpdir");
