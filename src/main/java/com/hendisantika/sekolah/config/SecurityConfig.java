@@ -3,6 +3,7 @@ package com.hendisantika.sekolah.config;
 import com.hendisantika.sekolah.repository.PenggunaRepository;
 import com.hendisantika.sekolah.security.AuthenticationFailureHandler;
 import com.hendisantika.sekolah.service.impl.UserDetailsServiceImpl;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -13,7 +14,6 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
@@ -32,6 +32,7 @@ import static com.hendisantika.sekolah.constant.Constants.LOGIN;
 @EnableWebSecurity
 @EnableMethodSecurity
 public class SecurityConfig {
+
     private static final String[] PUBLIC_LINK = new String[]{
             "/**"
     };
@@ -40,17 +41,31 @@ public class SecurityConfig {
             "/admin/**"
     };
 
-    private final UserDetailsServiceImpl userDetailsService;
+    private final PenggunaRepository userRepository;
 
-    public SecurityConfig(UserDetailsServiceImpl userDetailsService) {
-        this.userDetailsService = userDetailsService;
+    public SecurityConfig(PenggunaRepository userRepository) {
+        this.userRepository = userRepository;
     }
+
+    @Bean
+    public BCryptPasswordEncoder passwordEncoder() {
+        return new BCryptPasswordEncoder();
+    }
+
+    @Bean
+    public AuthenticationFailureHandler authenticationFailureHandler() {
+        return new AuthenticationFailureHandler();
+    }
+    /*
+     * Tell Spring Security to use the custom built UserDetailsServiceImpl class
+     *
+     */
 
     @Bean
     public DaoAuthenticationProvider authenticationProvider() {
         DaoAuthenticationProvider authProvider = new DaoAuthenticationProvider();
 
-        authProvider.setUserDetailsService(userDetailsService);
+        authProvider.setUserDetailsService(userDetailsServiceBean());
         authProvider.setPasswordEncoder(passwordEncoder());
 
         return authProvider;
@@ -62,24 +77,9 @@ public class SecurityConfig {
     }
 
     @Bean
-    public PasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder();
-    }
-
-    @Bean
-    public AuthenticationFailureHandler authenticationFailureHandler() {
-        return new AuthenticationFailureHandler();
-    }
-    /*
-     * Tell Spring Security to use the custom-built UserDetailsServiceImpl class
-     *
-     */
-
-    @Bean
-    public UserDetailsService userDetailsServiceBean(PenggunaRepository userRepository) {
+    public UserDetailsService userDetailsServiceBean() {
         return new UserDetailsServiceImpl(userRepository);
     }
-
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {

@@ -33,8 +33,8 @@ public class Kelas {
     private String nama;
 
     @OneToMany(mappedBy = "kelas", fetch = FetchType.LAZY)
-    @NotNull
     @ToString.Exclude
+    @NotNull
     private Set<Siswa> siswa = new HashSet<>();
 
     @Column(name = "created_by")
