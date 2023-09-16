@@ -21,6 +21,7 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.IOException;
 import java.security.Principal;
 import java.util.Base64;
+import java.util.UUID;
 
 import static com.hendisantika.sekolah.constant.Constants.ALBUM;
 import static com.hendisantika.sekolah.constant.Constants.RIE_ADMIN_ALBM;
@@ -62,7 +63,7 @@ public class AlbumController {
     }
 
     @GetMapping("edit/{albumId}")
-    public String showAlbumForm(@PathVariable("albumId") Long albumId, Model model) {
+    public String showAlbumForm(@PathVariable("albumId") UUID albumId, Model model) {
         log.info("Menampilkan Form Edit Album.");
         model.addAttribute(ALBUM, albumRepository.findById(albumId));
         return "admin/album/album-edit";
@@ -139,7 +140,7 @@ public class AlbumController {
     }
 
     @GetMapping("delete/{albumId}")
-    public String deleteDataAlbum(@PathVariable("albumId") Long albumId, Model model, Pageable pageable) {
+    public String deleteDataAlbum(@PathVariable("albumId") UUID albumId, Model model, Pageable pageable) {
         log.info("Menghapus Data Album.");
         albumRepository.deleteById(albumId);
         model.addAttribute(ALBUM, albumRepository.findAll(pageable));

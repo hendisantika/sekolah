@@ -4,6 +4,8 @@ import com.hendisantika.sekolah.entity.Album;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
+import java.util.UUID;
+
 /**
  * Created by IntelliJ IDEA.
  * Project : sekolah
@@ -14,5 +16,5 @@ import org.springframework.stereotype.Repository;
  * Time: 07.53
  */
 @Repository
-public interface AlbumRepository extends JpaRepository<Album, Long> {
+public interface AlbumRepository extends JpaRepository<Album, UUID> {
 }

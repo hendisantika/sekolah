@@ -22,6 +22,7 @@ import java.io.IOException;
 import java.security.Principal;
 import java.util.Base64;
 import java.util.Objects;
+import java.util.UUID;
 
 import static com.hendisantika.sekolah.constant.Constants.GALERI;
 import static com.hendisantika.sekolah.constant.Constants.RIE_ADMIN_GALE;
@@ -68,7 +69,7 @@ public class PhotoController {
     }
 
     @GetMapping("edit/{galeriId}")
-    public String showFormEditGaleri(@PathVariable("galeriId") Long galeriId, Model model) {
+    public String showFormEditGaleri(@PathVariable("galeriId") UUID galeriId, Model model) {
         log.info("Menampilkan data untuk Halaman Edit Galeri.");
         model.addAttribute("albumList", albumRepository.findAll());
         model.addAttribute(GALERI, galeriRepository.findById(galeriId));
@@ -134,7 +135,7 @@ public class PhotoController {
     }
 
     @GetMapping("delete/{galeriId}")
-    public String deleteGaleri(@PathVariable("galeriId") Long galeriId, Model model) {
+    public String deleteGaleri(@PathVariable("galeriId") UUID galeriId, Model model) {
         log.info("Delete data Galeri.");
         galeriRepository.deleteById(galeriId);
         model.addAttribute(GALERI, galeriRepository.findById(galeriId));

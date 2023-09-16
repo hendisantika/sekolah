@@ -10,5 +10,3 @@ CREATE TABLE IF NOT EXISTS tbl_testimoni
     modified_on timestamp NULL DEFAULT CURRENT_TIMESTAMP,
     PRIMARY KEY (id)
 );
-
--- --------------------------------------------------------
