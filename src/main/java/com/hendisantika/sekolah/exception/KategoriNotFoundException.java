@@ -12,8 +12,6 @@ import java.io.Serial;
  * Time: 17.49
  */
 public class KategoriNotFoundException extends Exception {
-    @Serial
-    private static final long serialVersionUID = 1668398822129870029L;
 
     public KategoriNotFoundException() {
         super("Kategori Not Found Exception");
