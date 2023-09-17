@@ -19,6 +19,9 @@ import java.io.IOException;
 import java.util.Base64;
 import java.util.UUID;
 
+import static com.hendisantika.sekolah.enumeration.ALLCONSTANT.DL;
+import static com.hendisantika.sekolah.enumeration.ALLCONSTANT.RIE_ADMIN_DL;
+
 /**
  * Created by IntelliJ IDEA.
  * Project : sekolah
@@ -31,10 +34,8 @@ import java.util.UUID;
 @Slf4j
 @PreAuthorize("hasAuthority('ADMIN')")
 @Controller
-@RequestMapping("admin/download")
+@RequestMapping("/admin/download")
 public class DownloadController {
-    private static final String DL = "download";
-    private static final String RIE_ADMIN_DL = "redirect:/admin/download";
     private final FilesRepository filesRepository;
 
     public DownloadController(FilesRepository filesRepository) {
@@ -45,21 +46,24 @@ public class DownloadController {
     public String download(Model model, Pageable pageable) {
         log.info("Menampilkan data untuk Halaman List Files.");
         model.addAttribute("downloadList", filesRepository.findAll(pageable));
-        return "admin/download/download-list";
+
+        return "/admin/download/download-list";
     }
 
-    @GetMapping("edit/{downloadId}")
+    @GetMapping("/edit/{downloadId}")
     public String showFormEditDownload(@PathVariable("downloadId") UUID downloadId, Model model) {
         log.info("Menampilkan Form untuk Edit Download.");
-        model.addAttribute(DL, filesRepository.findById(downloadId));
-        return "admin/download/download-edit";
+        model.addAttribute(DL.getDescription(), filesRepository.findById(downloadId));
+
+        return "/admin/download/download-edit";
     }
 
-    @GetMapping("add")
+    @GetMapping("/add")
     public String showFormDownload(Model model) {
         log.info("Menampilkan Halaman Tambah File Download.");
-        model.addAttribute(DL, new Files());
-        return "admin/download/download-form";
+        model.addAttribute(DL.getDescription(), new Files());
+
+        return "/admin/download/download-form";
     }
 
     @PostMapping
@@ -72,7 +76,8 @@ public class DownloadController {
         }
         saveDataFile(files, file, status);
         model.addAttribute("downloadList", filesRepository.findAll(pageable));
-        return RIE_ADMIN_DL;
+
+        return RIE_ADMIN_DL.getDescription();
     }
 
     private void saveDataFile(Files files, @RequestParam("file") MultipartFile file,
@@ -94,7 +99,7 @@ public class DownloadController {
         }
     }
 
-    @PostMapping("edit")
+    @PostMapping("/edit")
     public String updatePengumuman(@Valid DownloadDto downloadDto, @RequestParam("file") MultipartFile file,
                                    Model model, SessionStatus status, Pageable pageable) {
         log.info("Memperbaharui data Download File.");
@@ -112,16 +117,17 @@ public class DownloadController {
             e.printStackTrace();
         }
 
-        model.addAttribute(DL, filesRepository.findAll(pageable));
-        return RIE_ADMIN_DL;
+        model.addAttribute(DL.getDescription(), filesRepository.findAll(pageable));
+
+        return RIE_ADMIN_DL.getDescription();
     }
 
-    @GetMapping("delete/{downloadId}")
+    @GetMapping("/delete/{downloadId}")
     public String deletePengumuman(@PathVariable("downloadId") UUID downloadId, Model model, Pageable pageable) {
         log.info("Delete Download Files.");
         filesRepository.deleteById(downloadId);
-        model.addAttribute(DL, filesRepository.findAll(pageable));
-        return RIE_ADMIN_DL;
-    }
+        model.addAttribute(DL.getDescription(), filesRepository.findAll(pageable));
 
+        return RIE_ADMIN_DL.getDescription();
+    }
 }

@@ -34,8 +34,8 @@ import java.util.UUID;
 @EntityListeners(AuditingEntityListener.class)
 public class Agenda {
     @Id
-    @GeneratedValue(generator = "uuid2")
-    @UuidGenerator
+    @GeneratedValue(generator = "uuid4")
+    @UuidGenerator(style = UuidGenerator.Style.RANDOM)
     @Column(name = "id")
     private UUID id;
 

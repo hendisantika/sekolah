@@ -37,10 +37,9 @@ import java.util.UUID;
 @EntityListeners(AuditingEntityListener.class)
 public class Tulisan {
     @Id
-    @GeneratedValue(generator = "uuid2")
-    @UuidGenerator
+    @GeneratedValue(generator = "uuid4")
+    @UuidGenerator(style = UuidGenerator.Style.RANDOM)
     @Column(name = "id")
-    @NotNull
     private UUID id;
 
     @ManyToOne(fetch = FetchType.EAGER)
@@ -50,7 +49,7 @@ public class Tulisan {
     @ToString.Exclude
     private Kategori kategori;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "pengguna_id", nullable = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
     @ToString.Exclude

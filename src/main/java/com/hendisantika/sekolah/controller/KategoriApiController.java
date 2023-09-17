@@ -16,21 +16,21 @@ import java.util.Optional;
 @RestController
 @RequestMapping("/v1/api/news")
 public class KategoriApiController {
-
     private final KategoriRepository kategoriRepository;
 
     public KategoriApiController(KategoriRepository kategoriRepository) {
         this.kategoriRepository = kategoriRepository;
     }
 
-    @PostMapping("categories")
+    @PostMapping("/categories")
     @ResponseBody
     public Kategori addNewKategori(@RequestBody @Valid Kategori kategori) {
         log.info("menambahkan kategori berita");
+
         return kategoriRepository.save(kategori);
     }
 
-    @GetMapping("categories/{kategoriId}")
+    @GetMapping("/categories/{kategoriId}")
     public Kategori findKategoriById(@PathVariable(value = "kategoriId") Long kategoriId) throws KategoriNotFoundException {
         log.info("filter kategori by id {}", kategoriId);
         return kategoriRepository.findById(kategoriId).orElseThrow(() -> {
@@ -43,6 +43,7 @@ public class KategoriApiController {
     public List<Kategori> deleteKategori(@PathVariable("kategoriId") Long kategoriId) {
         log.info("menghapus kategori berita");
         kategoriRepository.deleteById(kategoriId);
+
         return kategoriRepository.findAll();
     }
 
@@ -65,7 +66,7 @@ public class KategoriApiController {
     @GetMapping("/categories")
     public List<Kategori> list() {
         log.info("List Down Data Kategori");
-        return kategoriRepository.findAll();
 
+        return kategoriRepository.findAll();
     }
 }

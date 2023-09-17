@@ -2,8 +2,10 @@ package com.hendisantika.sekolah.entity;
 
 import jakarta.persistence.*;
 import lombok.*;
+import org.hibernate.annotations.UuidGenerator;
 
 import java.util.List;
+import java.util.UUID;
 
 /**
  * Created by IntelliJ IDEA.
@@ -24,8 +26,10 @@ import java.util.List;
 @Entity
 public class Role {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    @GeneratedValue(generator = "uuid4")
+    @UuidGenerator(style = UuidGenerator.Style.RANDOM)
+    @Column(name = "id")
+    private UUID id;
 
     private String role;
 

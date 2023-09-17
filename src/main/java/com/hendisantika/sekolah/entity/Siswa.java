@@ -36,13 +36,12 @@ import java.util.UUID;
 @EntityListeners(AuditingEntityListener.class)
 public class Siswa {
     @Id
-    @GeneratedValue(generator = "uuid2")
-    @UuidGenerator
+    @GeneratedValue(generator = "uuid4")
+    @UuidGenerator(style = UuidGenerator.Style.RANDOM)
     @Column(name = "id")
-    @NotNull
     private UUID id;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "kelas_id", nullable = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
     @ToString.Exclude

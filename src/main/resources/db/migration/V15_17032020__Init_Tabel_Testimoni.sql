@@ -1,3 +1,5 @@
+CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
+
 CREATE TABLE IF NOT EXISTS tbl_testimoni
 (
     id          UUID           DEFAULT uuid_generate_v4() NOT NULL,

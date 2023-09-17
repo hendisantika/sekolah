@@ -27,11 +27,10 @@ import java.util.UUID;
 @EqualsAndHashCode
 @ToString
 @Entity(name = "tbl_pengunjung")
-@EntityListeners(AuditingEntityListener.class)
 public class Pengunjung {
     @Id
-    @GeneratedValue(generator = "uuid2")
-    @UuidGenerator
+    @GeneratedValue(generator = "uuid4")
+    @UuidGenerator(style = UuidGenerator.Style.RANDOM)
     @Column(name = "id")
     private UUID id;
 

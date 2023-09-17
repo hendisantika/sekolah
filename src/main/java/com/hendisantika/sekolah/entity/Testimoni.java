@@ -35,10 +35,9 @@ import java.util.UUID;
 @EntityListeners(AuditingEntityListener.class)
 public class Testimoni {
     @Id
-    @GeneratedValue(generator = "uuid2")
-    @UuidGenerator
+    @GeneratedValue(generator = "uuid4")
+    @UuidGenerator(style = UuidGenerator.Style.RANDOM)
     @Column(name = "id")
-    @NotNull
     private UUID id;
 
     @Column(name = "nama")
