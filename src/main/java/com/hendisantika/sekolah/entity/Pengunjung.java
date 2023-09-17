@@ -1,13 +1,11 @@
 package com.hendisantika.sekolah.entity;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.*;
 import org.hibernate.annotations.UuidGenerator;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.time.LocalDateTime;
 import java.util.UUID;
@@ -18,16 +16,18 @@ import java.util.UUID;
  * User: hendisantika
  * Email: hendisantika@gmail.com
  * Telegram : @hendisantika34
- * Date: 18/03/20
- * Time: 18.44
+ * Date: 17/03/20
+ * Time: 15.19
  */
-@Getter
-@Setter
-@ToString
-@Builder
 @AllArgsConstructor
 @NoArgsConstructor
+@Getter
+@Setter
+@Builder
+@EqualsAndHashCode
+@ToString
 @Entity(name = "tbl_pengunjung")
+@EntityListeners(AuditingEntityListener.class)
 public class Pengunjung {
     @Id
     @GeneratedValue(generator = "uuid2")
@@ -88,54 +88,4 @@ public class Pengunjung {
 
     @Column(name = "created_on")
     private LocalDateTime createdOn;
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof Pengunjung that)) return false;
-
-        if (getId() != null ? !getId().equals(that.getId()) : that.getId() != null) return false;
-        if (getSessionId() != null ? !getSessionId().equals(that.getSessionId()) : that.getSessionId() != null)
-            return false;
-        if (getCookieName() != null ? !getCookieName().equals(that.getCookieName()) : that.getCookieName() != null)
-            return false;
-        if (getUrl() != null ? !getUrl().equals(that.getUrl()) : that.getUrl() != null) return false;
-        if (getIpAddress() != null ? !getIpAddress().equals(that.getIpAddress()) : that.getIpAddress() != null)
-            return false;
-        if (getOsType() != null ? !getOsType().equals(that.getOsType()) : that.getOsType() != null) return false;
-        if (getOsVersion() != null ? !getOsVersion().equals(that.getOsVersion()) : that.getOsVersion() != null)
-            return false;
-        if (getBrowserName() != null ? !getBrowserName().equals(that.getBrowserName()) : that.getBrowserName() != null)
-            return false;
-        if (getBrowserType() != null ? !getBrowserType().equals(that.getBrowserType()) : that.getBrowserType() != null)
-            return false;
-        if (getBrowserVersion() != null ? !getBrowserVersion().equals(that.getBrowserVersion()) : that.getBrowserVersion() != null)
-            return false;
-        if (getDeviceType() != null ? !getDeviceType().equals(that.getDeviceType()) : that.getDeviceType() != null)
-            return false;
-        if (getHostAddress() != null ? !getHostAddress().equals(that.getHostAddress()) : that.getHostAddress() != null)
-            return false;
-        if (getHostName() != null ? !getHostName().equals(that.getHostName()) : that.getHostName() != null)
-            return false;
-        return getCreatedOn() != null ? getCreatedOn().equals(that.getCreatedOn()) : that.getCreatedOn() == null;
-    }
-
-    @Override
-    public int hashCode() {
-        int result = getId() != null ? getId().hashCode() : 0;
-        result = 31 * result + (getSessionId() != null ? getSessionId().hashCode() : 0);
-        result = 31 * result + (getCookieName() != null ? getCookieName().hashCode() : 0);
-        result = 31 * result + (getUrl() != null ? getUrl().hashCode() : 0);
-        result = 31 * result + (getIpAddress() != null ? getIpAddress().hashCode() : 0);
-        result = 31 * result + (getOsType() != null ? getOsType().hashCode() : 0);
-        result = 31 * result + (getOsVersion() != null ? getOsVersion().hashCode() : 0);
-        result = 31 * result + (getBrowserName() != null ? getBrowserName().hashCode() : 0);
-        result = 31 * result + (getBrowserType() != null ? getBrowserType().hashCode() : 0);
-        result = 31 * result + (getBrowserVersion() != null ? getBrowserVersion().hashCode() : 0);
-        result = 31 * result + (getDeviceType() != null ? getDeviceType().hashCode() : 0);
-        result = 31 * result + (getHostAddress() != null ? getHostAddress().hashCode() : 0);
-        result = 31 * result + (getHostName() != null ? getHostName().hashCode() : 0);
-        result = 31 * result + (getCreatedOn() != null ? getCreatedOn().hashCode() : 0);
-        return result;
-    }
 }

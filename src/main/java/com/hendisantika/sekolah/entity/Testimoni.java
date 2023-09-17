@@ -21,15 +21,16 @@ import java.util.UUID;
  * User: hendisantika
  * Email: hendisantika@gmail.com
  * Telegram : @hendisantika34
- * Date: 18/03/20
- * Time: 18.52
+ * Date: 17/03/20
+ * Time: 15.19
  */
-@Getter
-@Setter
-@ToString
-@Builder
 @AllArgsConstructor
 @NoArgsConstructor
+@Getter
+@Setter
+@Builder
+@EqualsAndHashCode
+@ToString
 @Entity(name = "tbl_testimoni")
 @EntityListeners(AuditingEntityListener.class)
 public class Testimoni {
@@ -70,35 +71,4 @@ public class Testimoni {
     @Column(name = "modified_on")
     @LastModifiedDate
     private LocalDateTime modifiedOn;
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof Testimoni testimoni)) return false;
-
-        if (getId() != null ? !getId().equals(testimoni.getId()) : testimoni.getId() != null) return false;
-        if (getNama() != null ? !getNama().equals(testimoni.getNama()) : testimoni.getNama() != null) return false;
-        if (getIsi() != null ? !getIsi().equals(testimoni.getIsi()) : testimoni.getIsi() != null) return false;
-        if (getEmail() != null ? !getEmail().equals(testimoni.getEmail()) : testimoni.getEmail() != null) return false;
-        if (getCreatedBy() != null ? !getCreatedBy().equals(testimoni.getCreatedBy()) : testimoni.getCreatedBy() != null)
-            return false;
-        if (getCreatedOn() != null ? !getCreatedOn().equals(testimoni.getCreatedOn()) : testimoni.getCreatedOn() != null)
-            return false;
-        if (getModifiedBy() != null ? !getModifiedBy().equals(testimoni.getModifiedBy()) : testimoni.getModifiedBy() != null)
-            return false;
-        return getModifiedOn() != null ? getModifiedOn().equals(testimoni.getModifiedOn()) : testimoni.getModifiedOn() == null;
-    }
-
-    @Override
-    public int hashCode() {
-        int result = getId() != null ? getId().hashCode() : 0;
-        result = 31 * result + (getNama() != null ? getNama().hashCode() : 0);
-        result = 31 * result + (getIsi() != null ? getIsi().hashCode() : 0);
-        result = 31 * result + (getEmail() != null ? getEmail().hashCode() : 0);
-        result = 31 * result + (getCreatedBy() != null ? getCreatedBy().hashCode() : 0);
-        result = 31 * result + (getCreatedOn() != null ? getCreatedOn().hashCode() : 0);
-        result = 31 * result + (getModifiedBy() != null ? getModifiedBy().hashCode() : 0);
-        result = 31 * result + (getModifiedOn() != null ? getModifiedOn().hashCode() : 0);
-        return result;
-    }
 }

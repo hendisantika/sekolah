@@ -11,19 +11,27 @@ import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.time.LocalDateTime;
-import java.util.Arrays;
 import java.util.UUID;
 
-@Getter
-@Setter
-@ToString
-@Builder
+/**
+ * Created by IntelliJ IDEA.
+ * Project : sekolah
+ * User: hendisantika
+ * Email: hendisantika@gmail.com
+ * Telegram : @hendisantika34
+ * Date: 17/03/20
+ * Time: 15.19
+ */
 @AllArgsConstructor
 @NoArgsConstructor
+@Getter
+@Setter
+@Builder
+@EqualsAndHashCode
+@ToString
 @Entity(name = "tbl_log_aktivitas")
 @EntityListeners(AuditingEntityListener.class)
 public class LogAktivitas {
-
     @Id
     @GeneratedValue(generator = "uuid2")
     @UuidGenerator
@@ -62,38 +70,4 @@ public class LogAktivitas {
     @Column(name = "modified_on")
     @LastModifiedDate
     private LocalDateTime modifiedOn;
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof LogAktivitas that)) return false;
-
-        if (getId() != null ? !getId().equals(that.getId()) : that.getId() != null) return false;
-        if (getNama() != null ? !getNama().equals(that.getNama()) : that.getNama() != null) return false;
-        if (getIp() != null ? !getIp().equals(that.getIp()) : that.getIp() != null) return false;
-        if (!Arrays.equals(getIcon(), that.getIcon())) return false;
-        if (getJenisIcon() != null ? !getJenisIcon().equals(that.getJenisIcon()) : that.getJenisIcon() != null)
-            return false;
-        if (getCreatedBy() != null ? !getCreatedBy().equals(that.getCreatedBy()) : that.getCreatedBy() != null)
-            return false;
-        if (getCreatedOn() != null ? !getCreatedOn().equals(that.getCreatedOn()) : that.getCreatedOn() != null)
-            return false;
-        if (getModifiedBy() != null ? !getModifiedBy().equals(that.getModifiedBy()) : that.getModifiedBy() != null)
-            return false;
-        return getModifiedOn() != null ? getModifiedOn().equals(that.getModifiedOn()) : that.getModifiedOn() == null;
-    }
-
-    @Override
-    public int hashCode() {
-        int result = getId() != null ? getId().hashCode() : 0;
-        result = 31 * result + (getNama() != null ? getNama().hashCode() : 0);
-        result = 31 * result + (getIp() != null ? getIp().hashCode() : 0);
-        result = 31 * result + Arrays.hashCode(getIcon());
-        result = 31 * result + (getJenisIcon() != null ? getJenisIcon().hashCode() : 0);
-        result = 31 * result + (getCreatedBy() != null ? getCreatedBy().hashCode() : 0);
-        result = 31 * result + (getCreatedOn() != null ? getCreatedOn().hashCode() : 0);
-        result = 31 * result + (getModifiedBy() != null ? getModifiedBy().hashCode() : 0);
-        result = 31 * result + (getModifiedOn() != null ? getModifiedOn().hashCode() : 0);
-        return result;
-    }
 }
