@@ -20,6 +20,7 @@ import java.io.IOException;
 import java.security.Principal;
 import java.util.Base64;
 import java.util.Optional;
+import java.util.UUID;
 
 import static com.hendisantika.sekolah.enumeration.ALLCONSTANT.PENGGUNA;
 import static com.hendisantika.sekolah.enumeration.ALLCONSTANT.RIE_ADMIN_PENGGUNA;
@@ -63,7 +64,7 @@ public class PenggunaController {
     }
 
     @GetMapping("/edit/{penggunaId}")
-    public String showEditPenggunaForm(@PathVariable("penggunaId") Long penggunaId, Model model) {
+    public String showEditPenggunaForm(@PathVariable("penggunaId") UUID penggunaId, Model model) {
         log.info("Menampilkan Form Edit Pengguna.");
         model.addAttribute(PENGGUNA.getDescription(), penggunaRepository.findById(penggunaId));
 
@@ -102,7 +103,7 @@ public class PenggunaController {
     }
 
     @GetMapping("/delete/{penggunaId}")
-    public String showFormPengguna(@PathVariable("penggunaId") Long penggunaId, Model model, Pageable pageable) {
+    public String showFormPengguna(@PathVariable("penggunaId") UUID penggunaId, Model model, Pageable pageable) {
         log.info("Menghapus Data Pengguna.");
         penggunaRepository.deleteById(penggunaId);
         model.addAttribute(PENGGUNA.getDescription(), penggunaRepository.findAll(pageable));

@@ -1,56 +1,40 @@
 package com.hendisantika.sekolah.entity;
 
+import com.hendisantika.sekolah.enumeration.STATUSRECORD;
+import com.hendisantika.sekolah.listener.UpdatedCreatedAtAware;
+import com.hendisantika.sekolah.listener.impl.UpdatedCreatedAtListener;
 import jakarta.persistence.*;
-import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.*;
-import org.hibernate.annotations.UuidGenerator;
 import org.springframework.data.annotation.CreatedBy;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedBy;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
-import java.util.UUID;
 
-/**
- * Created by IntelliJ IDEA.
- * Project : sekolah
- * User: hendisantika
- * Email: hendisantika@gmail.com
- * Telegram : @hendisantika34
- * Date: 17/03/20
- * Time: 15.19
- */
+// Ini hanya sebuah parent class tapi bukan IS-A Relationship
+@MappedSuperclass
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
 @Setter
-@Builder
 @EqualsAndHashCode
 @ToString
-@Entity(name = "tbl_testimoni")
-@EntityListeners(AuditingEntityListener.class)
-public class Testimoni {
+@EntityListeners({
+        AuditingEntityListener.class,
+        UpdatedCreatedAtListener.class
+})
+// ini dimana T itu harus extends Serializable
+public abstract class AuditTableEntity<T extends Serializable> implements UpdatedCreatedAtAware {
+
     @Id
-    @GeneratedValue(generator = "uuid4")
-    @UuidGenerator(style = UuidGenerator.Style.RANDOM)
+    @GeneratedValue(strategy = GenerationType.UUID)
     @Column(name = "id")
-    private UUID id;
-
-    @Column(name = "nama")
-    @Size(max = 30)
-    private String nama;
-
-    @Column(name = "isi")
-    @Size(max = 120)
-    private String isi;
-
-    @Column(name = "email")
-    @Email
-    @Size(max = 35)
-    private String email;
+    private T id;
 
     @Column(name = "created_by")
     @CreatedBy
@@ -69,4 +53,13 @@ public class Testimoni {
     @Column(name = "modified_on")
     @LastModifiedDate
     private LocalDateTime modifiedOn;
+
+    @NotNull
+    @Enumerated(EnumType.STRING)
+    @Column(name = "status_record")
+    private STATUSRECORD statusRecord = STATUSRECORD.ACTIVE;
+
+    @Version
+    private Long version;
+
 }
