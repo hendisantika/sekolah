@@ -1,9 +1,6 @@
 package com.hendisantika.sekolah.entity;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.*;
@@ -31,8 +28,7 @@ import java.util.UUID;
 @Entity(name = "tbl_pengunjung")
 public class Pengunjung {
     @Id
-    @GeneratedValue(generator = "uuid4")
-    @UuidGenerator(style = UuidGenerator.Style.RANDOM)
+    @GeneratedValue(strategy = GenerationType.UUID)
     @Column(name = "id")
     private UUID id;
 

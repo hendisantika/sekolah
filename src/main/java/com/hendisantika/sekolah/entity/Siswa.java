@@ -4,9 +4,7 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.*;
-import org.hibernate.annotations.OnDelete;
-import org.hibernate.annotations.OnDeleteAction;
-import org.hibernate.annotations.UuidGenerator;
+import org.hibernate.annotations.*;
 import org.springframework.data.annotation.CreatedBy;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedBy;
@@ -33,14 +31,9 @@ import java.util.UUID;
 @EqualsAndHashCode
 @ToString
 @Entity(name = "tbl_siswa")
-@EntityListeners(AuditingEntityListener.class)
-public class Siswa {
-    @Id
-    @GeneratedValue(generator = "uuid4")
-    @UuidGenerator(style = UuidGenerator.Style.RANDOM)
-    @Column(name = "id")
-    private UUID id;
-
+@SQLDelete(sql = "UPDATE tbl_siswa SET status_record='INACTIVE' WHERE id=?")
+@Where(clause = "status_record='ACTIVE'")
+public class Siswa extends AuditTableEntity<UUID> {
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "kelas_id", nullable = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
@@ -73,22 +66,4 @@ public class Siswa {
 
     @Column(name = "file_content")
     private byte[] fileContent;
-
-    @Column(name = "created_by")
-    @CreatedBy
-    @Size(max = 50)
-    private String createdBy;
-
-    @Column(name = "created_on")
-    @CreatedDate
-    private LocalDateTime createdOn;
-
-    @Column(name = "modified_by")
-    @LastModifiedBy
-    @Size(max = 50)
-    private String modifiedBy;
-
-    @Column(name = "modified_on")
-    @LastModifiedDate
-    private LocalDateTime modifiedOn;
 }

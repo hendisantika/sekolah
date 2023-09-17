@@ -13,6 +13,8 @@ CREATE TABLE IF NOT EXISTS tbl_komentar
     created_on  timestamp NULL DEFAULT CURRENT_TIMESTAMP,
     modified_by varchar(50),
     modified_on timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+    status_record varchar(50) DEFAULT 'ACTIVE' NOT NULL,
+    version BIGINT DEFAULT NULL,
     PRIMARY KEY (id)
 );
 CREATE INDEX tulisan_id_idx ON tbl_komentar (tulisan_id);

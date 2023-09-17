@@ -5,7 +5,9 @@ import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.PositiveOrZero;
 import jakarta.validation.constraints.Size;
 import lombok.*;
+import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.UuidGenerator;
+import org.hibernate.annotations.Where;
 import org.springframework.data.annotation.CreatedBy;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedBy;
@@ -32,14 +34,9 @@ import java.util.UUID;
 @EqualsAndHashCode
 @ToString
 @Entity(name = "tbl_inbox")
-@EntityListeners(AuditingEntityListener.class)
-public class Inbox {
-    @Id
-    @GeneratedValue(generator = "uuid4")
-    @UuidGenerator(style = UuidGenerator.Style.RANDOM)
-    @Column(name = "id")
-    private UUID id;
-
+@SQLDelete(sql = "UPDATE tbl_inbox SET status_record='INACTIVE' WHERE id=?")
+@Where(clause = "status_record='ACTIVE'")
+public class Inbox extends AuditTableEntity<UUID> {
     @Column(name = "nama")
     @Size(max = 40)
     private String nama;
@@ -59,22 +56,4 @@ public class Inbox {
     @Column(name = "status")
     @PositiveOrZero
     private int status;
-
-    @Column(name = "created_by")
-    @CreatedBy
-    @Size(max = 50)
-    private String createdBy;
-
-    @Column(name = "created_on")
-    @CreatedDate
-    private LocalDateTime createdOn;
-
-    @Column(name = "modified_by")
-    @LastModifiedBy
-    @Size(max = 50)
-    private String modifiedBy;
-
-    @Column(name = "modified_on")
-    @LastModifiedDate
-    private LocalDateTime modifiedOn;
 }

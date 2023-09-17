@@ -5,7 +5,9 @@ import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.PositiveOrZero;
 import jakarta.validation.constraints.Size;
 import lombok.*;
+import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.UuidGenerator;
+import org.hibernate.annotations.Where;
 import org.springframework.data.annotation.CreatedBy;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedBy;
@@ -33,14 +35,9 @@ import java.util.UUID;
 @EqualsAndHashCode
 @ToString
 @Entity(name = "tbl_pengguna")
-@EntityListeners(AuditingEntityListener.class)
-public class Pengguna {
-    @Id
-    @GeneratedValue(generator = "uuid4")
-    @UuidGenerator(style = UuidGenerator.Style.RANDOM)
-    @Column(name = "id")
-    private UUID id;
-
+@SQLDelete(sql = "UPDATE tbl_pengguna SET status_record='INACTIVE' WHERE id=?")
+@Where(clause = "status_record='ACTIVE'")
+public class Pengguna extends AuditTableEntity<UUID> {
     @ManyToMany(fetch = FetchType.EAGER, cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
     @JoinTable(joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
     private List<Role> roles;
@@ -117,22 +114,4 @@ public class Pengguna {
     @CreatedDate
     @Column(name = "register")
     private LocalDateTime register;
-
-    @Column(name = "created_by")
-    @CreatedBy
-    @Size(max = 50)
-    private String createdBy;
-
-    @Column(name = "created_on")
-    @CreatedDate
-    private LocalDateTime createdOn;
-
-    @Column(name = "modified_by")
-    @LastModifiedBy
-    @Size(max = 50)
-    private String modifiedBy;
-
-    @Column(name = "modified_on")
-    @LastModifiedDate
-    private LocalDateTime modifiedOn;
 }

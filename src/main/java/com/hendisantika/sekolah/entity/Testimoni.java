@@ -4,7 +4,9 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.Size;
 import lombok.*;
+import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.UuidGenerator;
+import org.hibernate.annotations.Where;
 import org.springframework.data.annotation.CreatedBy;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedBy;
@@ -31,14 +33,9 @@ import java.util.UUID;
 @EqualsAndHashCode
 @ToString
 @Entity(name = "tbl_testimoni")
-@EntityListeners(AuditingEntityListener.class)
-public class Testimoni {
-    @Id
-    @GeneratedValue(generator = "uuid4")
-    @UuidGenerator(style = UuidGenerator.Style.RANDOM)
-    @Column(name = "id")
-    private UUID id;
-
+@SQLDelete(sql = "UPDATE tbl_testimoni SET status_record='INACTIVE' WHERE id=?")
+@Where(clause = "status_record='ACTIVE'")
+public class Testimoni extends AuditTableEntity<UUID> {
     @Column(name = "nama")
     @Size(max = 30)
     private String nama;
@@ -51,22 +48,4 @@ public class Testimoni {
     @Email
     @Size(max = 35)
     private String email;
-
-    @Column(name = "created_by")
-    @CreatedBy
-    @Size(max = 50)
-    private String createdBy;
-
-    @Column(name = "created_on")
-    @CreatedDate
-    private LocalDateTime createdOn;
-
-    @Column(name = "modified_by")
-    @LastModifiedBy
-    @Size(max = 50)
-    private String modifiedBy;
-
-    @Column(name = "modified_on")
-    @LastModifiedDate
-    private LocalDateTime modifiedOn;
 }
