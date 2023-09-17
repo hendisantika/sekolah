@@ -9,9 +9,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.time.LocalDateTime;
 
-import static com.hendisantika.sekolah.constant.Constants.ADMIN_DASH;
-import static com.hendisantika.sekolah.constant.Constants.WAKTU;
-
 /**
  * Created by IntelliJ IDEA.
  * Project : sekolah
@@ -23,8 +20,10 @@ import static com.hendisantika.sekolah.constant.Constants.WAKTU;
  */
 @Slf4j
 @Controller
-@RequestMapping("/admin")
+@RequestMapping("admin")
 public class AdminController {
+    private static final String WAKTU = "waktu";
+    private static final String ADMIN_DASH = "admin/dashboard";
 
     @PreAuthorize("hasAuthority('ADMIN')")
     @GetMapping("/dashboard")

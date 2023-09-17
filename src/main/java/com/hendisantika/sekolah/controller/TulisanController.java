@@ -24,7 +24,6 @@ import java.util.Base64;
 import java.util.Objects;
 import java.util.UUID;
 
-import static com.hendisantika.sekolah.constant.Constants.*;
 import static com.hendisantika.sekolah.util.WordUtils.pregReplace;
 import static com.hendisantika.sekolah.util.WordUtils.stripTags;
 import static org.apache.commons.lang3.StringUtils.lowerCase;
@@ -43,6 +42,13 @@ import static org.apache.commons.lang3.StringUtils.lowerCase;
 @RequestMapping("admin/tulisan")
 @PreAuthorize("hasAuthority('ADMIN')")
 public class TulisanController {
+    private static final String TULISANLIST = "tulisanList";
+    private static final String TULISAN = "tulisan";
+    private static final String RIE_ADMIN_TUL = "redirect:/admin/tulisan";
+    private static final String KAT_LIST = "kategoriList";
+
+    //Save the uploaded file to this folder
+    private static final String UPLOADED_FOLDER = System.getProperty("java.io.tmpdir");
 
     private final TulisanRepository tulisanRepository;
 
@@ -133,6 +139,7 @@ public class TulisanController {
             e.printStackTrace();
         }
     }
+
 
     @GetMapping("/delete/{tulisanId}")
     public String deleteTulisan(@PathVariable("tulisanId") UUID tulisanId, Model model, Pageable pageable) {

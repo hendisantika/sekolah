@@ -14,3 +14,4 @@ CREATE TABLE IF NOT EXISTS tbl_log_aktivitas
     PRIMARY KEY (id)
 );
 CREATE INDEX log_pengguna_idx ON tbl_log_aktivitas (pengguna_id);
+-- --------------------------------------------------------

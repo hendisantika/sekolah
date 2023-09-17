@@ -3,8 +3,6 @@ package com.hendisantika.sekolah.dto;
 import com.hendisantika.sekolah.entity.Album;
 import lombok.*;
 
-import java.util.UUID;
-
 /**
  * Created by IntelliJ IDEA.
  * Project : sekolah
@@ -20,7 +18,7 @@ import java.util.UUID;
 @Setter
 @Builder
 public class GaleriDto {
-    private UUID id;
+    private Long id;
     private String judul;
     private String author;
     private Album album;

@@ -2,8 +2,6 @@ package com.hendisantika.sekolah.dto;
 
 import lombok.*;
 
-import java.util.UUID;
-
 /**
  * Created by IntelliJ IDEA.
  * Project : sekolah
@@ -19,7 +17,7 @@ import java.util.UUID;
 @Setter
 @Builder
 public class AlbumDto {
-    private UUID id;
+    private Long id;
     private String nama;
     private String author;
 }

@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.UUID;
 
 @Slf4j
 @RestController
@@ -32,7 +31,7 @@ public class KategoriApiController {
     }
 
     @GetMapping("categories/{kategoriId}")
-    public Kategori findKategoriById(@PathVariable(value = "kategoriId") UUID kategoriId) throws KategoriNotFoundException {
+    public Kategori findKategoriById(@PathVariable(value = "kategoriId") Long kategoriId) throws KategoriNotFoundException {
         log.info("filter kategori by id {}", kategoriId);
         return kategoriRepository.findById(kategoriId).orElseThrow(() -> {
             log.warn("Kategori Not Found not found.");
@@ -41,7 +40,7 @@ public class KategoriApiController {
     }
 
     @DeleteMapping("/categories/{kategoriId}")
-    public List<Kategori> deleteKategori(@PathVariable("kategoriId") UUID kategoriId) {
+    public List<Kategori> deleteKategori(@PathVariable("kategoriId") Long kategoriId) {
         log.info("menghapus kategori berita");
         kategoriRepository.deleteById(kategoriId);
         return kategoriRepository.findAll();
@@ -49,7 +48,7 @@ public class KategoriApiController {
 
     @PutMapping("/categories/{kategoriId}")
     @ResponseBody
-    public ResponseEntity<Kategori> updateKategoriFromDB(@PathVariable("kategoriId") UUID kategoriId,
+    public ResponseEntity<Kategori> updateKategoriFromDB(@PathVariable("kategoriId") Long kategoriId,
                                                          @RequestBody @Valid Kategori kategori) {
         log.info("memperbaharui kategori berita");
         Optional<Kategori> currentKategoriOpt = kategoriRepository.findById(kategoriId);

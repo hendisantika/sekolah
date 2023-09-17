@@ -2,6 +2,7 @@ package com.hendisantika.sekolah.entity;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.*;
 import org.hibernate.annotations.UuidGenerator;
@@ -25,7 +26,6 @@ import java.util.UUID;
  */
 @Getter
 @Setter
-@EqualsAndHashCode
 @ToString
 @Builder
 @AllArgsConstructor
@@ -34,9 +34,10 @@ import java.util.UUID;
 @EntityListeners(AuditingEntityListener.class)
 public class Testimoni {
     @Id
-    @GeneratedValue(generator = "uuid4")
-    @UuidGenerator(style = UuidGenerator.Style.RANDOM)
+    @GeneratedValue(generator = "uuid2")
+    @UuidGenerator
     @Column(name = "id")
+    @NotNull
     private UUID id;
 
     @Column(name = "nama")
@@ -69,4 +70,35 @@ public class Testimoni {
     @Column(name = "modified_on")
     @LastModifiedDate
     private LocalDateTime modifiedOn;
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Testimoni testimoni)) return false;
+
+        if (getId() != null ? !getId().equals(testimoni.getId()) : testimoni.getId() != null) return false;
+        if (getNama() != null ? !getNama().equals(testimoni.getNama()) : testimoni.getNama() != null) return false;
+        if (getIsi() != null ? !getIsi().equals(testimoni.getIsi()) : testimoni.getIsi() != null) return false;
+        if (getEmail() != null ? !getEmail().equals(testimoni.getEmail()) : testimoni.getEmail() != null) return false;
+        if (getCreatedBy() != null ? !getCreatedBy().equals(testimoni.getCreatedBy()) : testimoni.getCreatedBy() != null)
+            return false;
+        if (getCreatedOn() != null ? !getCreatedOn().equals(testimoni.getCreatedOn()) : testimoni.getCreatedOn() != null)
+            return false;
+        if (getModifiedBy() != null ? !getModifiedBy().equals(testimoni.getModifiedBy()) : testimoni.getModifiedBy() != null)
+            return false;
+        return getModifiedOn() != null ? getModifiedOn().equals(testimoni.getModifiedOn()) : testimoni.getModifiedOn() == null;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = getId() != null ? getId().hashCode() : 0;
+        result = 31 * result + (getNama() != null ? getNama().hashCode() : 0);
+        result = 31 * result + (getIsi() != null ? getIsi().hashCode() : 0);
+        result = 31 * result + (getEmail() != null ? getEmail().hashCode() : 0);
+        result = 31 * result + (getCreatedBy() != null ? getCreatedBy().hashCode() : 0);
+        result = 31 * result + (getCreatedOn() != null ? getCreatedOn().hashCode() : 0);
+        result = 31 * result + (getModifiedBy() != null ? getModifiedBy().hashCode() : 0);
+        result = 31 * result + (getModifiedOn() != null ? getModifiedOn().hashCode() : 0);
+        return result;
+    }
 }

@@ -5,7 +5,6 @@ import lombok.*;
 
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.UUID;
 
 /**
  * Created by IntelliJ IDEA.
@@ -22,7 +21,7 @@ import java.util.UUID;
 @Setter
 @Builder
 public class PenggunaDto {
-    private UUID id;
+    private Long id;
     private String fullname;
     private String moto;
     private String jenkel;

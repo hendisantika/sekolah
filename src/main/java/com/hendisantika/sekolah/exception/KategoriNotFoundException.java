@@ -12,7 +12,6 @@ import java.io.Serial;
  * Time: 17.49
  */
 public class KategoriNotFoundException extends Exception {
-
     public KategoriNotFoundException() {
         super("Kategori Not Found Exception");
     }
