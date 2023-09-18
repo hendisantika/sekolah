@@ -18,6 +18,8 @@ import java.util.Base64;
 import java.util.Objects;
 import java.util.UUID;
 
+import static com.hendisantika.sekolah.enumeration.ALLCONSTANT.UPLOADED_FOLDER;
+
 /**
  * Created by IntelliJ IDEA.
  * Project : sekolah
@@ -29,27 +31,23 @@ import java.util.UUID;
  */
 @Slf4j
 @Controller
-@RequestMapping("tes")
+@RequestMapping("/tes")
 public class TestController {
-
     private final SiswaRepository siswaRepository;
-
-    //Save the uploaded file to this folder
-    private static final String UPLOADED_FOLDER = System.getProperty("java.io.tmpdir");
 
     public TestController(SiswaRepository siswaRepository) {
         this.siswaRepository = siswaRepository;
     }
 
-    @GetMapping("upload")
+    @GetMapping("/upload")
     public String index() {
-        return "samples/upload";
+        return "/samples/upload";
     }
 
-    @PostMapping("upload")
+    @PostMapping("/upload")
     public String singleFileUpload(@RequestParam("file") MultipartFile file,
                                    RedirectAttributes redirectAttributes) {
-        log.info("UPLOADED_FOLDER --> {}", UPLOADED_FOLDER);
+        log.info("UPLOADED_FOLDER --> {}", UPLOADED_FOLDER.getDescription());
         if (file.isEmpty()) {
             redirectAttributes.addFlashAttribute("message", "Please select a file to upload");
             return "redirect:uploadStatus";
@@ -136,6 +134,7 @@ public class TestController {
         model.addAttribute("waktu", LocalDateTime.now());
         model.addAttribute("image", Objects.requireNonNull(siswa).getPhotoBase64());
         // In thymeleaf I just have<img th:src = "*{'data:image/jpg;base64,'+ post.getImage()}" alt = "#" / >
-        return "test/image";
+
+        return "/test/image";
     }
 }

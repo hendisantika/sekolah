@@ -27,7 +27,7 @@ import java.security.Principal;
 @Slf4j
 @PreAuthorize("hasAuthority('ADMIN')")
 @Controller
-@RequestMapping("admin/kategori")
+@RequestMapping("/admin/kategori")
 public class KategoriController {
     private final KategoriRepository kategoriRepository;
 
@@ -39,7 +39,8 @@ public class KategoriController {
     public String kategoriForm(Model model) {
         log.info("Menampilkan data untuk Halaman Kategori Berita.");
         model.addAttribute("kategori", new Kategori());
-        return "admin/tulisan/kategori";
+
+        return "/admin/tulisan/kategori";
     }
 
     @PostMapping
@@ -47,12 +48,13 @@ public class KategoriController {
                                  SessionStatus status) {
         log.info("Menambahkan Kategori Berita/Tulisan baru");
         if (errors.hasErrors()) {
-            return "admin/kategori";
+            return "/admin/kategori";
         }
         kategori.setCreatedBy(principal.getName());
         kategoriRepository.save(kategori);
         status.setComplete();
         log.info("Data kategori yang baru {}", kategori);
+
         return "redirect:/admin/tulisan/add";
     }
 }

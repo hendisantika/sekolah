@@ -24,6 +24,7 @@ import java.util.Base64;
 import java.util.Objects;
 import java.util.UUID;
 
+import static com.hendisantika.sekolah.enumeration.ALLCONSTANT.*;
 import static com.hendisantika.sekolah.util.WordUtils.pregReplace;
 import static com.hendisantika.sekolah.util.WordUtils.stripTags;
 import static org.apache.commons.lang3.StringUtils.lowerCase;
@@ -39,17 +40,9 @@ import static org.apache.commons.lang3.StringUtils.lowerCase;
  */
 @Slf4j
 @Controller
-@RequestMapping("admin/tulisan")
+@RequestMapping("/admin/tulisan")
 @PreAuthorize("hasAuthority('ADMIN')")
 public class TulisanController {
-    private static final String TULISANLIST = "tulisanList";
-    private static final String TULISAN = "tulisan";
-    private static final String RIE_ADMIN_TUL = "redirect:/admin/tulisan";
-    private static final String KAT_LIST = "kategoriList";
-
-    //Save the uploaded file to this folder
-    private static final String UPLOADED_FOLDER = System.getProperty("java.io.tmpdir");
-
     private final TulisanRepository tulisanRepository;
 
     private final KategoriRepository kategoriRepository;
@@ -65,25 +58,28 @@ public class TulisanController {
     @GetMapping
     public String tulisan(Model model, Pageable pageable) {
         log.info("Menampilkan data untuk Halaman List Berita.");
-        model.addAttribute(TULISANLIST, tulisanRepository.findAll(pageable));
+        model.addAttribute(TULISANLIST.getDescription(), tulisanRepository.findAll(pageable));
         model.addAttribute("waktu", LocalDateTime.now());
-        return "admin/tulisan/tulisan";
+
+        return "/admin/tulisan/tulisan";
     }
 
     @GetMapping("/add")
     public String tampilkanFormTulisan(Model model) {
         log.info("Menampilkan Form Tulisan");
-        model.addAttribute(KAT_LIST, kategoriRepository.findAll());
-        model.addAttribute(TULISAN, new Tulisan());
-        return "admin/tulisan/tulisan-form";
+        model.addAttribute(KAT_LIST.getDescription(), kategoriRepository.findAll());
+        model.addAttribute(TULISAN.getDescription(), new Tulisan());
+
+        return "/admin/tulisan/tulisan-form";
     }
 
     @GetMapping("/edit/{tulisanId}")
     public String tampilkanFormEditTulisan(Model model, @PathVariable("tulisanId") UUID tulisanId) {
         log.info("Menampilkan Form Edit Tulisan");
-        model.addAttribute(KAT_LIST, kategoriRepository.findAll());
-        model.addAttribute(TULISAN, tulisanRepository.findById(tulisanId));
-        return "admin/tulisan/tulisan-edit";
+        model.addAttribute(KAT_LIST.getDescription(), kategoriRepository.findAll());
+        model.addAttribute(TULISAN.getDescription(), tulisanRepository.findById(tulisanId));
+
+        return "/admin/tulisan/tulisan-edit";
     }
 
     @PostMapping("/edit")
@@ -94,8 +90,9 @@ public class TulisanController {
         tulisanBaru.setCreatedOn((Objects.requireNonNull(tulisanFromDB).getCreatedOn() == null) ? LocalDateTime.now() :
                 tulisanFromDB.getCreatedOn());
         saveDataTulisan(tulisanBaru, file, principal, status);
-        model.addAttribute(TULISANLIST, tulisanRepository.findAll(pageable));
-        return RIE_ADMIN_TUL;
+        model.addAttribute(TULISANLIST.getDescription(), tulisanRepository.findAll(pageable));
+
+        return RIE_ADMIN_TUL.getDescription();
     }
 
     @PostMapping
@@ -107,8 +104,9 @@ public class TulisanController {
             return "redirect:/admin/tulisan/add";
         }
         saveDataTulisan(tulisan, file, principal, status);
-        model.addAttribute(TULISANLIST, tulisanRepository.findAll(pageable));
-        return RIE_ADMIN_TUL;
+        model.addAttribute(TULISANLIST.getDescription(), tulisanRepository.findAll(pageable));
+
+        return RIE_ADMIN_TUL.getDescription();
     }
 
     private void saveDataTulisan(Tulisan tulisan, @RequestParam("file") MultipartFile file, Principal principal,
@@ -146,9 +144,9 @@ public class TulisanController {
         log.info("Hapus data Tulisan");
         tulisanRepository.deleteById(tulisanId);
 
-        model.addAttribute(KAT_LIST, kategoriRepository.findAll());
-        model.addAttribute(TULISAN, tulisanRepository.findAll(pageable));
-        return RIE_ADMIN_TUL;
-    }
+        model.addAttribute(KAT_LIST.getDescription(), kategoriRepository.findAll());
+        model.addAttribute(TULISAN.getDescription(), tulisanRepository.findAll(pageable));
 
+        return RIE_ADMIN_TUL.getDescription();
+    }
 }

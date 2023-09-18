@@ -5,6 +5,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 import java.util.Optional;
+import java.util.UUID;
 
 /**
  * Created by IntelliJ IDEA.
@@ -16,6 +17,6 @@ import java.util.Optional;
  * Time: 14.23
  */
 @Repository
-public interface KategoriRepository extends JpaRepository<Kategori, Long> {
-    Optional<Kategori> findById(Long kategoriId);
+public interface KategoriRepository extends JpaRepository<Kategori, UUID> {
+    Optional<Kategori> findById(UUID kategoriId);
 }

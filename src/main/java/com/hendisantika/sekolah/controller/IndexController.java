@@ -1,6 +1,6 @@
 package com.hendisantika.sekolah.controller;
 
-import com.hendisantika.sekolah.constructor.ConstructorIndex;
+import com.hendisantika.sekolah.controller.constructor.ConstructorIndex;
 import com.hendisantika.sekolah.dto.UserAgentInfo;
 import com.hendisantika.sekolah.entity.*;
 import jakarta.servlet.http.Cookie;
@@ -100,7 +100,8 @@ public class IndexController {
         model.addAttribute("totAgenda", totAgenda);
         model.addAttribute("totFiles", totFiles);
         model.addAttribute("totSiswa", totSiswa);
-        return "index";
+
+        return "/index";
     }
 
     private void createCookieAndSave(HttpServletRequest request, HttpServletResponse response, String cookieName) {
@@ -143,7 +144,7 @@ public class IndexController {
         response.addCookie(cookie);
     }
 
-    @GetMapping("about")
+    @GetMapping("/about")
     public String about(Model model, HttpServletRequest request, HttpServletResponse response) {
         createCookieAndSave(request, response, "ABOUT");
         log.info("Menampilkan data untuk Halaman about.");
@@ -160,28 +161,31 @@ public class IndexController {
         model.addAttribute("totAgenda", totAgenda);
         model.addAttribute("totFiles", totFiles);
         model.addAttribute("totSiswa", totSiswa);
-        return "about";
+
+        return "/about";
     }
 
-    @GetMapping("guru")
+    @GetMapping("/guru")
     public String showGuru(Model model, HttpServletRequest request, HttpServletResponse response) {
         createCookieAndSave(request, response, "GURU");
         log.info("Menampilkan data untuk Halaman Guru.");
         List<Guru> guruList =constructorIndex.guruRepository().findAll();
         model.addAttribute("guruList", guruList);
-        return "guru";
+
+        return "/guru";
     }
 
-    @GetMapping("siswa")
+    @GetMapping("/siswa")
     public String showSiswa(Model model, HttpServletRequest request, HttpServletResponse response) {
         createCookieAndSave(request, response, "SISWA");
         log.info("Menampilkan data untuk Halaman Siswa.");
         List<Siswa> siswaList = constructorIndex.siswaRepository().findAll();
         model.addAttribute("siswaList", siswaList);
-        return "siswa";
+
+        return "/siswa";
     }
 
-    @GetMapping("blog")
+    @GetMapping("/blog")
     public String showBlog(Model model, HttpServletRequest request, HttpServletResponse response) {
         createCookieAndSave(request, response, "BLOG");
         log.info("Menampilkan data untuk Halaman Blog.");
@@ -189,10 +193,11 @@ public class IndexController {
         List<Kategori> kategoriList = constructorIndex.kategoriRepository().findAll();
         model.addAttribute("tulisanList", tulisanList);
         model.addAttribute("kategoriList", kategoriList);
-        return "blog";
+
+        return "/blog";
     }
 
-    @GetMapping("artikel/{slug}")
+    @GetMapping("/artikel/{slug}")
     public String showBlogDetails(Model model, @PathVariable(value = "slug") String slug, HttpServletRequest request,
                                   HttpServletResponse response) {
         createCookieAndSave(request, response, "ARTIKEL");
@@ -209,60 +214,67 @@ public class IndexController {
         model.addAttribute("komentarList", komentarList);
         model.addAttribute("parentKomentarList", parentKomentarList);
         model.addAttribute("colors", colors);
-        return "artikel";
+
+        return "/artikel";
     }
 
-    @GetMapping("pengumuman")
+    @GetMapping("/pengumuman")
     public String showPengumuman(Model model, HttpServletRequest request, HttpServletResponse response) {
         createCookieAndSave(request, response, "PENGUMUMAN");
         log.info("Menampilkan data untuk Halaman Pengumuman.");
         List<Pengumuman> pengumumanList = constructorIndex.pengumumanRepository().findByOrderByCreatedOnDesc();
         model.addAttribute("pengumumanList", pengumumanList);
-        return "pengumuman";
+
+        return "/pengumuman";
     }
 
-    @GetMapping("agenda")
+    @GetMapping("/agenda")
     public String showAgenda(Model model, HttpServletRequest request, HttpServletResponse response) {
         createCookieAndSave(request, response, "AGENDA");
         log.info("Menampilkan data untuk Halaman Agenda.");
         List<Agenda> agendaList = constructorIndex.agendaRepository().findAll();
         model.addAttribute("agendaList", agendaList);
-        return "agenda";
+
+        return "/agenda";
     }
 
-    @GetMapping("download")
+    @GetMapping("/download")
     public String showDownload(Model model, HttpServletRequest request, HttpServletResponse response) {
         createCookieAndSave(request, response, "DOWNLOAD");
         log.info("Menampilkan data untuk Halaman Download.");
         List<Files> filesList = constructorIndex.filesRepository().findAll();
         model.addAttribute("filesList", filesList);
-        return "download";
+
+        return "/download";
     }
 
-    @GetMapping("galeri")
+    @GetMapping("/galeri")
     public String showGaleri(Model model, HttpServletRequest request, HttpServletResponse response) {
         createCookieAndSave(request, response, "GALERI");
         log.info("Menampilkan data untuk Halaman Galeri.");
         List<Galeri> galeriList = constructorIndex.galeriRepository().findAll();
         model.addAttribute("galeriList", galeriList);
-        return "galeri";
+
+        return "/galeri";
     }
 
-    @GetMapping("contact")
+    @GetMapping("/contact")
     public String showContact(HttpServletRequest request, HttpServletResponse response) {
         createCookieAndSave(request, response, "CONTACT");
         log.info("Menampilkan data untuk Halaman Contact Us.");
-        return "contact";
+
+        return "/contact";
     }
 
-    @GetMapping("login")
+    @GetMapping("/login")
     public String showLoginForm(Model model) {
         log.info("Menampilkan data untuk Halaman Login.");
         model.addAttribute("user", new Pengguna());
-        return "admin/login";
+
+        return "/admin/login";
     }
 
-    @GetMapping("test")
+    @GetMapping("/test")
     public String getUserAgent2(Model model, HttpServletRequest request) {
         String remoteIpAddr = "";
         String remoteHostAddr = "";
@@ -289,7 +301,7 @@ public class IndexController {
         log.info("clientHost: {}", clientHost);
         model.addAttribute("userAgentInfo", userAgentInfo2);
         model.addAttribute("waktu", LocalDateTime.now());
-        return "samples/userAgent";
-    }
 
+        return "/samples/userAgent";
+    }
 }

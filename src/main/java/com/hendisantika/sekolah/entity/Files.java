@@ -4,7 +4,9 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.PositiveOrZero;
 import jakarta.validation.constraints.Size;
 import lombok.*;
+import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.UuidGenerator;
+import org.hibernate.annotations.Where;
 import org.springframework.data.annotation.CreatedBy;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedBy;
@@ -12,8 +14,6 @@ import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.time.LocalDateTime;
-import java.util.Arrays;
-import java.util.Objects;
 import java.util.UUID;
 
 /**
@@ -23,23 +23,19 @@ import java.util.UUID;
  * Email: hendisantika@gmail.com
  * Telegram : @hendisantika34
  * Date: 17/03/20
- * Time: 15.55
+ * Time: 15.19
  */
-@ToString
+@AllArgsConstructor
+@NoArgsConstructor
 @Getter
 @Setter
 @Builder
-@AllArgsConstructor
-@NoArgsConstructor
+@EqualsAndHashCode
+@ToString
 @Entity(name = "tbl_files")
-@EntityListeners(AuditingEntityListener.class)
-public class Files {
-    @Id
-    @GeneratedValue(generator = "uuid2")
-    @UuidGenerator
-    @Column(name = "id")
-    private UUID id;
-
+@SQLDelete(sql = "UPDATE tbl_files SET status_record='INACTIVE' WHERE id=?")
+@Where(clause = "status_record='ACTIVE'")
+public class Files extends AuditTableEntity<UUID> {
     @Column(name = "judul")
     @Size(max = 120)
     private String judul;
@@ -65,58 +61,4 @@ public class Files {
     @Column(name = "data")
     @Size(max = 120)
     private String data;
-
-    @Column(name = "created_by")
-    @CreatedBy
-    @Size(max = 50)
-    private String createdBy;
-
-    @Column(name = "created_on")
-    @CreatedDate
-    private LocalDateTime createdOn;
-
-    @Column(name = "modified_by")
-    @LastModifiedBy
-    @Size(max = 50)
-    private String modifiedBy;
-
-    @Column(name = "modified_on")
-    @LastModifiedDate
-    private LocalDateTime modifiedOn;
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof Files files)) return false;
-
-        if (download != files.download) return false;
-        if (!Objects.equals(id, files.id)) return false;
-        if (!Objects.equals(judul, files.judul)) return false;
-        if (!Objects.equals(deskripsi, files.deskripsi)) return false;
-        if (!Objects.equals(author, files.author)) return false;
-        if (!Objects.equals(filename, files.filename)) return false;
-        if (!Arrays.equals(fileContent, files.fileContent)) return false;
-        if (!Objects.equals(data, files.data)) return false;
-        if (!Objects.equals(createdBy, files.createdBy)) return false;
-        if (!Objects.equals(createdOn, files.createdOn)) return false;
-        if (!Objects.equals(modifiedBy, files.modifiedBy)) return false;
-        return Objects.equals(modifiedOn, files.modifiedOn);
-    }
-
-    @Override
-    public int hashCode() {
-        int result = id != null ? id.hashCode() : 0;
-        result = 31 * result + (judul != null ? judul.hashCode() : 0);
-        result = 31 * result + (deskripsi != null ? deskripsi.hashCode() : 0);
-        result = 31 * result + (author != null ? author.hashCode() : 0);
-        result = 31 * result + (filename != null ? filename.hashCode() : 0);
-        result = 31 * result + Arrays.hashCode(fileContent);
-        result = 31 * result + download;
-        result = 31 * result + (data != null ? data.hashCode() : 0);
-        result = 31 * result + (createdBy != null ? createdBy.hashCode() : 0);
-        result = 31 * result + (createdOn != null ? createdOn.hashCode() : 0);
-        result = 31 * result + (modifiedBy != null ? modifiedBy.hashCode() : 0);
-        result = 31 * result + (modifiedOn != null ? modifiedOn.hashCode() : 0);
-        return result;
-    }
 }

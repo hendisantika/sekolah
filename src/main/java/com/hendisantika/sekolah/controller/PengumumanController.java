@@ -23,6 +23,8 @@ import java.security.Principal;
 import java.util.Optional;
 import java.util.UUID;
 
+import static com.hendisantika.sekolah.enumeration.ALLCONSTANT.PENGUMUMAN;
+
 /**
  * Created by IntelliJ IDEA.
  * Project : sekolah
@@ -35,9 +37,8 @@ import java.util.UUID;
 @Slf4j
 @PreAuthorize("hasAuthority('ADMIN')")
 @Controller
-@RequestMapping("admin/pengumuman")
+@RequestMapping("/admin/pengumuman")
 public class PengumumanController {
-    private static final String PENGUMUMAN = "pengumuman";
     private final PengumumanRepository pengumumanRepository;
     private final PenggunaRepository penggunaRepository;
 
@@ -50,32 +51,36 @@ public class PengumumanController {
     public String showPengumuman(Model model, Pageable pageable) {
         log.info("Menampilkan data untuk Halaman List Pengumuman.");
         model.addAttribute("pengumumanList", pengumumanRepository.findAll(pageable));
-        return "admin/pengumuman/pengumuman-list";
+
+        return "/admin/pengumuman/pengumuman-list";
     }
 
-    @GetMapping("add")
+    @GetMapping("/add")
     public String showFormPengumuman(Model model) {
         log.info("Menampilkan Form untuk Tambah Pengumuman.");
-        model.addAttribute(PENGUMUMAN, new Pengumuman());
-        return "admin/pengumuman/pengumuman-form";
+        model.addAttribute(PENGUMUMAN.getDescription(), new Pengumuman());
+
+        return "/admin/pengumuman/pengumuman-form";
     }
 
-    @GetMapping("edit/{pengumumanId}")
+    @GetMapping("/edit/{pengumumanId}")
     public String showFormPengumuman(@PathVariable("pengumumanId") UUID pengumumanId, Model model) {
         log.info("Menampilkan Form untuk Edit Pengumuman.");
-        model.addAttribute(PENGUMUMAN, pengumumanRepository.findById(pengumumanId));
-        return "admin/pengumuman/pengumuman-edit";
+        model.addAttribute(PENGUMUMAN.getDescription(), pengumumanRepository.findById(pengumumanId));
+
+        return "/admin/pengumuman/pengumuman-edit";
     }
 
-    @GetMapping("delete/{pengumumanId}")
+    @GetMapping("/delete/{pengumumanId}")
     public String deletePengumuman(@PathVariable("pengumumanId") UUID pengumumanId, Model model, Pageable pageable) {
         log.info("Delete Pengumuman.");
         pengumumanRepository.deleteById(pengumumanId);
-        model.addAttribute(PENGUMUMAN, pengumumanRepository.findAll(pageable));
+        model.addAttribute(PENGUMUMAN.getDescription(), pengumumanRepository.findAll(pageable));
+
         return "redirect:/admin/pengumuman";
     }
 
-    @PostMapping("edit")
+    @PostMapping("/edit")
     public String updatePengumuman(@Valid PengumumanDto pengumumanDto, Model model, Pageable pageable) {
         log.info("Memperbaharui data Pengumuman.");
         Optional<Pengumuman> byId = pengumumanRepository.findById(pengumumanDto.getId());
@@ -84,7 +89,7 @@ public class PengumumanController {
             pengumuman.setJudul(pengumumanDto.getJudul());
             pengumuman.setDeskripsi(pengumumanDto.getDeskripsi());
             pengumumanRepository.save(pengumuman);
-            model.addAttribute(PENGUMUMAN, pengumumanRepository.findAll(pageable));
+            model.addAttribute(PENGUMUMAN.getDescription(), pengumumanRepository.findAll(pageable));
             return "redirect:/admin/pengumuman";
         } else {
             HttpStatus badRequest = HttpStatus.BAD_REQUEST;
@@ -106,6 +111,7 @@ public class PengumumanController {
         pengumumanRepository.save(pengumuman);
         status.setComplete();
         model.addAttribute("pengumumanList", pengumumanRepository.findAll(pageable));
-        return "admin/pengumuman/pengumuman-list";
+
+        return "/admin/pengumuman/pengumuman-list";
     }
 }

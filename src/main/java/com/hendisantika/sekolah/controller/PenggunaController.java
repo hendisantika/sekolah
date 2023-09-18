@@ -20,6 +20,10 @@ import java.io.IOException;
 import java.security.Principal;
 import java.util.Base64;
 import java.util.Optional;
+import java.util.UUID;
+
+import static com.hendisantika.sekolah.enumeration.ALLCONSTANT.PENGGUNA;
+import static com.hendisantika.sekolah.enumeration.ALLCONSTANT.RIE_ADMIN_PENGGUNA;
 
 /**
  * Created by IntelliJ IDEA.
@@ -33,11 +37,8 @@ import java.util.Optional;
 @Slf4j
 @PreAuthorize("hasAuthority('ADMIN')")
 @Controller
-@RequestMapping("admin/pengguna")
+@RequestMapping("/admin/pengguna")
 public class PenggunaController {
-    private static final String PENGGUNA = "pengguna";
-    private static final String RIE_ADMIN_PENGGUNA = "redirect:/admin/pengguna";
-
     private final PenggunaRepository penggunaRepository;
     private final PasswordEncoder passwordEncoder;
 
@@ -50,24 +51,27 @@ public class PenggunaController {
     public String pengguna(Model model, Pageable pageable) {
         log.info("Menampilkan data untuk Halaman List Pengguna.");
         model.addAttribute("penggunaList", penggunaRepository.findAll(pageable));
-        return "admin/pengguna/pengguna-list";
+
+        return "/admin/pengguna/pengguna-list";
     }
 
-    @GetMapping("add")
+    @GetMapping("/add")
     public String showFormPengguna(Model model) {
         log.info("Menampilkan Form Tambah Pengguna.");
-        model.addAttribute(PENGGUNA, new PenggunaDto());
-        return "admin/pengguna/pengguna-form";
+        model.addAttribute(PENGGUNA.getDescription(), new PenggunaDto());
+
+        return "/admin/pengguna/pengguna-form";
     }
 
-    @GetMapping("edit/{penggunaId}")
-    public String showEditPenggunaForm(@PathVariable("penggunaId") Long penggunaId, Model model) {
+    @GetMapping("/edit/{penggunaId}")
+    public String showEditPenggunaForm(@PathVariable("penggunaId") UUID penggunaId, Model model) {
         log.info("Menampilkan Form Edit Pengguna.");
-        model.addAttribute(PENGGUNA, penggunaRepository.findById(penggunaId));
-        return "admin/pengguna/pengguna-edit";
+        model.addAttribute(PENGGUNA.getDescription(), penggunaRepository.findById(penggunaId));
+
+        return "/admin/pengguna/pengguna-edit";
     }
 
-    @PostMapping("edit")
+    @PostMapping("/edit")
     public String editPengguna(Model model, @Valid PenggunaDto penggunaDto, @RequestParam("file") MultipartFile file,
                                Principal principal, Pageable pageable, SessionStatus status) {
         log.info("Memperbaharui data Pengguna.");
@@ -93,16 +97,18 @@ public class PenggunaController {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        model.addAttribute(PENGGUNA, penggunaRepository.findAll(pageable));
-        return RIE_ADMIN_PENGGUNA;
+        model.addAttribute(PENGGUNA.getDescription(), penggunaRepository.findAll(pageable));
+
+        return RIE_ADMIN_PENGGUNA.getDescription();
     }
 
-    @GetMapping("delete/{penggunaId}")
-    public String showFormPengguna(@PathVariable("penggunaId") Long penggunaId, Model model, Pageable pageable) {
+    @GetMapping("/delete/{penggunaId}")
+    public String showFormPengguna(@PathVariable("penggunaId") UUID penggunaId, Model model, Pageable pageable) {
         log.info("Menghapus Data Pengguna.");
         penggunaRepository.deleteById(penggunaId);
-        model.addAttribute(PENGGUNA, penggunaRepository.findAll(pageable));
-        return RIE_ADMIN_PENGGUNA;
+        model.addAttribute(PENGGUNA.getDescription(), penggunaRepository.findAll(pageable));
+
+        return RIE_ADMIN_PENGGUNA.getDescription();
     }
 
     @PostMapping
@@ -127,7 +133,7 @@ public class PenggunaController {
             e.printStackTrace();
         }
         model.addAttribute("penggunaList", penggunaRepository.findAll(pageable));
-        return RIE_ADMIN_PENGGUNA;
-    }
 
+        return RIE_ADMIN_PENGGUNA.getDescription();
+    }
 }

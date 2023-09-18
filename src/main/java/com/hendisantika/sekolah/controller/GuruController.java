@@ -34,10 +34,8 @@ import java.util.UUID;
 @Slf4j
 @PreAuthorize("hasAuthority('ADMIN')")
 @Controller
-@RequestMapping("admin/guru")
+@RequestMapping("/admin/guru")
 public class GuruController {
-    private static final String UPLOADED_FOLDER = System.getProperty("java.io.tmpdir");
-
     private final GuruRepository guruRepository;
 
     public GuruController(GuruRepository guruRepository) {
@@ -48,14 +46,16 @@ public class GuruController {
     public String guru(Model model, Pageable pageable) {
         log.info("Menampilkan data untuk Halaman List Guru.");
         model.addAttribute("guruList", guruRepository.findAll(pageable));
-        return "admin/guru/guru-list";
+
+        return "/admin/guru/guru-list";
     }
 
-    @GetMapping("add")
+    @GetMapping("/add")
     public String showFormGuru(Model model) {
         log.info("Menampilkan Form Tambah Guru.");
         model.addAttribute("guru", new Guru());
-        return "admin/guru/guru-form";
+
+        return "/admin/guru/guru-form";
     }
 
     @PostMapping
@@ -86,17 +86,19 @@ public class GuruController {
             e.printStackTrace();
         }
         model.addAttribute("guru", guruRepository.findAll(pageable));
+
         return "redirect:/admin/guru";
     }
 
-    @GetMapping("edit/{guruId}")
+    @GetMapping("/edit/{guruId}")
     public String showEditGuruForm(@PathVariable("guruId") UUID guruId, Model model) {
         log.info("Menampilkan Form Edit Guru.");
         model.addAttribute("guru", guruRepository.findById(guruId));
-        return "admin/guru/guru-edit";
+
+        return "/admin/guru/guru-edit";
     }
 
-    @PostMapping("edit")
+    @PostMapping("/edit")
     public String updateGuru(Model model, @Valid GuruDto guruBaru, @RequestParam("file") MultipartFile file,
                              Pageable pageable, SessionStatus status) {
         log.info("Memperbaharui Data Guru");
@@ -122,16 +124,16 @@ public class GuruController {
             e.printStackTrace();
         }
         model.addAttribute("guru", guruRepository.findAll(pageable));
+
         return "redirect:/admin/guru";
     }
 
-    @GetMapping("delete/{guruId}")
+    @GetMapping("/delete/{guruId}")
     public String showFormGuru(@PathVariable("guruId") UUID guruId, Model model, Pageable pageable) {
         log.info("Menghapus Data Guru.");
         guruRepository.deleteById(guruId);
         model.addAttribute("guru", guruRepository.findAll(pageable));
-        return "admin/guru/guru-list";
+
+        return "/admin/guru/guru-list";
     }
-
-
 }

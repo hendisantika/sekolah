@@ -20,6 +20,9 @@ import java.util.Base64;
 import java.util.Optional;
 import java.util.UUID;
 
+import static com.hendisantika.sekolah.enumeration.ALLCONSTANT.RIE_ADMIN_SISW;
+import static com.hendisantika.sekolah.enumeration.ALLCONSTANT.SISWA;
+
 /**
  * Created by IntelliJ IDEA.
  * Project : sekolah
@@ -32,10 +35,8 @@ import java.util.UUID;
 @Log4j2
 @PreAuthorize("hasAuthority('ADMIN')")
 @Controller
-@RequestMapping("admin/siswa")
+@RequestMapping("/admin/siswa")
 public class SiswaController {
-    private static final String SISWA = "siswa";
-    private static final String RIE_ADMIN_SISW = "redirect:/admin/siswa";
     private final SiswaRepository siswaRepository;
     private final KelasRepository kelasRepository;
 
@@ -48,26 +49,29 @@ public class SiswaController {
     public String showListSiswa(Model model, Pageable pageable) {
         log.info("Menampilkan data untuk Halaman List Siswa.");
         model.addAttribute("siswaList", siswaRepository.findAll(pageable));
-        return "admin/siswa/siswa-list";
+
+        return "/admin/siswa/siswa-list";
     }
 
-    @GetMapping("add")
+    @GetMapping("/add")
     public String showFormAddSiswa(Model model) {
         log.info("Menampilkan data untuk Halaman Tambah Siswa.");
         model.addAttribute("kelasList", kelasRepository.findAll());
-        model.addAttribute(SISWA, new SiswaDto());
-        return "admin/siswa/siswa-form";
+        model.addAttribute(SISWA.getDescription(), new SiswaDto());
+
+        return "/admin/siswa/siswa-form";
     }
 
-    @GetMapping("edit/{siswaId}")
+    @GetMapping("/edit/{siswaId}")
     public String showFormEditSiswa(@PathVariable("siswaId") UUID siswaId, Model model) {
         log.info("Menampilkan data untuk Halaman Edit Siswa.");
         model.addAttribute("kelasList", kelasRepository.findAll());
-        model.addAttribute(SISWA, siswaRepository.findById(siswaId));
-        return "admin/siswa/siswa-edit";
+        model.addAttribute(SISWA.getDescription(), siswaRepository.findById(siswaId));
+
+        return "/admin/siswa/siswa-edit";
     }
 
-    @PostMapping("edit")
+    @PostMapping("/edit")
     public String updateDataSiswa(@Valid SiswaDto siswaDto, Model model, @RequestParam("file") MultipartFile file,
                                   Pageable pageable, SessionStatus status) {
         log.info("Memperbaharui data siswa.");
@@ -94,8 +98,9 @@ public class SiswaController {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        model.addAttribute(SISWA, siswaRepository.findAll(pageable));
-        return RIE_ADMIN_SISW;
+        model.addAttribute(SISWA.getDescription(), siswaRepository.findAll(pageable));
+
+        return RIE_ADMIN_SISW.getDescription();
     }
 
     @PostMapping
@@ -119,15 +124,16 @@ public class SiswaController {
             e.printStackTrace();
         }
         model.addAttribute("siswaList", siswaRepository.findAll(pageable));
-        return RIE_ADMIN_SISW;
+
+        return RIE_ADMIN_SISW.getDescription();
     }
 
-    @GetMapping("delete/{siswaId}")
+    @GetMapping("/delete/{siswaId}")
     public String deleteSiswa(@PathVariable("siswaId") UUID siswaId, Model model, Pageable pageable) {
         log.info("Menghapus data siswa.");
         siswaRepository.deleteById(siswaId);
-        model.addAttribute(SISWA, siswaRepository.findAll(pageable));
-        return RIE_ADMIN_SISW;
-    }
+        model.addAttribute(SISWA.getDescription(), siswaRepository.findAll(pageable));
 
+        return RIE_ADMIN_SISW.getDescription();
+    }
 }

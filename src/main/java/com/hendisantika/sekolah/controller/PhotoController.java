@@ -22,6 +22,10 @@ import java.io.IOException;
 import java.security.Principal;
 import java.util.Base64;
 import java.util.Objects;
+import java.util.UUID;
+
+import static com.hendisantika.sekolah.enumeration.ALLCONSTANT.GALERI;
+import static com.hendisantika.sekolah.enumeration.ALLCONSTANT.RIE_ADMIN_GALE;
 
 /**
  * Created by IntelliJ IDEA.
@@ -35,10 +39,8 @@ import java.util.Objects;
 @Log4j2
 @Controller
 @PreAuthorize("hasAuthority('ADMIN')")
-@RequestMapping("admin/galeri")
+@RequestMapping("/admin/galeri")
 public class PhotoController {
-    private static final String GALERI = "galeri";
-    private static final String RIE_ADMIN_GALE = "redirect:/admin/galeri";
     private final GaleriRepository galeriRepository;
     private final AlbumRepository albumRepository;
     private final PenggunaRepository penggunaRepository;
@@ -53,24 +55,27 @@ public class PhotoController {
     public String galeri(Model model, Pageable pageable) {
         log.info("Menampilkan data untuk Halaman List Galeri.");
         model.addAttribute("galeriList", galeriRepository.findAll(pageable));
-        return "admin/galeri/galeri-list";
+
+        return "/admin/galeri/galeri-list";
     }
 
 
-    @GetMapping("add")
+    @GetMapping("/add")
     public String showAddGaleriForm(Model model) {
         log.info("Menampilkan form halaman tambah Galeri.");
         model.addAttribute("albumList", albumRepository.findAll());
-        model.addAttribute(GALERI, new GaleriDto());
-        return "admin/galeri/galeri-form";
+        model.addAttribute(GALERI.getDescription(), new GaleriDto());
+
+        return "/admin/galeri/galeri-form";
     }
 
-    @GetMapping("edit/{galeriId}")
-    public String showFormEditGaleri(@PathVariable("galeriId") Long galeriId, Model model) {
+    @GetMapping("/edit/{galeriId}")
+    public String showFormEditGaleri(@PathVariable("galeriId") UUID galeriId, Model model) {
         log.info("Menampilkan data untuk Halaman Edit Galeri.");
         model.addAttribute("albumList", albumRepository.findAll());
-        model.addAttribute(GALERI, galeriRepository.findById(galeriId));
-        return "admin/galeri/galeri-edit";
+        model.addAttribute(GALERI.getDescription(), galeriRepository.findById(galeriId));
+
+        return "/admin/galeri/galeri-edit";
     }
 
     @PostMapping
@@ -101,11 +106,12 @@ public class PhotoController {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        model.addAttribute(GALERI, galeriRepository.findAll(pageable));
-        return RIE_ADMIN_GALE;
+        model.addAttribute(GALERI.getDescription(), galeriRepository.findAll(pageable));
+
+        return RIE_ADMIN_GALE.getDescription();
     }
 
-    @PostMapping("edit")
+    @PostMapping("/edit")
     public String editDataGaleri(@Valid GaleriDto galeriDto, Model model, @RequestParam("file") MultipartFile file,
                                  BindingResult errors, Pageable pageable, Principal principal,
                                  SessionStatus status) {
@@ -127,15 +133,17 @@ public class PhotoController {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        model.addAttribute(GALERI, galeriRepository.findAll(pageable));
-        return RIE_ADMIN_GALE;
+        model.addAttribute(GALERI.getDescription(), galeriRepository.findAll(pageable));
+
+        return RIE_ADMIN_GALE.getDescription();
     }
 
-    @GetMapping("delete/{galeriId}")
-    public String deleteGaleri(@PathVariable("galeriId") Long galeriId, Model model) {
+    @GetMapping("/delete/{galeriId}")
+    public String deleteGaleri(@PathVariable("galeriId") UUID galeriId, Model model) {
         log.info("Delete data Galeri.");
         galeriRepository.deleteById(galeriId);
-        model.addAttribute(GALERI, galeriRepository.findById(galeriId));
-        return RIE_ADMIN_GALE;
+        model.addAttribute(GALERI.getDescription(), galeriRepository.findById(galeriId));
+
+        return RIE_ADMIN_GALE.getDescription();
     }
 }

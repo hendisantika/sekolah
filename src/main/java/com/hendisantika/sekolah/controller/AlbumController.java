@@ -21,6 +21,10 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.IOException;
 import java.security.Principal;
 import java.util.Base64;
+import java.util.UUID;
+
+import static com.hendisantika.sekolah.enumeration.ALLCONSTANT.ALBUM;
+import static com.hendisantika.sekolah.enumeration.ALLCONSTANT.RIE_ADMIN_ALBM;
 
 /**
  * Created by IntelliJ IDEA.
@@ -34,10 +38,8 @@ import java.util.Base64;
 @Log4j2
 @Controller
 @PreAuthorize("hasAuthority('ADMIN')")
-@RequestMapping("admin/album")
+@RequestMapping("/admin/album")
 public class AlbumController {
-    private static final String ALBUM = "album";
-    private static final String RIE_ADMIN_ALBM = "redirect:/admin/album";
     private final AlbumRepository albumRepository;
     private final PenggunaRepository penggunaRepository;
 
@@ -50,21 +52,24 @@ public class AlbumController {
     public String album(Model model, Pageable pageable) {
         log.info("Menampilkan data untuk Halaman List Album.");
         model.addAttribute("albumList", albumRepository.findAll(pageable));
-        return "admin/album/album-list";
+
+        return "/admin/album/album-list";
     }
 
-    @GetMapping("add")
+    @GetMapping("/add")
     public String showAlbumForm(Model model) {
         log.info("Menampilkan Form Tambah Album.");
-        model.addAttribute(ALBUM, new AlbumDto());
-        return "admin/album/album-form";
+        model.addAttribute(ALBUM.getDescription(), new AlbumDto());
+
+        return "/admin/album/album-form";
     }
 
-    @GetMapping("edit/{albumId}")
-    public String showAlbumForm(@PathVariable("albumId") Long albumId, Model model) {
+    @GetMapping("/edit/{albumId}")
+    public String showAlbumForm(@PathVariable("albumId") UUID albumId, Model model) {
         log.info("Menampilkan Form Edit Album.");
-        model.addAttribute(ALBUM, albumRepository.findById(albumId));
-        return "admin/album/album-edit";
+        model.addAttribute(ALBUM.getDescription(), albumRepository.findById(albumId));
+
+        return "/admin/album/album-edit";
     }
 
     @PostMapping
@@ -95,11 +100,12 @@ public class AlbumController {
             log.error("Menambahkan Data Album yang baru gagal, {}", errors);
             e.printStackTrace();
         }
-        model.addAttribute(ALBUM, albumRepository.findAll(pageable));
-        return RIE_ADMIN_ALBM;
+        model.addAttribute(ALBUM.getDescription(), albumRepository.findAll(pageable));
+
+        return RIE_ADMIN_ALBM.getDescription();
     }
 
-    @PostMapping("edit")
+    @PostMapping("/edit")
     public String editDataAlbum(@Valid AlbumDto albumDto, Model model, @RequestParam("file") MultipartFile file,
                                 BindingResult errors, Pageable pageable, Principal principal,
                                 SessionStatus status) {
@@ -133,15 +139,17 @@ public class AlbumController {
         } catch (IOException | ChangeSetPersister.NotFoundException e) {
             e.printStackTrace();
         }
-        model.addAttribute(ALBUM, albumRepository.findAll(pageable));
-        return RIE_ADMIN_ALBM;
+        model.addAttribute(ALBUM.getDescription(), albumRepository.findAll(pageable));
+
+        return RIE_ADMIN_ALBM.getDescription();
     }
 
-    @GetMapping("delete/{albumId}")
-    public String deleteDataAlbum(@PathVariable("albumId") Long albumId, Model model, Pageable pageable) {
+    @GetMapping("/delete/{albumId}")
+    public String deleteDataAlbum(@PathVariable("albumId") UUID albumId, Model model, Pageable pageable) {
         log.info("Menghapus Data Album.");
         albumRepository.deleteById(albumId);
-        model.addAttribute(ALBUM, albumRepository.findAll(pageable));
-        return RIE_ADMIN_ALBM;
+        model.addAttribute(ALBUM.getDescription(), albumRepository.findAll(pageable));
+
+        return RIE_ADMIN_ALBM.getDescription();
     }
 }

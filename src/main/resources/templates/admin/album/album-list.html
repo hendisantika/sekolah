@@ -50,7 +50,9 @@
                 <tbody>
                 <tr th:each="a, itrStat : ${albumList}">
                     <td th:text="${itrStat.index + 1}">nomor urut</td>
-                    <th><img border=3 height="70" th:src="*{'data:image/*;base64,'+ a.photoBase64}" width="120"></th>
+                    <th>
+                        <img border=3 height="70" alt="album-list-img" class="img-fluid" th:src="${'/assets/images/'+ a.cover}" width="120">
+                    </th>
                     <td th:text="${a.nama}">Nama Album</td>
                     <td th:text="${#temporals.format(a.createdOn, 'dd-MMM-YYYY HH:mm')}">Tanggal</td>
                     <td th:text="${a.author}">Author</td>
