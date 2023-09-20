@@ -28,7 +28,7 @@ import java.util.UUID;
 @Getter
 @Setter
 @Builder
-@EqualsAndHashCode
+@EqualsAndHashCode(callSuper = false)
 @ToString
 @Entity(name = "tbl_siswa")
 @SQLDelete(sql = "UPDATE tbl_siswa SET status_record='INACTIVE' WHERE id=?")
