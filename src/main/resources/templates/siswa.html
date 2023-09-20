@@ -17,10 +17,8 @@
             <div class="row">
                 <div class="col-xs-12 col-sm-6 col-md-3" th:each="s : ${siswaList}">
                     <div class="admission_insruction">
-                        <!--                        <img border=3 height="40" th:src="*{'data:image/*;base64,'+ p.photoBase64}" width="40"></th>-->
-                        <!--                        <img alt="#" class="img-fluid" th:src="@{/assets/images/}  + ${s.photo ?: 'blank.png'}">-->
                         <img alt="siswaList-featured-img" class="img-fluid"
-                             th:src="${'data:image/jpeg;base64,'+ s.photoBase64}" width="35%">
+                             src="data:image/jpeg;base64," th:attrappend="src=${s.photoBase64}"/>
                         <p class="text-center mt-3"><span th:text="${s.nama}">nama</span>
                             <br>
                             <span th:text="${s.kelas.nama}">Kelas</span>

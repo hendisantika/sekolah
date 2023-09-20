@@ -1,7 +1,5 @@
 package com.hendisantika.sekolah.exception;
 
-import java.io.Serial;
-
 /**
  * Created by IntelliJ IDEA.
  * Project : sekolah
