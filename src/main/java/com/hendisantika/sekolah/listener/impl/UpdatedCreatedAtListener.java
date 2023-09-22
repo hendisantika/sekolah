@@ -8,12 +8,14 @@ import java.time.LocalDateTime;
 
 public class UpdatedCreatedAtListener {
     @PreUpdate
-    public void setLastModifiedOn(UpdatedCreatedAtAware object) {
-        object.setModifiedOn(LocalDateTime.now());
+    public void setLastModifiedOn(Object object) {
+        UpdatedCreatedAtAware updatedAtAware = (UpdatedCreatedAtAware) object;
+        updatedAtAware.setModifiedOn(LocalDateTime.now());
     }
 
     @PrePersist
-    public void setLastCreatedOn(UpdatedCreatedAtAware object) {
-        object.setCreatedOn(LocalDateTime.now());
+    public void setLastCreatedOn(Object object) {
+        UpdatedCreatedAtAware createdAtAware = (UpdatedCreatedAtAware) object;
+        createdAtAware.setCreatedOn(LocalDateTime.now());
     }
 }

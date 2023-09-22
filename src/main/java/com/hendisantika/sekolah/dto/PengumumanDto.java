@@ -1,5 +1,7 @@
 package com.hendisantika.sekolah.dto;
 
+import com.hendisantika.sekolah.enumeration.STATUSRECORD;
+import jakarta.persistence.Version;
 import lombok.*;
 
 import java.time.LocalDateTime;
@@ -23,9 +25,4 @@ public class PengumumanDto {
     private UUID id;
     private String judul;
     private String deskripsi;
-    private String author;
-    private String createdBy;
-    private LocalDateTime createdOn;
-    private String modifiedBy;
-    private LocalDateTime modifiedOn;
 }

@@ -1,18 +1,12 @@
 package com.hendisantika.sekolah.entity;
 
-import jakarta.persistence.*;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
 import jakarta.validation.constraints.Size;
 import lombok.*;
 import org.hibernate.annotations.SQLDelete;
-import org.hibernate.annotations.UuidGenerator;
 import org.hibernate.annotations.Where;
-import org.springframework.data.annotation.CreatedBy;
-import org.springframework.data.annotation.CreatedDate;
-import org.springframework.data.annotation.LastModifiedBy;
-import org.springframework.data.annotation.LastModifiedDate;
-import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
-import java.time.LocalDateTime;
 import java.util.UUID;
 
 /**
@@ -32,7 +26,7 @@ import java.util.UUID;
 @EqualsAndHashCode(callSuper = false)
 @ToString
 @Entity(name = "tbl_log_aktivitas")
-@SQLDelete(sql = "UPDATE tbl_log_aktivitas SET status_record='INACTIVE' WHERE id=?")
+@SQLDelete(sql = "UPDATE tbl_log_aktivitas SET status_record='INACTIVE' WHERE id=? AND version=?")
 @Where(clause = "status_record='ACTIVE'")
 public class LogAktivitas extends AuditTableEntity<UUID> {
     @Column(name = "nama")

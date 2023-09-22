@@ -65,7 +65,7 @@ public class PengumumanController {
 
     @GetMapping("/edit/{pengumumanId}")
     public String showFormPengumuman(@PathVariable("pengumumanId") UUID pengumumanId, Model model) {
-        log.info("Menampilkan Form untuk Edit Pengumuman.");
+        log.info("Menampilkan Form untuk Edit Pengumuman by id: {}", pengumumanId);
         model.addAttribute(PENGUMUMAN.getDescription(), pengumumanRepository.findById(pengumumanId));
 
         return "/admin/pengumuman/pengumuman-edit";
@@ -73,7 +73,7 @@ public class PengumumanController {
 
     @GetMapping("/delete/{pengumumanId}")
     public String deletePengumuman(@PathVariable("pengumumanId") UUID pengumumanId, Model model, Pageable pageable) {
-        log.info("Delete Pengumuman.");
+        log.info("Delete Pengumuman by id: {}", pengumumanId);
         pengumumanRepository.deleteById(pengumumanId);
         model.addAttribute(PENGUMUMAN.getDescription(), pengumumanRepository.findAll(pageable));
 
@@ -82,7 +82,7 @@ public class PengumumanController {
 
     @PostMapping("/edit")
     public String updatePengumuman(@Valid PengumumanDto pengumumanDto, Model model, Pageable pageable) {
-        log.info("Memperbaharui data Pengumuman.");
+        log.info("Memperbaharui data Pengumuman by id: {}", pengumumanDto);
         Optional<Pengumuman> byId = pengumumanRepository.findById(pengumumanDto.getId());
         if (byId.isPresent()) {
             Pengumuman pengumuman = byId.get();
@@ -101,7 +101,7 @@ public class PengumumanController {
     @PostMapping
     public String addPengumuman(Model model, @Valid Pengumuman pengumuman,
                                 Principal principal, Pageable pageable, SessionStatus status) {
-        log.info("Menambahkan data Pengumuman.");
+        log.info("Menambahkan data Pengumuman: {}", pengumuman);
         String username = principal.getName();
         Pengguna pengguna = penggunaRepository.findByUsername(username).orElseThrow(() -> {
             log.warn("Username Not Found {}", username);

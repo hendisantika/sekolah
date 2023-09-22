@@ -27,7 +27,7 @@ import java.util.UUID;
 @EqualsAndHashCode(callSuper = false)
 @ToString
 @Entity(name = "tbl_agenda")
-@SQLDelete(sql = "UPDATE tbl_agenda SET status_record='INACTIVE' WHERE id=?")
+@SQLDelete(sql = "UPDATE tbl_agenda SET status_record='INACTIVE' WHERE id=? AND version=?")
 @Where(clause = "status_record='ACTIVE'")
 public class Agenda extends AuditTableEntity<UUID> {
     @Column(name = "nama")
