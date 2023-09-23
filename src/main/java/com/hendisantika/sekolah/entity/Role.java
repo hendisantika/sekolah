@@ -2,7 +2,8 @@ package com.hendisantika.sekolah.entity;
 
 import jakarta.persistence.*;
 import lombok.*;
-import org.hibernate.annotations.UuidGenerator;
+import org.hibernate.annotations.SQLDelete;
+import org.hibernate.annotations.Where;
 
 import java.util.List;
 import java.util.UUID;
@@ -24,20 +25,13 @@ import java.util.UUID;
 @EqualsAndHashCode(callSuper = false)
 @ToString
 @Entity
-public class Role {
-    @Id
-    @GeneratedValue(generator = "uuid4")
-    @UuidGenerator(style = UuidGenerator.Style.RANDOM)
-    @Column(name = "id")
-    private UUID id;
-
+@SQLDelete(sql = "UPDATE role SET status_record='INACTIVE' WHERE id=? AND version=?")
+@Where(clause = "status_record='ACTIVE'")
+public class Role extends AuditTableEntity<UUID> {
     private String role;
 
     @ManyToMany(mappedBy = "roles", fetch = FetchType.LAZY)
     @ToString.Exclude
     private List<Pengguna> users;
 
-    public Role(String role) {
-        this.role = role;
-    }
 }
