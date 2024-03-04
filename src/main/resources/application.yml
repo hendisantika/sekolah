@@ -1,6 +1,6 @@
 spring:
   datasource:
-    url: jdbc:postgresql://localhost:5432/sekolah
+    url: jdbc:postgresql://db:5432/sekolah
     username: sekolah
     password: sekolah_password
   jpa:
@@ -19,12 +19,12 @@ spring:
   thymeleaf:
     cache: false
     check-template: true
-    check-template-location: true
+    check-template-location: false
     enabled: true
     encoding: UTF-8
     mode: HTML
-    #    prefix: classpath:/templates/
-    prefix: file:src/main/resources/templates/
+    prefix: classpath:/templates/
+    # prefix: file:src/main/resources/templates/
     #    prefix: ${project.basedir}/src/main/resources/templates/
     suffix: .html
     # excluded-view-names:

@@ -1,4 +1,5 @@
 # sekolah
+
 MYSCHOOL adalah source code opensource yang dibangun mengunakan Spring Boot 2.6.3 version yang terinspirasi dari MSCHOOL
 yang dibangun menggunakan Codeigniter 3.1.9 dan Bootstrap 4.0.
 
@@ -23,9 +24,7 @@ Bagaimana mengonline-kannya?
 
 - Buat database di hosting (di sini saya menggunakan PostgreSQL)
 
-
 Jika Anda mengalami kesulitan saat mengonlinekannya, Anda dapat meminta bantuan pihak hosting untuk membantu Anda mengonlinekannya.
-
 
 Modul dan Fitur:
 
@@ -60,16 +59,21 @@ Modul dan Fitur:
 15. SEO URL Friendly
 
 ## Cara Membuat Database
+
 1. Create user untuk connect ke database
+
 ```
 createuser -P adminSekolah
 ```
 
 2. Create database untuk user tersebut
+
 ```
 createdb -OadminSekolah sekolah
 ```
+
 Cara install uuid-ossp module, anda harus CREATE EXTENSION statement seperti berikut ini:
+
 ```
 CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
 ```
@@ -96,6 +100,30 @@ docker run --rm \
 postgres:15
 ```
 
+or just run the command
+
+```
+docker-compose up
+```
+
+everytime doing change on application \*case like change url from
+
+```
+spring.datasource.url=jdbc:postgresql://localhost:5432/sekolah
+```
+
+to
+
+```
+spring.datasource.url=jdbc:postgresql://db:5432/sekolah
+```
+
+you need to rebuild the image using
+
+```shell
+docker-compose build [service_app_defined_on_docker_compose_file: ex: app]
+```
+
 ### Cara konek ke Postgres Database via Docker
 
 ```shell
@@ -110,28 +138,32 @@ CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
 
 Di sini saya berasumsi bahawa JDK8, maven & PostgreSQL Database sudah terinstal di lokal anda masing-masing.
 
-* Untuk menjalankan aplikasinya cukup ketik perintah di bawah ini d terminal:
+- Untuk menjalankan aplikasinya cukup ketik perintah di bawah ini d terminal:
 
 ```shell
 mvn clean spring-boot:run
 ```
 
+- Untuk membungkusnya menjadi paket jar anda bisa menggunakan perintah berikut ini:
 
-* Untuk membungkusnya menjadi paket jar anda bisa menggunakan perintah berikut ini:
 ```
 mvn clean package
 ```
 
-* Untuk menjalankan jar dari paket tsb bisa dengan perintah berikut ini:
+- Untuk menjalankan jar dari paket tsb bisa dengan perintah berikut ini:
+
 ```
 java -jar sekolah.jar
 ```
+
 Aplikasi bisa dilihat di Heroku: https://sekolah1.herokuapp.com/ adminnya di https://sekolah1.herokuapp.com/admin
 
 ## Contributing
+
 Please see [CONTRIBUTING](CONTRIBUTING.md) for details.
 
-## Listed by *Hendi Santika*
+## Listed by _Hendi Santika_
+
 - Email: hendisantika@gmail.com / hendisantika@yahoo.co.id
 - Telegram: [@hendisantika34](https://t.me/hendisantika34)
 - Linktree: https://linktr.ee/hendisantika
