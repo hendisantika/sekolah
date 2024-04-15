@@ -1,0 +1,9 @@
+spring:
+  datasource:
+    url: jdbc:tc:postgresql:16.2-alpine3.19:///sekolah
+    username: yuji
+    password: itadori
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    show-sql: true
