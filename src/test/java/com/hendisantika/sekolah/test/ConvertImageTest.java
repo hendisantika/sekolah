@@ -1,18 +1,22 @@
 package com.hendisantika.sekolah.test;
 
-import static org.junit.jupiter.api.Assertions.assertTrue;
-
-import java.awt.image.BufferedImage;
-import java.io.*;
-import java.util.Objects;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.imageio.ImageIO;
 import org.apache.commons.codec.binary.Base64;
 import org.apache.commons.io.FileUtils;
 import org.junit.jupiter.api.Test;
-import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.util.ResourceUtils;
+
+import javax.imageio.ImageIO;
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.util.Objects;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 /**
  * Created by IntelliJ IDEA.
@@ -23,7 +27,6 @@ import org.springframework.util.ResourceUtils;
  * Date: 26/03/20
  * Time: 18.08
  */
-@SpringBootTest
 class ConvertImageTest {
     private final String INPUT_FILE_PATH = "ninja.jpeg";
     private final String OUTPUT_FILE_PATH = "ninja-test_image_copy.jpeg";
