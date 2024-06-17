@@ -105,7 +105,7 @@
         <dependency>
             <groupId>com.blueconic</groupId>
             <artifactId>browscap-java</artifactId>
-            <version>1.4.3</version>
+            <version>1.4.4</version>
         </dependency>
         <!-- https://mvnrepository.com/artifact/net.sf.uadetector/uadetector-resources -->
         <dependency>
