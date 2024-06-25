@@ -9,19 +9,3 @@ COPY src ./src
 
 # Build the project and create the executable JAR
 RUN mvn clean -e -B package -DskipTests
-
-# Copy the JAR file from the container to the local machine
-# Command to copy the JAR file from the container to the local machine
-# CMD ["sh", "-c", "find /target -name '*.jar' -exec cp {} /target/ \\;"]
-
-
-# FROM eclipse-temurin:17.0.10_7-jre-jammy
-
-# # Set the working directory
-# WORKDIR /app
-
-# # Copy the built JAR file from the build stage
-# COPY target/*.jar app.jar
-
-# # Command to run the application
-# CMD ["java", "-jar", "app.jar"]
