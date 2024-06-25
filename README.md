@@ -100,30 +100,6 @@ docker run --rm \
 postgres:15
 ```
 
-or just run the command
-
-```
-docker-compose up
-```
-
-everytime doing change on application \*case like change url from
-
-```
-spring.datasource.url=jdbc:postgresql://localhost:5432/sekolah
-```
-
-to
-
-```
-spring.datasource.url=jdbc:postgresql://db:5432/sekolah
-```
-
-you need to rebuild the image using
-
-```shell
-docker-compose build [service_app_defined_on_docker_compose_file: ex: app]
-```
-
 ### Cara konek ke Postgres Database via Docker
 
 ```shell
@@ -157,6 +133,40 @@ java -jar sekolah.jar
 ```
 
 Aplikasi bisa dilihat di Heroku: https://sekolah1.herokuapp.com/ adminnya di https://sekolah1.herokuapp.com/admin
+
+### Cara menjalankan via Docker-Compose
+
+Build image untuk menjalankan container
+
+```shell
+docker-compose -f <docker compose file.yml> build
+```
+
+jalankan container dari image yang telah dibuat
+
+```shell
+docker-compose -f <docker compose file.yml> up
+```
+
+setiap kali ada perubahan pada konfigurasi file di aplikasi seperti
+
+_from_
+
+```shell
+spring.datasource.url=jdbc:postgresql://localhost:5432/sekolah
+```
+
+_to_
+
+```shell
+spring.datasource.url=jdbc:postgresql://db:5432/sekolah
+```
+
+perlu untuk melakukan _build_ ulang
+
+```shell
+docker-compose -f <docker compose file.yml> build [service_app_defined_on_docker_compose_file: ex: app or db]
+```
 
 ## Contributing
 

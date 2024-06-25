@@ -4,8 +4,9 @@ services:
   app:
     build:
       context: .
-      dockerfile: Dockerfile
+      dockerfile: Dockerfile-dev
 
+    image: spring_sekolah
     container_name: sekolah_app
     ports:
       - "8080:8080"
@@ -14,9 +15,12 @@ services:
     depends_on:
       - db
     volumes:
-      - ./logs:/app/logs
+      - ./logs:/app_build/logs
+      - ./src:/app_build/src:delegated # mount the local source code has directly access to container dir for convenient access when has change on source code
+      - ./target:/app_build/target:delegated
     networks:
       - sekolah-network
+    command: mvn spring-boot:run
 
   db:
     image: postgres:15-alpine
