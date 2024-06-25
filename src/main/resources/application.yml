@@ -13,8 +13,8 @@ spring:
         format_sql: true
   flyway:
     enabled: true
-    check-location: true
     locations: classpath:/db/migration
+    fail-on-missing-locations: true
   # Templates reloading during development
   thymeleaf:
     cache: false
@@ -47,6 +47,11 @@ spring:
       max-request-size: 5MB
       enabled: true
       location: ${java.io.tmpdir}
+  web:
+    resources:
+      static-locations: file:src/main/resources/static/
+      cache:
+        period: 0
 
 #We can use the httpOnly and secure flags to secure our session cookie:
 #
@@ -57,13 +62,18 @@ server:
     threads:
       max: 200
     max-swallow-size: 2MB
-    max-http-post-size: 2MB
-  connection-timeout: 5s
-  max-http-header-size: 100KB
+    max-http-form-post-size: 2MB
+    connection-timeout: 5s
   servlet:
     session:
       cookie:
         http-only: true
+  max-http-request-header-size: 100KB
+  compression:
+    enabled: true
+    mime-types: application/json,application/xml,text/html,text/xml,text/plain
+    min-response-size: 1024
+    excluded-user-agents: MSIE 6.0,UCBrowser
 #        secure: true
 
 # 1 days = 1 * 24 * 60 * 60

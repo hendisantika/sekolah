@@ -3,7 +3,6 @@ package com.hendisantika.sekolah.test;
 import org.jsoup.Jsoup;
 import org.jsoup.safety.Safelist;
 import org.junit.jupiter.api.Test;
-import org.springframework.boot.test.context.SpringBootTest;
 
 /**
  * Created by IntelliJ IDEA.
@@ -14,7 +13,6 @@ import org.springframework.boot.test.context.SpringBootTest;
  * Date: 26/03/20
  * Time: 17.06
  */
-@SpringBootTest
 class UjiCobaTest {
 
     @Test
