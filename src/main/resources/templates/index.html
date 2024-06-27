@@ -1,109 +1,149 @@
 <!DOCTYPE html>
-<html lang="en" layout:decorate="~{fragments/layout}" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      xmlns:th="http://www.thymeleaf.org">
-<head th:replace="~{fragments/header :: head}"></head>
-<body>
-<div th:replace="~{fragments/header :: header}"></div>
-<div th:replace="~{fragments/header :: menu}"></div>
-<!--//END HEADER -->
-<!--============================= ABOUT =============================-->
-<div layout:fragment="content">
-    <section th:replace="~{fragments/header :: carousel}"></section>
-    <section class="clearfix about about-style2">
+<html
+  lang="en"
+  layout:decorate="~{fragments/layout}"
+  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+  xmlns:th="http://www.thymeleaf.org"
+>
+  <head th:replace="~{fragments/header :: head}"></head>
+  <body>
+    <div th:replace="~{fragments/header :: header}"></div>
+    <div th:replace="~{fragments/header :: menu}"></div>
+    <!--//END HEADER -->
+    <!--============================= ABOUT =============================-->
+    <div layout:fragment="content">
+      <section th:replace="~{fragments/header :: carousel}"></section>
+      <section class="clearfix about about-style2">
         <div class="container">
-            <div class="row">
-                <div class="col-md-8">
-                    <h2>Welcome</h2>
-                    <p>Kami Menyambut baik terbitnya Website MSCHOOL yang baru , dengan harapan dipublikasinya website
-                        ini
-                        sekolah berharap : Peningkatan layanan pendidikan kepada siswa, orangtua, dan masyarakat pada
-                        umumnya semakin meningkat. </p>
-
-                </div>
-                <div class="col-md-4">
-                    <img alt="#" class="img-fluid about-img" src="/theme/images/welcome.png">
-                </div>
+          <div class="row">
+            <div class="col-md-8">
+              <h2>Welcome</h2>
+              <p>
+                Kami Menyambut baik terbitnya Website MSCHOOL yang baru , dengan
+                harapan dipublikasinya website ini sekolah berharap :
+                Peningkatan layanan pendidikan kepada siswa, orangtua, dan
+                masyarakat pada umumnya semakin meningkat.
+              </p>
             </div>
+            <div class="col-md-4">
+              <img
+                alt="#"
+                class="img-fluid about-img"
+                src="/theme/images/welcome.png"
+              />
+            </div>
+          </div>
         </div>
-    </section>
-    <!--//END ABOUT -->
-    <!--============================= OUR COURSES =============================-->
-    <section class="our_courses">
+      </section>
+      <!--//END ABOUT -->
+      <!--============================= OUR COURSES =============================-->
+      <section class="our_courses">
         <div class="container">
-            <div class="row">
-                <div class="col-md-12">
-                    <h2>Artikel Terbaru</h2>
-                </div>
+          <div class="row">
+            <div class="col-md-12">
+              <h2>Artikel Terbaru</h2>
             </div>
-            <div class="row">
-                <div class="col-xs-12 col-sm-6 col-md-6 col-lg-3" th:each="t : ${tulisanList}">
-                    <div class="courses_box mb-4">
-                        <div class="course-img-wrap">
-                            <img alt="courses-img" class="img-fluid"
-                                 th:src="${'data:image/jpeg;base64,'+ t.photoBase64}">
-                        </div>
-                        <!-- // end .course-img-wrap -->
-                        <a class="course-box-content" th:href="@{/artikel/} + ${t.slug}">
-                            <h3 style="text-align:center;" th:text="${t.judul}">Judul</h3>
-                        </a>
-                    </div>
+          </div>
+          <div class="row">
+            <div
+              class="col-xs-12 col-sm-6 col-md-6 col-lg-3"
+              th:each="t : ${tulisanList}"
+            >
+              <div class="courses_box mb-4">
+                <div class="course-img-wrap">
+                  <img
+                    alt="courses-img"
+                    class="img-fluid"
+                    th:src="${'data:image/jpeg;base64,'+ t.photoBase64}"
+                  />
                 </div>
+                <!-- // end .course-img-wrap -->
+                <a
+                  class="course-box-content"
+                  th:href="@{/artikel/} + ${t.slug}"
+                >
+                  <h3 style="text-align: center" th:text="${t.judul}">Judul</h3>
+                </a>
+              </div>
             </div>
-            <br>
-            <div class="row">
-                <div class="col-md-12 text-center">
-                    <a class="btn btn-default btn-courses" href="/blog">View More</a>
-                </div>
+          </div>
+          <br />
+          <div class="row">
+            <div class="col-md-12 text-center">
+              <a class="btn btn-default btn-courses" href="/blog">View More</a>
             </div>
+          </div>
         </div>
-    </section>
-    <!--//END OUR COURSES -->
-    <!--============================= EVENTS =============================-->
-    <section class="event">
+      </section>
+      <!--//END OUR COURSES -->
+      <!--============================= EVENTS =============================-->
+      <section class="event">
         <div class="container">
-            <div class="row">
-                <div class="col-lg-6">
-                    <div class="event-img2">
-                        <div class="row" th:each="p : ${pengumuman}">
-                            <div class="col-sm-3"><img alt="event-img" class="img-fluid"
-                                                       src="/theme/images/announcement-icon.png">
-                            </div><!-- // end .col-sm-3 -->
-                            <div class="col-sm-9"><h3><a href="/pengumuman" th:text="${p.judul}">Belum Ada Judul</a>
-                            </h3>
-                                <span th:text="${#temporals.format(p.createdOn, 'dd-MMM-yyyy')}">createdOn</span>
-                                <p th:text="${p.deskripsi} + '...'">
-                                    pengumuman_deskripsi</p>
-
-                            </div><!-- // end .col-sm-7 -->
-                        </div><!-- // end .row -->
-                    </div>
+          <div class="row">
+            <div class="col-lg-6">
+              <div class="event-img2">
+                <div class="row" th:each="p : ${pengumuman}">
+                  <div class="col-sm-3">
+                    <img
+                      alt="event-img"
+                      class="img-fluid"
+                      src="/theme/images/announcement-icon.png"
+                    />
+                  </div>
+                  <!-- // end .col-sm-3 -->
+                  <div class="col-sm-9">
+                    <h3>
+                      <a href="/pengumuman" th:text="${p.judul}"
+                        >Belum Ada Judul</a
+                      >
+                    </h3>
+                    <span
+                      th:text="${#temporals.format(p.createdOn, 'dd-MMM-yyyy')}"
+                      >createdOn</span
+                    >
+                    <p th:text="${p.deskripsi} + '...'">pengumuman_deskripsi</p>
+                  </div>
+                  <!-- // end .col-sm-7 -->
                 </div>
-                <div class="col-lg-6">
-                    <div class="row">
-                        <div class="col-md-12" th:each="a : ${agenda}">
-                            <div class="event_date">
-                                <div class="event-date-wrap">
-                                    <p th:text="${#temporals.format(a.createdOn, 'dd')}">agenda_createdOn</p>
-                                    <span th:text="${#temporals.format(a.createdOn, 'MMM yyyy')}">agenda_createdOn</span>
-                                </div>
-                            </div>
-                            <div class="date-description">
-                                <h3><a th:href="@{/agenda}" th:text="${a.nama}">agenda_nama</a></h3>
-                                <p th:text="${a.deskripsi} + '...'">agenda_deskripsi</p>
-                                <hr class="event_line">
-                            </div>
-                        </div>
-                    </div>
-
-                </div>
+                <!-- // end .row -->
+              </div>
             </div>
+            <div class="col-lg-6">
+              <div class="row">
+                <div class="col-md-12" th:each="a : ${agenda}">
+                  <div class="event_date">
+                    <div class="event-date-wrap">
+                      <p th:text="${#temporals.format(a.createdOn, 'dd')}">
+                        agenda_createdOn
+                      </p>
+                      <span
+                        th:text="${#temporals.format(a.createdOn, 'MMM yyyy')}"
+                        >agenda_createdOn</span
+                      >
+                    </div>
+                  </div>
+                  <div class="date-description">
+                    <h3>
+                      <a th:href="@{/agenda}" th:text="${a.nama}"
+                        >agenda_nama</a
+                      >
+                    </h3>
+                    <p th:text="${a.deskripsi} + '...'">agenda_deskripsi</p>
+                    <hr class="event_line" />
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
-    </section>
-    <div class="detailed_chart" th:replace="~{fragments/header :: chart}"></div>
-</div>
-<!--//END EVENTS -->
-<div th:replace="~{fragments/footer :: footer}"></div>
-<div th:replace="~{fragments/footer :: scripts}"></div>
-</body>
-
+      </section>
+      <div
+        class="detailed_chart"
+        th:replace="~{fragments/header :: chart}"
+      ></div>
+    </div>
+    <!--//END EVENTS -->
+    <div th:replace="~{fragments/footer :: footer}"></div>
+    <div th:replace="~{fragments/footer :: scripts}"></div>
+  </body>
 </html>

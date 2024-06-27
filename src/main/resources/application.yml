@@ -1,8 +1,8 @@
 spring:
   datasource:
-    url: jdbc:postgresql://localhost:5432/sekolah
-    username: adminSekolah
-    password: passwordSekolah
+    url: jdbc:postgresql://db:5432/sekolah
+    username: sekolah
+    password: sekolah_password
   jpa:
     open-in-view: false
     show-sql: true
@@ -19,13 +19,13 @@ spring:
   thymeleaf:
     cache: false
     check-template: true
-    check-template-location: true
+    check-template-location: false
     enabled: true
     encoding: UTF-8
     mode: HTML
-    #    prefix: classpath:/templates/
+    # prefix: file:src/main/resources/templates/, classpath:/templates/
     prefix: file:src/main/resources/templates/
-#    prefix: ${project.basedir}/src/main/resources/templates/
+    # prefix: ${project.basedir}/src/main/resources/templates/
     suffix: .html
     # excluded-view-names:
     # template-resolver-order:
@@ -36,6 +36,11 @@ spring:
     livereload:
       enabled: true
     add-properties: true
+  resources:
+    static-locations: file:src/main/resources/static/, classpath:static/
+    #    static-locations: ${project.basedir}/src/main/resources/static/
+    cache:
+      period: 0
   servlet:
     multipart:
       max-file-size: 5MB
@@ -74,8 +79,5 @@ server:
 # 1 days = 1 * 24 * 60 * 60
 cookie:
   maxAge: 86400
-
-
-
 #hendisantika/password
 #admin/password

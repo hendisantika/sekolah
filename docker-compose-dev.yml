@@ -1,0 +1,60 @@
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile-dev
+
+    image: spring_sekolah
+    container_name: sekolah_app
+    ports:
+      - "8080:8080"
+    environment:
+      - SPRING_PROFILES_ACTIVE=dev
+    depends_on:
+      - db
+    volumes:
+      - ./logs:/app_build/logs
+      - ./src:/app_build/src:delegated # mount the local source code has directly access to container dir for convenient access when has change on source code
+      - ./target:/app_build/target:delegated
+    networks:
+      - sekolah-network
+    command: mvn spring-boot:run
+
+  db:
+    image: postgres:16-alpine
+    container_name: sekolah_db
+    restart: unless-stopped
+    environment:
+      - POSTGRES_USER=sekolah
+      - POSTGRES_PASSWORD=sekolah_password
+      - POSTGRES_DB=sekolah
+      - PGDATA=/var/lib/postgresql/data/pgdata
+    volumes:
+      - sekolah-data:/var/lib/posgresql/data
+    ports:
+      - "5432:5432"
+    networks:
+      - sekolah-network
+
+  db_monitor:
+    container_name: sekolah_db_monitor
+    image: dpage/pgadmin4
+    restart: unless-stopped
+    environment:
+      PGADMIN_DEFAULT_EMAIL: sekolah@mail.com
+      PGADMIN_DEFAULT_PASSWORD: sekolah_password
+    depends_on:
+      - db
+    ports:
+      - "3000:80"
+    networks:
+      - sekolah-network
+    volumes:
+      - sekolah-data-pgadmin:/var/lib/pgadmin
+
+volumes:
+  sekolah-data:
+  sekolah-data-pgadmin:
+
+networks:
+  sekolah-network:

@@ -1,5 +1,6 @@
 # sekolah
-MYSCHOOL adalah source code opensource yang dibangun mengunakan Spring Boot 2.6.3 version yang terinspirasi dari MSCHOOL
+
+MYSCHOOL adalah source code opensource yang dibangun mengunakan Spring Boot 3.3.1 version yang terinspirasi dari MSCHOOL
 yang dibangun menggunakan Codeigniter 3.1.9 dan Bootstrap 4.0.
 
 MYSCHOOL merupakan pengembangan dari project M-Sekolah. Dengan kata lain, MSCHOOL adalah versi 2.0 dari M-Sekolah dengan Java Spring Boot.
@@ -23,9 +24,7 @@ Bagaimana mengonline-kannya?
 
 - Buat database di hosting (di sini saya menggunakan PostgreSQL)
 
-
 Jika Anda mengalami kesulitan saat mengonlinekannya, Anda dapat meminta bantuan pihak hosting untuk membantu Anda mengonlinekannya.
-
 
 Modul dan Fitur:
 
@@ -60,16 +59,21 @@ Modul dan Fitur:
 15. SEO URL Friendly
 
 ## Cara Membuat Database
+
 1. Create user untuk connect ke database
+
 ```
 createuser -P adminSekolah
 ```
 
 2. Create database untuk user tersebut
+
 ```
 createdb -OadminSekolah sekolah
 ```
+
 Cara install uuid-ossp module, anda harus CREATE EXTENSION statement seperti berikut ini:
+
 ```
 CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
 ```
@@ -108,30 +112,103 @@ CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
 
 ## Cara menjalankan aplikasi
 
+Ada 2 opsi untuk menjalankan aplikasi ini, via Docker atau via Docker-compose
+
+### Menjalankan aplikasi via Docker
+
 Di sini saya berasumsi bahawa JDK8, maven & PostgreSQL Database sudah terinstal di lokal anda masing-masing.
 
-* Untuk menjalankan aplikasinya cukup ketik perintah di bawah ini d terminal:
+- Untuk menjalankan aplikasinya cukup ketik perintah di bawah ini d terminal:
 
 ```shell
 mvn clean spring-boot:run
 ```
 
+- Untuk membungkusnya menjadi paket jar anda bisa menggunakan perintah berikut ini:
 
-* Untuk membungkusnya menjadi paket jar anda bisa menggunakan perintah berikut ini:
 ```
 mvn clean package
 ```
 
-* Untuk menjalankan jar dari paket tsb bisa dengan perintah berikut ini:
+- Untuk menjalankan jar dari paket tsb bisa dengan perintah berikut ini:
+
 ```
 java -jar sekolah.jar
 ```
+
 Aplikasi bisa dilihat di Heroku: https://sekolah1.herokuapp.com/ adminnya di https://sekolah1.herokuapp.com/admin
 
+### Menjalankan aplikasi via Docker-Compose
+
+Build image untuk menjalankan container
+
+```shell
+docker-compose -f <docker compose file.yml> build
+```
+
+jalankan container dari image yang telah dibuat
+
+```shell
+docker-compose -f <docker compose file.yml> up
+```
+
+setiap kali ada perubahan pada konfigurasi file di aplikasi seperti
+
+_from_
+
+```shell
+spring.datasource.url=jdbc:postgresql://localhost:5432/sekolah
+```
+
+_to_
+
+```shell
+spring.datasource.url=jdbc:postgresql://db:5432/sekolah
+```
+
+perlu untuk melakukan _build_ ulang
+
+```shell
+docker-compose -f <docker compose file.yml> build [service_app_defined_on_docker_compose_file: ex: app or db]
+```
+
+#### Cara konek ke Postgres Database monitor (PgAdmin) via Docker
+
+Jika kamu menjalankan aplikasi via _Docker Compose_, maka kamu bisa ikuti langkah ini untuk dapat melakukan monitor data pada database dengan PgAdmin via browser
+
+```shell
+http://localhost:3000/
+```
+
+login dengan email dan password yg telah ditetapkan do file docker-compose-dev/yml
+
+```shell
+PGADMIN_DEFAULT_EMAIL: sekolah@mail.com
+PGADMIN_DEFAULT_PASSWORD: sekolah_password
+```
+
+kemudian pada _Quick Links_ pilih _Add New Server_. Pada tab _General_ isikan _Name_ dengan service name yang telah di tetapkan di docker-compose file (ex. db).
+Pindah ke tab _Connection_ isikan _Host name / address_ dengan _IP internal_ docker untuk service DB
+
+```shell
+docker inspect -f '{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}' <container name of service, ex. sekolah_db>
+```
+
+kolom _Username_ & _Password_ isikan dengan yang telah ditetapkan di docker-compose file
+
+```shell
+POSTGRES_USER=sekolah
+POSTGRES_PASSWORD=sekolah_password
+```
+
+selesai dan _Save_, selanjutnya akan muncul database yang telah terkoneksi
+
 ## Contributing
+
 Please see [CONTRIBUTING](CONTRIBUTING.md) for details.
 
-## Listed by *Hendi Santika*
+## Listed by _Hendi Santika_
+
 - Email: hendisantika@gmail.com / hendisantika@yahoo.co.id
 - Telegram: [@hendisantika34](https://t.me/hendisantika34)
 - Linktree: https://linktr.ee/hendisantika
