@@ -1,5 +1,3 @@
-version: "3.8"
-
 services:
   app:
     build:
@@ -25,20 +23,40 @@ services:
   db:
     image: postgres:16-alpine
     container_name: sekolah_db
+    restart: unless-stopped
     environment:
       - POSTGRES_USER=sekolah
       - POSTGRES_PASSWORD=sekolah_password
       - POSTGRES_DB=sekolah
       - PGDATA=/var/lib/postgresql/data/pgdata
     volumes:
-      - sekolah-data:/var/libposgresql/data
+      - sekolah-data:/var/lib/posgresql/data
     ports:
       - "5432:5432"
     networks:
       - sekolah-network
 
+  db_monitor:
+    container_name: sekolah_db_monitor
+    # image: adminer:4.8.1-standalone
+    image: dpage/pgadmin4
+    restart: unless-stopped
+    environment:
+      # ADMINER_DEFAULT_SERVER: db
+      PGADMIN_DEFAULT_EMAIL: developadi@gmail.com
+      PGADMIN_DEFAULT_PASSWORD: sekolah_password
+    depends_on:
+      - db
+    ports:
+      - "3000:80"
+    networks:
+      - sekolah-network
+    volumes:
+      - sekolah-data-pgadmin:/var/lib/pgadmin
+
 volumes:
   sekolah-data:
+  sekolah-data-pgadmin:
 
 networks:
   sekolah-network:

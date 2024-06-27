@@ -1,4 +1,5 @@
-FROM maven:3.6.3-openjdk-17-slim AS build_stage
+# base 3.9.7 jdk 21
+FROM maven:3.9-eclipse-temurin-21-alpine AS build_stage
 
 WORKDIR /app_build
 

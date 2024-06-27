@@ -1,6 +1,6 @@
 # sekolah
 
-MYSCHOOL adalah source code opensource yang dibangun mengunakan Spring Boot 2.6.3 version yang terinspirasi dari MSCHOOL
+MYSCHOOL adalah source code opensource yang dibangun mengunakan Spring Boot 3.3.1 version yang terinspirasi dari MSCHOOL
 yang dibangun menggunakan Codeigniter 3.1.9 dan Bootstrap 4.0.
 
 MYSCHOOL merupakan pengembangan dari project M-Sekolah. Dengan kata lain, MSCHOOL adalah versi 2.0 dari M-Sekolah dengan Java Spring Boot.
