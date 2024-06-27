@@ -38,12 +38,10 @@ services:
 
   db_monitor:
     container_name: sekolah_db_monitor
-    # image: adminer:4.8.1-standalone
     image: dpage/pgadmin4
     restart: unless-stopped
     environment:
-      # ADMINER_DEFAULT_SERVER: db
-      PGADMIN_DEFAULT_EMAIL: developadi@gmail.com
+      PGADMIN_DEFAULT_EMAIL: sekolah@mail.com
       PGADMIN_DEFAULT_PASSWORD: sekolah_password
     depends_on:
       - db
