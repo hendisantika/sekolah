@@ -112,6 +112,10 @@ CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
 
 ## Cara menjalankan aplikasi
 
+Ada 2 opsi untuk menjalankan aplikasi ini, via Docker atau via Docker-compose
+
+### Menjalankan aplikasi via Docker
+
 Di sini saya berasumsi bahawa JDK8, maven & PostgreSQL Database sudah terinstal di lokal anda masing-masing.
 
 - Untuk menjalankan aplikasinya cukup ketik perintah di bawah ini d terminal:
@@ -134,7 +138,7 @@ java -jar sekolah.jar
 
 Aplikasi bisa dilihat di Heroku: https://sekolah1.herokuapp.com/ adminnya di https://sekolah1.herokuapp.com/admin
 
-### Cara menjalankan via Docker-Compose
+### Menjalankan aplikasi via Docker-Compose
 
 Build image untuk menjalankan container
 
@@ -167,6 +171,37 @@ perlu untuk melakukan _build_ ulang
 ```shell
 docker-compose -f <docker compose file.yml> build [service_app_defined_on_docker_compose_file: ex: app or db]
 ```
+
+#### Cara konek ke Postgres Database monitor (PgAdmin) via Docker
+
+Jika kamu menjalankan aplikasi via _Docker Compose_, maka kamu bisa ikuti langkah ini untuk dapat melakukan monitor data pada database dengan PgAdmin via browser
+
+```shell
+http://localhost:3000/
+```
+
+login dengan email dan password yg telah ditetapkan do file docker-compose-dev/yml
+
+```shell
+PGADMIN_DEFAULT_EMAIL: sekolah@mail.com
+PGADMIN_DEFAULT_PASSWORD: sekolah_password
+```
+
+kemudian pada _Quick Links_ pilih _Add New Server_. Pada tab _General_ isikan _Name_ dengan service name yang telah di tetapkan di docker-compose file (ex. db).
+Pindah ke tab _Connection_ isikan _Host name / address_ dengan _IP internal_ docker untuk service DB
+
+```shell
+docker inspect -f '{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}' <container name of service, ex. sekolah_db>
+```
+
+kolom _Username_ & _Password_ isikan dengan yang telah ditetapkan di docker-compose file
+
+```shell
+POSTGRES_USER=sekolah
+POSTGRES_PASSWORD=sekolah_password
+```
+
+selesai dan _Save_, selanjutnya akan muncul database yang telah terkoneksi
 
 ## Contributing
 
